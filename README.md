@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/RafaelAPB/GCE-NEIIST.svg?token=XFiDrRAqvqphcoasyH7N&branch=master)](https://travis-ci.com/RafaelAPB/GCE-NEIIST)  
+[![Build Status](https://travis-ci.com/RafaelAPB/GCE-NEIIST.svg?token=XFiDrRAqvqphcoasyH7N&branch=master)](https://travis-ci.com/RafaelAPB/GCE-NEIIST)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 # GCE-NEIIST
