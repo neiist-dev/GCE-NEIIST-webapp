@@ -1,0 +1,50 @@
+{
+  "name": "GCE-Thesis",
+  "version": "1.0.0",
+  "description": "mean-base",
+  "main": "gce_base.js",
+  "scripts": {
+    "test": "echo \"No test specified\"",
+    "start": "node gce_base.js",
+    "build": "npm run config -- --environment=prod && ng build --environment=prod"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "helmet": "^3.9.0",
+    "jsonwebtoken": "^7.4.3",
+    "jwt-simple": "^0.5.1",
+    "mongoose": "^4.11.7",
+    "morgan": "^1.8.2",
+    "multer": "^1.3.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.0",
+    "winston": "^2.3.1",
+    "winston-daily-rotate-file": "^1.4.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "author": [
+    {
+      "name": "Rafael Belchior",
+      "email": "rafael.belchior@tecnico.ulisboa.pt",
+      "url": "https://web.ist.utl.pt/~rafael.belchior/"
+    },
+    {
+      "name": "Inês Sequeira"
+    },
+    {
+      "name": "Daniel Ramos"
+    }
+  ],
+  "license": {
+    "type": "MIT"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RafaelAPB/GCE-Thesis.git"
+  }
+}

@@ -1,0 +1,94 @@
+<div class="container">
+  <div *ngIf="proposals">
+    <h2>My Proposals</h2>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+
+          <th class="col-md-2 centered">ID</th>
+          <th class="col-md-5 centered">Description</th>
+          <th class="col-md-1 centered">Requirements</th>
+          <th class="col-md-1 centered">Date Beginning</th>
+          <th class="col-md-1 centered">Date End</th>
+          <th class="col-md-1 centered">Salary</th>
+          <th class="col-md-1 centered">Observations</th>
+          <th class="col-md-1 centered">Vacancies</th>
+          <th class="col-md-1 centered">Link</th>
+          <th class="col-md-1 centered">Status</th>
+          <th class="col-md-1 centered">Edit</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proposal of proposals">
+
+          <td class="col-md-2">{{ proposal.proposalIndex }}</td>
+          <td class="col-md-5">{{ proposal.description }}</td>
+          <td class="col-md-2">{{ proposal.requirements }}</td>
+          <td class="col-md-2">{{ proposal.date_beginning }}</td>
+          <td class="col-md-2">{{ proposal.date_end }}</td>
+          <td class="col-md-2">{{ proposal.salary }}</td>
+          <td class="col-md-2">{{ proposal.observations }}</td>
+          <td class="col-md-2">{{ proposal.vacancies }}</td>
+          <td class="col-md-2">{{ proposal.link }}</td>
+          <td class="col-md-2">{{ proposal.status }}</td>
+          <td class="col-md-1">  <button type="button" class="btn btn-success" (click)="openModal(edit);setProposal(proposal)">Edit</button></td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #edit>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Edit proposal</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide(); refresh()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div *ngIf="proposal">
+      <div class="modal-body">
+        <div class="middlePage">
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea type = "text" [(ngModel)]="proposal.description" name="description" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Requirements</label>
+            <textarea type = "text"[(ngModel)]="proposal.requirements" name="requirements" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Date beginning</label>
+            <input [(ngModel)]="proposal.date_beginning" name="date_beginning" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Date end</label>
+            <input [(ngModel)]="proposal.date_end" name="date_end" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Salary</label>
+            <input [(ngModel)]="proposal.salary" name="salary" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Observations</label>
+            <textarea [(ngModel)]="proposal.observations" name="observations" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Vacancies</label>
+            <input [(ngModel)]="proposal.vacancies" name="vacancies" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Link</label>
+            <input [(ngModel)]="proposal.link" name="link" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide(); refresh()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateProposal(); modalRef.hide()">Save changes</button>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

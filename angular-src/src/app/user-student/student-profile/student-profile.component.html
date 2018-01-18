@@ -1,0 +1,103 @@
+<app-work-in-progress></app-work-in-progress>
+<div class="middlePage">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="panel panel-info">
+          <div class="panel-heading">1) Dados recolhidos</div>
+          <div class="panel-body">
+            De momento, estes são os dados que forneceste à GCE-Thesis.
+            A secção abaixo explica os procedimentos que devem ser tomados para encontrares um orientador e uma empresa.
+
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Utilizador</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Curso</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{{ user.type}}</td>
+                <td>{{ user.name}}</td>
+                <td>{{ user.email}}</td>
+                <td>{{ user.courses}}</td>
+
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <div class="panel panel-info">
+            <div class="panel-heading">2) Procedimentos</div>
+              <div class="panel-body">
+                O que nos propomos a resolver é ajudar-te a encontrar o melhor orientador possível e a melhor empresa possível.
+                No entanto, para o professor te poder conhecer melhor, e para te poderes candidatares a uma posição,
+                pedimos-te que faças upload do teu currículo.
+                O currículo é imediatamente partilhado com o professor que escolhes, mas só será partilhado com as empresas se for feito um match.
+                Podes verificar como se faz um <a href="https://goo.gl/UgNBJp">currículo aqui</a>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <flash-messages></flash-messages>
+        <div class="panel panel-primary">
+          <div class="panel-heading">3) Upload do currículo</div>
+          <div class="panel-body">Para fazeres upload do currículo, basta carregador no botão
+            "Choose", escolher o ficheiro, e depois "Upload". O currículo tem de estar em formato PDF e ter menos de 2Mb.</div>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th width="50%">Name</th>
+            <th>Size</th>
+            <th>Progress</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of uploader.queue">
+            <td><strong>{{ item.file.name }}</strong></td>
+            <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
+            <td>
+              <div class="progress" style="margin-bottom: 0;">
+                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+              </div>
+            </td>
+            <td class="text-center">
+              <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+              <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <button type="button" class="btn btn-success btn-s"
+                (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+          <span class="glyphicon glyphicon-upload"></span> Upload
+        </button>
+
+        <label class="btn btn-warning">
+          <span class="glyphicon glyphicon-file">ChooseFile</span>
+          <input type="file" hidden name="CV" ng2FileSelect [uploader]="uploader">
+        </label>
+
+        <button type="button" class="btn btn-danger btn-s"
+                (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+          <span class="glyphicon glyphicon-trash"></span> Remove
+        </button>
+
+      </div>
+    </div>
+    <br>
+    <br>
+  </div>
+</div>

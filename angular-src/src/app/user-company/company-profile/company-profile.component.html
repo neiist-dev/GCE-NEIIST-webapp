@@ -1,0 +1,66 @@
+<app-work-in-progress></app-work-in-progress>
+  <div class="container middlePage">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="panel panel-info">
+          <div class="panel-heading">1) Dados recolhidos</div>
+          <div class="panel-body">
+            De momento, estes são os dados fornecidos à GCE-Thesis.
+            A secção abaixo explica os procedimentos que devem ser tomados para encontrares um orientador e uma empresa.
+
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Empresa</th>
+                <th>Username</th>
+                <th>Localização</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{{ company.name}}</td>
+                <td>{{ company.email}}</td>
+                <td>{{ company.location}}</td>
+
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <div class="panel panel-info">
+          <div class="panel-heading">2) Procedimentos</div>
+          <div class="panel-body">
+            O que nos propomos a resolver é ajudar a encontrar a melhor combinação candidato-orientador possível.
+            Neste momento, estamos a desenvolver o sistema de matchmaking.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <flash-messages></flash-messages>
+        <div class="panel panel-info">
+          <div class="panel-heading">3) Dashboard</div>
+          <div class="panel-body">O dashboard permite à empresa submeter as suas próprias propostas de tese. Como estamos em
+          fase de testes, propomos que não publique nenhuma proposta (a não ser que seja para efeitos de teste).</div>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <flash-messages></flash-messages>
+        <div class="panel panel-info">
+          <div class="panel-heading">4) Estatísticas</div>
+          <div class="panel-body">Para mais informações, consultar a tab "Estatísticas".</div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>

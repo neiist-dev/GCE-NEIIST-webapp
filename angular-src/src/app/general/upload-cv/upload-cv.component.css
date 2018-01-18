@@ -1,0 +1,12 @@
+.panel-blue > .panel-heading {
+  background-color: #4885ed;
+  color:#fff;
+}
+
+.centered {
+  text-align: center;
+}
+
+[hidden] {
+  display: none !important;
+}

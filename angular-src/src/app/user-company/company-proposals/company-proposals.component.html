@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Company's Proposals</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Description</th>
+      <th>Requirements</th>
+      <th>Date Beginning</th>
+      <th>Date End</th>
+      <th>Salary</th>
+      <th>Observations</th>
+      <th>Vacancies</th>
+      <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let proposal of proposals">
+      <td>{{ proposal.description }}</td>
+      <td>{{ proposal.requirements }}</td>
+      <td>{{ proposal.date_beginning }}</td>
+      <td>{{ proposal.date_end }}</td>
+      <td>{{ proposal.salary }}</td>
+      <td>{{ proposal.observations }}</td>
+      <td>{{ proposal.vacancies }}</td>
+      <td>{{ proposal.link }}</td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

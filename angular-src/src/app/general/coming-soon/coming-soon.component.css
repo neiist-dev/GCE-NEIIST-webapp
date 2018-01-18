@@ -1,0 +1,33 @@
+.bg{
+  background:url(https://groups.ist.utl.pt/gce-neiist/assets/img/baner.jpg) no-repeat 0px 0px;
+  background-size:cover;
+}
+
+
+.banner-info{
+  padding: 9em 0 12em;
+}
+.banner-info h1{
+  font-weight: 700;
+  font-size: 3.5em;
+  color: #FFF;
+  text-transform: uppercase;
+  width: 70%;
+  display: inline-block;
+  line-height: 1.3em;
+}
+.banner-info span{
+  width:15%;
+  height:1px;
+  background:#35C2F8;
+  display:inline-block;
+}
+.banner-info p{
+  color: #CCCCCC;
+  font-weight:400;
+  font-size: 1.3em;
+  line-height: 1.7em;
+  font-family: 'Open Sans', sans-serif;
+  margin: 1em auto;
+  width: 50%;
+}

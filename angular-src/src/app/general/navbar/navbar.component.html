@@ -1,0 +1,32 @@
+<nav class="navbar navbar-default navbar-fixed-top" xmlns="http://www.w3.org/1999/html">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" [routerLink]="['/']">
+        <img src="http://groups.ist.utl.pt/~gce-neiist.daemon/assets/favicon.png" alt="GCE">
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <ul class="nav navbar-nav navbar-left">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"><a [routerLink]="['/hashcode']"><span  class="glyphicon"> <i class="fa fa-google"></i> </span> Hashcode</a></li>
+        <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a></li>
+        <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()=='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/addProposals']"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>Submeter proposta</a></li>
+        <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Student'" [routerLinkActive]="['disabled']"><a [routerLink]="['']"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>Submeter proposta</a></li>
+        <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Student'" [routerLinkActive]="['active']"><a [routerLink]="['/dashboardStudent']"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>Dashboard</a></li>
+        <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/dashboardCompany']"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>Dashboard</a></li>
+        <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/stats']"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>Estatísticas</a></li>
+        <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/profileCompany']"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{name}}</a></li>
+        <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Student'" [routerLinkActive]="['active']"><a [routerLink]="['/profileStudent']"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Perfil</a></li>
+        <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"><a [routerLink]="['/register']"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Registar</a></li>
+        <li *ngIf="authService.loggedIn()"><a (click)="onLogoutClick()" href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+
+</nav>

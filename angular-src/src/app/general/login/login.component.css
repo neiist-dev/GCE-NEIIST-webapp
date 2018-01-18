@@ -1,0 +1,22 @@
+.middlePage {
+  width: 60em;
+  height: 46em;
+  margin: auto;
+}
+
+.spacing {
+  padding-top:7px;
+  padding-bottom:7px;
+}
+
+.centered  {
+  text-align: center;
+}
+
+#singlebutton {
+  margin-bottom:10px;
+}
+
+.btn-info:hover {
+  background-color: #2d3e43;
+}

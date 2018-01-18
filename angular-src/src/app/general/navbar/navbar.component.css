@@ -1,0 +1,14 @@
+.navbar-brand img {
+  max-height: 100%;
+  width: auto;
+}
+.navbar-brand{
+  margin-bottom:0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+#bs-example-navbar-collapse-1 {
+  font-size: 20px;
+  text-align: center;
+}
