@@ -60,12 +60,6 @@ export class AuthService {
     this.user = user;
   }
 
-  getUserType(user) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post('users/type', user, {headers: headers}).map(res => res.json());
-  }
-
   loadTokenUser(headers) {
     const token = localStorage.getItem('authToken');
     this.authToken = token;

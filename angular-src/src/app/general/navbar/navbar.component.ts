@@ -46,10 +46,7 @@ export class NavbarComponent implements OnInit {
 
   loadUser() {
     const user = this.authService.loadUserProfile();
-    this.authService.getUserType(user).subscribe(response => {
-      this.type = response.response_data;
-      this.name = response.response_data.user.name;
-    });
+
   }
 
 }

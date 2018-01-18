@@ -21,9 +21,6 @@ import {PopoverDirective} from "ngx-bootstrap";
 export class StudentDashboardProposalsComponent implements OnInit {
 
   user: object;
-  company: object;
-  partner: object;
-  student: any;
   proposals: any[];
   applications: object[];
   companyNames: any;
@@ -70,24 +67,10 @@ export class StudentDashboardProposalsComponent implements OnInit {
 
   loadUser() {
     this.user = this.authService.loadUserProfile();
-    this.authService.getUserType(this.user).subscribe(response => {
-
-      const TYPE = response.response_data;
-      if (TYPE == 'Company') {
-        this.company = this.authService.loadUserProfile();
-      } else if (TYPE == 'Partner') {
-        this.partner = this.authService.loadUserProfile();
-      } else if (TYPE == 'Student') {
-        this.student = this.authService.loadUserProfile();
-      } else if (TYPE == 'Admin') {
-        // TODO
-      }
-    });
   }
 
   getAllProposals() {
     this.companyService.getAllCompanyAllProposals().subscribe(res => {
-      console.log("propostas." + res.response_data);
       this.proposals = res.response_data;
       this.setProposalIndex("Proposal");
     });
@@ -111,9 +94,6 @@ export class StudentDashboardProposalsComponent implements OnInit {
   }
 
   invalidateApplication(event) {
-    console.log(event);
-    console.log(event.path);
-    console.log(event.path[4]);
     event.path[4].remove();
     const applicationToDelete = {id: ""};
     applicationToDelete.id = this.applicationToDelete;
@@ -145,7 +125,6 @@ export class StudentDashboardProposalsComponent implements OnInit {
   }
 
   applyToProposal(event) {
-    console.log(event);
     this.modalRef.hide();
     const proposal = this.proposal;
     const resume = "R";

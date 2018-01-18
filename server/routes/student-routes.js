@@ -239,7 +239,7 @@ function registerOrLogin(name, email, courses, res) {
                 }
             });
         }
-        const token = jwt.sign(student, DbConfig.secret, {expiresIn: 3600});
+        const token = jwt.sign(student, DbConfig.DB_SECRET, {expiresIn: 3600});
         const resData = {token: 'bearer ' + token,
                         user: {
                             id: student.id,
