@@ -119,7 +119,28 @@ process.on('uncaughtException', (err) => {
     process.exit();
 });
 
+/*
+var fs = require('fs');
+var https = require('https');
+var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+var express = require('express');
+
+
+var httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(8443,  () => {
+    logger.info("Server running on port: " + port);
+    logger.warn("Server running since: " + Utils.time);
+}); */
+
+
 app.listen(port, () => {
     logger.info("Server running on port: " + port);
     logger.warn("Server running since: " + Utils.time);
 });
+
+
+
