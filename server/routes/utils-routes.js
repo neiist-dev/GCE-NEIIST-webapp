@@ -32,8 +32,8 @@ function replySuccess(res, data, message) {
 }
 
 function requireRole(req, res, role) {
-    console.log(req.user.__t);
-    if (req.user.__t !== role) {
+    console.log(req.body.user.type);
+    if (req.body.user.type !== role) {
         replyFailure(res, 'Not a ' + role, '');
     }
 }

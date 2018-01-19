@@ -83,8 +83,8 @@ const appRoutes: Routes = [
   {path: 'terms-of-use', component: TermsUsageComponent},
   {path: 'privacy-policy', component: PrivacyPolicyComponent},
   {path: 'faq', component: FaqComponent},
-  {path: 'hashcode', component: GceHashCodeComponent},
-  {path: 'next-steps', component: GceHashCodeNextComponent}
+  {path: 'hashcode', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
+  {path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]}
 
   ];
 

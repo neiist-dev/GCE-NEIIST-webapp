@@ -9,23 +9,31 @@ const path = require('path');
 
 //Others, related with student
 router.post('/signupHashCode', (req, res, next) => {
+    UtilsRoutes.requireRole(req, res, 'Student');
 
-    const teamName = req.body.teamName;
-    const teamCaptain = req.body.teamCaptain;
-    const teamContactEmail = req.body.teamContactEmail;
-    const teamContactPhone = req.body.teamContactPhone;
-    const newsletter = req.body.newsletter;
-    const participantsNumber = req.body.participantsNumber;
+    const teamName = req.body.signup.teamName;
+    const teamCaptain = req.body.signup.teamCaptain;
+    const teamContactEmail = req.body.signup.teamContactEmail;
+    const teamContactPhone = req.body.signup.teamContactPhone;
+    const newsletter = req.body.signup.newsletter;
+    const participantsNumber = req.body.signup.participantsNumber;
+    const nomeAluno = req.body.user.name;
+    const emailAluno = req.body.user.email;
 
-    fileContent =   "[EQUIPA]:" + teamName + "\n" +
+    fileContent =
+        "[EQUIPA]:" + teamName + "\n" +
         "[RESPONSÁVEL]:" + teamCaptain + "\n" +
         "[EMAIL]:" + teamContactEmail + "\n" +
         "[TELEMÓVEL]:" + teamContactPhone + "\n" +
         "[NEWSLETTER]:" + newsletter + "\n" +
         "[PARTICIPANTES]:" + participantsNumber + "\n" +
-        "[DIA]:" + Utils.time + "\n";
+        "[QUANDO]:" + Utils.time + "\n\n" +
+        "=================" +  "\n" +
+        "=DADOS DE QUEM FEZ A INSCRIÇÃO=" + "\n" +
+        "[NOME]:"  + nomeAluno + "\n" +
+        "[EMAIL]:" + emailAluno;
 
-    const filePath = '../files/GoogleHashCode/' + "Inscricao__" + teamCaptain + " [" + Date.now() + "].txt";
+    const filePath = '../files/GoogleHashCode/' + emailAluno + " [" + Date.now() + "].txt";
 
     fs.writeFile(path.join(__dirname, filePath), fileContent, function (err) {
         if (err) {
@@ -40,14 +48,10 @@ router.post('/signupHashCode', (req, res, next) => {
 
 //To pre-signup Google Hash Code
 router.post('/saveCVHashCode', /*passport.authenticate('jwt', {session: false}),*/ function (req, res) {
-    //UtilsRoutes.roleIs(req, res, 'Student');
+    UtilsRoutes.requireRole(req, res, 'Student');
 
-    //We will use the student's email as a way to store their CV
-    //let studentEmail = req.user.email;
-
-
-
-
+    //TODO Allow this possibility, when it is time
+    return false;
     let storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, __dirname.replace('routes', '') + '/files/GoogleHashCode/CV');

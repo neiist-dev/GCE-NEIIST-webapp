@@ -13,7 +13,7 @@
       <ul class="nav navbar-nav navbar-left">
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"><a [routerLink]="['/hashcode']"><span  class="glyphicon"> <i class="fa fa-google"></i> </span> Hashcode</a></li>
+        <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Student'" [routerLinkActive]="['active']"><a [routerLink]="['/hashcode']"><span  class="glyphicon"> <i class="fa fa-google"></i> </span> Hashcode</a></li>
         <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a></li>
         <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()=='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/addProposals']"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>Submeter proposta</a></li>
         <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Student'" [routerLinkActive]="['disabled']"><a [routerLink]="['']"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>Submeter proposta</a></li>

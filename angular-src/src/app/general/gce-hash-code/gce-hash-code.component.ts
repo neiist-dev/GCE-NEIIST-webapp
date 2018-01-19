@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {StudentService} from "../../services/student.service";
 import { Subscription } from 'rxjs/Subscription';
 import {window} from "rxjs/operator/window";
+import { AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-gce-hash-code',
@@ -12,6 +13,7 @@ import {window} from "rxjs/operator/window";
   styleUrls: ['./gce-hash-code.component.css']
 })
 export class GceHashCodeComponent implements OnInit {
+    user:any;
   teamCaptain: string;
   teamContactPhone: string;
   teamContactEmail: string;
@@ -32,11 +34,12 @@ export class GceHashCodeComponent implements OnInit {
   constructor(private validateService: ValidateService,
               private flashMessage: FlashMessagesService,
               private studentService: StudentService,
-              private router: Router
+              private router: Router,
+              private authService: AuthService
   ) {}
 
   ngOnInit() {
-
+      this.user = this.authService.loadUserProfile();
   }
 
     ngOnDestroy(): void {
@@ -68,7 +71,6 @@ export class GceHashCodeComponent implements OnInit {
       teamCaptain: this.teamCaptain,
       teamContactEmail: this.teamContactEmail,
       teamContactPhone: this.teamContactPhone,
-      shuttle: this.shuttle,
       newsletter: this.newsletter,
       participantsNumber: this.participantsNumber
     };
@@ -94,7 +96,7 @@ export class GceHashCodeComponent implements OnInit {
       return false;
     }
 
-      this.subscriptions.push(this.studentService.signup(signup).subscribe(data => {
+      this.subscriptions.push(this.studentService.signup(this.user,signup).subscribe(data => {
       if (data.succeeded) {
         this.flashMessage.show(data.message, {cssClass: 'alert-success', timeout: 1000});
         this.router.navigate(['/', 'next-steps']);

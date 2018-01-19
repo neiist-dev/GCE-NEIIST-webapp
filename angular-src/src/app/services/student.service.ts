@@ -24,10 +24,10 @@ export class StudentService {
   }
 
   //TODO add auth headers, in case the signup is via fenix
-  signup(info) {
+  signup(student,info) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('gce/signupHashCode', info, {headers: headers}).map(res => res.json());
+    return this.http.post('gce/signupHashCode', {"user": student, "signup":info}, {headers: headers}).map(res => res.json());
   }
 
   getResume() {
