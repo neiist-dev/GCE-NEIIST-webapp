@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { secrets } from '../../../../.env.template';
+import { secrets } from '../../../../.env';
 
 @Component({
   selector: 'app-ga',
@@ -7,9 +7,7 @@ import { secrets } from '../../../../.env.template';
   styleUrls: ['./ga.component.css']
 })
 export class GAComponent implements OnInit {
-  //googleAnalyticsId = secrets.GOOGLE_ANALYTICS; string;
-
-
+  googleAnalyticsId = secrets.GOOGLE_ANALYTICS;
   constructor() { }
 
   ngOnInit() {
