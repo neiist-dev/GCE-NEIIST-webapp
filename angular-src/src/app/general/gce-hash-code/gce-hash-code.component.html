@@ -128,7 +128,7 @@
                     <input [(ngModel)]="teamContactPhone" class="form-control optional" placeholder="*OPCIONAL* Contacto telefónico do Team Captain"  name="Co">
                   </div>
 
-                    <div class="btn-group" dropdown>
+                    <div id = "numeroParticipantes" class="btn-group" dropdown>
                         <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
                             Número de participantes  <span class="caret"></span>
                         </button>
@@ -138,7 +138,6 @@
                             <li role="menuitem"><a class="dropdown-item" (click) = "setNumber($event,'4')">4 participantes</a></li>
                         </ul>
                     </div>
-
 
                   <p>O contacto telefónico permitem-nos contactar-te para confirmação da presença da tua equipa. Se estiveres na lista de espera, utilizaremos estes contactos para
                     te alertar quando existir uma vaga.</p><br>

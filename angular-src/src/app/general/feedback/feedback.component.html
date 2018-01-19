@@ -32,7 +32,7 @@
           </ul>
         </div>
         <br><br>
-        <p id = "recomendarias">Recomendarias a plataforma a um amigo?</p>
+        <p id = "recomendarias">Qual a primeira impressão?</p>
 
         <rating [(ngModel)]="rate" [max]="max" name = "rate"
                 (onHover)="hoveringOver($event)" (onLeave)="resetStar()"
@@ -42,8 +42,8 @@
               [ngStyle]="{display: (overStar && !isReadonly) ? 'inline' : 'none'}">{{percent}}%</span>
 
         <br><br>
-        <p>10 - Sim, de certeza!</p>
-        <p>0 - De certeza que não.</p>
+        <p>10 - Gosto bastante!</p>
+        <p>0 - De certeza que não voltarei.</p>
       </div>
       <div class="row">
         <div class="col-md-12">

@@ -4,6 +4,7 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
 import {StudentService} from "../../services/student.service";
 import { Subscription } from 'rxjs/Subscription';
+import {window} from "rxjs/operator/window";
 
 @Component({
   selector: 'app-gce-hash-code',
@@ -21,6 +22,12 @@ export class GceHashCodeComponent implements OnInit {
   shuttle:boolean = false;
   newsletter:boolean = false;
   private subscriptions: Array<Subscription> = [];
+    public numeroPessoas: Array<{ text: string, value: number }> = [
+        { text: "Duas", value: 2 },
+        { text: "Três", value: 3 },
+        { text: "Quatro", value: 4 }
+    ];
+
 
   constructor(private validateService: ValidateService,
               private flashMessage: FlashMessagesService,
@@ -49,8 +56,7 @@ export class GceHashCodeComponent implements OnInit {
 
     private setNumber(event,number) {
       this.participantsNumber = number;
-      event.path[3].innerHTML  = '<button type="button" class="btn btn-primary">'+ this.participantsNumber + ' participantes' + '</button>';
-
+      event.path[3].firstElementChild.innerHTML = number + " <span class=\"caret\"></span>";
     }
 
   addPreSign() {

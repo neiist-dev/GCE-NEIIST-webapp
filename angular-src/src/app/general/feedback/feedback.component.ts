@@ -47,12 +47,12 @@ export class FeedbackComponent implements OnInit {
   }
 
   private setEntity(event,entity) {
-    event.path[3].innerHTML  = '<button type="button" class="btn btn-success disabled">'+ entity + '</button>';
+    event.path[3].firstElementChild.innerHTML = entity + " <span class=\"caret\"></span>";
     this.entity = entity;
   }
 
   private setType(event,type) {
-    event.path[3].innerHTML  = '<button type="button" class="btn btn-success disabled">'+ type + '</button>';
+      event.path[3].firstElementChild.innerHTML = type + " <span class=\"caret\"></span>";
     this.type = type;
   }
 
