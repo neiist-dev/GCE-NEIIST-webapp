@@ -137,10 +137,15 @@ httpsServer.listen(8443,  () => {
 }); */
 
 
-app.listen(port, () => {
-    logger.info("Server running on port: " + port);
-    logger.warn("Server running since: " + Utils.time);
-});
+var https = require('https');
+var privateKey  = [fs.readFileSync('./sslcert/key.pem', 'utf8')];
+var certificate = fs.readFileSync('./sslcert/cert.pem', 'utf8');
 
+var credentials = {key: privateKey, cert: certificate, passphrase: 'damn'};
+// your express configuration here
+
+var httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(port); //https is 8443
 
 
