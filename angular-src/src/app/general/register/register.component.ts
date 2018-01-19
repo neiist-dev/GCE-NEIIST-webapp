@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import {FlashMessagesService} from "angular2-flash-messages";
 
 @Component({
   selector: 'app-register',
@@ -8,14 +9,16 @@ import { Router } from "@angular/router";
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private flashMessage: FlashMessagesService) {
   }
 
   ngOnInit() {
   }
 
   clickStudent()  {
-    this.router.navigate(['login'], );
+      this.flashMessage.show('Não é necessário fazer inscrição. Faz Login através do Fénix.', {cssClass: 'alert-info', timeout: 5000});
+      this.router.navigate(['login'], );
   }
 
   clickCompany() {

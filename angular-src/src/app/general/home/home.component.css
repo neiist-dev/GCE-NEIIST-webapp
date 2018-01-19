@@ -78,7 +78,11 @@
 }
 
 .bigFont {
-  font-size:20px;
+  font-size:10px;
+}
+
+.white  {
+    color:white;
 }
 
 html, body{
@@ -252,9 +256,9 @@ body a{
 .e-left-inner-grid-left span.e-icon4{
   background-position: 2px -159px;
 }
-a.leran-more{
-  background:#FFFFFF;
-  color:#222222;
+a.learn-more    {
+  background:#222222;
+  color:#FFFFFF;
   font-weight:500;
   text-transform:uppercase;
   text-decoration:none;
@@ -269,9 +273,9 @@ a.leran-more{
   -o-border-radius: 3em;
   border:1px solid #CBEEFA;
 }
-a.leran-more:hover{
-  background:#222222;
-  color:#FFFFFF;
+a.learn-more:hover{
+  background:#FFFFFF;
+  color:#222222;
 }
 .expertice-left-grid{
   padding:3em 3em 3em 5em;
