@@ -9,7 +9,7 @@ let student_services = module.exports = exports = new StudentServices();
 // Functions
 
 function parseStudentData(person, callback) {
-    let student = {}
+    let student = {};
     student.name = person.name;
     student.email = person.institutionalEmail;
 
@@ -28,7 +28,6 @@ function parseStudentData(person, callback) {
     for (let registration of studentRole.registrations) {
         student.courses.push(registration.name);
     }
-
     callback(null, student);
 }
 

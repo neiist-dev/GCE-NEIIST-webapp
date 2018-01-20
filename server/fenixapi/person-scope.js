@@ -49,7 +49,6 @@ function getPerson(accessToken, callback) {
 }
 
 function isStudent(person) {
-    console.log(person);
     for (let role of person.roles) {
         if (role.type === 'STUDENT') {
             return true;

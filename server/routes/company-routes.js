@@ -37,6 +37,7 @@ router.post('/register', function (req, res) {
 });
 
 router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    UtilsRoutes.requireRole(req,'Company');
     //TODO Do again
     //link has to be /update?id=... to the company info to be updated.
     //Better would be having /company/NAME/update   /company/NAME/proposals/NAME_P/update
@@ -94,15 +95,10 @@ router.get('/allProposals', passport.authenticate('jwt', {session: false}), (req
                         return UtilsRoutes.replySuccess(res, proposals, "Proposals");
                     }
                 });
-            /*}   else    {
-            return UtilsRoutes.replyFailure(res, NOT_COMP, "");
-        }*/
 });
 
 router.get('/proposals', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req,'Company'))    {
-        return UtilsRoutes.replyFailure(res, NOT_COMP, "");
-    }
+    UtilsRoutes.requireRole(req,'Company');
     const name = req.user.name;
     DBAccess.proposals.getProposalsByCompanyName(name, (err, proposals) => {
         if (err) {

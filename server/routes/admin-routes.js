@@ -12,7 +12,7 @@ const ba_logger = require('../log/ba_logger');
 
 router.post('/aproveCompany/:email', passport.authenticate('jwt', {session: false}), (req, res, next) =>{
     Utils.requireRole("Admin");
-    let email = req.body.email;
+    let email = req.user.email;
     DBAccess.companies.confirmCompany(email, (err, company) => {
         if (err)  {
             if (err.name === 'MongoError' && err.code === 11000)    {
@@ -29,7 +29,7 @@ router.post('/aproveCompany/:email', passport.authenticate('jwt', {session: fals
 
 router.post('/invalidateCompany/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     Utils.requireRole("Admin");
-    let email = req.body.email;
+    let email = req.user.email;
     DBAccess.companies.invalidateCompany(email, (err, company) => {
         if (err)  {
             if (err.name === 'MongoError' && err.code === 11000)    {

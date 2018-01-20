@@ -6,9 +6,10 @@ const ba_logger = require('../log/ba_logger');
 const Utils = require('../mongodb/accesses/utils-accesses');
 const fs = require('fs');
 const path = require('path');
+const passport = require('passport');
 
 //Others, related with student
-router.post('/signupHashCode', (req, res, next) => {
+router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     UtilsRoutes.requireRole(req, res, 'Student');
 
     const teamName = req.body.signup.teamName;
@@ -17,8 +18,8 @@ router.post('/signupHashCode', (req, res, next) => {
     const teamContactPhone = req.body.signup.teamContactPhone;
     const newsletter = req.body.signup.newsletter;
     const participantsNumber = req.body.signup.participantsNumber;
-    const nomeAluno = req.body.user.name;
-    const emailAluno = req.body.user.email;
+    const nomeAluno = req.user.name;
+    const emailAluno = req.user.email;
 
     fileContent =
         "[EQUIPA]:" + teamName + "\n" +
@@ -47,7 +48,7 @@ router.post('/signupHashCode', (req, res, next) => {
 });
 
 //To pre-signup Google Hash Code
-router.post('/saveCVHashCode', /*passport.authenticate('jwt', {session: false}),*/ function (req, res) {
+router.post('/saveCVHashCode', passport.authenticate('jwt', {session: false}), function (req, res) {
     UtilsRoutes.requireRole(req, res, 'Student');
 
     //TODO Allow this possibility, when it is time
