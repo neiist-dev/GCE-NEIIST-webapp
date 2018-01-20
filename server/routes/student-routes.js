@@ -19,36 +19,16 @@ router.post('/register', (req, res, next) => {
 
     let error = {
         content: "Nothing defined",
-        msg: "No message defined"
+        msg: "Erro interno. Contacte a administração."
     };
 
-    FenixApi.person.getAccessToken(code, function (token) {
-        console.log("O token de acesso é "  + JSON.stringify(token));
-        FenixApi.person.getPerson(token.access_token, function (person) {
-            if (person.hasOwnProperty('error')) {
-                console.log(person);
-                UtilsRoutes.replyFailure(res, person, '');
-            } else {
-                for (let i in person.roles)
-                    console.log(person.roles[i].type);
-                StudentServices.parseStudentData(person, (err, student) => {
-                    if (err) {
-                        UtilsRoutes.replyFailure(res, err.msg, '');
-                    }
-                    else {
-                        registerOrLogin(student.name, student.email, student.courses, res);
-                    }
-                });
-            }
-        });
-    });
-/*
     let getFenixToken = (() =>  {
         return new Promise((resolve, reject) => {
             FenixApi.person.getAccessToken(code, (token) => {
                 if (token.hasOwnProperty('error'))  {
+                    //Couldn't retrieve token from Fenix
                     error.content = token;
-                    error.msg = "Couldn't retrieve token from Fenix";
+                    error.msg = "Erro na comunicação com o Fénix";
                     reject(error);
                 }
                 resolve(token);
@@ -57,39 +37,55 @@ router.post('/register', (req, res, next) => {
     });
 
     let getStudentFromFenix = (token) => {
+            //Token has properties: access_token, refresh token, expires in
 
-        return new Promise((resolve, reject) => {
-            person = FenixApi.person.getPerson(token.access_token);
-            if (person.hasOwnProperty('error')) {
-                UtilsRoutes.replyFailure(res, 'Student not found.', '');
-                error.content = person;
-                error.msg = "Could not get ";
-                reject();
-            } else if (!FenixApi.professor.isProfessor(person)) {
-                //Tratar no catch a utils routes. reply failure (n e prof)
-                reject("Passo 2: Não é um professor");
-            } else {
-                //Saves data parsed from the Fenix Entity person into professor
-                let student = StudentServices.parseStudentData(person);
-                //tratar erros
-                resolve(student);
-            }
+           return new Promise((resolve, reject) => {
+            FenixApi.person.getPerson(token.access_token, (person) =>   {
+                if (person.hasOwnProperty('error')) {
+                    //Could not get Student
+                    error.content = person;
+                    error.msg = "Erro na comunicação com o Fénix.";
+                    reject(error);
+                } else if (!FenixApi.person.isStudent(person)) {
+                    error.content = person;
+                    error.msg = "Tem de ser um estudante para fazer login através deste meio";
+                    reject(error);
+                } else {
+                    resolve(person);
+                }
+            });
         });
     };
 
     let loginStudentPromise = (student) =>  {
         return new Promise((resolve,reject) => {
-            registerOrLogin(student.name, student.email, student.courses, res);
-            if (!loginProfessor(professor,res)) {
-                reject("Erro a fazer login/criar o novo professor");
-            };
+            StudentServices.parseStudentData(student, (err, student) => {
+                if (err) {
+                    //Error parsing student data. Default message will be sent to the user
+                    error.content = err;
+                    reject(error);
+                }
+                else {
+                    registerOrLogin(student.name, student.email, student.courses, (err, data) => {
+                        if (err)    {
+                            error.msg = "";
+                            error.content = err;
+                            reject(error);
+                        }   else    {
+                            UtilsRoutes.replySuccess(res,data,"Sucesso a fazer login");
+                        }
+                    });
+
+                }
+            });
+
         });
     };
 
     getFenixToken().then((token) => {
         return getStudentFromFenix (token);
-    }).then((professor)=>   {
-        return loginStudentPromise(professor);
+    }).then((student)=>   {
+        return loginStudentPromise(student);
     }).catch((error) =>   {
         console.log("ERROR ON STUDENT LOGIN:");
         console.log(error.msg);
@@ -97,9 +93,9 @@ router.post('/register', (req, res, next) => {
         console.log("Information: \n ---------------");
         console.log(error.content);
         console.log("------------------");
-        UtilsRoutes.replyFailure(res, '', '');
+        UtilsRoutes.replyFailure(res, '', error.msg);
     });
-    */
+
 });
 
 router.get('/myApplications', passport.authenticate('jwt', {session: false}), (req, res, next) => {
@@ -117,6 +113,10 @@ router.get('/myApplications', passport.authenticate('jwt', {session: false}), (r
 
 router.put('/applications/invalidate', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     UtilsRoutes.requireRole(req, res, 'Student');
+
+    //TODO not needed now
+    return false;
+
     let id = req.body.id;
     let studentEmail = req.user.email;
 
@@ -133,6 +133,8 @@ router.put('/applications/invalidate', passport.authenticate('jwt', {session: fa
 router.post('/saveResume', passport.authenticate('jwt', {session: false}), function (req, res) {
     UtilsRoutes.roleIs(req, res, 'Student');
 
+    //TODO not needed now
+    return false;
     //We will use the student's email as a way to store their CV
     let studentEmail = req.user.email;
 
@@ -188,6 +190,11 @@ router.post('/saveResume', passport.authenticate('jwt', {session: false}), funct
 
 router.post('/apply', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     UtilsRoutes.requireRole(req, res, 'Student');
+
+
+    //TODO not needed now
+    return false;
+
     let studentEmail = req.user.email;
     let company = req.body.company;
     let proposal = req.body.proposal;
@@ -223,17 +230,17 @@ module.exports = router;
  *  Aux Functions
  *******************************/
 
-function registerOrLogin(name, email, courses, res) {
+function registerOrLogin(name, email, courses, callback) {
     DBAccess.students.getStudentByEmail(email, function (err, student) {
         if (err) {
-            UtilsRoutes.replyFailure(res, 'Can\'t proceed at this time.', '');
+            callback("Erro a pesqueisar na base de dados",null);
             return;
         }
         else if (student === null) {
             student = DBAccess.students.addStudent(name, email, courses, function (err) {
                 if (err) {
-                    UtilsRoutes.replyFailure(res, 'Could not add student.', '');
-                    return;
+                    callback("Erro a adicionar aluno",null);
+                    return false;
                 } else  {
                     ba_logger.ba("New student:"+ email);
                 }
@@ -250,6 +257,6 @@ function registerOrLogin(name, email, courses, res) {
                             year: student.year,
                             courses: student.courses
                         }};
-        UtilsRoutes.replySuccess(res, resData, 'Access token sent to the student');
+        callback(null,resData);
     });
 }
