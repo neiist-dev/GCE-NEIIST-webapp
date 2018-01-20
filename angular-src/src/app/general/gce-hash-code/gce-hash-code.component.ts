@@ -4,15 +4,15 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
 import {StudentService} from "../../services/student.service";
 import { Subscription } from 'rxjs/Subscription';
-import {window} from "rxjs/operator/window";
-import { AuthService} from "../../services/auth.service";
+import { OnDestroy } from '@angular/core';
+import { ChangeDetectorRef} from '@angular/core';
 
 @Component({
   selector: 'app-gce-hash-code',
   templateUrl: './gce-hash-code.component.html',
   styleUrls: ['./gce-hash-code.component.css']
 })
-export class GceHashCodeComponent implements OnInit {
+export class GceHashCodeComponent implements OnInit,OnDestroy {
   teamCaptain: string;
   teamContactPhone: string;
   teamContactEmail: string;
@@ -34,17 +34,20 @@ export class GceHashCodeComponent implements OnInit {
               private flashMessage: FlashMessagesService,
               private studentService: StudentService,
               private router: Router,
-              private authService: AuthService
+              private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
   }
 
     ngOnDestroy(): void {
+        this.cd.detach();
         this.subscriptions.forEach((subscription: Subscription) => {
             subscription.unsubscribe();
 
         });
+
+
     }
 
   clicked(event) {

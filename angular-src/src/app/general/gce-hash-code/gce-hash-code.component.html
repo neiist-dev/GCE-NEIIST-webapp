@@ -1,13 +1,18 @@
 <div class="bg">
     <div class="container middlePage">
-      <div class="row">
+
+
+        <div class="row">
         <div class="col-md-12">
           <div class="centered panel panel-red">
           <div class="panel-heading">Google Hash-Code</div>
          </div>
         </div>
       </div>
-      <div class="row">
+
+
+
+        <div class="row">
         <div class="col-md-12">
           <div class="panel panel-yellow">
             <div class="centered panel-heading">Procedimentos</div>
@@ -57,6 +62,7 @@
               </p>
 
               <h3 class="centered">Pré-inscrição</h3>
+                <p>É de salientar que as inscrições serão fechadas antes de 1 de fevereiro, caso cheguemos ao limite da nossa capacidade</p>
 
 
                 <table class="table table-hover">
@@ -77,109 +83,109 @@
                 </tr>
                 </tbody>
               </table>
-                <p>É de salientar que as inscrições serão fechadas antes de 1 de fevereiro, caso cheguemos ao limite da nossa capacidade</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row">
+        <div class="row">
         <div class="col-md-12">
           <div class="centered panel-heading">
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-6">
-        </div>
-        <div class="sol-sm-6">
+
+
+        <div class="row">
+        <div class="col-md-12">
           <div class="nav-tab-holder text-right">
             <ul class="nav nav-tabs row" role="tablist">
               <a id="pre-ins" aria-controls="home" role="tab" data-toggle="tab">PRÉ-INSCRIÇÃO</a>
             </ul>
           </div>
         </div>
-
-
       </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <div class="row">
 
-      <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">
-          <div class="row">
+                        <div id = "contentorProposta" class="col-xl-10"  style="background-color: blue; ">
 
-            <div id = "contentorProposta" class="col-xl-10"  style="background-color: blue; ">
+                            <article role="login">
+                                <form (submit)="addPreSign()" class="signup">
+                                    <flash-messages></flash-messages>
 
-              <article role="login">
-                <form (submit)="addPreSign()" class="signup">
-                  <flash-messages></flash-messages>
+                                    <div class="form-group">
+                                        <input [(ngModel)]="teamName" class="form-control" placeholder="Nome da equipa"  name="TC">
+                                    </div>
 
-                  <div class="form-group">
-                    <input [(ngModel)]="teamName" class="form-control" placeholder="Nome da equipa"  name="TC">
-                  </div>
+                                    <div class="form-group">
+                                        <input [(ngModel)]="teamCaptain" class="form-control" placeholder="Nome do Team Captain"  name="TCo">
+                                    </div>
 
-                  <div class="form-group">
-                    <input [(ngModel)]="teamCaptain" class="form-control" placeholder="Nome do Team Captain"  name="TCo">
-                  </div>
+                                    <div class="form-group">
+                                        <input [(ngModel)]="teamContactEmail" class="form-control" placeholder="E-mail do Team Captain"  name="CoE">
+                                    </div>
 
-                  <div class="form-group">
-                    <input [(ngModel)]="teamContactEmail" class="form-control" placeholder="E-mail do Team Captain"  name="CoE">
-                  </div>
+                                    <div class="form-group">
+                                        <input [(ngModel)]="teamContactPhone" class="form-control optional" placeholder="*OPCIONAL* Contacto telefónico do Team Captain"  name="Co">
+                                    </div>
 
-                  <div class="form-group">
-                    <input [(ngModel)]="teamContactPhone" class="form-control optional" placeholder="*OPCIONAL* Contacto telefónico do Team Captain"  name="Co">
-                  </div>
+                                    <div id = "numeroParticipantes" class="btn-group" dropdown>
+                                        <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                                            Número de membros da equipa<span class="caret"></span>
+                                        </button>
+                                        <ul *dropdownMenu class="dropdown-menu" role="menu">
+                                            <li role="menuitem"><a class="dropdown-item" (click) = "setNumber($event,'2')">2 membros</a></li>
+                                            <li role="menuitem"><a class="dropdown-item" (click) = "setNumber($event,'3')">3 membros</a></li>
+                                            <li role="menuitem"><a class="dropdown-item" (click) = "setNumber($event,'4')">4 membros</a></li>
+                                        </ul>
+                                    </div>
 
-                    <div id = "numeroParticipantes" class="btn-group" dropdown>
-                        <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-                            Número de membros da equipa<span class="caret"></span>
-                        </button>
-                        <ul *dropdownMenu class="dropdown-menu" role="menu">
-                            <li role="menuitem"><a class="dropdown-item" (click) = "setNumber($event,'2')">2 membros</a></li>
-                            <li role="menuitem"><a class="dropdown-item" (click) = "setNumber($event,'3')">3 membros</a></li>
-                            <li role="menuitem"><a class="dropdown-item" (click) = "setNumber($event,'4')">4 membros</a></li>
-                        </ul>
+                                    <p>O contacto telefónico permitem-nos contactar-te para confirmação da presença da tua equipa. Se estiveres na lista de espera, utilizaremos estes contactos para
+                                        te alertar quando existir uma vaga.</p><br>
+
+                                    <p>Se ainda não tiveres membros de equipa, não te pré-inscrevas já. Em vez disso, coloca um post no <a href="https://www.facebook.com/events/212879605945560/">nosso evento</a>, de modo a arranjares equipa.</p>
+
+                                    <br><br>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" (click)="clicked($event)"> <b>Declaro que tomei conhecimento que a pré-inscrição só garante lugar na lista de espera.</b>
+                                        </label>
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" (click)="clickedc($event)"><b>Subscrever a newsletter do GCE</b>, para obter novidades sobre a plataforma e eventos semelhantes.
+                                        </label>
+                                    </div>
+                                    <flash-messages></flash-messages>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-primary btn-block"  value="Pré-inscrição,nailed it!">
+                                    </div>
+
+
+
+
+
+                                </form>
+
+                            </article>
+                        </div>
+
+
+
                     </div>
-
-                  <p>O contacto telefónico permitem-nos contactar-te para confirmação da presença da tua equipa. Se estiveres na lista de espera, utilizaremos estes contactos para
-                    te alertar quando existir uma vaga.</p><br>
-
-                    <p>Se ainda não tiveres membros de equipa, não te pré-inscrevas já. Em vez disso, coloca um post no <a href="https://www.facebook.com/events/212879605945560/">nosso evento</a>, de modo a arranjares equipa.</p>
-
-                  <br><br>
-                  <div class="checkbox">
-                    <label>
-                        <input type="checkbox" (click)="clicked($event)"> <b>Declaro que tomei conhecimento que a pré-inscrição só garante lugar na lista de espera.</b>
-                    </label>
-                  </div>
-
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" (click)="clickedc($event)"><b>Subscrever a newsletter do GCE</b>, para obter novidades sobre a plataforma e eventos semelhantes.
-                    </label>
-                  </div>
-                  <flash-messages></flash-messages>
-                  <div class="form-group">
-                    <input type="submit" class="btn btn-primary btn-block"  value="Pré-inscrição,nailed it!">
-                  </div>
+                    <!-- end of row -->
+                </div>
+                <!-- end of home -->
 
 
-
-
-
-                </form>
-
-              </article>
             </div>
-
-
-
-          </div>
-          <!-- end of row -->
+            </div>
         </div>
-        <!-- end of home -->
-
-
-      </div>
-
+    </div>
 </div>

@@ -1,47 +1,48 @@
-<div class="middlePage">
-  <div class="page-header">
-    <h1 class="centered logo">Login</h1>
-  </div>
-
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title"></h3>
-    </div>
-    <div class="panel-body">
-
-      <div class="row">
-
-        <div align="center" class="col-md-5" >
-          <h2>Aluno</h2>
-          <div>
-            <a [href]="studentPath" class="btn btn-primary btn-lg">
-              <i class="fa fa-graduation-cap"></i> Login com FenixEdu
-            </a>
-          </div>
-          <h2>Professor</h2>
-          <a class="disabled btn btn-primary">
-            <i class="fa fa-graduation-cap"></i> Brevemente (FenixEdu)
-          </a>
-        </div>
-
-        <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
-          <form (submit)="onLoginSubmit()" class="form-horizontal">
-            <fieldset>
-              <h2>Empresas</h2>
-              <input type="email" name="username" [(ngModel)]="username" placeholder="Introduza o e-mail" class="form-control input-md">
-              <div class="spacing"></div>
-              <input name="password" type="password" name="textinput" [(ngModel)]="password" placeholder="Introduza a password" class="form-control">
-              <div class="spacing"></div>
-              <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-sm pull-right">Login</button>
-
-
-            </fieldset>
-          </form>
-        </div>
-
+<div class="container middlePage">
+    <div class="row">
+      <div class="page-header">
+        <h1 class="centered logo">Login</h1>
       </div>
 
-    </div>
-  </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Ao fazeres login, estás a concordar com a nossa Política de Privacidade.</h3>
+        </div>
+        <div class="panel-body">
 
+          <div class="row">
+
+            <div align="center" class="col-md-5" >
+              <h2>Aluno</h2>
+              <div>
+                <a [href]="studentPath" class="btn btn-primary btn-lg">
+                  <i class="fa fa-graduation-cap"></i> Login com FenixEdu
+                </a>
+              </div>
+              <h2>Professor</h2>
+              <a class="disabled btn btn-primary">
+                <i class="fa fa-graduation-cap"></i> Brevemente (FenixEdu)
+              </a>
+            </div>
+
+            <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
+              <form (submit)="onLoginSubmit()" class="form-horizontal">
+                <fieldset>
+                  <h2>Empresas</h2>
+                  <input type="email" name="username" [(ngModel)]="username" placeholder="Introduza o e-mail" class="form-control input-md">
+                  <div class="spacing"></div>
+                  <input name="password" type="password" name="textinput" [(ngModel)]="password" placeholder="Introduza a password" class="form-control">
+                  <div class="spacing"></div>
+                  <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-sm pull-right">Login</button>
+
+
+                </fieldset>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
 </div>

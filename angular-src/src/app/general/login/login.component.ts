@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { Router, ActivatedRoute, Params} from "@angular/router";
-import {FlashMessagesService} from "angular2-flash-messages";
-import {ValidateService} from "../../services/validate.service";
+import { FlashMessagesService} from "angular2-flash-messages";
+import { ValidateService} from "../../services/validate.service";
 import { secrets } from '../../../../.env';
 import { Subscription } from 'rxjs/Subscription';
+import { ChangeDetectorRef} from '@angular/core';
+import { OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   username: string;
   password: string;
   studentPath: string;
@@ -20,7 +22,8 @@ export class LoginComponent implements OnInit {
     private subscriptions: Array<Subscription> = [];
 
   constructor(private authService: AuthService, private router: Router,private activatedRoute: ActivatedRoute,
-              private flashMessage: FlashMessagesService, private validateService: ValidateService
+              private flashMessage: FlashMessagesService, private validateService: ValidateService,
+              private cd: ChangeDetectorRef
               ) {
 
 
@@ -37,11 +40,13 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
 
     }
-    public ngOnDestroy(): void {
+
+    ngOnDestroy() {
+        this.cd.detach();
         this.subscriptions.forEach((subscription: Subscription) => {
             subscription.unsubscribe();
 
-       });
+        });
     }
 
   onLoginSubmit() {
@@ -67,7 +72,6 @@ export class LoginComponent implements OnInit {
     //TODO: Add Autorization header, or remove route protection on user
     //The student is treated at student-register.component
     this.subscriptions.push(this.authService.authUser(user).subscribe( response => {
-      console.log(response);
       if (response.succeeded) {
         this.authService.storeData(response.response_data.user, response.response_data.token);
         this.flashMessage.show(response.message, {cssClass: 'alert-info', timeout: 3000});

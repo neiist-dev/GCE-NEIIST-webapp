@@ -1,11 +1,17 @@
-#bg{
-  background:url("http://groups.ist.utl.pt/gce-neiist/assets/img/ghc.jpg") no-repeat 0px 0px;
-  background-size:cover;
+.bg{
+    background:url("http://groups.ist.utl.pt/gce-neiist/assets/img/ghc.jpg") no-repeat 0px 0px;
+    background-size:cover;
 }
 
 .container{
   padding: 1em 15em 2em 15em;
-  opacity: 0.9;
+  opacity: 0.85;
+}
+
+.middlePage {
+    width: 70%;
+    height: 100%;
+    margin: auto;
 }
 
 .banner-info{
