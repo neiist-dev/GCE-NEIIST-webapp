@@ -89,10 +89,4 @@ export class AuthService {
     return this.http.post('company/register', company, {headers: headers}).map(res => res.json());
  }
 
-  registerPartner(partner) {
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    return this.http.post('partner/register', partner, {headers: headers}).map(res => res.json());
-  }
-
 }

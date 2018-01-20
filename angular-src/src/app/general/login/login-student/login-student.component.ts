@@ -20,7 +20,7 @@ export class LoginStudentComponent implements OnInit {
       this.authService.registerStudent(token).subscribe( response => {
         if (response.succeeded){
           this.authService.storeData(response.response_data.user, response.response_data.token);
-          this.flashMessage.show("É a primeira vez? Veja a secção Profile", {cssClass: 'alert-info', timeout: 3000});
+          this.flashMessage.show("Ao fazeres login, estás a concordar com a nossa Política de Privacidade.", {cssClass: 'alert-info', timeout: 10000});
           this.router.navigate(['dashboardStudent']);
         } else {
           this.flashMessage.show("Erro interno. Por favor contacte a administração. Obrigado.", {cssClass: 'alert-danger', timeout: 5000});}

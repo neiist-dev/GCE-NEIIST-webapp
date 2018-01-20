@@ -8,7 +8,8 @@ const FenixApi = require('./../fenixapi/fenix');
 const ProfessorServices = require('./../services/professor-services');
 
 router.post('/register', (req, res, next) => {
-    //TODO Create another Fenix App
+    //TODO Create another Fenix App. Implement with promises, similarly to Student
+    /*
     const code = req.body.tokenq;
     console.log(req);
     let getFenixToken = (() =>  {
@@ -63,7 +64,7 @@ router.post('/register', (req, res, next) => {
     }));
 
 
-
+*/
 });
 
 module.exports = router;

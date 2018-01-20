@@ -1,4 +1,4 @@
-.bg{
+#bg{
   background:url("http://groups.ist.utl.pt/gce-neiist/assets/img/ghc.jpg") no-repeat 0px 0px;
   background-size:cover;
 }
@@ -28,11 +28,11 @@
   font-weight:400;
   font-size: 1.3em;
   line-height: 1em;
-  font-family: 'Open Sans', sans-serif;
   margin: 1em auto;
   width: 50%;
 }
 
 .banner-info a{
   color: #008744;
+    font-weight: bold;
 }

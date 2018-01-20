@@ -10,8 +10,11 @@ const passport = require('passport');
 
 //Others, related with student
 router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    UtilsRoutes.requireRole(req, res, 'Student');
-
+    if(!UtilsRoutes.roleIs(req,'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem inscrever-se");
+        return;
+    }
+    // return false se n
     const teamName = req.body.signup.teamName;
     const teamCaptain = req.body.signup.teamCaptain;
     const teamContactEmail = req.body.signup.teamContactEmail;
@@ -49,7 +52,11 @@ router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (
 
 //To pre-signup Google Hash Code
 router.post('/saveCVHashCode', passport.authenticate('jwt', {session: false}), function (req, res) {
-    UtilsRoutes.requireRole(req, res, 'Student');
+    //TODO Add auth headers on front-end
+    if(!UtilsRoutes.roleIs(req,'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem inscrever-se");
+        return;
+    }
 
     //TODO Allow this possibility, when it is time
     return false;

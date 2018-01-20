@@ -1,5 +1,4 @@
 const DBAccess = require('./../mongodb/accesses/mongo-access');
-const Utils = require('../mongodb/accesses/utils-accesses');
 const UtilsRoutes = require('../routes/utils-routes');
 const express = require('express');
 const router = express.Router();
@@ -8,7 +7,6 @@ const jwt = require('jsonwebtoken');
 const ba_logger = require('../log/ba_logger');
 
 const COMP_ADDED = "Company added";
-const NOT_COMP = "Not a company";
 const DUP_ENTRY = "Company already exists";
 const ERROR = "An error concerning DB has occurred.";
 const COMPANY_UPDATED = "Company has been updated.";
@@ -37,7 +35,10 @@ router.post('/register', function (req, res) {
 });
 
 router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    UtilsRoutes.requireRole(req,'Company');
+    if(!UtilsRoutes.roleIs(req, res, 'Company'))    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
+        return;
+    }
     //TODO Do again
     //link has to be /update?id=... to the company info to be updated.
     //Better would be having /company/NAME/update   /company/NAME/proposals/NAME_P/update
@@ -98,7 +99,11 @@ router.get('/allProposals', passport.authenticate('jwt', {session: false}), (req
 });
 
 router.get('/proposals', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    UtilsRoutes.requireRole(req,'Company');
+    if(!UtilsRoutes.roleIs(req, 'Company'))    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
+        return;
+    }
+
     const name = req.user.name;
     DBAccess.proposals.getProposalsByCompanyName(name, (err, proposals) => {
         if (err) {
@@ -110,7 +115,10 @@ router.get('/proposals', passport.authenticate('jwt', {session: false}), (req, r
 });
 
 router.put('/addProposal', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    UtilsRoutes.requireRole(req, res, 'Company');
+    if(!UtilsRoutes.roleIs(req, 'Company'))    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
+        return;
+    }
 
     // let company = mongoose.Types.ObjectId(req.body.company); // we can't use this because it seems to generate a unique ObjectId
     let company = req.body.company;
@@ -137,7 +145,10 @@ router.put('/addProposal', passport.authenticate('jwt', {session: false}), (req,
 });
 
 router.put('/proposals/update', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    UtilsRoutes.requireRole(req, res, 'Company');
+    if(!UtilsRoutes.roleIs(req, 'Company'))    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
+        return;
+    }
     //TODO Do again
     let id = req.body._id;
     let description = req.body.description;
@@ -162,7 +173,10 @@ router.put('/proposals/update', passport.authenticate('jwt', {session: false}), 
 });
 
 router.put('/proposals/delete', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    UtilsRoutes.requireRole(req, res, 'Company');
+    if(!UtilsRoutes.roleIs(req, 'Company'))    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
+        return;
+    }
 
     let id = req.query.id;
     DBAccess.proposals.invalidateProposal(id, (err, updatedProposal) => {

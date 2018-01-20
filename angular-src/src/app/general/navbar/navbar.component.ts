@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   LogoPath: string;
   LogoWidth: string;
   LogoHeight: string;
-  name: string;
+  name: string = "Perfil";
 
   constructor(private authService: AuthService, private router: Router,
               private flashMessage: FlashMessagesService
@@ -33,8 +33,7 @@ export class NavbarComponent implements OnInit {
       window.scroll(0, 0);
     });
 
-    this.name= "Perfil";
-
+    this.loadUser();
   }
 
   onLogoutClick() {
@@ -47,6 +46,12 @@ export class NavbarComponent implements OnInit {
   loadUser() {
     const user = this.authService.loadUserProfile();
 
+      if (user == null)   {
+        return;
+    }
+    let endOfFirstName = user.name.indexOf(" ");
+    let firstName = user.name.slice(0,endOfFirstName);
+    this.name = firstName;
   }
 
 }

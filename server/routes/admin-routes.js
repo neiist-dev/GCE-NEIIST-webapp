@@ -11,7 +11,11 @@ const ba_logger = require('../log/ba_logger');
 
 
 router.post('/aproveCompany/:email', passport.authenticate('jwt', {session: false}), (req, res, next) =>{
-    Utils.requireRole("Admin");
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
+
     let email = req.user.email;
     DBAccess.companies.confirmCompany(email, (err, company) => {
         if (err)  {
@@ -28,7 +32,11 @@ router.post('/aproveCompany/:email', passport.authenticate('jwt', {session: fals
 });
 
 router.post('/invalidateCompany/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Utils.requireRole("Admin");
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
+
     let email = req.user.email;
     DBAccess.companies.invalidateCompany(email, (err, company) => {
         if (err)  {
@@ -45,38 +53,66 @@ router.post('/invalidateCompany/:id', passport.authenticate('jwt', {session: fal
 });
 
 router.post('/aproveThesisProposal/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Utils.requireRole("Admin");
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
+
     let id = req.query.id;
 });
 
 router.post('/cancelThesisProposal/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Utils.requireRole("Admin");
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
+
     let id = req.query.id;
 });
 
 router.post('/getFeedback', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Utils.requireRole("Admin");
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
+
     //TODO Gets feedback reports from users
 });
 
 
 router.post('/getBusinessAnalyticsLogs', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Utils.requireRole("Admin");
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
+
     //TODO Gets BA logs
 });
 
 router.post('/getBusinessAnalyticsLogsSince/:date', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Utils.requireRole("Admin");
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
+
     //TODO Gets BA logs since date
 });
 
 router.post('/getLogs/', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Utils.requireRole("Admin");
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
+
     //TODO Gets logs (normal ones)
 });
 
 router.post('/getLogsSince/:date', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Utils.requireRole("Admin");
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
+
     //TODO Gets logs (normal ones) since date
 });
 

@@ -6,7 +6,6 @@ function Utils() {
     this.replyFailure = replyFailure;
     this.requireRole = requireRole;
     this.roleIs = roleIs;
-    this.typeIs = typeIs;
 }
 
 let utils = module.exports = exports = new Utils;
@@ -40,9 +39,5 @@ function requireRole(req, res, role) {
 // roleIs is meant to be called before the DB queries.
 // It provides an extra layer of security and resources saving
 function roleIs(req, role) {
-    return req.user.__t == role
-}
-
-function typeIs(req, role) {
-    return req.user.type == role
+    return (req.user.__t === role);
 }

@@ -13,7 +13,6 @@ import { AuthService} from "../../services/auth.service";
   styleUrls: ['./gce-hash-code.component.css']
 })
 export class GceHashCodeComponent implements OnInit {
-    user:any;
   teamCaptain: string;
   teamContactPhone: string;
   teamContactEmail: string;
@@ -39,7 +38,6 @@ export class GceHashCodeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-      this.user = this.authService.loadUserProfile();
   }
 
     ngOnDestroy(): void {
@@ -59,7 +57,7 @@ export class GceHashCodeComponent implements OnInit {
 
     private setNumber(event,number) {
       this.participantsNumber = number;
-      event.path[3].firstElementChild.innerHTML = number + " <span class=\"caret\"></span>";
+      event.path[3].firstElementChild.innerHTML = number + " membros" + " <span class=\"caret\"></span>";
     }
 
   addPreSign() {
@@ -96,7 +94,7 @@ export class GceHashCodeComponent implements OnInit {
       return false;
     }
 
-      this.subscriptions.push(this.studentService.signup(this.user,signup).subscribe(data => {
+      this.subscriptions.push(this.studentService.signup(signup).subscribe(data => {
       if (data.succeeded) {
         this.flashMessage.show(data.message, {cssClass: 'alert-success', timeout: 1000});
         this.router.navigate(['/', 'next-steps']);

@@ -27,11 +27,9 @@ export class StudentDashboardProposalsComponent implements OnInit {
 
   //Apply
   proposal: string;
-  resume: string;
   motivationLetter: string;
   companyName: string;
   applicationToDelete: string;
-  toDelete: object;
 
   //Ng stuff
   closeResult: string;
@@ -72,7 +70,7 @@ export class StudentDashboardProposalsComponent implements OnInit {
   getAllProposals() {
     this.companyService.getAllCompanyAllProposals().subscribe(res => {
       this.proposals = res.response_data;
-      this.setProposalIndex("Proposal");
+      //this.setProposalIndex("Proposal");
     });
   }
 
@@ -82,11 +80,11 @@ export class StudentDashboardProposalsComponent implements OnInit {
     });
   }
 
-  setProposalIndex(prefix) {
+  /*setProposalIndex(prefix) {
     for (let i in this.proposals) {
       this.proposals[i].proposalIndex = prefix + "_" + (+i + 1);
     }
-  }
+  }*/
 
   setProposal(id, companyName) {
     this.proposal = id;
