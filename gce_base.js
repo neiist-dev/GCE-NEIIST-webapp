@@ -51,6 +51,7 @@ const logger = require('./server/log/logger');
 const fs = require('fs');
 const  helmet = require('helmet');
 const Utils = require('./server/mongodb/accesses/utils-accesses');
+const https = require('https');
 
 // Configuration ===========================================
 let dbConfig = require('./config/db');
@@ -134,18 +135,28 @@ var httpsServer = https.createServer(credentials, app);
 httpsServer.listen(8443,  () => {
     logger.info("Server running on port: " + port);
     logger.warn("Server running since: " + Utils.time);
-}); */
+});
 
+*/
 
-var https = require('https');
-var privateKey  = [fs.readFileSync('./sslcert/key.pem', 'utf8')];
-var certificate = fs.readFileSync('./sslcert/cert.pem', 'utf8');
+const privateKey  = [fs.readFileSync('./sslcert/gce.key', 'utf8')];
+const certificate = fs.readFileSync('./sslcert/gce-neiist_org.crt', 'utf8');
+const caBundle = fs.readFileSync('./sslcert/gce-neiist_org.ca-bundle');
 
-var credentials = {key: privateKey, cert: certificate, passphrase: 'damn'};
 // your express configuration here
+let credentials = {key: privateKey, cert: certificate, ca: caBundle};
+let httpsServer = https.createServer(credentials, app);
 
-var httpsServer = https.createServer(credentials, app);
+httpsServer.listen(port, () => {//https is 8443
+    logger.warn("Server running on port: " + port);
+    logger.warn("Server running since: " + Utils.time);
+});
 
-httpsServer.listen(port); //https is 8443
 
 
+/*
+app.listen(port, () => {
+        logger.info("Server running on port: " + port);
+        logger.warn("Server running since: " + Utils.time);
+    });
+*/

@@ -11,7 +11,9 @@ angular-src/.editorconfig
 #Sensitive info
 angular-src/.env.ts
 angular-src/.env.js
-
+sslcert/*
+!sslcert/cert-example.pem
+!sslcert/key-example.pem
 angular-src/public
 
 #Placeholders
