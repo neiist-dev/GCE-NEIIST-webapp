@@ -3,7 +3,6 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 import {ValidateService} from '../../services/validate.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
-import {AuthService} from '../../services/auth.service';
 import {FeedbackService} from '../../services/feedback.service';
 
 @Component({
@@ -75,22 +74,23 @@ export class FeedbackComponent implements OnInit {
       type: this.type
     };
 
-
-    //TODO: Acertar texto e embelezar
-
     if (!this.validateService.validateFeedback(feedback))  {
-      this.flashMessage.show("Por favor, preencha todos os campos", {cssClass: 'alert-danger', timeout: 5500});
+      this.flashMessage.show("Por favor, preencha todos os campos", {cssClass: 'alert-danger', timeout: 1500});
       return false;
     }
+
+      if (!this.validateService.validateTeamContact(this.email))  {
+          this.flashMessage.show('Introduz um e-mail válido, por favor.', {cssClass: 'alert-danger', timeout: 1500});
+          return false;
+      }
 
     this.feedbackService.sendFeedback(feedback).subscribe(data => {
       if (data.succeeded) {
         this.modalRef.hide();
         this.clearFeedbackForm();
-        //TODO: trocar flash message por contornado a vermelho à volta da form
-        this.flashMessage.show("Feedback enviado com sucesso", {cssClass: 'alert-success', timeout: 1000});
+        this.flashMessage.show("Feedback enviado com sucesso", {cssClass: 'alert-success', timeout: 3000});
       } else {
-        this.flashMessage.show("Feedback not sent", {cssClass: 'alert-danger', timeout: 1000});
+        this.flashMessage.show("Feedback não enviado. Contacte a administração", {cssClass: 'alert-danger', timeout: 3000});
 
       }
     });

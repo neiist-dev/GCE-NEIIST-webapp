@@ -4,22 +4,24 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
 import {StudentService} from "../../services/student.service";
 import { Subscription } from 'rxjs/Subscription';
-import { OnDestroy } from '@angular/core';
-import { ChangeDetectorRef} from '@angular/core';
+import {window} from "rxjs/operator/window";
+import { AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-gce-hash-code',
   templateUrl: './gce-hash-code.component.html',
   styleUrls: ['./gce-hash-code.component.css']
 })
-export class GceHashCodeComponent implements OnInit,OnDestroy {
+export class GceHashCodeComponent implements OnInit {
+    user:any;
   teamCaptain: string;
   teamContactPhone: string;
   teamContactEmail: string;
   teamName: string;
-  participantsNumber: number = 2;
+  participantsNumber: number = 1;
 
   acceptedTerms:boolean = false;
+  acceptedPolicy:boolean = false;
   shuttle:boolean = false;
   newsletter:boolean = false;
   private subscriptions: Array<Subscription> = [];
@@ -34,33 +36,35 @@ export class GceHashCodeComponent implements OnInit,OnDestroy {
               private flashMessage: FlashMessagesService,
               private studentService: StudentService,
               private router: Router,
-              private cd: ChangeDetectorRef
+              private authService: AuthService
   ) {}
 
   ngOnInit() {
+      this.user = this.authService.loadUserProfile();
   }
 
     ngOnDestroy(): void {
-        this.cd.detach();
         this.subscriptions.forEach((subscription: Subscription) => {
             subscription.unsubscribe();
 
         });
-
-
     }
 
-  clicked(event) {
+  clicked() {
     this.acceptedTerms = true;
   }
 
-  clickedc(event) {
+  clickedp() {
+    this.acceptedPolicy = true;
+  }
+
+  clickedc() {
     this.newsletter = true;
   }
 
     private setNumber(event,number) {
       this.participantsNumber = number;
-      event.path[3].firstElementChild.innerHTML = number + " membros" + " <span class=\"caret\"></span>";
+      event.path[3].firstElementChild.innerHTML = number + " <span class=\"caret\"></span>";
     }
 
   addPreSign() {
@@ -72,6 +76,7 @@ export class GceHashCodeComponent implements OnInit,OnDestroy {
       teamCaptain: this.teamCaptain,
       teamContactEmail: this.teamContactEmail,
       teamContactPhone: this.teamContactPhone,
+      shuttle: this.shuttle,
       newsletter: this.newsletter,
       participantsNumber: this.participantsNumber
     };
@@ -91,9 +96,18 @@ export class GceHashCodeComponent implements OnInit,OnDestroy {
       this.flashMessage.show('Introduz um e-mail válido, por favor.', {cssClass: 'alert-danger', timeout: 5000});
       return false;
     }
+      if (this.participantsNumber < 2) {
+          this.flashMessage.show("Introduz o número de membros da equipa", {cssClass: 'alert-danger', timeout: 3000});
+          return false;
+      }
 
     if (!this.acceptedTerms) {
       this.flashMessage.show("Tem de aceitar os termos antes de proceder", {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+    }
+
+    if (!this.acceptedPolicy) {
+      this.flashMessage.show("Tem de aceitar a Política de Privacidade antes de proceder", {cssClass: 'alert-danger', timeout: 3000});
       return false;
     }
 

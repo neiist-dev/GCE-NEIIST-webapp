@@ -23,7 +23,7 @@
         <br><br>
         <div class="btn-group" dropdown>
           <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-            Eu quero ...  <span class="caret"></span>
+            Ação ... <span class="caret"></span>
           </button>
           <ul *dropdownMenu class="dropdown-menu" role="menu">
             <li role="menuitem"><a class="dropdown-item" (click) = "setType($event,'Bug')">Reportar um bug</a></li>
@@ -42,8 +42,8 @@
               [ngStyle]="{display: (overStar && !isReadonly) ? 'inline' : 'none'}">{{percent}}%</span>
 
         <br><br>
-        <p>10 - Gosto bastante!</p>
-        <p>0 - De certeza que não voltarei.</p>
+        <p>10 - Muito apelativo</p>
+        <p>0 - Nada apelativo</p>
       </div>
       <div class="row">
         <div class="col-md-12">
@@ -56,8 +56,8 @@
       <div class="contact_form_message_block">
         <input [(ngModel)]="message" name="message" id="message" placeholder="Como podemos melhorar? *"  name="message">
       </div>
-        <app-feedback></app-feedback>
-      <div class="contact_form  ">
+        <flash-messages></flash-messages>
+        <div class="contact_form  ">
         <button id="submit" name="submit" class="btn btn-info btn-md">Enviar</button>
       </div>
     </form>

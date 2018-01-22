@@ -17,8 +17,10 @@ export class LoginStudentComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       let token = params['code'];
+      console.log("vai registar");
       this.authService.registerStudent(token).subscribe( response => {
         if (response.succeeded){
+            console.log("sucesso");
           this.authService.storeData(response.response_data.user, response.response_data.token);
           this.router.navigate(['dashboardStudent']);
         } else {

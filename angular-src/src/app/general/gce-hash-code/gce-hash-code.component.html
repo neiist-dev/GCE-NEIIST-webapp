@@ -153,13 +153,19 @@
                                     <br><br>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" (click)="clicked($event)"> <b>Declaro que tomei conhecimento que a pré-inscrição só garante lugar na lista de espera.</b>
+                                            <input type="checkbox" (click)="clicked()"> Declaro que tomei conhecimento que a pré-inscrição só garante lugar na lista de espera.
                                         </label>
                                     </div>
 
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" (click)="clickedc($event)"><b>Subscrever a newsletter do GCE</b>, para obter novidades sobre a plataforma e eventos semelhantes.
+                                            <input type="checkbox" (click)="clickedp()"> Declaro que li e aceito a política de privacidade.
+                                        </label>
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" (click)="clickedc()"><b>Subscrever a newsletter do GCE</b>, para obter novidades sobre a plataforma e eventos semelhantes.
                                         </label>
                                     </div>
                                     <flash-messages></flash-messages>

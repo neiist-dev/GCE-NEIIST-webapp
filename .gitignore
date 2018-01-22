@@ -16,6 +16,10 @@ sslcert/*
 !sslcert/key-example.pem
 angular-src/public
 
+#Privacy policy
+angular-src/src/app/general/privacy-policy/*
+
+
 #Placeholders
 !server/files/GoogleHashCode/placeholder.txt
 !server/files/Feedback/placeholder.txt
