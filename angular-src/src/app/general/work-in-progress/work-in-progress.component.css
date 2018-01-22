@@ -10,6 +10,7 @@
   border: none; }
 
 .panel-danger> .panel-heading {
+    background-color: indianred;
   color: #fff;
   font-size:2em;
   border: none; }
