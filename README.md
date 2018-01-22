@@ -4,7 +4,7 @@
 # GCE-NEIIST
 ![GCE-Thesis][logo]
 
-[logo]: http://groups.ist.utl.pt/~gce-neiist.daemon/assets/gce.png "GCE-Thesis"
+[logo]: https://groups.ist.utl.pt/~gce-neiist.daemon/assets/gce.png "GCE-Thesis"
 The home repository for our student's group, Grupo de Contacto com Empresas, [GCE][GCE]. 
 This is a **WIP** project.
 
@@ -109,12 +109,12 @@ from the usage of this code.
 For more information, read [LICENSE.md][license].
 
 # Contact
-Feel free to contact us using the form at <a href="http://groups.ist.utl.pt/gce-neiist/">here</a>.
+Feel free to contact us using the form at <a href="https://groups.ist.utl.pt/gce-neiist/">here</a>.
 Alternatively, <a href="mailto:rafael.belchior@tecnico.ulisboa.pt?Subject=Hello%20again" target="_top">send me an e-mail</a>.
 
 [fenix]: http://fenixedu.org/dev/api/
 [python]: https://www.python.org/
-[GCE]: http://groups.ist.utl.pt/gce-neiist/
+[GCE]: https://groups.ist.utl.pt/gce-neiist/
 [node]: http://nodejs.org/
 [angular]: https://angular.io/
 [express]: https://expressjs.com/

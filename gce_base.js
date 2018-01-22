@@ -119,44 +119,24 @@ process.on('uncaughtException', (err) => {
     }
     process.exit();
 });
-
 /*
-var fs = require('fs');
-var https = require('https');
-var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
-var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
-
-var credentials = {key: privateKey, cert: certificate};
-var express = require('express');
-
-
-var httpsServer = https.createServer(credentials, app);
-
-httpsServer.listen(8443,  () => {
-    logger.info("Server running on port: " + port);
-    logger.warn("Server running since: " + Utils.time);
-});
-
-*/
-
+//For manual installation of a SSL certificate.
 const privateKey  = [fs.readFileSync('./sslcert/gce.key', 'utf8')];
 const certificate = fs.readFileSync('./sslcert/gce-neiist_org.crt', 'utf8');
-const caBundle = fs.readFileSync('./sslcert/gce-neiist_org.ca-bundle');
 
 // your express configuration here
-let credentials = {key: privateKey, cert: certificate, ca: caBundle};
+let credentials = {key: privateKey, cert: certificate};
 let httpsServer = https.createServer(credentials, app);
 
 httpsServer.listen(port, () => {//https is 8443
     logger.warn("Server running on port: " + port);
     logger.warn("Server running since: " + Utils.time);
 });
+*/
 
-
-
-/*
+//We use Heroku, so we delegate SSL implementation to Heroku's load balancer.
 app.listen(port, () => {
         logger.info("Server running on port: " + port);
         logger.warn("Server running since: " + Utils.time);
-    });
-*/
+});
+
