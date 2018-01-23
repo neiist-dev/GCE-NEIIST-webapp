@@ -14,7 +14,6 @@ const CompanySpecificSchema = new mongoose.Schema({
     contact: {
         type: [String],
         required: false,
-        unique: true
     },
     password: {
         type: String,

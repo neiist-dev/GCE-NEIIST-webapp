@@ -1,11 +1,12 @@
 const Student = require('../models/student');
 const Utils = require('./utils-accesses');
+const AccessUser = require('./access-user');
 const TYPE = "Student";
 
 class AccessStudent {
     constructor() {
-        this.getStudentById = getStudentById;
-        this.getStudentByEmail = getStudentByEmail;
+        this.getStudentById = AccessUser.getUserById;
+        this.getStudentByEmail = AccessUser.getUserByEmail;
         this.addStudent = addStudent;
         this.addResume = addResume;
         this.getNumberOfStudents = getNumberOfStudents;
@@ -31,8 +32,7 @@ function addStudent(name, email, courses, callback) {
     let newUser = new Student({
         name: name,
         email: email,
-        courses: courses,
-        type: "Student"
+        courses: courses
     });
 
     newUser.save(callback);
@@ -72,19 +72,4 @@ function getAreasOfInterest(student, callback) {
     }
 
     callback(areaCount);
-}
-
-
-function getStudentById(id, callback) {
-    console.log(id);
-    Student.findById(id)
-      .exec(function (err, item) {
-          Utils.findByIDCallback(err, item, callback, TYPE);
-      });
-}
-
-function getStudentByEmail(email, callback) {
-    console.log(email);
-    const query = {email: email};
-    Student.findOne(query, callback);
 }

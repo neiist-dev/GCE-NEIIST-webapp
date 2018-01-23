@@ -241,7 +241,6 @@ function registerOrLogin(name, email, courses, callback) {
         else if (student === null) {
             student = DBAccess.students.addStudent(name, email, courses, function (err) {
                 if (err) {
-                    console.log(err);
                     callback("Erro a adicionar aluno",null);
                     return false;
                 } else  {
@@ -256,7 +255,7 @@ function registerOrLogin(name, email, courses, callback) {
                             name: student.name,
                             email: student.email,
                             courses: student.courses,
-                            type: "Student"
+                            type: student.__t
                         }};
         callback(null,resData);
     });
