@@ -1,24 +1,23 @@
 const mongoose = require('mongoose');
-const User = require('./user');
 
 // Student extra
-const StudentSpecificSchema = mongoose.Schema({
+const StudentSchema = mongoose.Schema({
+    name:   {
+        type: String,
+        required: true
+    },
+    email:   {
+        type: String,
+        required: true
+    },
     courses: {
         type: [String],
         required: true
     },
-    year: {
-        type: [String],
-        required: false
-    },
-    grades: {
-        type: [String],
-        required: false
-    },
-    resume: {
+    type:   {
         type: String,
-        required: false
+        required: true
     }
 });
 
-const Student = module.exports = User.discriminator('Student', StudentSpecificSchema);
+const Student = module.exports =mongoose.model('Student', StudentSchema);

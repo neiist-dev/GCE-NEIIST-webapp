@@ -38,7 +38,6 @@ router.post('/register', (req, res, next) => {
 
     let getStudentFromFenix = (token) => {
             //Token has properties: access_token, refresh token, expires in
-
            return new Promise((resolve, reject) => {
             FenixApi.person.getPerson(token.access_token, (person) =>   {
                 if (person.hasOwnProperty('error')) {
@@ -63,12 +62,13 @@ router.post('/register', (req, res, next) => {
                 if (err) {
                     //Error parsing student data. Default message will be sent to the user
                     error.content = err;
+                    error.msg = "Error parsing student data";
                     reject(error);
                 }
                 else {
                     registerOrLogin(student.name, student.email, student.courses, (err, data) => {
                         if (err)    {
-                            error.msg = "";
+                            error.msg = "Erro a registar aluno";
                             error.content = err;
                             reject(error);
                         }   else    {
@@ -100,7 +100,8 @@ router.post('/register', (req, res, next) => {
 
 router.get('/myApplications', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     UtilsRoutes.requireRole(req, res, 'Student');
-
+    //TODO
+    return false;
     let studentEmail = req.user.email;
     DBAccess.applications.getValidApplicationsByStudentEmail(studentEmail, (err, applications) => {
         if (err) {
@@ -233,12 +234,14 @@ module.exports = router;
 function registerOrLogin(name, email, courses, callback) {
     DBAccess.students.getStudentByEmail(email, function (err, student) {
         if (err) {
+            console.log(err);
             callback("Erro a pesqueisar na base de dados",null);
             return;
         }
         else if (student === null) {
             student = DBAccess.students.addStudent(name, email, courses, function (err) {
                 if (err) {
+                    console.log(err);
                     callback("Erro a adicionar aluno",null);
                     return false;
                 } else  {
@@ -246,16 +249,14 @@ function registerOrLogin(name, email, courses, callback) {
                 }
             });
         }
+
         const token = jwt.sign(student, DbConfig.DB_SECRET, {expiresIn: 3600});
         const resData = {token: 'bearer ' + token,
                         user: {
-                            id: student.id,
                             name: student.name,
                             email: student.email,
-                            type: student.__t,
-                            grades: student.grades,
-                            year: student.year,
-                            courses: student.courses
+                            courses: student.courses,
+                            type: "Student"
                         }};
         callback(null,resData);
     });

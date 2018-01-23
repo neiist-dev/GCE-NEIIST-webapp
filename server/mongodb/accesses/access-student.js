@@ -1,10 +1,11 @@
 const Student = require('../models/student');
-const AccessUser = require('./access-user');
+const Utils = require('./utils-accesses');
+const TYPE = "Student";
 
 class AccessStudent {
     constructor() {
-        this.getStudentById = AccessUser.getUserById;
-        this.getStudentByEmail = AccessUser.getUserByEmail;
+        this.getStudentById = getStudentById;
+        this.getStudentByEmail = getStudentByEmail;
         this.addStudent = addStudent;
         this.addResume = addResume;
         this.getNumberOfStudents = getNumberOfStudents;
@@ -30,7 +31,8 @@ function addStudent(name, email, courses, callback) {
     let newUser = new Student({
         name: name,
         email: email,
-        courses: courses
+        courses: courses,
+        type: "Student"
     });
 
     newUser.save(callback);
@@ -60,11 +62,11 @@ function getAreasOfInterest(student, callback) {
     let areaCount = {
         "Machine Learning": 0,
         "Knowledge discovery": 0
-    }
+    };
 
     let courses = student.courses;
     for (var i in courses) {
-        areasOfCourse = hardMappingCourseArea[courses[i]]
+        areasOfCourse = hardMappingCourseArea[courses[i]];
         for (var j in areasOfCourse)
             areaCount[areasOfCourse[j]] = areaCount[areasOfCourse[j]] + 1;
     }
@@ -73,3 +75,16 @@ function getAreasOfInterest(student, callback) {
 }
 
 
+function getStudentById(id, callback) {
+    console.log(id);
+    Student.findById(id)
+      .exec(function (err, item) {
+          Utils.findByIDCallback(err, item, callback, TYPE);
+      });
+}
+
+function getStudentByEmail(email, callback) {
+    console.log(email);
+    const query = {email: email};
+    Student.findOne(query, callback);
+}
