@@ -16,6 +16,7 @@ const WRONG_PASSWORD_PART_2 = " tentativas restantes.";
 const WRONG_PASSWORD_INVALIDATE = "Errou todas as tentativas. A sua conta encontra-se invalidada. Por favor contacte a administração";
 const USER_INVALID = "A sua conta está invalidada. Por favor contacte a administração";
 const USER_UNCONFIRMED = "A sua conta está por confirmar. Por favor contacte a administração, para que se proceda à ativação da conta";
+const ERROR_F = "Não foi possível adicionar feedback. Por favor contacte a administração";
 
 router.post('/login', (req, res, next) => {
     const email = req.body.username;
@@ -109,8 +110,19 @@ router.post('/feedback', (req, res, next) => {
     const message = req.body.message;
     const rate = req.body.rate;
     const entity = req.body.entity;
-    const type = req.body.type;
+    const intention = req.body.type;
 
+    DBAccess.feedback.addFeedback(name, entity,email,
+                                    rate,message,intention,  (err) => {
+          if (err)  {
+              console.log(err);
+              return UtilsRoutes.replyFailure(res,err,ERROR_F);
+          }  else {
+              return UtilsRoutes.replySuccess(res,"","");
+          }
+      });
+
+    /*Save as a file
     fileContent =   "[TYPE]:" + type + "\n" +
                     "[RATE]:" + rate + "\n" +
                     "[NOME]:" + name + "\n" + "[EMAIL]:" + email + "\n" +
@@ -126,7 +138,7 @@ router.post('/feedback', (req, res, next) => {
         ba_logger.ba("Feedback:" + email + ":Gave Feedback:" + Utils.utc);
         UtilsRoutes.replySuccess(res, "", "Feedback foi enviado com sucesso");
     });
-
+    */
 });
 
 module.exports = router;

@@ -4,9 +4,14 @@ const UtilsRoutes = require('./utils-routes');
 const multer = require('multer');
 const ba_logger = require('../log/ba_logger');
 const Utils = require('../mongodb/accesses/utils-accesses');
+const passport = require('passport');
+const DBAccess = require('../mongodb/accesses/mongo-access');
+const ERROR = "Não foi possível concluir o registo. Contacte a administração.";
+
+//If you wish to save signups as a file
 const fs = require('fs');
 const path = require('path');
-const passport = require('passport');
+
 
 //Others, related with student
 router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (req, res, next) => {
@@ -14,16 +19,29 @@ router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem inscrever-se");
         return;
     }
-    // return false se n
+
     const teamName = req.body.signup.teamName;
     const teamCaptain = req.body.signup.teamCaptain;
     const teamContactEmail = req.body.signup.teamContactEmail;
     const teamContactPhone = req.body.signup.teamContactPhone;
     const newsletter = req.body.signup.newsletter;
     const participantsNumber = req.body.signup.participantsNumber;
-    const nomeAluno = req.user.name;
+    //const nomeAluno = req.user.name;
     const emailAluno = req.user.email;
 
+    DBAccess.signup.addPreSignup(teamName, teamCaptain,teamContactEmail,
+                                teamContactPhone,participantsNumber,newsletter,emailAluno,  (err) => {
+        if (err)  {
+            console.log(err);
+            return UtilsRoutes.replyFailure(res,err,ERROR);
+        }  else {
+            return UtilsRoutes.replySuccess(res,"","");
+        }
+    });
+
+
+
+    /* Save as a file
     fileContent =
         "[EQUIPA]:" + teamName + "\n" +
         "[RESPONSÁVEL]:" + teamCaptain + "\n" +
@@ -37,6 +55,8 @@ router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (
         "[NOME]:"  + nomeAluno + "\n" +
         "[EMAIL]:" + emailAluno;
 
+
+
     const filePath = '../files/GoogleHashCode/' + emailAluno + " [" + Date.now() + "].txt";
 
     fs.writeFile(path.join(__dirname, filePath), fileContent, function (err) {
@@ -47,6 +67,7 @@ router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (
         ba_logger.ba("Nova Pré-Inscrição:" + teamCaptain + ":" + Utils.utc);
         UtilsRoutes.replySuccess(res, "", "Inscrição efetuado com sucesso");
     });
+    */
 
 });
 
