@@ -1,13 +1,4 @@
-<div class="container">
-    <div class="col-lg-6"></div>
-    <div class="col-lg-4">
-
-        <button type="button" [routerLink]="['/hashcode']" class="btn btn-warning bigFont" aria-label="Left Align">
-            <i class="fa fa-google"> Hash Code</i>
-        </button>
-
-
-    </div>
+    <div class="container middlePage">
     <br><br>
     <div class="row">
 
@@ -69,8 +60,8 @@
         <div class="centered panel panel-success">
           <div class="panel-heading">As Minhas Candidaturas</div>
           <div class="panel-body">
-              <div *ngIf="applications"><p>Não te candidataste a nenhuma proposta</p></div>
-              <div *ngIf="!applications">
+              <div *ngIf="!applications"><p>Não te candidataste a nenhuma proposta</p></div>
+              <div *ngIf="applications">
                 <table id="proposalTable" class="table table-striped">
                   <thead>
                   <tr>

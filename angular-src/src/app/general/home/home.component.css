@@ -29,7 +29,7 @@
 }
 
 .serviço1 {
-  color: #008CC9;
+  color: #337ab7;
   font-size:80px;
 }
 .serviço2 {
@@ -83,6 +83,10 @@
 
 .white  {
     color:white;
+}
+
+.social {
+    margin-left: 0.4em;
 }
 
 html, body{

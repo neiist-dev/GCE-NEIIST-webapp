@@ -29,11 +29,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   clickCompany() {
-    this.router.navigate(['/register/company'], );
+    this.router.navigate(['/login'], );
   }
-
-  clickPartner() {
-    this.router.navigate(['/register/partner'], );
-  }
-
 }

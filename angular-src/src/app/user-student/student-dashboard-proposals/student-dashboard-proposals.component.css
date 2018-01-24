@@ -1,5 +1,5 @@
 .panel-info > .panel-heading {
-  background-color: #30a5ff;
+  background-color: #337ab7;
   color: #fff;
   font-size:2.5em;
   border: none; }
@@ -18,4 +18,9 @@
   word-wrap: break-word;
   min-width: 160px;
   max-width: 160px;
+}
+.middlePage {
+    width: 70%;
+    height: 50em;
+    margin: auto;
 }
