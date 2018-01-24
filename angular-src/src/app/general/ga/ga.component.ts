@@ -7,7 +7,6 @@ import { secrets } from '../../../../.env';
   styleUrls: ['./ga.component.css']
 })
 export class GAComponent implements OnInit {
-  googleAnalyticsId = secrets.GOOGLE_ANALYTICS;
   constructor() { }
 
   ngOnInit() {
