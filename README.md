@@ -65,7 +65,7 @@ In order to run the project the required libraries need to be installed.
    
 7. Set the appropriate public path on staticRoot, in order index.html to be loaded, if necessary.
 8. Rename ``.env.example`` to ``.env``. Set the environment variables for the front end, by editing ``.env``.
-9. Go to ``angular-src`` and run ``npm install``. **In case of error, make sure you have set ``.env``**`.
+9. Go to ``angular-src`` and run ``npm install``. **In case of error, make sure you have set ``.env``**.
 
 OPTIONAL:
 1. I recommend installing and using [nodemon][nodemon], in order to reload changes automatically. It's a big time saver.
@@ -91,13 +91,16 @@ If it is a question about philosophy or similar, feel free to contact me.
 
 ### A list of contributors (add yourself if you wish)
 
-+ Rafael Belchior (project lead), [GCE][GCE]
++ Rafael Belchior, (project lead), [GCE][GCE]
 
-+ Daniel Ramos, [GCE][GCE]
++ Daniel Ramos, (committer),[GCE][GCE]
 
-+ Inês Sequeira, [GCE][GCE]
++ Inês Sequeira, (committer),[GCE][GCE]
 
 + Jorge Heleno, [GCE][GCE]
+
+If you are interested in contributing, this is a  [fine reading][open-source].
+
 
 ---
 
@@ -112,9 +115,12 @@ For more information, read [LICENSE.md][license].
 Feel free to contact us using the form at <a href="https://groups.ist.utl.pt/gce-neiist/">here</a>.
 Alternatively, <a href="mailto:rafael.belchior@tecnico.ulisboa.pt?Subject=Hello%20again" target="_top">send me an e-mail</a>.
 
+# Code of Conduct
+We follow [Convenant Code Of Conduct][CC].
+
 [fenix]: http://fenixedu.org/dev/api/
 [python]: https://www.python.org/
-[GCE]: https://groups.ist.utl.pt/gce-neiist/
+[GCE]: https://gce-neiist.org/
 [node]: http://nodejs.org/
 [angular]: https://angular.io/
 [express]: https://expressjs.com/
@@ -124,3 +130,5 @@ Alternatively, <a href="mailto:rafael.belchior@tecnico.ulisboa.pt?Subject=Hello%
 [contributing]: https://github.com/RafaelAPB/GCE-Thesis/blob/master/CONTRIBUTING.md
 [license]: https://github.com/RafaelAPB/GCE-Thesis/blob/master/LICENSE.md
 [nodemon]: https://nodemon.io/
+[open-source]: https://opensource.guide/how-to-contribute/
+[CC]: https://www.contributor-covenant.org/version/1/4/code-of-conduct.html

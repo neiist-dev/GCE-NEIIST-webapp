@@ -13,7 +13,7 @@ function Utils() {
     this.quickRemove = quickRemove;
     this.comparePassword = comparePassword;
     this.utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-    this.time = new Date().toJSON().slice(0,16).replace(/-/g,'/').replace("T"," ") + "h";
+    this.time = new Date().toJSON().slice(0,16).replace(/-/g,'/') + "h";
 }
 
 let utils = module.exports = exports = new Utils;
