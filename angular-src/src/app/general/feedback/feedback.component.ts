@@ -11,7 +11,7 @@ import {FeedbackService} from '../../services/feedback.service';
   styleUrls: ['./feedback.component.css']
 })
 export class FeedbackComponent implements OnInit {
-  public max:number = 10;
+  public max:number = 5;
   public rate:number = null;
   public isReadonly:boolean = false;
   public entity:string;
