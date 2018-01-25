@@ -71,11 +71,11 @@ mongoose.connection.on("error", (dbError) => {
 //Initialize app
 const app = express();
 
-//Logs platform's requests to the console (dev relevant, only)
-app.use(morgan('dev'));
+//Summarized version, output goes to console
+app.use(morgan(':remote-addr :method :url'));
 
-//Logs platform's requests to file
-app.use((morgan)("combined", {stream: logger.stream}));
+//Full log to file
+app.use((morgan)("common", {stream: logger.stream}));
 // Security ===========================================
 //Defaults:
 

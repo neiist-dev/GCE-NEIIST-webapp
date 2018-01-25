@@ -118,6 +118,8 @@ router.post('/feedback', (req, res, next) => {
               console.log(err);
               return UtilsRoutes.replyFailure(res,err,ERROR_F);
           }  else {
+              ba_logger.ba("BA|"+ "F|"+ email + "|" + rate + "|" +
+                new Date().toJSON().slice(0,16).replace(/-/g,'/') + "h");
               return UtilsRoutes.replySuccess(res,"","");
           }
       });

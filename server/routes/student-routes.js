@@ -16,6 +16,7 @@ const ERROR = "An error occurred in student-routes";
 
 router.post('/register', (req, res, next) => {
     const code = req.body.tokenq;
+    const ip = req.connection.remoteAddress;
 
     let error = {
         content: "Nothing defined",
@@ -66,12 +67,14 @@ router.post('/register', (req, res, next) => {
                     reject(error);
                 }
                 else {
-                    registerOrLogin(student.name, student.email, student.courses, (err, data) => {
+                    registerOrLogin(student.name, student.email, student.courses, ip, (err, data) => {
                         if (err)    {
                             error.msg = "Erro a registar aluno";
                             error.content = err;
                             reject(error);
                         }   else    {
+                            ba_logger.ba("BA|"+ "L|" + student.email + "|" + ip + "|"
+                              +  new Date().toJSON().slice(0,16).replace(/-/g,'/') + "h");
                             UtilsRoutes.replySuccess(res,data,"Sucesso a fazer login");
                         }
                     });
@@ -125,7 +128,6 @@ router.put('/applications/invalidate', passport.authenticate('jwt', {session: fa
         if (err)  {
             return UtilsRoutes.replyFailure(res,err, "Não foi possível apagar a candidatura");
         }  else {
-            ba_logger.ba("Application:"+ "deleted:" + studentEmail);
             return UtilsRoutes.replySuccess(res,result,"A candidatura foi apagada");
         }
     });
@@ -183,7 +185,6 @@ router.post('/saveResume', passport.authenticate('jwt', {session: false}), funct
                 UtilsRoutes.replyFailure(res,"", 'Ocorreu um erro interno. Contacte a administração');
             } else  {
                 UtilsRoutes.replySuccess(res,"", 'O seu CV foi guardado com sucesso. Já se pode candidatar a propostas');
-                ba_logger.ba("CV:"+ studentEmail);
             }
         }
     });
@@ -209,7 +210,6 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), (req, res,
                 UtilsRoutes.replyFailure(res, err, ERROR);
             } else {
                 UtilsRoutes.replySuccess(res, application);
-                ba_logger.ba("Application:"+ studentEmail + ":" + company);
             }
         });
 });
@@ -231,7 +231,7 @@ module.exports = router;
  *  Aux Functions
  *******************************/
 
-function registerOrLogin(name, email, courses, callback) {
+function registerOrLogin(name, email, courses, ip, callback) {
     DBAccess.students.getStudentByEmail(email, function (err, student) {
         if (err) {
             console.log(err);
@@ -244,7 +244,7 @@ function registerOrLogin(name, email, courses, callback) {
                     callback("Erro a adicionar aluno",null);
                     return false;
                 } else  {
-                    ba_logger.ba("New student:"+ email);
+                    ba_logger.ba("BA|"+ "NS|" + student.email + "|" + ip);
                 }
             });
         }

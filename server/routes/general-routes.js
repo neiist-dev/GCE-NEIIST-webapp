@@ -35,6 +35,7 @@ router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (
             console.log(err);
             return UtilsRoutes.replyFailure(res,err,ERROR);
         }  else {
+            ba_logger.ba("BA|"+ "GHC|" + emailAluno + "|" + participantsNumber + "|" + new Date().toJSON().slice(0,16).replace(/-/g,'/')+ "h");
             return UtilsRoutes.replySuccess(res,"","");
         }
     });
