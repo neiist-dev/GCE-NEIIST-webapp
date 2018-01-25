@@ -6,7 +6,9 @@
 
 [logo]: https://groups.ist.utl.pt/~gce-neiist.daemon/assets/gce.png "GCE-Thesis"
 The home repository for our student's group, Grupo de Contacto com Empresas, [GCE][GCE]. 
-This is a **WIP** project.
+We have built the platform from scratch. Unfortunately, we had to create a new repository,
+due to api keys leaked on the first one.
+Note that this is a **WIP** project.
 
 ## Features
 - [X] Informative service about the group.
@@ -61,11 +63,11 @@ In order to run the project the required libraries need to be installed.
     5. REDIRECT_URL = [INSERT VALUE]
     6. REDIRECT_URL_PROF = [INSERT VALUE]
     
-    Note: If you wish to integrate your app with FenixEdu, using [FenixApi][Fenix] set variables from 4 to 7.
+    Note: If you wish to integrate FenixEdu in your app, using [FenixApi][Fenix] set variables from 4 to 7.
    
 7. Set the appropriate public path on staticRoot, in order index.html to be loaded, if necessary.
 8. Rename ``.env.example`` to ``.env``. Set the environment variables for the front end, by editing ``.env``.
-9. Go to ``angular-src`` and run ``npm install``. **In case of error, make sure you have set ``.env``**.
+9. Go to ``angular-src`` and run ``npm install``. **In case of error, make sure you have completed step 8**.
 
 OPTIONAL:
 1. I recommend installing and using [nodemon][nodemon], in order to reload changes automatically. It's a big time saver.
@@ -112,7 +114,7 @@ from the usage of this code.
 For more information, read [LICENSE.md][license].
 
 # Contact
-Feel free to contact us using the form at <a href="https://groups.ist.utl.pt/gce-neiist/">here</a>.
+Feel free to contact us using the feedback form at <a href="https://gce-neiist.org">gce-neiist.org</a>.
 Alternatively, <a href="mailto:rafael.belchior@tecnico.ulisboa.pt?Subject=Hello%20again" target="_top">send me an e-mail</a>.
 
 # Code of Conduct
