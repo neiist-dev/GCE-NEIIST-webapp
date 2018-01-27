@@ -48,7 +48,6 @@ import { MaintenanceComponent } from './general/maintenance/maintenance.componen
 import { StudentDashboardProposalsComponent } from './user-student/student-dashboard-proposals/student-dashboard-proposals.component';
 import { WorkInProgressComponent } from './general/work-in-progress/work-in-progress.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { GAComponent } from './general/ga/ga.component';
 import { PrivacyPolicyComponent } from './general/privacy-policy/privacy-policy.component';
 import { TermsUsageComponent } from './general/terms-usage/terms-usage.component';
 import { FaqComponent } from './general/faq/faq.component';
@@ -118,7 +117,6 @@ const appRoutes: Routes = [
     MaintenanceComponent,
     StudentDashboardProposalsComponent,
     WorkInProgressComponent,
-    GAComponent,
     PrivacyPolicyComponent,
     TermsUsageComponent,
     FaqComponent,
