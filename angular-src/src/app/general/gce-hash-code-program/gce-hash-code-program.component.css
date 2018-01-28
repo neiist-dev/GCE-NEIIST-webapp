@@ -1,0 +1,34 @@
+.bg{
+    background:url("https://groups.ist.utl.pt/gce-neiist/assets/img/ghc.jpg") no-repeat 0px 0px;
+    background-size:cover;
+}
+.middlePage {
+    width: 70%;
+    height: 100%;
+    margin: auto;
+}
+.panel-info > .panel-heading {
+    background-color: #337ab7;
+    color: #fff;
+    font-size:3em;
+    border: none; }
+
+.panel-red > .panel-heading {
+    background-color: #db3236;
+    color: #fff;
+    font-size:3em;
+    border: none; }
+
+.panel-yellow > .panel-heading {
+    background-color: #f4c20d;
+    color: #fff;
+    font-size:2em;
+    border: none; }
+
+.centered {
+    text-align: center;
+}
+
+a{
+    color:white;
+}

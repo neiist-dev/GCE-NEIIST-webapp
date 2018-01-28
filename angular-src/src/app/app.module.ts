@@ -56,6 +56,8 @@ import { GceHashCodeNextComponent } from './general/gce-hash-code-next/gce-hash-
 import { secrets } from  '../../.env';
 import { UploadCvComponent } from './general/upload-cv/upload-cv.component';
 import { FbComponent } from './general/fb/fb.component';
+import { GceHashCodeProgramComponent } from './general/gce-hash-code-program/gce-hash-code-program.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -81,7 +83,7 @@ const appRoutes: Routes = [
   {path: 'wip', component: ComingSoonComponent},
   {path: 'terms-of-use', component: TermsUsageComponent},
   {path: 'privacy-policy', component: PrivacyPolicyComponent},
-  {path: 'faq', component: FaqComponent},
+  {path: 'faq', component: FaqComponent, canActivate:[AuthGuardService]},
   {path: 'hashcode', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
   {path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]}
 
@@ -123,7 +125,8 @@ const appRoutes: Routes = [
     GceHashCodeComponent,
     GceHashCodeNextComponent,
     UploadCvComponent,
-    FbComponent
+    FbComponent,
+    GceHashCodeProgramComponent
   ],
   imports: [
     BrowserModule,
@@ -138,6 +141,7 @@ const appRoutes: Routes = [
     ProgressbarModule.forRoot(),
     RatingModule.forRoot(),
     BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: secrets.GOOGLE_MAPS,
     }),

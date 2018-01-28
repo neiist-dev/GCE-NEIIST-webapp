@@ -14,17 +14,6 @@
 .fb {
 }
 
-.panel-red > .panel-heading {
-  background-color: #db3236;
-  color: #fff;
-  font-size:3em;
-  border: none; }
-
-.panel-yellow > .panel-heading {
-  background-color: #f4c20d;
-  color: #fff;
-  font-size:2em;
-  border: none; }
 
 .panel-blue > .panel-heading {
   background-color: #4885ed;
