@@ -131,7 +131,7 @@ body a{
 }
 /*---- benner ----*/
 .banner-info{
-  padding: 9em 0 12em;
+  padding: 2em 0 12em;
 }
 .banner-info h1{
   font-weight: 700;
@@ -1373,7 +1373,7 @@ nav a#pull {
 }
 /*---- benner ----*/
 .banner-info{
-  padding: 9em 0 12em;
+  padding: 5em 0 12em;
 }
 .banner-info h1{
   font-weight: 700;
@@ -2273,7 +2273,7 @@ a.leran-more:hover{
     padding: 0.5em 1em 0em 1em;
   }
   .banner-info {
-    padding: 2em 0 3em;
+    padding: 1em 0 3em;
   }
   .banner-info h1 {
     font-size: 1.2em;
