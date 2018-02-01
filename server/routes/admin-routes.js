@@ -116,5 +116,21 @@ router.post('/getLogsSince/:date', passport.authenticate('jwt', {session: false}
     //TODO Gets logs (normal ones) since date
 });
 
+router.get('/getStudents',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    UtilsRoutes.requireRole(req, res, 'Admin');
+    //CAN BYPASS? FIXME
+
+
+    DBAccess.students.getStudents((err, users) => {
+        var userMap = {};
+
+        users.forEach(function(user) {
+            userMap[user._id] = user;
+        });
+
+        res.send(userMap);
+    });
+});
+
 
 module.exports = router;

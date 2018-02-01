@@ -12,6 +12,7 @@ class AccessStudent {
         this.getNumberOfStudentsPerCourse = getNumberOfStudentsPerCourse;
         this.getNumberOfStudents = getNumberOfStudents;
         this.getAreasOfInterest = getAreasOfInterest;
+        this.getStudents = getStudents;
     }
 
     /*Can we just define
@@ -77,4 +78,8 @@ function getAreasOfInterest(student, callback) {
     }
 
     callback(areaCount);
+}
+
+function getStudents(callback) {
+    Student.find({}, callback);
 }
