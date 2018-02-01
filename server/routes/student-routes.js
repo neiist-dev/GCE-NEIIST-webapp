@@ -224,6 +224,16 @@ router.get('/numberOfStudents', (req, res, next) => {
     });
 });
 
+router.get('/numberOfStudentsPerCourse', (req, res, next) => {
+    DBAccess.students.getNumberOfStudentsPerCourse((err, result) => {
+        if (err) {
+            return UtilsRoutes.replyFailure(res,err,ERROR);
+        } else {
+            return UtilsRoutes.replySuccess(res,result,"");
+        }
+    });
+});
+
 module.exports = router;
 
 

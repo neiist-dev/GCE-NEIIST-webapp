@@ -9,6 +9,7 @@ class AccessStudent {
         this.getStudentByEmail = AccessUser.getUserByEmail;
         this.addStudent = addStudent;
         this.addResume = addResume;
+        this.getNumberOfStudentsPerCourse = getNumberOfStudentsPerCourse;
         this.getNumberOfStudents = getNumberOfStudents;
         this.getAreasOfInterest = getAreasOfInterest;
     }
@@ -49,6 +50,10 @@ function addResume(id, resume, callback) {
 
 function getNumberOfStudents(callback) {
     Student.count(callback);
+}
+
+function getNumberOfStudentsPerCourse(callback) {
+    Student.aggregate([ {$group : { _id : '$courses', count : {$sum : 1}} }], callback);
 }
 
 
