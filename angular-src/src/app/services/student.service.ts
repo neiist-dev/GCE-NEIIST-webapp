@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers} from "@angular/http";
+import { Http, Headers} from '@angular/http';
 import { environment } from './../../environments/environment';
 import { AuthService} from './auth.service';
 import 'rxjs/add/operator/map'
@@ -11,9 +11,16 @@ export class StudentService {
 
   getTotalNumberOfRegisteredStudents() {
     let headers = new Headers();
-    headers.append('Content-Type','application/json');
+    headers.append('Content-Type', 'application/json');
     this.authService.loadTokenUser(headers);
     return this.http.get('student/numberOfStudents', {headers: headers}).map(res => res.json());
+  }
+
+  getTotalNumberOfRegisteredStudentsPerCourse() {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      this.authService.loadTokenUser(headers);
+      return this.http.get('student/numberOfStudentsPerCourse', {headers: headers}).map(res => res.json());
   }
 
   saveResume(student) {

@@ -31,6 +31,7 @@ export class InfoComponent implements OnInit {
     this.getNumberOfProposals();
     this.getNumberOfCompanies();
     this.getNumberOfStudents();
+    this.getNumberOfStudentsPerCourse();
   }
 
   getNumberOfProposals()  {
@@ -47,6 +48,11 @@ export class InfoComponent implements OnInit {
   getNumberOfStudents()  {
     this.studentService.getTotalNumberOfRegisteredStudents().subscribe(res => {
       this.numberOfStudents = res.response_data;
+    });
+  }
+  getNumberOfStudentsPerCourse() {
+    this.studentService.getTotalNumberOfRegisteredStudentsPerCourse().subscribe(res => {
+        console.log(res.response_data); // FIXME
     });
   }
 
