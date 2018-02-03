@@ -31,7 +31,7 @@ router.post('/aproveCompany/:email', passport.authenticate('jwt', {session: fals
     });
 });
 
-router.post('/invalidateCompany/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.post('/invalidateCompany', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     if(!UtilsRoutes.roleIs(req, 'Admin'))    {
         UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
         return;
@@ -98,7 +98,7 @@ router.post('/getBusinessAnalyticsLogsSince/:date', passport.authenticate('jwt',
     //TODO Gets BA logs since date
 });
 
-router.post('/getLogs/', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.get('/getLogs', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     if(!UtilsRoutes.roleIs(req, 'Admin'))    {
         UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
         return;
@@ -112,23 +112,40 @@ router.post('/getLogsSince/:date', passport.authenticate('jwt', {session: false}
         UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
         return;
     }
-
     //TODO Gets logs (normal ones) since date
 });
 
 router.get('/getStudents',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    UtilsRoutes.requireRole(req, res, 'Admin');
-    //CAN BYPASS? FIXME
-
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
 
     DBAccess.students.getStudents((err, users) => {
-        var userMap = {};
+        let userMap = {};
 
-        users.forEach(function(user) {
+        users.forEach( (user) => {
             userMap[user._id] = user;
         });
 
         res.send(userMap);
+    });
+});
+
+router.get('/getStudentEmails',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+        return;
+    }
+
+    DBAccess.students.getStudents((err, users) => {
+        let emails = [];
+
+        users.forEach( (user) => {
+            emails.push(user.email);
+        });
+
+        res.send(emails);
     });
 });
 
