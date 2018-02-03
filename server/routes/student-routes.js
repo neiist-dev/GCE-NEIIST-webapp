@@ -102,9 +102,11 @@ router.post('/register', (req, res, next) => {
 });
 
 router.get('/myApplications', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    UtilsRoutes.requireRole(req, res, 'Student');
-    //TODO
-    return false;
+    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
+
     let studentEmail = req.user.email;
     DBAccess.applications.getValidApplicationsByStudentEmail(studentEmail, (err, applications) => {
         if (err) {
@@ -115,9 +117,12 @@ router.get('/myApplications', passport.authenticate('jwt', {session: false}), (r
     });
 });
 
+//FIXME Not needed now
 router.put('/applications/invalidate', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    UtilsRoutes.requireRole(req, res, 'Student');
-
+    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
     //TODO not needed now
     return false;
 
@@ -133,9 +138,12 @@ router.put('/applications/invalidate', passport.authenticate('jwt', {session: fa
     });
 });
 
+//FIXME Not needed now
 router.post('/saveResume', passport.authenticate('jwt', {session: false}), function (req, res) {
-    UtilsRoutes.roleIs(req, res, 'Student');
-
+    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
     //TODO not needed now
     return false;
     //We will use the student's email as a way to store their CV
@@ -190,8 +198,12 @@ router.post('/saveResume', passport.authenticate('jwt', {session: false}), funct
     });
 });
 
+//FIXME Not needed now
 router.post('/apply', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    UtilsRoutes.requireRole(req, res, 'Student');
+    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
 
 
     //TODO not needed now
@@ -214,6 +226,7 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), (req, res,
         });
 });
 
+//Public info
 router.get('/numberOfStudents', (req, res, next) => {
     DBAccess.students.getNumberOfStudents((err, number) => {
         if (err) {
@@ -224,6 +237,7 @@ router.get('/numberOfStudents', (req, res, next) => {
     });
 });
 
+//Public info
 router.get('/numberOfStudentsPerCourse', (req, res, next) => {
     DBAccess.students.getNumberOfStudentsPerCourse((err, result) => {
         if (err) {
