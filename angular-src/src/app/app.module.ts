@@ -53,7 +53,7 @@ import { TermsUsageComponent } from './general/terms-usage/terms-usage.component
 import { FaqComponent } from './general/faq/faq.component';
 import { GceHashCodeComponent } from './general/gce-hash-code/gce-hash-code.component';
 import { GceHashCodeNextComponent } from './general/gce-hash-code-next/gce-hash-code-next.component';
-import { secrets } from  '../../.env';
+import { Vars } from  '../../.env';
 import { UploadCvComponent } from './general/upload-cv/upload-cv.component';
 import { FbComponent } from './general/fb/fb.component';
 import { GceHashCodeProgramComponent } from './general/gce-hash-code-program/gce-hash-code-program.component';
@@ -145,7 +145,7 @@ const appRoutes: Routes = [
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: secrets.GOOGLE_MAPS,
+      apiKey: Vars.GOOGLE_MAPS,
     }),
     FlashMessagesModule,
   ],

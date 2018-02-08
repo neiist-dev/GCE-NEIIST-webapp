@@ -13,12 +13,9 @@ export class NavbarComponent implements OnInit {
   type: string;
   link: string;
   LogoPath: string;
-  LogoWidth: string;
-  LogoHeight: string;
   name: string = "Perfil";
 
-  constructor(private authService: AuthService, private router: Router,
-              private flashMessage: FlashMessagesService
+  constructor(private authService: AuthService, private router: Router
   ) {
     this.LogoPath = "/assets/img/gce.png";
 

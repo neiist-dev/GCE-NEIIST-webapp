@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from "@angular/http";
-import { environment } from './../../environments/environment';
 import {AuthService} from './auth.service';
 import 'rxjs/add/operator/map';
 
@@ -60,4 +59,7 @@ export class CompanyService {
     return this.http.put('company/addProposal', proposal, {headers: headers}).map(res => res.json());
   }
 
+    loadCompanyProfile()    {
+      return this.authService.loadUserProfile();
+    }
 }

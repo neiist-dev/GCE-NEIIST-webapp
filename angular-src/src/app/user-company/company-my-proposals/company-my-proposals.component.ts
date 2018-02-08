@@ -1,8 +1,6 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {ValidateService} from '../../services/validate.service';
-import {AuthService} from '../../services/auth.service';
-import {Router} from '@angular/router';
 import {CompanyService} from '../../services/company.service';
 import {BsModalService} from "ngx-bootstrap/modal";
 
@@ -21,8 +19,6 @@ export class CompanyMyProposalsComponent implements OnInit {
 
   constructor(private validateService: ValidateService,
               private flashMessage: FlashMessagesService,
-              private authService: AuthService,
-              private router: Router,
               private companyService: CompanyService,
               private modalService: BsModalService) {
   }

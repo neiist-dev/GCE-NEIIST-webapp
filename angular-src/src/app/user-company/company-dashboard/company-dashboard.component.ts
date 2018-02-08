@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { ValidateService } from '../../services/validate.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { Router } from '@angular/router';
-import {InfoComponent} from '../../general/info/info.component';
 import {CompanyService} from '../../services/company.service';
+import {InfoComponent} from '../../general/info/info.component';
 import { NgModule } from '@angular/core';
 
 @NgModule({
@@ -23,15 +19,11 @@ export class DashboardCompanyComponent implements OnInit {
   [key: string]: any;
 
 
-  constructor(private validateService: ValidateService,
-              private flashMessage: FlashMessagesService,
-              private authService: AuthService,
-              private router: Router,
-              private companyService: CompanyService) {
+  constructor(private companyService: CompanyService) {
   }
 
   ngOnInit() {
-    this.company = this.authService.loadUserProfile();
+    this.company = this.companyService.loadCompanyProfile();
     const companyName = this.company.name;
   }
 }

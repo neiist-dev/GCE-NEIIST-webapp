@@ -1,6 +1,5 @@
 import { Component, OnInit,TemplateRef  } from '@angular/core';
 import { NgModule } from '@angular/core';
-import {AuthService} from '../../services/auth.service';
 import {CompanyService} from '../../services/company.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -25,8 +24,7 @@ export class ShowAllProposalsComponent implements OnInit {
   modalRef: any;
   currentProposal: object;
   index: number;
-  constructor(private authService: AuthService,
-              private companyService: CompanyService,
+  constructor(private companyService: CompanyService,
               private flashMessage: FlashMessagesService,
               private modalService: BsModalService) { }
 

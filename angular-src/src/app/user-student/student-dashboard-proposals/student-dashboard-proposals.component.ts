@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { MatchmakingService } from '../../services/matchmaking.service';
-import { ValidateService } from '../../services/validate.service';
-import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { StudentService } from '../../services/student.service';
 import {CompanyService} from '../../services/company.service';
@@ -35,9 +32,7 @@ export class StudentDashboardProposalsComponent implements OnInit {
   closeResult: string;
   public modalRef: BsModalRef;
 
-  constructor(private validateService: ValidateService,
-              private authService: AuthService, private router: Router,
-              private flashMessage: FlashMessagesService,
+  constructor(private flashMessage: FlashMessagesService,
               private studentService: StudentService,
               private companyService: CompanyService,
               private modalService: BsModalService,
@@ -64,7 +59,7 @@ export class StudentDashboardProposalsComponent implements OnInit {
 
 
   loadUser() {
-    this.user = this.authService.loadUserProfile();
+    this.user = this.studentService.loadStudentProfile();
   }
 
   getAllProposals() {

@@ -7,9 +7,9 @@ export class ValidateService {
   constructor() { }
 
   validateFeedback(feedback)  {
-    if (feedback.name == null || feedback.email == null
-      || feedback.rate == null || feedback.entity == null || feedback.type == null
-      || feedback.message == null) {
+    if (feedback.email == null
+      || feedback.rate == null
+) {
       return false;
     } else {
       return true;
@@ -72,14 +72,6 @@ export class ValidateService {
       return true;
     }
   }
-
-  /*
-  validateEmail(email)  {
-    // RFC 2822
-    const re = [a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?
-    return re.test(email);
-  }
-*/
 
   validateLogin(item) {
     return item;

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @Component({
   selector: 'app-faq',

@@ -4,7 +4,6 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
 import {StudentService} from "../../services/student.service";
 import { Subscription } from 'rxjs/Subscription';
-import {window} from "rxjs/operator/window";
 import { AuthService} from "../../services/auth.service";
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
-import { Router, ActivatedRoute, Params} from "@angular/router";
+import { Router, ActivatedRoute} from "@angular/router";
 import { FlashMessagesService} from "angular2-flash-messages";
 import { ValidateService} from "../../services/validate.service";
-import { secrets } from '../../../../.env';
+import { Vars } from '../../../../.env';
 import { Subscription } from 'rxjs/Subscription';
 import { ChangeDetectorRef} from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -21,15 +21,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   caller:string;
     private subscriptions: Array<Subscription> = [];
 
-  constructor(private authService: AuthService, private router: Router,private activatedRoute: ActivatedRoute,
+  constructor(private authService: AuthService, private router: Router,
               private flashMessage: FlashMessagesService, private validateService: ValidateService,
               private cd: ChangeDetectorRef
               ) {
 
 
-    const clientId = secrets.FENIX_CLIENT_ID;
-    const redirectUri = secrets.REDIRECT_URL;
-    const redirectUriProf = secrets.REDIRECT_URL_PROF;
+    const clientId = Vars.FENIX_CLIENT_ID;
+    const redirectUri = Vars.REDIRECT_URL;
+    const redirectUriProf = Vars.REDIRECT_URL_PROF;
 
     this.studentPath = 'https://fenix.tecnico.ulisboa.pt/oauth/userdialog?' +
                         'client_id=' + clientId + '&redirect_uri=' + redirectUri;

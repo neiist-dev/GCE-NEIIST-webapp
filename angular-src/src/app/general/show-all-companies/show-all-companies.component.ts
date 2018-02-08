@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
-import {AuthService} from '../../services/auth.service';
 import {CompanyService} from '../../services/company.service';
 
 @NgModule({
@@ -17,8 +16,7 @@ export class ShowAllCompaniesComponent implements OnInit {
 
   companies: object[];
 
-  constructor(private authService: AuthService,
-              private companyService: CompanyService) { }
+  constructor(private companyService: CompanyService) { }
 
   ngOnInit() {
     this.getAllCompanies();

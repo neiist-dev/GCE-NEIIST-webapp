@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { StudentService } from '../../services/student.service';
+import {CompanyService} from '../../services/company.service';
 
 @Component({
   selector: 'app-company-profile',
@@ -12,8 +9,7 @@ import { StudentService } from '../../services/student.service';
 export class CompanyProfileComponent implements OnInit { user: object;
   company: object;
 
-  constructor(private authService: AuthService, private router: Router,
-              private flashMessage: FlashMessagesService
+  constructor(private companyService: CompanyService
   ) {
 
   }
@@ -25,7 +21,7 @@ export class CompanyProfileComponent implements OnInit { user: object;
   }
 
   loadUser() {
-    this.company = this.authService.loadUserProfile();
+    this.company = this.companyService.loadCompanyProfile();
 
   }
 }

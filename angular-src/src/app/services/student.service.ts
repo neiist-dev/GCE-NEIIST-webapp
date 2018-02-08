@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from '@angular/http';
-import { environment } from './../../environments/environment';
 import { AuthService} from './auth.service';
 import 'rxjs/add/operator/map'
 
@@ -59,5 +58,9 @@ export class StudentService {
     return this.http.get('student/myApplications', {headers: headers}).map(res => res.json());
 
   }
+
+    loadStudentProfile()    {
+        return this.authService.loadUserProfile();
+    }
 
 }

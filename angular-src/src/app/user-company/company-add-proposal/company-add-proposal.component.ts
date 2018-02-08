@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ValidateService} from '../../services/validate.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
-import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {CompanyService} from '../../services/company.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -38,13 +37,12 @@ export class CompanyAddProposalComponent implements OnInit {
 
   constructor(private validateService: ValidateService,
               private flashMessage: FlashMessagesService,
-              private authService: AuthService,
               private companyService: CompanyService,
               private router: Router
   ) {}
 
   ngOnInit() {
-    this.company = this.authService.loadUserProfile();
+    this.company = this.companyService.loadCompanyProfile();
     this.bsConfig = Object.assign({}, {containerClass: "theme-dark-blue",
                                                       locale: this.locale});
 
