@@ -55,22 +55,22 @@ function getNumberOfStudents(callback) {
 
 function getNumberOfStudentsPerCourse(callback) {
     Student.aggregate([ {$group : { _id : '$courses', count : {$sum : 1}} }], (err, result) => {
-        let finalResult = {};
+        let courses = {};
+
         if (err || result === null) callback(err, result);
         else {
             for (index in result) {
                 let arr = result[index]._id;
                 let arrCount = result[index].count;
                 for (arrInd in arr) {
-                    let key = arr[arrInd].replace(' - Alameda', '').replace(' - TagusPark', '');
-                    if (finalResult[key] !== undefined)
-                        finalResult[key] += arrCount;
+                    let key = arr[arrInd].replace(' - Alameda', '').replace(' - Taguspark', '');
+                    if (courses[key] !== undefined)
+                        courses[key] += arrCount;
                     else
-                        finalResult[key] = arrCount;
+                        courses[key] = arrCount;
                 }
             }
-
-            callback(err, finalResult);
+            callback(err, JSON.stringify(courses));
         }
     });
 }
