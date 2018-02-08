@@ -35,8 +35,8 @@ export class InfoComponent implements OnInit {
     public doughnutChartLabels:string[] = [];
     public doughnutChartData:number[] = [];
     public doughnutChartType:string = 'pie';
-    public colors:any[] = [{backgroundColor: ["#008CC9", "#7C5BBB", "#EC640C", "#DD2E1F", "#009EA5", "#E6A700",
-                                            "#E2247F", "#60AA14", "#737679", "#004471", "#303336",
+    public colors:any[] = [{backgroundColor: ["#EC640C", "#7C5BBB", "#008CC9", "#DD2E1F", "#009EA5", "#E2247F",
+                                            "#E6A700", "#60AA14", "#737679", "#004471", "#303336",
                                             "#295A10", "#295A10", "#452B7F", "#870044", "#88001A",
                                             "#8B6700", "#903000", "#005C69", "#005E93", "#AA7D00"]}];
 
