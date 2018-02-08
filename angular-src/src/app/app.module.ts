@@ -58,6 +58,7 @@ import { UploadCvComponent } from './general/upload-cv/upload-cv.component';
 import { FbComponent } from './general/fb/fb.component';
 import { GceHashCodeProgramComponent } from './general/gce-hash-code-program/gce-hash-code-program.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartsModule } from 'ng2-charts';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -133,6 +134,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
+    ChartsModule,
     AccordionModule.forRoot(),
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes),

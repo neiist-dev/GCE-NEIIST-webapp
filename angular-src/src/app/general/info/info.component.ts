@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 import {ShowAllProposalsComponent} from '../show-all-proposals/show-all-proposals.component';
 import {ShowAllCompaniesComponent} from '../show-all-companies/show-all-companies.component';
-import {AuthService} from '../../services/auth.service';
 import {CompanyService} from '../../services/company.service';
 import {StudentService} from '../../services/student.service';
 
@@ -23,16 +22,23 @@ export class InfoComponent implements OnInit {
   numberOfCompanies: number;
   numberOfStudents: number;
 
-  constructor(private authService: AuthService,
-              private companyService: CompanyService,
+  constructor(private companyService: CompanyService,
               private studentService: StudentService) { }
 
   ngOnInit() {
-    this.getNumberOfProposals();
-    this.getNumberOfCompanies();
-    this.getNumberOfStudents();
-    this.getNumberOfStudentsPerCourse();
+      this.getNumberOfProposals();
+      this.getNumberOfCompanies();
+      this.getNumberOfStudents();
+      this.getNumberOfStudentsPerCourse();
   }
+
+    public doughnutChartLabels:string[] = [];
+    public doughnutChartData:number[] = [];
+    public doughnutChartType:string = 'pie';
+    public colors:any[] = [{backgroundColor: ["#008CC9", "#7C5BBB", "#EC640C", "#DD2E1F", "#009EA5", "#E6A700",
+                                            "#E2247F", "#60AA14", "#737679", "#004471", "#303336",
+                                            "#295A10", "#295A10", "#452B7F", "#870044", "#88001A",
+                                            "#8B6700", "#903000", "#005C69", "#005E93", "#AA7D00"]}];
 
   getNumberOfProposals()  {
     this.companyService.getTotalNumberOfProposals().subscribe(res => {
@@ -52,7 +58,33 @@ export class InfoComponent implements OnInit {
   }
   getNumberOfStudentsPerCourse() {
     this.studentService.getTotalNumberOfRegisteredStudentsPerCourse().subscribe(res => {
-        console.log(res.response_data); // FIXME
+        let course;
+        let parsedData = res.response_data;
+
+        for (course in parsedData)  {
+            this.doughnutChartLabels.push(course);
+        }
+        let courses = this.doughnutChartLabels;
+
+        let toAdd;
+        for (let i = 0; i < courses.length; i++) {
+            let a = JSON.stringify(courses[i]);
+
+            //Bracket notation
+            toAdd = eval("parsedData[" + a + "]");
+
+            /**
+             * For Angular to recognize the change in the dataset
+             * it has to change the dataset variable directly,
+             * so one way around it, is to clone the data, change it and then
+             * assign it;
+             */
+
+            let clone = JSON.parse(JSON.stringify(this.doughnutChartData));
+            clone.push(toAdd);
+            this.doughnutChartData = clone;
+        }
+
     });
   }
 

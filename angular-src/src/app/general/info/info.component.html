@@ -7,23 +7,42 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12">
-    <div class="centered panel panel-info">
-      <div class="panel-heading">Empresas registadas<div class="num">{{numberOfCompanies}}</div></div>
-      <div class="panel-body">
-        <app-show-all-companies></app-show-all-companies>
-      </div>
+    <div class="col-md-2"></div>
+    <div id = "studentGraph" class="col-md-8">
+        <canvas baseChart
+                [data]="doughnutChartData"
+                [colors]="colors"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
     </div>
-  </div>
+    <div class="col-md-2"></div>
+
 </div>
 
+
 <div class="row">
-  <div class="col-md-12">
-    <div class="centered panel panel-success">
-      <div class="panel-heading">Propostas<div class="num">{{numberOfProposals}}</div></div>
-      <div class="panel-body">
-        <p>De momento não estamos a divulgar propostas</p>
-      </div>
+
+    <div class="col-md-6">
+        <div class="centered panel panel-info">
+            <div class="panel-heading">Empresas registadas<div class="num">{{numberOfCompanies}}</div></div>
+            <div class="panel-body">
+                <div *ngIf="numberOfCompanies == 0">
+                    <p>De momento não estamos a aceitar inscrições</p>
+                </div>
+                <app-show-all-companies></app-show-all-companies>
+            </div>
+        </div>
     </div>
-  </div>
+    <div class="col-md-6">
+        <div class="centered panel panel-success">
+            <div class="panel-heading">Propostas<div class="num">{{numberOfProposals}}</div></div>
+            <div class="panel-body">
+                <p>De momento não estamos a divulgar propostas</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+

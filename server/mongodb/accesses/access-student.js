@@ -70,7 +70,7 @@ function getNumberOfStudentsPerCourse(callback) {
                         courses[key] = arrCount;
                 }
             }
-            callback(err, JSON.stringify(courses));
+            callback(err, courses);
         }
     });
 }
