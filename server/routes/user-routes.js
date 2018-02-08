@@ -110,10 +110,9 @@ router.post('/feedback', (req, res, next) => {
     const message = req.body.message;
     const rate = req.body.rate;
     const entity = req.body.entity;
-    const intention = req.body.type;
 
     DBAccess.feedback.addFeedback(name, entity,email,
-                                    rate,message,intention,  (err) => {
+                                    rate,message,  (err) => {
           if (err)  {
               console.log(err);
               return UtilsRoutes.replyFailure(res,err,ERROR_F);

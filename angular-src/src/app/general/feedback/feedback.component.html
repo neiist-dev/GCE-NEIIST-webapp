@@ -15,16 +15,6 @@
                         <li role="menuitem"><a class="dropdown-item" (click) = "setEntity($event,'Outro')">Outro (especifique na mensagem)</a></li>
                     </ul>
                 </div>
-                <div class="btn-group" dropdown>
-                    <button dropdownToggle type="button" style="margin-left: 2em" class="btn btn-primary dropdown-toggle">
-                        Quero falar sobre... <span class="caret"></span>
-                    </button>
-                    <ul *dropdownMenu class="dropdown-menu" role="menu">
-                    <li role="menuitem"><a class="dropdown-item" (click) = "setType($event,'Bug')">Reportar um bug</a></li>
-                    <li role="menuitem"><a class="dropdown-item" (click) = "setType($event,'Sugestão')">Dar uma sugestão</a></li>
-                    <li role="menuitem"><a class="dropdown-item" (click) = "setType($event,'Outro assunto')">Outro (especifique na mensagem)</a></li>
-                </ul>
-                </div>
                 <br><br>
                 <p class="focusedW">O que achas da plataforma?</p>
                 <rating [(ngModel)]="rate" [max]="max" name = "rate" style="color:white;font-size:1.5em;"
@@ -36,7 +26,7 @@
 
                 <br><br>
                 <p class="name">
-                    <input [(ngModel)]="name" class="feedback-input" type="text" name="name" id="name" placeholder="Nome *">
+                    <input [(ngModel)]="name" class="feedback-input" type="text" name="name" id="name" placeholder="Nome ">
                 </p>
 
                 <p class="email">
@@ -44,7 +34,7 @@
                 </p>
 
                 <p class="text">
-                    <textarea name="text" [(ngModel)]="message" name="message" name="message" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Feedback *"></textarea>
+                    <textarea name="text" [(ngModel)]="message" name="message" name="message" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Feedback "></textarea>
                 </p>
 
                 <flash-messages></flash-messages>

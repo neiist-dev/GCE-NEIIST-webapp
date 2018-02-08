@@ -5,11 +5,7 @@ const mongoose = require('mongoose');
 const FeedbackSchema = mongoose.Schema({
     entity: {
         type: String,
-        required: true
-    },
-    intention: {
-        type: String,
-        required: true
+        required: false
     },
     rating: {
         type: Number,
@@ -17,7 +13,7 @@ const FeedbackSchema = mongoose.Schema({
     },
     name: {
         type: String,
-        required: true
+        required: false
     },
     email: {
         type: String,
@@ -25,7 +21,7 @@ const FeedbackSchema = mongoose.Schema({
     },
     message: {
         type: String,
-        required: true,
+        required: false
     }
 });
 

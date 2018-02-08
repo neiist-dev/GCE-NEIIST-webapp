@@ -45,14 +45,10 @@ export class FeedbackComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  //FIXME Doesn't work in Firefox
   private setEntity(event,entity) {
     event.path[3].firstElementChild.innerHTML = entity + " <span class=\"caret\"></span>";
     this.entity = entity;
-  }
-
-  private setType(event,type) {
-      event.path[3].firstElementChild.innerHTML = type + " <span class=\"caret\"></span>";
-    this.type = type;
   }
 
   clearFeedbackForm() {
@@ -75,7 +71,7 @@ export class FeedbackComponent implements OnInit {
     };
 
     if (!this.validateService.validateFeedback(feedback))  {
-      this.flashMessage.show("Por favor, preencha todos os campos", {cssClass: 'alert-danger', timeout: 1500});
+      this.flashMessage.show("Por favor, preencha o número de estrelas e e-mail", {cssClass: 'alert-danger', timeout: 2500});
       return false;
     }
 

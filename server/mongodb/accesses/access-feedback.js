@@ -1,5 +1,4 @@
 const Feedback = require('../models/feedback');
-let TYPE = 'Feedback';
 
 class AccessFeedback {
     constructor() {
@@ -13,14 +12,13 @@ let access_signup = module.exports = exports = new AccessFeedback();
 /********************************
  *  C.R.U.D. FUNCTIONS
  *******************************/
-function addFeedback(name, entity, email, rating, message, intention, callback) {
+function addFeedback(name, entity, email, rating, message, callback) {
     let newFeedback = new Feedback({
         name: name,
         entity: entity,
         email: email,
         rating: rating,
-        message: message,
-        intention: intention
+        message: message
     });
 
     newFeedback.save(callback);
