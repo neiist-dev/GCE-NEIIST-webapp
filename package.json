@@ -1,12 +1,17 @@
 {
   "name": "GCE",
   "version": "1.0.0",
-  "description": "mean-base",
+  "description": "GCE-NEIIST home",
   "main": "gce_base.js",
   "scripts": {
     "test": "echo \"No test specified\"",
     "start": "node gce_base.js",
     "build": "npm run config -- --environment=prod && ng build --environment=prod"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "backup/*"
+    ]
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -19,13 +24,14 @@
     "mongoose": "^4.13.9",
     "morgan": "^1.8.2",
     "multer": "^1.3.0",
+    "node-schedule": "^1.3.0",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.0",
     "winston": "^2.3.1",
     "winston-daily-rotate-file": "^1.4.6"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.14.12"
   },
   "author": [
     {

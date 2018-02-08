@@ -12,6 +12,10 @@
 const node_env = process.env.NODE_ENV;
 const DB_SECRET = process.env.DB_SECRET;
 const DB_PRODUCTION = process.env.DB_PRODUCTION;
+const DB_BACKUP = process.env.DB_BACKUP;
+const DB_BACKUP_PRODUCTION_URI = process.env.DB_BACKUP_PRODUCTION_URI;
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
 
 //Env. variables needed to use Fenix API
 const FENIX_CLIENT_ID = process.env.FENIX_CLIENT_ID;
@@ -51,8 +55,9 @@ const logger = require('./server/log/logger');
 const fs = require('fs');
 const  helmet = require('helmet');
 const Utils = require('./server/mongodb/accesses/utils-accesses');
-const https = require('https');
-
+const schedule = require('node-schedule');
+const ba_logger = require('./server/log/ba_logger');
+const  spawn = require('child_process').spawn;
 // Configuration ===========================================
 let dbConfig = require('./config/db');
 let appConfig = require('./config/app');
@@ -67,6 +72,83 @@ mongoose.connection.on("error", (dbError) => {
     logger.error("Could not connect to database on: " + dbConfig.urls[node_env]);
     throw new Error(dbError);
 });
+
+if(DB_BACKUP)   {
+    //Run at ten of Thursdays
+    const backup = schedule.scheduleJob('0 22 * * 4', () =>   {
+    ba_logger.ba("BA|"+ "DB_BACKUP|" + new Date().toJSON().slice(0,16).replace(/-/g,'/')+ "h");
+
+    console.log("====================");
+    console.log(new Date().toJSON().slice(0,19).replace(/-/g,'/')+ "h");
+    console.log("Backup is on");
+
+    const backupPathUsers = "backup/backup-Users-" + Date.now() + ".json";
+    const backupUsers =   spawn('mongoexport', [
+        '-h', DB_BACKUP_PRODUCTION_URI, '-d',
+        'gce-neiist', '-c', 'users', '-u', DB_USER, '-p', DB_PASSWORD, '-o',
+        backupPathUsers
+    ]);
+
+    backupUsers.stderr.on('data', function(data) {
+        console.log('Users: stderr: ' + data);
+    });
+
+    backupUsers.on('exit', function(code) {
+        if(code === 0)   {
+            console.log("Users: Successfully backed up");
+        }   else {
+            console.log("Users: Error with code: " + code);
+        }
+    });
+
+    const backupPathSignup = "backup/backup-Signups-" + Date.now() + ".json";
+    const backupSignups =   spawn('mongoexport', [
+        '-h', DB_BACKUP_PRODUCTION_URI, '-d',
+        'gce-neiist', '-c', 'signups', '-u', DB_USER, '-p', DB_PASSWORD, '-o',
+        backupPathSignup
+    ]);
+
+        backupSignups.stdout.on('data', function(data) {
+            console.log('Signups: stdout: ' + data);
+        });
+
+        backupSignups.stderr.on('data', function(data) {
+            console.log('Signups: stderr: ' + data);
+            //Here is where the error output goes
+        });
+
+        backupSignups.on('exit', function(code) {
+            if(code === 0)   {
+                console.log("Signups: Successfully backed up");
+            }   else {
+                console.log("Signups: Error with code: " + code);
+            }
+        });
+
+    const backupPathFeedback = "backup/backup-Feedback-" + Date.now() + ".json";
+    const backupFeedback =   spawn('mongoexport', [
+        '-h', DB_BACKUP_PRODUCTION_URI, '-d',
+        'gce-neiist', '-c', 'feedbacks', '-u', DB_USER, '-p', DB_PASSWORD, '-o',
+        backupPathFeedback
+    ]);
+
+        backupFeedback.stderr.on('data', function(data) {
+            console.log('Feedbacks: stderr: ' + data);
+            //Here is where the error output goes
+        });
+
+        backupFeedback.on('exit', function(code) {
+            if(code === 0)   {
+                console.log("Feedbacks: Successfully backed up");
+            }   else {
+                console.log("Feedbacks: Error with code: " + code);
+            }
+        });
+
+
+        console.log("====================");
+    });
+}
 
 //Initialize app
 const app = express();
