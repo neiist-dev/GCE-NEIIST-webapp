@@ -59,6 +59,7 @@ import { FbComponent } from './general/fb/fb.component';
 import { GceHashCodeProgramComponent } from './general/gce-hash-code-program/gce-hash-code-program.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
+import { GceThesisComponent } from './general/gce-thesis/gce-thesis.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -86,6 +87,7 @@ const appRoutes: Routes = [
   {path: 'privacy-policy', component: PrivacyPolicyComponent},
   {path: 'faq', component: FaqComponent, canActivate:[AuthGuardService]},
   {path: 'hashcode', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
+  {path: 'thesis', component: GceThesisComponent,canActivate:[AuthGuardService]},
   {path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]}
 
   ];
@@ -127,7 +129,8 @@ const appRoutes: Routes = [
     GceHashCodeNextComponent,
     UploadCvComponent,
     FbComponent,
-    GceHashCodeProgramComponent
+    GceHashCodeProgramComponent,
+    GceThesisComponent
   ],
   imports: [
     BrowserModule,

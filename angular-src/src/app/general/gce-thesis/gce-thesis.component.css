@@ -1,0 +1,15 @@
+.middlePage {
+    width: 70%;
+    height: 50em;
+    margin: auto;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.panel-info > .panel-heading {
+    background-color: #30a5ff;
+    color: #fff;
+    font-size:2em;
+    border: none; }
