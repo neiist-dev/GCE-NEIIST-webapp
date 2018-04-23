@@ -24,6 +24,7 @@ const REDIRECT_URL_PROF = process.env.REDIRECT_URL_PROF;
 const REDIRECT_URL = process.env.REDIRECT_URL;
 
 console.log("NODE_ENV = " + node_env);
+console.log("DB_BACKUP = " + DB_BACKUP);
 
 const NODE_ENV_ERROR =
     "[ERROR] - NODE_ENV not set.\n" +
@@ -154,7 +155,7 @@ if(DB_BACKUP)   {
 const app = express();
 
 //Summarized version, output goes to console
-app.use(morgan(':remote-addr :method :url'));
+app.use(morgan('dev'));
 
 //Full log to file
 app.use((morgan)("common", {stream: logger.stream}));

@@ -8,7 +8,8 @@ class AccessStudent {
         this.getStudentById = AccessUser.getUserById;
         this.getStudentByEmail = AccessUser.getUserByEmail;
         this.addStudent = addStudent;
-        this.addResume = addResume;
+        this.addGender = addGender;
+        this.addEnrolments = addEnrolments;
         this.getNumberOfStudentsPerCourse = getNumberOfStudentsPerCourse;
         this.getNumberOfStudents = getNumberOfStudents;
         this.getAreasOfInterest = getAreasOfInterest;
@@ -30,10 +31,12 @@ let access_student = module.exports = exports = new AccessStudent();
  *  C.R.U.D. FUNCTIONS
  *******************************/
 
-function addStudent(name, email, courses, callback) {
+function addStudent(name, email, courses, gender, enrolments, callback) {
     let newUser = new Student({
         name: name,
         email: email,
+        gender: gender,
+        enrolments: enrolments,
         courses: courses
     });
 
@@ -100,4 +103,14 @@ function getAreasOfInterest(student, callback) {
 
 function getStudents(callback) {
     Student.find({}, callback);
+}
+
+function addGender(email, gender, callback) {
+    Student.update({'email' : email},
+      {'$set' : {'gender' : gender}}, false, callback);
+}
+
+function addEnrolments(email, enrolments, callback) {
+    Student.update({'email' : email},
+      {'$set' : {'enrolments' : enrolments}}, false, callback);
 }

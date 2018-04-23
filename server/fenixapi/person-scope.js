@@ -4,6 +4,7 @@ class Person {
     constructor() {
         this.getAccessToken = getAccessToken;
         this.getPerson = getPerson;
+        this.getCourses = getCourses;
         this.isStudent = isStudent;
     }
 }
@@ -42,6 +43,20 @@ function getPerson(accessToken, callback) {
         host: 'fenix.tecnico.ulisboa.pt',
         port: '443',
         path: '/api/fenix/v1/person?' + query,
+        method: 'GET',
+    };
+
+    Utils.getRequest(getOptions, callback);
+}
+
+function getCourses(accessToken, academicTerm, callback) {
+
+    const query = 'access_token=' + accessToken + '&academicTerm=' + academicTerm ;
+
+    const getOptions = {
+        host: 'fenix.tecnico.ulisboa.pt',
+        port: '443',
+        path: '/api/fenix/v1/person/courses?' + query,
         method: 'GET',
     };
 

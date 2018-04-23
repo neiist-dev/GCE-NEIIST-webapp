@@ -10,7 +10,10 @@ const logFile = path.join(logDirectory, logName);
 
 //If the app is in production (not in development), the level specified is 'info'
 let level = process.env.NODE_ENV === 'development' ? 'verbose' : 'info';
-console.log("Level specified in the logger: " + level);
+let levelConsole = process.env.NODE_ENV === 'development' ? 'verbose' : 'warn';
+
+console.log("Log files, level: " + level);
+console.log("Log to console, level: " + level);
 
 //Makes sure that log folder exists
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
@@ -18,7 +21,6 @@ fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
 winston.emitErrs = true;
 let logger = new winston.Logger({
-
     transports: [
         new winston.transports.DailyRotateFile({
             level: level,
@@ -34,7 +36,7 @@ let logger = new winston.Logger({
             prepend: true
         }),
         new winston.transports.Console({
-            level: 'warn',
+            level: levelConsole,
             silent: false,
             handleExceptions: true,
             json: false,

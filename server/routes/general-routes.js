@@ -15,8 +15,10 @@ const path = require('path');
 
 //Others, related with student
 router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req,'Student'))    {
-        UtilsRoutes.replyFailure(res,"","Só os estudantes podem inscrever-se");
+    //Not needed now,Admin only
+
+    if(!UtilsRoutes.roleIs(req,'Admin'))    {
+        UtilsRoutes.replyFailure(res,"","Fechado");
         return;
     }
 
