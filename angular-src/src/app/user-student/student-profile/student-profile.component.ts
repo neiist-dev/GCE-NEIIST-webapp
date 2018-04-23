@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { StudentService } from '../../services/student.service';
 import { FileUploader, FileItem, ParsedResponseHeaders } from 'ng2-file-upload';
 
 @Component({
@@ -27,13 +26,13 @@ export class StudentProfileComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router,
               private flashMessage: FlashMessagesService
   ) {
-    /*
+
     this.uploader = new FileUploader({
-      url: 'http://localhost:8080/student/saveResume',
+      url: 'http://localhost:3101/student/saveResume',
       authToken: localStorage.getItem('authToken')});
 
-    this.uploader.onErrorItem = (item, response, status, headers):any => this.onErrorItem(item, response, status, headers);
-    */
+    this.uploader.onErrorItem = (item, response, status, headers):any => this.uploader.onErrorItem(item, response, status, headers);
+
 
   }
 
@@ -57,7 +56,7 @@ export class StudentProfileComponent implements OnInit {
     //TODO: This can be the student's profile component
     this.loadUser();
     this.uploader = new FileUploader({
-      url: 'http://localhost:8080/student/saveResume',
+      url: 'http://localhost:3101/student/saveResume',
       authToken: localStorage.getItem('authToken'),
       headers: [{name:'Accept', value:'application/json'}],
       autoUpload: false,

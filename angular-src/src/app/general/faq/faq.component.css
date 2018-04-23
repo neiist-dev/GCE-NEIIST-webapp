@@ -1,16 +1,11 @@
-.bg{
-    background:url(https://groups.ist.utl.pt/gce-neiist/assets/img/ghc2.jpg) no-repeat 0px 0px;
-    background-size:cover;
-}
-
 .middlePage {
     width: 70%;
     height: 100%em;
     margin: auto;
 }
 
-.panel-red > .panel-heading {
-    background-color: #db3236;
+.panel > .panel-heading {
+    background-color: #337ab7;
     color: #fff;
     font-size:3em;
     border: none; }

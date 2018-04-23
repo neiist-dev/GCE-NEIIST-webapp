@@ -133,6 +133,13 @@ body a{
 .banner-info{
   padding: 2em 0 12em;
 }
+
+.banner-info h2 {
+    font-size: 1.3em;
+    color:white;
+    width: 100%;
+}
+
 .banner-info h1{
   font-weight: 700;
   font-size: 3.5em;

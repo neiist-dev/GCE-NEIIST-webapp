@@ -8,23 +8,10 @@
   <div class="banner wow fadeIn" data-wow-delay="0.5s">
     <div class="container">
       <div class="banner-info text-center">
-        <h1>Grupo De Contacto Com Empresas</h1>
+        <h1>Grupo De Contacto Com Empresas   <button type="button" class="btn btn-primary">Beta <span class="badge"></span></button></h1>
            <div>
 
-           <button type="button" [routerLink]="['/login']" class="btn btn-default bigFont" aria-label="Left Align">
-              <i class="fa fa-sign-in"> Login</i>
-          </button>
-
-          <button type="button" [routerLink]="['/hashcode']" class="btn btn-primary bigFont" aria-label="Left Align">
-            <i class="fa fa-google"> Waiting List</i>
-          </button>
-
-           <button type="button" [routerLink]="['/faq']" class="btn btn-success bigFont" aria-label="Left Align">
-               <i class="fa fa-google"> FAQ</i>
-           </button>
-
         </div>
-        <p>1.2.3-Beta</p><br><br>
       </div>
 
     </div>
@@ -32,43 +19,85 @@
 </div>
 <!---- banner ---->
 <!--- services --->
+
 <div id="services" class="services">
   <div class="container">
     <div class="service-head text-center">
-      <h2>Core Services</h2>
-      <span> </span>
+      <h2>GCE-Thesis</h2><br>
+        <h6>Com suporte para:</h6>
+        <span class="badge badge-primary">MEIC</span>
+        <br><br><br>
     </div>
-    <!--- services-grids --->
-    <div class="services-grids text-center">
-      <div class="col-md-4">
-        <div class="service-grid wow bounceIn" data-wow-delay="0.4s">
-          <i class="fa fa-graduation-cap serviço1"  aria-hidden="true"></i>
-          <h3><a [routerLink]="['/login']">GCE-Thesis</a></h3>
-          <p>Achas impossível difícil decidir qual a tese que vais fazer? </p>
-          <p>Achas a lista de "400" teses no Fénix extensa e prolixa?</p>
-          <p>Nós também. GCE-Thesis é um serviço informativo feito de alunos para alunos, que te ajudará
-              a pesquisar as teses do Fénix. Este serviço está em desenvolvimento.</p>
-        </div>
+      <div class="row">
+          <div class="col-4"></div>
+          <div class="col">
+
+              <button type="button" routerLink='/thesis' class="btn btn-outline-primary btn-round" style="text-align: center">          Ajuda-me a encontrar a tese perfeita!
+              </button>
+          </div>
       </div>
-      <div class="col-md-4">
-        <div class="service-grid wow bounceIn" data-wow-delay="0.4s">
-          <i class="fa fa-handshake-o serviço4"  aria-hidden="true"></i>
-            <h3><a>Estágios Remunerados</a></h3>
-          <p>O GCE vai focar-se em entregar-te estágios de qualidade em startups de alunos do Técnico. Estamos em processo de estabelecimento de
-            parcerias. Se és aluno do Técnico e procuras um estágio neste momento, podes utilizar a
-            <a href="https://ist-csm.symplicity.com">plataforma oficial do IST</a>.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="service-grid wow bounceIn" data-wow-delay="0.4s">
-          <i class="fa fa-lightbulb-o serviço3"  aria-hidden="true"></i>
-            <h3><a>Serviços de inovação</a></h3>
-          <p>Brevemente.</p>
-        </div>
-      </div>
-      <div class="clearfix"> </div>
-    </div>
-    <!--- services-grids --->
+
+<span>  </span>
+      <div class="main">
+          <div class="section text-center">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-8 mr-auto ml-auto">
+
+                          <br>
+                      </div>
+                  </div>
+                  <br/><br/>
+                  <div class="row">
+                      <div class="col-md-3">
+                          <div class="info">
+                              <div class="primary">
+                                  <i class="fa fa-search" aria-hidden="true"></i>
+                              </div>
+                              <div class="description">
+                                  <h4 class="info-title">Pesquisa eficientemente</h4>
+                                  <p class="description">O nosso algoritmo categoriza cada tese de mestrado, para não perderes tempo.</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="info">
+                              <div class="icon icon-danger">
+                                  <i class="fa fa-gift" aria-hidden="true"></i>
+                              </div>
+                              <div class="description">
+                                  <h4 class="info-title">Recomendações Personalizadas</h4>
+                                  <p>Nós podemos recomendar-te teses de mestrado com base nas cadeiras que fizeste. Fácil, certo?</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="info">
+                              <div class="icon icon-danger">
+                                  <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                              </div>
+                              <div class="description">
+                                  <h4 class="info-title">Estatísticas</h4>
+                                  <p>Acede a estatísticas sobre as teses de mestrado!</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="info">
+                              <div class="icon icon-primary">
+                                  <i class="fa fa-lock" aria-hidden="true"></i>
+                              </div>
+                              <div class="description">
+                                  <h4 class="info-title">Recolha de Dados</h4>
+                                  <p>Levamos a sério a tua segurança e privacidade. Para mais informações, lê a nossa política de privacidade.</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+
   </div>
 </div>
 
@@ -76,131 +105,7 @@
 <div class="clearfix"> </div>
 
 
-<app-info></app-info>
 
-
-<!--- portfolio ---->
-<div id="missao" class="portfolio">
-  <div class="portfolio-top">
-    <div class="col-md-8">
-      <div class="portfolio-top-left wow fadeInLeft" data-wow-delay="0.4s">
-        <div></div><h3>A Nossa Missão</h3>
-        <p> De momento, o GCE está a ser uma ponte entre empresas e alunos do IST.</p>
-        <div class="portfolio-top-left-grids">
-          <div class="portfolio-top-left-grid">
-              <i class="fa fa-handshake-o missao1"  aria-hidden="true"></i>
-            <div class="portfolio-top-left-grid-left">
-
-            </div>
-            <div class="portfolio-top-left-grid-right">
-              <h5>Reforçar laços</h5>
-              <p> Queremos ajudar os alunos a conhecerem empresas espetaculares. Para atingir este objetivo, ajudamos as empresas a divulgarem as suas ofertas.</p>
-            </div>
-            <div class="clearfix"> </div>
-          </div>
-          <div class="portfolio-top-left-grid">
-              <i class="fa fa-bolt missao2"  aria-hidden="true"></i>
-            <div class="portfolio-top-left-grid-left">
-
-            </div>
-            <div class="portfolio-top-left-grid-right">
-              <h5>Promover o Empreendedorismo</h5>
-              <p>Mais cedo ou mais tarde, irás comandar equipas. O empreendorismo é uma excelente forma de te focares na tua criatividade, inovação e dinamismo! </p>
-              <p>No GCE, queremos ajudar-te a descobrires  empreendedor em ti!</p>
-            </div>
-            <div class="clearfix"> </div>
-          </div>
-          <div class="portfolio-top-left-grid">
-              <i class="fa fa-road missao3"  aria-hidden="true"></i>
-            <div class="portfolio-top-left-grid-left">
-
-            </div>
-            <div class="portfolio-top-left-grid-right">
-              <h5>Ser a estrada que conecta alunos.</h5>
-            </div>
-            <div class="clearfix"> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4 portfolio-top-right-inner wow fadeInRight" data-wow-delay="0.4s">
-      <div class="portfolio-top-right">
-
-      </div>
-    </div>
-
-<!--- GCE-Thesis---->
-<div id="port" class="expertise">
-  <div class="expertice-grids">
-    <div class="col-md-8 expertice-left-grid wow fadeInLeft " data-wow-delay="0.4s">
-      <div class="expertise-head">
-        <h3>GCE-Thesis</h3>
-          <p> De modo a diminuir a distância entre alunos, empresas e professores, o GCE está a desenvolver a GCE-Thesis.</p>
-          <p> Este produto tem como objetivo ajudar-te a pesquisar as teses disponíveis mais eficientemente. <b>Este serviço
-          está em desenvolvimento</b>.
-      </div>
-      <div class="expertise-left-inner-grids">
-        <div class="e-left-inner-grid">
-          <div class="e-left-inner-grid-left">
-            <span class="e-icon1"> </span>
-          </div>
-          <div class="e-left-inner-grid-right">
-            <span class="glyphicon glyphicon-zoom-in serviço1" style="font-size:50px;"></span>
-            <h4>Pesquisa eficientemente</h4>
-            <p>O nosso algoritmo categoriza cada tese de mestrado, para não perderes tempo.</p>
-          </div>
-          <div class="clearfix"> </div>
-        </div>
-        <div class="e-left-inner-grid">
-          <div class="e-left-inner-grid-left">
-            <span class="e-icon2"> </span>
-          </div>
-          <div class="e-left-inner-grid-right">
-            <span class="glyphicon glyphicon-flag serviço4" style="font-size:50px;"></span>
-            <h4>Recomendações personalizadas</h4>
-            <p>Nós podemos recomendar-te teses de mestrado com base nas cadeiras que fizeste. Fácil, certo?</p>
-          </div>
-          <div class="clearfix"> </div>
-        </div>
-        <div class="e-left-inner-grid">
-          <div class="e-left-inner-grid-left">
-            <span class="e-icon3"> </span>
-          </div>
-          <div class="e-left-inner-grid-right">
-            <span class="glyphicon glyphicon-fire match" style="font-size:50px;"></span>
-            <h4>Faz um match acontecer!</h4>
-            <p>Depois de encontrares a tese que mais te interessa, basta contactares o docente respetivo!</p>
-          </div>
-          <div class="clearfix"> </div>
-        </div>
-        <div class="e-left-inner-grid">
-          <div class="e-left-inner-grid-left">
-            <span class="e-icon4"> </span>
-          </div>
-          <div class="e-left-inner-grid-right">
-            <span class="glyphicon glyphicon-lock serviço5" style="font-size:50px;"></span>
-            <h4>Recolha de dados</h4>
-            <p>Levamos a sério a tua segurança e privacidade. Para mais informações, lê a nossa política de privacidade.</p>
-          </div>
-          <div class="clearfix"> </div>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-      <a id = "descobreMais" class="learn-more" [routerLink]="['/login']">Descobre mais!</a>
-    </div>
-    <div class="col-md-4 expertice-right-grid wow fadeInRight" data-wow-delay="0.4s">
-
-    </div>
-    <div class="clearfix"> </div>
-  </div>
-</div>
-<!--- Other Expertise ---->
-
-
-<!--- portfolio ---->
-<!---- about ---->
-<!---start-about---->
 <span> </span>
 <div class="about">
   <div class="wrap">
@@ -226,14 +131,14 @@
       <li>
         <div class="cbp_tmicon1 img2"> </div>
         <div class="cbp_tmlabel cbp_tmlabel1 wow fadeInRight" data-wow-delay="0.4s">
-          <h2>2010 - Growing Crew</h2>
+          <h2>2010</h2>
           <p>O GCE atinge um marco: 20 membros no primeiro semestre de 2010.</p>
         </div>
       </li><br>
       <li>
         <div class="cbp_tmicon2 img3"> </div>
         <div class="cbp_tmlabel wow fadeInLeft" data-wow-delay="0.4s">
-          <h2>2013 - Enter The Dark Days </h2>
+          <h2>2013 </h2>
           <p>O GCE ficou reduzido a dois membros, reduzindo a sua atividade.</p>
         </div>
       </li>
@@ -257,10 +162,11 @@
 <!---- team --->
 <div id="team" class="team-members">
   <div class="wrap">
-    <div class="tm-head">
-      <h3>our team...</h3>
-      <p>...ready to make awesome stuff!</p>
-    </div>
+      <div class="about">
+          <div class="wrap">
+              <div class="about-head">
+                  <h1>A Equipa</h1>
+              </div></div></div>
     <div class="tm-head-grids">
       <div class="tm-head-grid wow fadeInLeft" data-wow-delay="0.4s">
         <img class = "img-team" src="https://groups.ist.utl.pt/gce-neiist/assets/img/team/andre.jpg" alt="">
@@ -397,3 +303,6 @@
     </div>
     <!---- contact !-->
   </div>
+
+    <app-partners-carousel></app-partners-carousel>
+</div>

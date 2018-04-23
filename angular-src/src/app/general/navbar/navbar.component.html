@@ -1,38 +1,97 @@
-<nav class="navbar navbar-default navbar-fixed-top" xmlns="http://www.w3.org/1999/html">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-brand">
-      <a [routerLink]="['/']">
-        <img src="https://groups.ist.utl.pt/~gce-neiist.daemon/assets/favicon.png" alt="GCE">
-      </a>
+<nav class="navbar navbar-expand-lg fixed-top navbar-primary" color-on-scroll="500">
+    <div class="container">
+        <div class="navbar-translate">
+            <a [routerLink]="['/']">
+                <img style="width: 80px;height: 80px;" src="https://groups.ist.utl.pt/~gce-neiist.daemon/assets/favicon.png" alt="GCE">
+            </a>
+            <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item" *ngIf="isHome() && !isLoggedIn()">
+                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/gce.neiist" target="_blank">
+                        <i class="fa fa-facebook-square"></i>
+                        <p class="d-lg-none">Facebook</p>
+                    </a>
+                </li>
+
+                <li class="nav-item" *ngIf="isHome()&& !isLoggedIn()">
+                    <a class="nav-link" rel="tooltip" title="GCE's GitHub" data-placement="bottom" href="https://github.com/RafaelAPB/GCE-NEIIST" target="_blank">
+                        <i class="fa fa-github"></i>
+                        <p class="d-lg-none">GitHub</p>
+                    </a>
+                </li>
+
+                <li class="nav-item" *ngIf="!isLoggedIn() && !isLoginPage()">
+                     <a class="nav-link" [routerLink]="['/login']">
+                         <i class="fa fa-sign-in"></i>
+                         <p>Login</p>
+                     </a>
+                </li>
+
+                <li class="nav-item" *ngIf="!isHome() && !isFaq() && !isLoggedIn()">
+                     <a class="nav-link" [routerLink]="['/faq']">
+                         <i class="fa fa-question-circle-o "></i>
+                         <p></p>
+                     </a>
+                </li>
+
+                <li class="nav-item" *ngIf="isLoginPage()">
+                     <a class="nav-link" [routerLink]="['/']">
+                         <i class="fa fa-home"></i>
+                         <p>Home</p>
+                     </a>
+                </li>
+
+                <li [routerLinkActive]="['active']" class="nav-item" *ngIf="isLoggedInStudent()">
+                    <a class="nav-link" [routerLink]="['/thesis']" >
+                        <i class="fa fa-folder-o"></i>
+                        <p>GCE-Thesis</p>
+                    </a>
+                </li>
+
+
+
+                <li [routerLinkActive]="['active']" class="nav-item" *ngIf="isLoggedInStudent()">
+                     <a class="nav-link"  [routerLink]="['/dashboardStudent']">
+                         <i class="fa fa-map-o"></i>
+                         <p>Empresas</p>
+                     </a>
+                </li>
+
+
+                <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedInStudent()">
+                    <a class="nav-link" [routerLink]="['/profileStudent']">
+                        <i class="fa fa-user-o"></i>
+                        <p>{{name}}</p>
+                    </a>
+                </li>
+
+
+
+
+
+                <li class="nav-item" *ngIf="isLoggedIn()">
+                    <a class="nav-link" (click)="onLogoutClick()">
+                    <i class="fa fa-sign-out"></i>
+                    <p>Logout</p>
+                    </a>
+                </li>
+
+
+
+                <!-- Company Navbar -->
+                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/dashboardCompany']"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard</a></li>
+                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/stats']"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Estatísticas</a></li>
+                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()=='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/addProposals']"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>Submeter proposta</a></li>
+                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/profileCompany']"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{name}}</a></li>
+
+            </ul>
+        </div>
     </div>
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-      </button>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse navHeaderCollapse" id="bs">
-
-      <ul class="nav navbar-nav navbar-left">
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-          <li [routerLinkActive]="['active']"><a [routerLink]="['/thesis']"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> GCE-Thesis</a></li>
-          <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a></li>
-          <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Student'" [routerLinkActive]="['disabled']"><a [routerLink]="['']"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>Submeter proposta</a></li>
-          <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()=='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/addProposals']"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>Submeter proposta</a></li>
-          <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Student'" [routerLinkActive]="['active']"><a [routerLink]="['/hashcode']"><span  class="glyphicon"> <i class="fa fa-google"></i> </span> Hashcode</a></li>
-          <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Student'" [routerLinkActive]="['active']"><a [routerLink]="['/dashboardStudent']"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard</a></li>
-          <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/dashboardCompany']"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard</a></li>
-          <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/stats']"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Estatísticas</a></li>
-          <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/profileCompany']"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{name}}</a></li>
-          <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Student'" [routerLinkActive]="['active']"><a [routerLink]="['/profileStudent']"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{name}}</a></li>
-          <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"><a [routerLink]="['/register']"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Registar</a></li>
-        <li *ngIf="authService.loggedIn()"><a (click)="onLogoutClick()" href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
-      </ul>
-
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-
 </nav>
