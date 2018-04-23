@@ -2,6 +2,7 @@ const path = require('path');
 const companyRoutes = require('./routes/company-routes');
 const usersRoutes = require('./routes/user-routes');
 const studentRoutes = require('./routes/student-routes');
+const thesisRoutes = require('./routes/thesis-routes');
 const professorRoutes = require('./routes/professor-routes');
 const adminRoutes = require('./routes/admin-routes');
 const matchMakingRoutes = require('./routes/match-making-routes');
@@ -16,6 +17,7 @@ module.exports = function(app, baseDir) {
     app.use('/admin', adminRoutes);
     app.use('/match', matchMakingRoutes);
     app.use('/gce', generalRoutes);
+    app.use('/thesis', thesisRoutes);
 
     /***********************************************************************************************
      * MAIN

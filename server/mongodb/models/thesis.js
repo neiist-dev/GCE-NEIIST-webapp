@@ -1,23 +1,68 @@
 const mongoose = require('mongoose');
-const Proposal = require('./proposal');
 
 let Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
+const STATUS = ["Atribuída", "Não atribuída"];
+
 const ThesisSchema = mongoose.Schema({
-    //Email
-    professor: {
+    id: {
         type: String,
-        required: false
+        required: true
     },
-    student: {
+    title: {
         type: String,
-        required: false
+        required: true
     },
-    area: {
+    supervisors: {
         type: [String],
         required: true
     },
+    vacancies:  {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        enum: STATUS,
+        default: "Não atribuída",
+        required: true
+    },
+    location:  {
+        type: String,
+        required: false
+    },
+    courses: {
+        type: [String],
+        required: true
+    },
+    observations:  {
+        type: String,
+        required: false
+    },
+    objectives:  {
+        type: String,
+        required: false
+    },
+    requirements:  {
+        type: String,
+        required: false
+    },
+    areas:  {
+        type: [String],
+        required: false
+    },
+
+    clicks: {
+    type: Number,
+    default: 1,
+    required: false
+    },
+
+    lastModified: {
+        type: Date,
+        required: false
+    }
 });
 
-const Thesis = module.exports = Proposal.discriminator('Thesis', ThesisSchema);
+const Thesis = module.exports = mongoose.model('Thesis', ThesisSchema);

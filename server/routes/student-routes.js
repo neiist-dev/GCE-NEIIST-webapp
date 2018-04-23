@@ -29,7 +29,7 @@ router.post('/register', (req, res, next) => {
                 if (token.hasOwnProperty('error'))  {
                     //Couldn't retrieve token from Fenix
                     error.content = token;
-                    error.msg = "Erro na comunicação com o Fénix";
+                    error.msg = "Erro na comunicação com o Fénix em getToken";
                     reject(error);
                 }
                 resolve(token);
@@ -44,14 +44,64 @@ router.post('/register', (req, res, next) => {
                 if (person.hasOwnProperty('error')) {
                     //Could not get Student
                     error.content = person;
-                    error.msg = "Erro na comunicação com o Fénix.";
+                    error.msg = "Erro na comunicação com o Fénix, em getStudentFromFenix.";
                     reject(error);
                 } else if (!FenixApi.person.isStudent(person)) {
                     error.content = person;
                     error.msg = "Tem de ser um estudante para fazer login através deste meio";
                     reject(error);
                 } else {
-                    resolve(person);
+
+                    let info = [];
+                    info.push(token);
+                    info.push(person);
+
+                    resolve(info);
+                }
+            });
+        });
+    };
+
+    //Gets courses from this Academic Term and the previous
+    let getStudentCourses = (info) => {
+            //Token has properties: access_token, refresh token, expires in
+            const token = info[0].access_token;
+            const person = info[1];
+
+           return new Promise((resolve, reject) => {
+               let student = [];
+
+               FenixApi.person.getCourses(token, '2016/2017', (courses) =>   {
+                if (courses.hasOwnProperty('error')) {
+                    error.content = courses;
+                    error.msg = "Erro na comunicação com o Fénix em getCourses  .";
+                    reject(error);
+                } else if (!FenixApi.person.isStudent(person)) {
+                    error.content = "";
+                    error.msg = "Tem de ser um estudante para fazer login através deste meio";
+                    reject(error);
+                } else {
+                    student.push(person);
+                    student.push(courses);
+
+                    FenixApi.person.getCourses(token, '2017/2018', (recenteCourses) =>   {
+                        if (recenteCourses.hasOwnProperty('error')) {
+                            error.content = recenteCourses;
+                            error.msg = "Erro na comunicação com o Fénix em getCourses  .";
+                            reject(error);
+                        } else if (!FenixApi.person.isStudent(person)) {
+                            error.content = "";
+                            error.msg = "Tem de ser um estudante para fazer login através deste meio";
+                            reject(error);
+                        } else {
+
+                            for (let enrolment of recenteCourses.enrolments)   {
+                                student[1].enrolments.push(enrolment);
+                            }
+                            resolve(student);
+                        }
+                    });
+
                 }
             });
         });
@@ -59,21 +109,23 @@ router.post('/register', (req, res, next) => {
 
     let loginStudentPromise = (student) =>  {
         return new Promise((resolve,reject) => {
-            StudentServices.parseStudentData(student, (err, student) => {
+
+            StudentServices.parseStudentData(student, (err, parsedStudent) => {
                 if (err) {
+                    console.log("erro");
                     //Error parsing student data. Default message will be sent to the user
                     error.content = err;
                     error.msg = "Error parsing student data";
                     reject(error);
                 }
                 else {
-                    registerOrLogin(student.name, student.email, student.courses, ip, (err, data) => {
+                    registerOrLogin(parsedStudent.name, parsedStudent.email, parsedStudent.courses, parsedStudent.gender, parsedStudent.enrolments, ip, (err, data) => {
                         if (err)    {
                             error.msg = "Erro a registar aluno";
                             error.content = err;
                             reject(error);
                         }   else    {
-                            ba_logger.ba("BA|"+ "L|" + student.email + "|" + ip + "|"
+                            ba_logger.ba("BA|"+ "L|" + parsedStudent.email + "|" + ip + "|"
                               +  new Date().toJSON().slice(0,16).replace(/-/g,'/') + "h");
                             UtilsRoutes.replySuccess(res,data,"Sucesso a fazer login");
                         }
@@ -87,6 +139,8 @@ router.post('/register', (req, res, next) => {
 
     getFenixToken().then((token) => {
         return getStudentFromFenix (token);
+    }).then((info)=> {
+        return getStudentCourses(info);
     }).then((student)=>   {
         return loginStudentPromise(student);
     }).catch((error) =>   {
@@ -144,8 +198,7 @@ router.post('/saveResume', passport.authenticate('jwt', {session: false}), funct
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
         return;
     }
-    //TODO not needed now
-    return false;
+
     //We will use the student's email as a way to store their CV
     let studentEmail = req.user.email;
 
@@ -255,15 +308,16 @@ module.exports = router;
  *  Aux Functions
  *******************************/
 
-function registerOrLogin(name, email, courses, ip, callback) {
+function registerOrLogin(name, email, courses, gender, enrolments, ip, callback) {
     DBAccess.students.getStudentByEmail(email, function (err, student) {
         if (err) {
             console.log(err);
-            callback("Erro a pesqueisar na base de dados",null);
+            callback("Erro a pesquisar na base de dados",null);
             return;
         }
+
         else if (student === null) {
-            student = DBAccess.students.addStudent(name, email, courses, function (err) {
+            student = DBAccess.students.addStudent(name, email, courses, gender, enrolments, function (err) {
                 if (err) {
                     callback("Erro a adicionar aluno",null);
                     return false;
@@ -271,8 +325,29 @@ function registerOrLogin(name, email, courses, ip, callback) {
                     ba_logger.ba("BA|"+ "NS|" + student.email + "|" + ip);
                 }
             });
-        }
+        } if (student.enrolments.length === 0) {
+            console.log(enrolments);
+            DBAccess.students.addEnrolments(email, enrolments, function (err) {
+                if (err) {
+                    console.log(err);
+                    callback("Erro a adicionar cadeiras",null);
+                }
 
+            });
+
+        } if (!student.gender) {
+            DBAccess.students.addGender(email, gender, function (err) {
+                if (err) {
+                    console.log(err);
+                    callback("Erro a adicionar género",null);
+                }
+            }
+
+
+            )};
+
+
+        //TODO: Verificação para ver se aluno tem cadeiras guardadas. Se não tiver, adicionar.
         const token = jwt.sign(student, DbConfig.DB_SECRET, {expiresIn: 3600});
         const resData = {token: 'bearer ' + token,
                         user: {

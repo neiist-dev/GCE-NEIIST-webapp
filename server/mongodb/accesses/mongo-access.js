@@ -2,7 +2,7 @@ function MongoAccess() {
 
     this.companies = require('./access-company');
     this.proposals = require('./access-proposal');
-    this.posts = require('./access-post');
+    this.thesis = require('./access-thesis');
     this.students = require('./access-student');
     this.professors = require('./access-professor');
     this.applications = require('./access-application');

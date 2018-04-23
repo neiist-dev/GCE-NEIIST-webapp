@@ -9,13 +9,19 @@ let student_services = module.exports = exports = new StudentServices();
 // Functions
 
 function parseStudentData(person, callback) {
-    let student = {};
-    student.name = person.name;
-    student.email = person.institutionalEmail;
+    let parsedStudent = {};
+    const student = person[0];
+    const enrolments = person[1];
+
+    parsedStudent.name = student.name;
+    parsedStudent.gender = student.gender;
+    parsedStudent.email = student.institutionalEmail;
+    parsedStudent.campus = student.campus;
+    parsedStudent.enrolments = [];
 
     // Check if is a student
     let studentRole = null;
-    for (let role of person.roles) {
+    for (let role of student.roles) {
         if (role.type === 'STUDENT') {
             studentRole = role;
         }
@@ -24,10 +30,15 @@ function parseStudentData(person, callback) {
         callback('Not a student.', null);
     }
 
-    student.courses = [];
+    parsedStudent.courses = [];
     for (let registration of studentRole.registrations) {
-        student.courses.push(registration.name);
+        parsedStudent.courses.push(registration.name);
     }
-    callback(null, student);
+
+    for (let enrolment of enrolments.enrolments)   {
+        parsedStudent.enrolments.push(enrolment.name);
+    }
+
+    callback(null, parsedStudent);
 }
 
