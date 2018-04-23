@@ -60,6 +60,7 @@ import { GceHashCodeProgramComponent } from './general/gce-hash-code-program/gce
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { GceThesisComponent } from './general/gce-thesis/gce-thesis.component';
+import { PartnersCarouselComponent } from './general/partners-carousel/partners-carousel.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -85,10 +86,11 @@ const appRoutes: Routes = [
   {path: 'wip', component: ComingSoonComponent},
   {path: 'terms-of-use', component: TermsUsageComponent},
   {path: 'privacy-policy', component: PrivacyPolicyComponent},
-  {path: 'faq', component: FaqComponent, canActivate:[AuthGuardService]},
-  {path: 'hashcode', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
-  {path: 'thesis', component: GceThesisComponent,canActivate:[AuthGuardService]},
-  {path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]}
+  {path: 'partners', component: PartnersCarouselComponent},
+  {path: 'faq', component: FaqComponent},
+  //{path: 'hashcode', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
+    //{path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]},
+   {path: 'thesis', component: GceThesisComponent,canActivate:[AuthGuardService]}
 
   ];
 
@@ -130,7 +132,8 @@ const appRoutes: Routes = [
     UploadCvComponent,
     FbComponent,
     GceHashCodeProgramComponent,
-    GceThesisComponent
+    GceThesisComponent,
+    PartnersCarouselComponent
   ],
   imports: [
     BrowserModule,
