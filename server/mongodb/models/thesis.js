@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
-const STATUS = ["Atribuída", "Não atribuída"];
+const STATUS = ["Assigned", "Unassigned"];
+const TYPE = [0,1];
 
 const ThesisSchema = mongoose.Schema({
     id: {
@@ -25,7 +26,7 @@ const ThesisSchema = mongoose.Schema({
     status: {
         type: String,
         enum: STATUS,
-        default: "Não atribuída",
+        default: "Unassigned",
         required: true
     },
     location:  {
@@ -54,9 +55,16 @@ const ThesisSchema = mongoose.Schema({
     },
 
     clicks: {
-    type: Number,
-    default: 1,
-    required: false
+        type: Number,
+        default: 1,
+        required: false
+    },
+
+    type: {
+        type: Number,
+        enum: TYPE,
+        default: 1,
+        required: false
     },
 
     lastModified: {
