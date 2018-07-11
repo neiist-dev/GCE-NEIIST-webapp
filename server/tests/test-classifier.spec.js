@@ -33,8 +33,6 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
         });
         it('Load theses 2017', function(done) {
 
-            console.log(thesesClassifier.theses2017);
-
             expect(thesesClassifier.theses2017.length).to.be.equal(427);
             console.log("=============");
             console.log("Main classification, type: " + CLASS_TYPE);
@@ -45,7 +43,7 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
 
             for (let j = 0; j < 427; j++)   {
                 console.log('================');
-                console.log(j);
+                console.log(":" + j);
                 console.log('================');
                 console.log(thesesClassifier.theses2017[j].id);
                 console.log('================');
@@ -60,62 +58,33 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
         });
 
         it('Test0', function(done) {
-            console.log(thesesClassifier.theses2017[0]);
-            console.log('================');
-            console.log(thesesClassifier.theses2017[0].title);
-            console.log('================');
             console.log(thesesClassifier.classificationLabels(thesesClassifier.theses2017[0], classifier));
             expect(thesesClassifier.classify(thesesClassifier.theses2017[0],classifier, CLASS_TYPE)).to.be.equal('Distributed and Cyberphysical Systems');
             done();
         });
 
         it('Test1', function(done) {
-            console.log(thesesClassifier.theses2017[1]);
-            console.log('================');
-            console.log(thesesClassifier.theses2017[1].title);
-            console.log('================');
-            console.log(thesesClassifier.classificationLabels(thesesClassifier.theses2017[1], classifier));
             expect(thesesClassifier.classify(thesesClassifier.theses2017[1],classifier, CLASS_TYPE)).to.be.equal('Language and Information Technologies');
             done();
         });
 
 
         it('Test2', function(done) {
-            console.log(thesesClassifier.theses2017[2]);
-            console.log('================');
-            console.log(thesesClassifier.theses2017[2].title);
-            console.log('================');
-            console.log(thesesClassifier.classificationLabels(thesesClassifier.theses2017[2], classifier));
             expect(thesesClassifier.classify(thesesClassifier.theses2017[2],classifier, CLASS_TYPE)).to.be.equal('Distributed and Cyberphysical Systems');
             done();
         });
 
         it('Test3', function(done) {
-            console.log(thesesClassifier.theses2017[3]);
-            console.log('================');
-            console.log(thesesClassifier.theses2017[3].title);
-            console.log('================');
-            console.log(thesesClassifier.classificationLabels(thesesClassifier.theses2017[3], classifier));
             expect(thesesClassifier.classify(thesesClassifier.theses2017[3],classifier, CLASS_TYPE)).to.be.equal('Games');
             done();
         });
 
         it('Test4', function(done) {
-            console.log(thesesClassifier.theses2017[4]);
-            console.log('================');
-            console.log(thesesClassifier.theses2017[4].title);
-            console.log('================');
-            console.log(thesesClassifier.classificationLabels(thesesClassifier.theses2017[4], classifier));
             expect(thesesClassifier.classify(thesesClassifier.theses2017[4],classifier, CLASS_TYPE)).to.be.equal('Games');
             done();
         });
 
         it('Test5', function(done) {
-            console.log(thesesClassifier.theses2017[5]);
-            console.log('================');
-            console.log(thesesClassifier.theses2017[5].title);
-            console.log('================');
-            console.log(thesesClassifier.classificationLabels(thesesClassifier.theses2017[5], classifier));
             expect(thesesClassifier.classify(thesesClassifier.theses2017[5],classifier, CLASS_TYPE)).to.be.equal('Games');
             done();
         });
@@ -126,12 +95,14 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
             done();
         });
 
+        //should pass
         it('Test7', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[7], classifier)).to.be.equal('Software Engineering');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[7], classifier)).to.be.equal('Interaction and Visualization');
             done();
         });
 
         it('Test8', function(done) {
+
             expect(thesesClassifier.classify(thesesClassifier.theses2017[8], classifier)).to.be.equal('Intelligent Systems');
             done();
         });
@@ -142,7 +113,7 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
         });
 
         it('Test10', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[10], classifier)).to.be.equal('Enterprise and Information Systems');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[10], classifier)).to.be.equal('Software Engineering');
             done();
         });
 
@@ -151,8 +122,9 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
             done();
         });
 
+        //todo should pass
         it('Test12', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[12], classifier)).to.be.equal('Games');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[12], classifier)).to.be.equal('Interaction and Visualization');
             done();
         });
 
@@ -161,6 +133,7 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
             done();
         });
 
+        //todo should pass
         it('Test14', function(done) {
             expect(thesesClassifier.classify(thesesClassifier.theses2017[14], classifier)).to.be.equal('Interaction and Visualization');
             done();
@@ -237,7 +210,7 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
         });
 
         it('Test29', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[29], classifier)).to.be.equal('Software Engineering');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[29], classifier)).to.be.equal('Enterprise and Information Systems');
             done();
         });
 
@@ -247,7 +220,7 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
         });
 
         it('Test31', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[31], classifier)).to.be.equal('Interaction and Visualization');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[31], classifier)).to.be.equal('Games');
             done();
         });
 
@@ -2101,7 +2074,7 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
         });
 
         it('Test402', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[402], classifier)).to.be.equal('Interaction and Visualization');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[402], classifier)).to.be.equal('Games');
             done();
         });
 
@@ -2111,7 +2084,7 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
         });
 
         it('Test404', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[404], classifier)).to.be.equal('Interaction and Visualization');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[404], classifier)).to.be.equal('Intelligent Systems');
             done();
         });
 
@@ -2121,7 +2094,7 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
         });
 
         it('Test406', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[406], classifier)).to.be.equal('Cyber-Security');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[406], classifier)).to.be.equal('Enterprise and Information Systems');
             done();
         });
 
@@ -2131,7 +2104,7 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
         });
 
         it('Test408', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[408], classifier)).to.be.equal('Distributed and Cyberphysical Systems');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[408], classifier)).to.be.equal('Interaction and Visualization');
             done();
         });
 
@@ -2146,12 +2119,12 @@ let classifier = thesesClassifier.train(CLASSIFICATOR_TYPE);
         });
 
         it('Test411', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[411], classifier)).to.be.equal('Interaction and Visualization');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[411], classifier)).to.be.equal('Enterprise and Information Systems');
             done();
         });
 
         it('Test412', function(done) {
-            expect(thesesClassifier.classify(thesesClassifier.theses2017[412], classifier)).to.be.equal('Software Engineering');
+            expect(thesesClassifier.classify(thesesClassifier.theses2017[412], classifier)).to.be.equal('Cyber-Security');
             done();
         });
 
