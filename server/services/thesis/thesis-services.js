@@ -1,7 +1,7 @@
 const natural = require("natural");
-const bClassifier = new natural.BayesClassifier();
-const bClassifierThesis = new natural.BayesClassifier();
-
+//const bClassifier = new natural.BayesClassifier();
+const bClassifierThesis = new natural.BayesClassifier(null,0.1);
+const thesesClassifier = require("./bn.js");
 const tokenizer = new natural.CaseTokenizer();
 const sw = require('stopword');
 const ba_logger = require('../../log/ba_logger');
@@ -9,37 +9,20 @@ const threshold = 0.5;
 var htmlparser = require("htmlparser2");
 const fs = require('fs'),
   path = require('path'),
-  filePath = path.join(__dirname, "../../files/tOrig.html");
+  filePath = path.join(__dirname, "../../files/tTrad.html");
 
-const util = require('util')
+const util = require('util');
 var HashMap = require('hashmap');
 
-let  Classes = [    "Engenharia de Software",
-    "Sistemas Empresariais",
-    "Tecnologia dos Sistemas Informáticos",
-    "Sistemas Distribuídos",
-    "Interação e Visualização",
-    "Sistemas Inteligentes",
-    "Sistemas de Informação",
-    "Processamento e Análise de Dados",
-    "Ciber-Segurança",
-    "Jogos",
-    "Tecnologia para Processamento de Informação e Linguagem",
-    "Bioinformática e Biologia Computacional",
-    "Sistemas Computacionais",
-    "Robótica Inteligente",
-    "IoT",
-    "Algoritmos e Programação"
 
-];
 
 let ThesisTypes = ["Projecto", "Dissertação", "Empresa"];
 
 class ThesisServices {
     constructor() {
         this.processThesis = processThesis;
-        this.trainClassifierUsingLink = trainClassifierUsingLink;
-        this.trainClassifier = trainClassifier;
+        this.trainSaveClassifierUsingLink = trainSaveClassifierUsingLink;
+        this.trainSaveClassifier = trainSaveClassifier;
         this.parseThesis = parseThesis;
         this.printThesesArray = printThesesArray;
     }
@@ -48,7 +31,6 @@ class ThesisServices {
 let thesis_services = module.exports = exports = new ThesisServices();
 
 function parseThesis(callback)    {
-    console.log("parseThesis - Serviços, inicio");
 
     let parsedTheses = [];
 
@@ -84,6 +66,7 @@ function parseThesis(callback)    {
                             status: "",
                             requirements: "",
                             areas: "",
+                            type: ""
                         };
 
 
@@ -140,6 +123,9 @@ function parseThesis(callback)    {
                                 if (i === 9)    {
                                     //console.log("Caso 9, status");
                                     let status = subelement.children[1].children[0].data;
+                                    if (status === "Not assigned")    {
+                                        status = "Unassigned";
+                                    }
                                     oneThesis.status = status;
                                 }
 
@@ -149,11 +135,16 @@ function parseThesis(callback)    {
                                     let info = subelement.children[1].children[3].children[5];
 
                                     let observations = info.attribs["data-observations"];
-                                    observations = observations.replace("\t",": ");
+                                    if(observations)    {
+                                        observations = observations.replace("\t",": ");
+                                    }
                                     oneThesis.observations = observations;
 
                                     let requirements = info.attribs["data-requirements"];
-                                    requirements = requirements.replace("\t",": ");
+                                    if (requirements)   {
+                                        requirements = requirements.replace("\t",": ");
+                                        requirements = requirements.replace("\n","");
+                                    }
                                     oneThesis.requirements = requirements;
 
                                     let objectives = info.attribs["data-goals"];
@@ -161,6 +152,7 @@ function parseThesis(callback)    {
 
                                     let location = info.attribs["data-localization"];
                                     oneThesis.location = location;
+
 
                                     let courses = info.attribs["data-degrees"];
                                     oneThesis.courses = courses;
@@ -172,7 +164,6 @@ function parseThesis(callback)    {
                             //Last iteration, push thesis to array.
                             if (i === 12)   {
                                 parsedTheses.push(oneThesis);
-
                             }
 
                             i++;
@@ -192,8 +183,9 @@ function parseThesis(callback)    {
                 //Here one can print after geral computation
                 //printThesesArray(parsedTheses, "");
                 //console.log("Number of total parsed thesis is: "+ parsedTheses.length);
-                saveFile(parsedTheses,"ParsedTheses");
-                console.log("parseThesis- Serviços, antes callback");
+
+                //TODO Just save sometimes
+                //saveFile(parsedTheses,"ParsedTheses");
 
                 callback(null, parsedTheses, parsedTheses.length)
 
@@ -214,112 +206,33 @@ function parseThesis(callback)    {
 
 }
 
-function trainClassifierUsingLink(link, callback) {
+function trainSaveClassifierUsingLink(link, callback) {
     //Loads data from link and trains the current classifier. Saves it
 }
 
-//TODO: Vale a pena pequisar pelo ficheiro, carregar caso exista?
-function trainClassifier(theses, callback) {
 
-    const THESIS_NUMBER = theses.length;
-    let projectsNumber = 0;
-    let dissertationNumber = 0;
-    let companyNumber = 0;
-    let titlesTheses = [];
-    var maxIterations = 100;
-    var minImprovement = .01;
-    //Using Naive Bayes to determine if the thesis is a project or dissertation, and if there is a company evolved
-    //Naive Bayes assumes independent predictors.
-    bClassifier.addDocument('Projecto', ThesisTypes[0]);
-    bClassifier.addDocument('Project', ThesisTypes[0]);
-    bClassifier.addDocument('Dissertação', ThesisTypes[1]);
-    bClassifier.addDocument('Dissertation', ThesisTypes[1]);
+function trainSaveClassifier(type, callback) {
 
-    //Default are marked as "Projecto"
-    bClassifier.addDocument('', ThesisTypes[0]);
+    //TODO use loaded thesis instead of hardcoded solution
+    //TODO It seems that if several requests are made without restarting the server, classifier.save will
+       //TODO increment info on the file
 
-    //TODO
-    bClassifier.addDocument('Unlabel', ThesisTypes[2]);
-    bClassifier.addDocument('Link Consulting', ThesisTypes[2]);
+    let classifier = thesesClassifier.train(type);
 
-    //Train Classifier
-    bClassifier.train();
-
-    //////////////////////////////////////////////////////////////////////////////////
-    bClassifierThesis.addDocument('',"Sem classificação");
-    bClassifierThesis.addDocument('Large scale membership and consistency',"SD");
-    bClassifierThesis.addDocument(["expressões texto","text expressions"],"SD");
-    bClassifierThesis.addDocument(["dados","redes de sensores"],Classes[14]);
-    bClassifierThesis.addDocument(["Internet-of-Things", "Domotics", "Domótica"],Classes[14]);
-    bClassifierThesis.addDocument(["Gamification"],Classes[9]);
-    bClassifierThesis.addDocument(["Classificação automática de textos", "Automatic classification of text"],Classes[10]);
-    bClassifierThesis.addDocument(["Discourse analysis"],Classes[10]);
-    bClassifierThesis.addDocument(["Enterprise integration Architecture", "Enterprise", "Empresarial"],Classes[1]);
-    bClassifierThesis.addDocument(["Redes Complexas", "Complex Networks"],Classes[12]);
-    bClassifierThesis.addDocument(["monolithic architecture","microservices architecture"],Classes[0]);
-    bClassifierThesis.addDocument(["Aplicação Móvel","Mobile App"],Classes[0]);
-    bClassifierThesis.addDocument(["P3","Processor", "Processador"],Classes[16]);
-    bClassifierThesis.addDocument(["Security ","Malware", "Sofware security"],Classes[8]);
-    bClassifierThesis.addDocument(["Sensing and Visualizaing", "Visualização", "Visualization"],Classes[4]);
-
-    bClassifierThesis.train();
-
-
-
-    //Build array of objects to store.
-    for (let i = 0; i < THESIS_NUMBER; i++)  {
-        console.log("TITULO, VARIA::" + theses[i].title);
-        const result = bClassifier.classify(theses[i].title);
-        theses[i].areas = result;
-
-        if (result === ThesisTypes[0])    {
-            projectsNumber ++;
-        }
-
-        if (result === ThesisTypes[1])    {
-            dissertationNumber ++;
-        }
-
-        //Logging if is project or disseration and its score
-        /*
-        var classifications = bClassifier.getClassifications(theses[i].title);
-        classifications.forEach(function(classPlusProbability) {
-            console.log('Class ' + classPlusProbability.label + ' has score ' + classPlusProbability.value);
-        });
-        */
-        //TODO Not working well
-        var classifications = bClassifierThesis.getClassifications(theses[i].title);
-        theses[i].areas = theses[i].areas + ", " + bClassifierThesis.classify(theses[i].title);
-        classifications.forEach(function(classPlusProbability) {
-            console.log('Class ' + classPlusProbability.label + ' has score ' + classPlusProbability.value);
-
-        });
-
-        console.log("==============");
-
-
+    if (fs.existsSync(path.join(__dirname, "../../files/Thesis/bClassifier.json"))) {
+        fs.unlinkSync(path.join(__dirname, "../../files/Thesis/bClassifier.json"));
     }
-    //printThesesArraySimplified(theses);
-
-    bClassifier.save(path.join(__dirname, "../../files/Thesis/bClassifier.json"), function(err, classifier) {
+    classifier.save(path.join(__dirname, "../../files/Thesis/bClassifier.json"),  function(err, classifierS) {
         if (err)    {
-            console.err(err);
+            console.log(err);
             callback(err,null);
         } else {
-            ba_logger.ba("BA|"+ "CLASSIFIER_TYPE_SAVED|" + new Date());
-            callback(null, projectsNumber + dissertationNumber);
+            ba_logger.ba("BA|"+ "TRAIN|" + "CLASSIFIER_SAVED|" + new Date());
         }
     });
 
-    bClassifierThesis.save(path.join(__dirname, "../../files/Thesis/bClassifierThesis.json"), function(err, classifier) {
-        if (err)    {
-            console.err(err);
-            callback(err,null);
-        } else {
-            ba_logger.ba("BA|"+ "CLASSIFIER_AREAS_SAVED|" + new Date());
-            callback(null, projectsNumber + dissertationNumber);
-        }
-    });
+    callback(null,classifier);
+
 }
 
 //Parses thesis from HTML document generated by Fenix at:
@@ -328,26 +241,10 @@ function trainClassifier(theses, callback) {
 
 //Receives a raw thesis and returns a categorized thesis
 function processThesis (theses, callback)   {
+
     console.log("processThesis- Serviços,incio");
 
     // Categorias
-    /*
-
-    0 - Engenharia de Software
-    1 - Sistemas Empresariais
-    2 - Tecnologia dos Sistemas Informáticos
-    3 - Sistemas Distribuídos
-    4 - Interação e Visualização
-    5 - Sistemas Inteligentes
-    6 - Sistemas de Informação
-    7 - Processamento e Análise de Dados
-    8 - Ciber-Segurança
-    9 - Jogos
-    10 - Tecnologia para Processamento de Informação e Linguagem
-    11 - Bioinformática e Biologia Computacional
-    12 - Sistemas Computacionais
-    13 - Robótica Inteligente
-    */
 
     //load classifier
     //stem, remove stop words
@@ -367,50 +264,29 @@ function processThesis (theses, callback)   {
 
     let titlesTheses = [];
 
+
     //Using Naive Bayes to determine if the thesis is a project or dissertation, and if there is a company evolved
-    natural.BayesClassifier.load(path.join(__dirname, "../../files/Thesis/bClassifier.json"), null, function(err, bClassifier) {
+    let classifier = thesesClassifier.train(2);
         //Build array of objects to store.
         for (let i = 0; i < thesisNumber; i++)  {
 
 
-            titlesTheses[i] = {
-                id: "",
-                title: "",
-                areas: ""
-            };
-            titlesTheses[i].id = theses[i].id;
-            titlesTheses[i].title = theses[i].title;
-            titlesTheses[i].areas = bClassifier.classify(theses[i].title);
-
-
-
-            if (bClassifier.classify(theses[i].title) === ThesisTypes[0])    {
+            if (theses[i].title.includes("Project") || theses[i].title.includes("PROJECT") ||
+                theses[i].title.includes("Projecto") || theses[i].title.includes("PROJECTO"))    {
                 projectsNumber ++;
-            }
-
-            if (bClassifier.classify(theses[i].title) === ThesisTypes[1])    {
+                theses[i].type = 0;
+            } else  {
+                //Default case
                 dissertationNumber ++;
+                theses[i].type = 1;
             }
+            theses[i].areas = thesesClassifier.getFirstTwoLabels(theses[i],classifier);
 
-            theses[i].areas = bClassifier.classify(theses[i].title);
-
-        }
-        //TODO Check for errors
-
-
+            //classify project or disseration
+            }
+            return callback(null,theses, projectsNumber, dissertationNumber);
 
 
-
-
-    });
-
-    natural.BayesClassifier.load(path.join(__dirname, "../../files/Thesis/bClassifierThesis.json"), null, function(err, bClassifierThesis) {
-        for (let i = 0; i < thesisNumber; i++) {
-            theses[i].areas = theses[i].areas + ", " + bClassifierThesis.classify(theses[i].title);
-        }
-        return callback(null,theses, projectsNumber, dissertationNumber);
-
-    });
 
 }
 function addThesis ()   {
@@ -424,7 +300,7 @@ function addThesis ()   {
 //Multi label classification: Classification task where each sample is mapped to a set of target labels (more than one class).
 
 function saveFile(data, name) {
-    fs.writeFile(path.join(__dirname,"../../files/" + name + Date.now() + ".txt"), util.inspect(data), function(err) {
+    fs.writeFile(path.join(__dirname,"../../files/" + name + ".txt"), util.inspect(data), function(err) {
         if(err) {
             return console.log(err);
         }
