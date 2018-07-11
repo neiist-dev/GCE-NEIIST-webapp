@@ -1,20 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const UtilsRoutes = require('./utils-routes');
-const ERROR = "An error occurred in thesis-routes";
 const thesisServices = require('./../services/thesis/thesis-services');
 const ba_logger = require('../log/ba_logger');
 const DBAccess = require('../mongodb/accesses/mongo-access');
-let unchanged = 0;
-let added = 0;
-let modified = 0;
-
 
 //TODO
 router.post('/train/:link', (req, res) =>  {
    //Requere privilegios
     let link = req.params.link;
-    thesisServices.trainClassifierUsingLink(link, (err,answer) =>   {
+    thesisServices.trainSaveClassifierUsingLink(link, (err,answer) =>   {
 
     });
 
@@ -23,8 +18,9 @@ router.post('/testClassifier', (req, res) =>  {
    //
 });
 
-router.post('/add', (req, res, next) => {
 
+
+router.post('/add', (req, res, next) => {
 
     let loadThesis = () =>   {
         return new Promise((resolve,reject) =>   {
@@ -48,7 +44,8 @@ router.post('/add', (req, res, next) => {
 
         });
     };
-    let processThesis = (thesisArray) =>   {
+
+     let processThesis = (thesisArray) =>   {
         console.log("processThesis");
 
         return new Promise((resolve,reject) =>   {
@@ -81,49 +78,41 @@ router.post('/add', (req, res, next) => {
         //ver diferença entre o que a BD retorna e o numero de docs. (Se já estiver na BD, não adicionar)
         return new Promise((resolve,reject) =>   {
 
+            var stats = {
+                loaded: NumberTheses,
+                unchanged: 0,
+                modified: 0,
+                added: 0
+            };
 
-            //TODO Save values: Moving for to access thesis, and return object with full info
             for (let i = 0; i < NumberTheses; i++)  {
                 DBAccess.thesis.addThesis(theses[i].id, theses[i].title, theses[i].supervisors,
                     theses[i].vacancies, theses[i].location, theses[i].courses,
                     theses[i].observations, theses[i].objectives, theses[i].status,
 
-                    theses[i].requirements, theses[i].areas, 0 , new Date(), (err, result) =>    {
+                    theses[i].requirements, theses[i].areas, 0 , theses[i].type, new Date(), (err, result) =>    {
                         if (err) {
+                            console.log(err);
+                            console.log("erro");
                             reject(err);
                         } else {
-                            switch (result) {
-                                case "added":
-                                    added++;
-
-                                    break;
-
-                                case "modified":
-                                    modified++;
-                                    break;
-
-                                case "unchanged":
-                                    unchanged++;
-                                    break;
-
-                                default:
-                                    reject("Adding theses, callback is not added, modified or unchanged");
+                            if (result.nModified === 1)   {
+                                stats.modified++;
+                            } else if (result.__v === 0)  {
+                                //__v is the version of the document
+                                stats.added++;
                             }
                         }
-                    });
+
+                        stats.unchanged = NumberTheses - stats.modified - stats.added
+
+                  });
 
             }
 
-            let stats = {
-                loaded: NumberTheses
-            };
-
             resolve(stats);
-
         });
     };
-
-
 
     //loadThesis might receive something
     loadThesis().then((thesisSet) =>  {
@@ -170,76 +159,71 @@ router.post('/add', (req, res, next) => {
 
 
 
+//Trains the classifier (hardcoded) and saves the classifier
 router.post('/train', (req, res, next) => {
+    let error = {};
+    error.content = "";
+    error.msg = "Error not defined";
 
-
-
-    let loadThesis = () =>   {
+    let trainSaveClassifier = () =>   {
         return new Promise((resolve,reject) =>   {
-
-            thesisServices.parseThesis((err, processedThesis, numberOfProcessedThesis) =>  {
-                if (err) {
-                    console.log(err);
-                    error.msg = "Error processing thesis";
-                    error.content = err;
-                    reject(error);
-                } else   {
-                    result =   {
-                        theses: processedThesis,
-                        number: numberOfProcessedThesis
-                    };
-                    resolve (result);
-                }
-            });
-
-        });
-    };
-    let trainClassifier = (thesisArray) =>   {
-        return new Promise((resolve,reject) =>   {
-            thesisServices.trainClassifier(thesisArray, (err, number) =>    {
+            thesisServices.trainSaveClassifier(0,(err, classifier) =>    {
                 if (err)    {
-                    console.log("erro a processar tese");
+                    console.log("Erro a processar tese");
                     console.log(err);
                     error.msg = "Error processing thesis";
                     error.content = err;
                     reject(error);
                 }   else {
-                    resolve (number);
+                    resolve (classifier);
                 }
             });
         });
     };
 
-
-
     //loadThesis might receive something
-    loadThesis().then((thesisSet) =>  {
-        ba_logger.ba("BA|"+ "THESIS_LOADED_FOR_CLASSIFICATION|" + thesisSet.number +"|" +  new Date());
-
-        return trainClassifier(thesisSet.theses);
-
-    }).then((number) => {
-
-        ba_logger.ba("BA|"+ "CLASSIFIER_TRAINED_WITH|" + number + "|" +new Date());
+    trainSaveClassifier().then((classifier) =>  {
+        ba_logger.ba("BA|"+ "TRAIN|" + "CLASSIFIER_TRAINED" +"|" +  new Date());
+        UtilsRoutes.replySuccess(res, classifier, "Classifier trained successfully");
 
     }).catch((error) => {
 
-        console.log("ERROR ON THESIS PROMISES:");
+        console.log("ERROR ON /TRAIN -  PROMISES:");
         console.log("------------------");
         console.log(error);
         console.log("------------------");
         UtilsRoutes.replyFailure(res, '', error);
     });
 
-
-
-
-
-
-
-
 });
 
 
+router.get('/getTheses', async (req,res,next) =>   {
+/*    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
+
+    , passport.authenticate('jwt', {session: false})*/
+
+    let error = {};
+    error.content = "";
+    error.msg = "";
+
+    try {
+        const theses = await DBAccess.thesis.getThesis();
+        UtilsRoutes.replySuccess(res,theses);
+
+    } catch (error) {
+        console.log("ERROR ON STUDENT LOGIN:");
+        console.log(error.msg);
+        console.log("------------------");
+        console.log("Information: \n ---------------");
+        console.log(error.content);
+        console.log("------------------");
+        UtilsRoutes.replyFailure(res, '', error.msg);
+    }
+
+});
 
 module.exports = router;

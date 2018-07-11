@@ -23,8 +23,10 @@ router.post('/register', (req, res, next) => {
         msg: "Erro interno. Contacte a administração."
     };
 
-    let getFenixToken = (() =>  {
-        return new Promise((resolve, reject) => {
+    process();
+
+    async function getFenixToken () {
+        let out = await new Promise((resolve, reject) => {
             FenixApi.person.getAccessToken(code, (token) => {
                 if (token.hasOwnProperty('error'))  {
                     //Couldn't retrieve token from Fenix
@@ -35,11 +37,12 @@ router.post('/register', (req, res, next) => {
                 resolve(token);
             });
         });
-    });
+        return out;
+    }
 
-    let getStudentFromFenix = (token) => {
+    async function getStudentFromFenix (token)  {
             //Token has properties: access_token, refresh token, expires in
-           return new Promise((resolve, reject) => {
+           let out = await new Promise((resolve, reject) => {
             FenixApi.person.getPerson(token.access_token, (person) =>   {
                 if (person.hasOwnProperty('error')) {
                     //Could not get Student
@@ -60,18 +63,22 @@ router.post('/register', (req, res, next) => {
                 }
             });
         });
-    };
+       return out;
+    }
 
     //Gets courses from this Academic Term and the previous
-    let getStudentCourses = (info) => {
+    //Todo refactor, get rid of callback hell
+    async function getStudentCourses (info) {
             //Token has properties: access_token, refresh token, expires in
             const token = info[0].access_token;
             const person = info[1];
 
-           return new Promise((resolve, reject) => {
+           let out = await new Promise((resolve, reject) => {
                let student = [];
 
-               FenixApi.person.getCourses(token, '2016/2017', (courses) =>   {
+
+
+               FenixApi.person.getCourses(token, '2015/2016', (courses) =>   {
                 if (courses.hasOwnProperty('error')) {
                     error.content = courses;
                     error.msg = "Erro na comunicação com o Fénix em getCourses  .";
@@ -83,8 +90,11 @@ router.post('/register', (req, res, next) => {
                 } else {
                     student.push(person);
                     student.push(courses);
+                    console.log(courses);
 
-                    FenixApi.person.getCourses(token, '2017/2018', (recenteCourses) =>   {
+                    //Todo; if failed courses?
+                    FenixApi.person.getCourses(token, '2016/2017', (recenteCourses) =>   {
+                        console.log(recenteCourses);
                         if (recenteCourses.hasOwnProperty('error')) {
                             error.content = recenteCourses;
                             error.msg = "Erro na comunicação com o Fénix em getCourses  .";
@@ -98,17 +108,36 @@ router.post('/register', (req, res, next) => {
                             for (let enrolment of recenteCourses.enrolments)   {
                                 student[1].enrolments.push(enrolment);
                             }
-                            resolve(student);
+
+                            FenixApi.person.getCourses(token, '2017/2018', (recenteCourses) =>   {
+                                console.log(recenteCourses);
+                                if (recenteCourses.hasOwnProperty('error')) {
+                                    error.content = recenteCourses;
+                                    error.msg = "Erro na comunicação com o Fénix em getCourses  .";
+                                    reject(error);
+                                } else if (!FenixApi.person.isStudent(person)) {
+                                    error.content = "";
+                                    error.msg = "Tem de ser um estudante para fazer login através deste meio";
+                                    reject(error);
+                                } else {
+
+                                    for (let enrolment of recenteCourses.enrolments)   {
+                                        student[1].enrolments.push(enrolment);
+                                    }
+                                    resolve(student);
+                                }
+                            });
                         }
                     });
 
                 }
             });
         });
-    };
+       return out;
+    }
 
-    let loginStudentPromise = (student) =>  {
-        return new Promise((resolve,reject) => {
+    async function loginStudentPromise (student)  {
+        let out = await new Promise((resolve,reject) => {
 
             StudentServices.parseStudentData(student, (err, parsedStudent) => {
                 if (err) {
@@ -135,23 +164,26 @@ router.post('/register', (req, res, next) => {
             });
 
         });
-    };
+        return out;
+    }
 
-    getFenixToken().then((token) => {
-        return getStudentFromFenix (token);
-    }).then((info)=> {
-        return getStudentCourses(info);
-    }).then((student)=>   {
-        return loginStudentPromise(student);
-    }).catch((error) =>   {
-        console.log("ERROR ON STUDENT LOGIN:");
-        console.log(error.msg);
-        console.log("------------------");
-        console.log("Information: \n ---------------");
-        console.log(error.content);
-        console.log("------------------");
-        UtilsRoutes.replyFailure(res, '', error.msg);
-    });
+    async function process()    {
+        try {
+            const token = await getFenixToken();
+            const info = await getStudentFromFenix(token);
+            const student = await getStudentCourses(info);
+            const login = await loginStudentPromise(student);
+            console.log(login);
+        } catch (error) {
+                console.log("ERROR ON STUDENT LOGIN:");
+                console.log(error.msg);
+                console.log("------------------");
+                console.log("Information: \n ---------------");
+                console.log(error.content);
+                console.log("------------------");
+                UtilsRoutes.replyFailure(res, '', error.msg);
+        }
+    }
 
 });
 
@@ -162,6 +194,7 @@ router.get('/myApplications', passport.authenticate('jwt', {session: false}), (r
     }
 
     let studentEmail = req.user.email;
+
     DBAccess.applications.getValidApplicationsByStudentEmail(studentEmail, (err, applications) => {
         if (err) {
             UtilsRoutes.replyFailure(res, err, ERROR);
@@ -279,6 +312,48 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), (req, res,
         });
 });
 
+router.get('/getStudentSpecializationAreas', passport.authenticate('jwt', {session: false}), (req,res,next) =>   {
+    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
+
+    courses = req.user.enrolments;
+    preference = getAreasOfInterest(courses, 2);
+
+    return UtilsRoutes.replySuccess(res,preference.areas,preference.areas.length);
+});
+
+router.get('/getRecommendedTheses', passport.authenticate('jwt', {session: false}), async (req,res,next) =>   {
+    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
+
+    let error = {};
+    error.content = "";
+    error.msg = "";
+
+    courses = req.user.enrolments;
+
+    preference = getAreasOfInterest(courses, 2);
+
+    try {
+        const theses = await DBAccess.thesis.getThesisRecomendation(preference.areas);
+        UtilsRoutes.replySuccess(res,theses);
+
+    } catch (error) {
+        console.log("ERROR ON STUDENT LOGIN:");
+        console.log(error);
+        console.log("------------------");
+        console.log("Information: \n ---------------");
+        console.log(error.content);
+        console.log("------------------");
+        UtilsRoutes.replyFailure(res, '', error.msg);
+    }
+
+});
+
 //Public info
 router.get('/numberOfStudents', (req, res, next) => {
     DBAccess.students.getNumberOfStudents((err, number) => {
@@ -325,14 +400,16 @@ function registerOrLogin(name, email, courses, gender, enrolments, ip, callback)
                     ba_logger.ba("BA|"+ "NS|" + student.email + "|" + ip);
                 }
             });
-        } if (student.enrolments.length === 0) {
-            console.log(enrolments);
+            //TODO add if students enrolments have different size -> means that we are at new academic semester /other special case
+                //todo in this case, add the ones remaining
+            } if (student.enrolments.length === 0) {
+            console.log("Adding from the beggining:" + enrolments);
             DBAccess.students.addEnrolments(email, enrolments, function (err) {
                 if (err) {
                     console.log(err);
                     callback("Erro a adicionar cadeiras",null);
                 }
-
+                console.log("Os enrolments foram adicionados a bd:" + enrolments);
             });
 
         } if (!student.gender) {
@@ -348,6 +425,7 @@ function registerOrLogin(name, email, courses, gender, enrolments, ip, callback)
 
 
         //TODO: Verificação para ver se aluno tem cadeiras guardadas. Se não tiver, adicionar.
+        //Todo:problema: Token assinado tem também as cadeiras do aluno, sempre que aluno tiver novas cadeiras emite-se novo token? ou sempre que aluno faça update das cadeiras estas não são guardadas.
         const token = jwt.sign(student, DbConfig.DB_SECRET, {expiresIn: 3600});
         const resData = {token: 'bearer ' + token,
                         user: {
@@ -358,4 +436,122 @@ function registerOrLogin(name, email, courses, gender, enrolments, ip, callback)
                         }};
         callback(null,resData);
     });
+}
+
+function getAreasOfInterest(courses, numberOfAreas) {
+    const SoftwareEngineering = new Set(["Arquitecturas de Software", "Especificação de Software","Programação Avançada",
+        "Teste e Validação de Software"]);
+    const EnterpriseInformationSystems = new Set(["Gestão de Projectos Informáticos",
+        "Engenharia e Tecnologia de Processos de Negócio",
+        "Fundamentos de Sistemas de Informação","Arquitetura Empresarial","Gestão de Sistemas de Informação",
+        "Administração e Gestão de Infraestruturas de It", "Engenharia de Sistemas de Larga Escala",
+        "Administração de Dados e Sistemas de Informação"]);
+    const DistributedCyberSystems = new Set(["Desenvolvimento de Aplicações Distribuídas",
+        "Design de Interação para a Internet das Coisas",
+        "Aplicações e Computação para a Internet das Coisas", "Computação Móvel e Ubíqua",
+        "Computação Paralela e Distribuída", "Ambientes Inteligentes",
+        "Sistemas de Elevada Confiabilidade", "Computação em Nuvem e Virtualização",
+        ""]);
+    const InteractionViz = new Set(["Animação e Visualização Tridimensional", "Conceção Centrada no Utilizador",
+        "Visualização de Informação", "Comunicação Visual Interactiva", "Produção de Conteúdos Multimédia",
+        "Programação 3D"]);
+    const IntelligentSystems = new Set(["Procura e Planeamento", "Agentes Autónomos e Sistemas Multi-Agente",
+        "Planeamento, Aprendizagem e Decisão Inteligente", "Representação do Conhecimento e Raciocínio",
+        "Processamento de Imagem e Visão", "Robôs Sociais e Interação Pessoa Robô", "Aprendizagem",
+        "Introdução à Robótica", "Sistemas Robóticos em Manipulação", "Ciência de Dados"]);
+    const AlgoritmsApplications = new Set (["Algoritmos para Lógica Computacional", "Computabilidade e Complexidade",
+        "Ciência das Redes Complexas", "Algoritmos Avançados", "Linguagens de Programação"]);
+    const Security = new Set (["Ciber Segurança Forense", "Segurança em Software", "Segurança Informática em Redes e Sistemas",
+        "Criptografia e Protocolos de Segurança"]);
+    const Games = new Set(["Computação Gráfica para Jogos", "Design de Jogos", "Inteligência Artificial para Jogos",
+        "Metodologia de Desenvolvimento de Jogos", ""]);
+    const BioInf = new Set(["Bioinformática", "Tecnologias de Informação em Saúde"]);
+    const LanguageTech = new Set(["Língua Natural", "Processamento e Recuperação de Informação",
+        "Processamento da Fala"]);
+
+    let coursesSet = [SoftwareEngineering, EnterpriseInformationSystems, DistributedCyberSystems, InteractionViz,
+                    IntelligentSystems, AlgoritmsApplications, Security, Games, BioInf, LanguageTech];
+
+    let counter = new Array(10).fill(0);
+
+    courses.forEach( (course) =>  {
+        for (let i = 0; i < coursesSet.length; i++)
+            if (coursesSet[i].has(course))  {
+                counter[i] += 1;
+                break;
+            }
+    });
+
+    let mostLikelyArea = arrayMax(counter);
+    let numberOfCoursesFirstArea = mostLikelyArea.max;
+
+    //Get second most voted area
+    if (numberOfAreas == 2) {
+        counter[mostLikelyArea.index] = 0;
+        var secondMostLikelyArea = arrayMax(counter);
+        var numberOfCoursesSecondArea = secondMostLikelyArea.max;
+    }
+
+    result = {
+        areas: []
+    };
+
+
+    //There are courses from one area
+    if (numberOfCoursesFirstArea > 0)  {
+        let mostLikelyAreaName = getAreaFromIndex(mostLikelyArea.index);
+        result.areas.push(mostLikelyAreaName);
+
+            //There are also courses from another area
+            if (numberOfAreas == 2 && numberOfCoursesSecondArea > 0)  {
+                let secondMostLikelyAreaName = getAreaFromIndex(secondMostLikelyArea.index);
+                result.areas.push(secondMostLikelyAreaName);
+                return result;
+            }
+
+    }
+
+    return result;
+
+
+}
+
+function arrayMax(arr) {
+    let len = arr.length, max = 0;
+    while (len--) {
+        if (arr[len] > max) {
+            max = arr[len];
+            index = len;
+        }
+    }
+    result =  {
+        max: max,
+        index: index
+    };
+    return result;
+}
+
+function getAreaFromIndex(index)  {
+    switch (index)  {
+        case 0:
+            return "Software Engineering";
+        case 1:
+            return "Enterprise and Information Systems";
+        case 2:
+            return "Distributed and Cyberphysical Systems";
+        case 3:
+            return "Interaction and Visualization";
+        case 4:
+            return "Intelligent Systems";
+        case 5:
+            return "Algorithms and Applications";
+        case 6:
+            return "Cyber-Security";
+        case 7:
+            return "Games";
+        case 8:
+            return "Bioinformatics and Computational Biology";
+        case 9:
+            return "Language and Information Technologies";
+    }
 }

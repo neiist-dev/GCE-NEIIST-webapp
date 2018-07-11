@@ -6,6 +6,7 @@ function Utils() {
     this.replyFailure = replyFailure;
     this.requireRole = requireRole;
     this.roleIs = roleIs;
+    this.saveFile = saveFile;
 }
 
 let utils = module.exports = exports = new Utils;
@@ -40,4 +41,15 @@ function requireRole(req, res, role) {
 // It provides an extra layer of security and resources saving
 function roleIs(req, role) {
     return (req.user.__t === role);
+}
+
+function saveFile(data, name) {
+    fs.writeFile(path.join(__dirname,"../files/" + name + Date.now() + ".txt"),{mode: w}, util.inspect(data), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+
+        ba_logger.ba("BA|"+ "FILE_SAVED|" + name + "|" + new Date());
+    });
+
 }
