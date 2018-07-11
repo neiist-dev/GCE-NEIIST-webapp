@@ -11,6 +11,8 @@ class AccessThesis {
         this.getNumberOfThesis = getNumberOfThesis;
         this.getThesisByArea = getThesisByArea;
         this.addThesisArray = addThesisArray;
+        this.getThesis = getThesis;
+        this.getThesisRecomendation = getThesisRecomendation;
     }
 }
 
@@ -22,11 +24,14 @@ let access_thesis = module.exports = exports = new AccessThesis();
  *******************************/
 function addThesis(id, title, supervisors, vacancies, location, courses,
                    observations, objectives, status, requirements, areas,
-                   clicks, lastModified, callback) {
+                   clicks, type, lastModified, callback) {
     Thesis.find(
       {
           id: id
       }, (err, thesis) =>   {
+          if (err)  {
+              callback(err,null);
+          }
           //Returns array with object
           //Thesis exist, let's see if we want to replace something
 
@@ -41,8 +46,9 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
           if (thesis[0]) {
               if (thesis[0].title === title && thesis[0].supervisors === supervisors &&
                 thesis[0].vacancies === vacancies && thesis[0].observations === observations &&
-                thesis[0].objectives === objectives && thesis[0].status === status && thesis[0].requirements === requirements)  {
-                  callback(null,"unchanged");
+                thesis[0].objectives === objectives && thesis[0].status === status && thesis[0].requirements === requirements
+                && thesis[0].areas=== areas)  {
+                  callback(null,result);
               }
 
               if (thesis[0].title !== title) {
@@ -50,7 +56,7 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
                       if (err)  {
                           callback(err,null);
                       } else    {
-                          callback(null, "modified");
+                          callback(null, result);
                       }
                   });
               }
@@ -59,7 +65,7 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
                       if (err)  {
                           callback(err,null);
                       } else    {
-                          callback(null, "modified");
+                          callback(null, result);
                       }
                   });
               }
@@ -68,7 +74,7 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
                       if (err)  {
                           callback(err,null);
                       } else    {
-                          callback(null, "modified");
+                          callback(null, result);
                       }
                   });
               }
@@ -77,7 +83,7 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
                       if (err)  {
                           callback(err,null);
                       } else    {
-                          callback(null, "modified");
+                          callback(null, result);
                       }
                   });
               }
@@ -86,7 +92,7 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
                       if (err)  {
                           callback(err,null);
                       } else    {
-                          callback(null, "modified");
+                          callback(null, result);
                       }
                   });
               }
@@ -95,7 +101,7 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
                       if (err)  {
                           callback(err,null);
                       } else    {
-                          callback(null, "modified");
+                          callback(null, result);
                       }
                   });
               }
@@ -104,11 +110,22 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
                       if (err)  {
                           callback(err,null);
                       } else    {
-                          callback(null, "modified");
+                          callback(null, result);
+                      }
+                  });
+              }
+
+              if (thesis[0].areas !== areas) {
+                  Thesis.update({ id: id }, { $set: { areas: areas }}, (err,result) =>  {
+                      if (err)  {
+                          callback(err,null);
+                      } else    {
+                          callback(null, result);
                       }
                   });
               }
           } else    {
+
               let newThesis = new Thesis({
                   id: id,
                   title: title,
@@ -121,15 +138,17 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
                   status: status,
                   requirements: requirements,
                   areas: areas,
+                  type: type,
                   clicks: clicks,
                   lastModified: lastModified
               });
 
               newThesis.save((err,result)=>   {
+                  console.log(err);
                   if (err)  {
                       callback(err,null);
                   } else    {
-                      callback(null, "added");
+                      callback(null, result);
                   }
               });
           }
@@ -142,16 +161,36 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
 }
 
 function addThesisArray(thesesArray, callback) {
-    const NumberTheses = thesesArray.length;
-    for (let i = 0; i < NumberTheses; i++)  {
-        addThesis(thesesArray[i].id, thesesArray[i].title, thesesArray[i].supervisors,
-          thesesArray[i].vacancies, thesesArray[i].location, thesesArray[i].courses,
-          thesesArray[i].observations, thesesArray[i].objectives, thesesArray[i].status,
-          thesesArray[i].requirements, thesesArray[i].areas, "", new Date(), callback)
+    const NumberTheses = thesesArray.theses.length;
+    let stats = {
+        loaded: NumberTheses,
+        unchanged: 0,
+        modified: 0,
+        added: 0
+    };
+    for (let i = 0; i < NumberTheses; i++) {
+        addThesis(thesesArray.theses[i].id, thesesArray.theses[i].title, thesesArray.theses[i].supervisors,
+          thesesArray.theses[i].vacancies, thesesArray.theses[i].location, thesesArray.theses[i].courses,
+          thesesArray.theses[i].observations, thesesArray.theses[i].objectives, thesesArray.theses[i].status,
+          thesesArray.theses[i].requirements, thesesArray.theses[i].areas, 0, thesesArray.theses[i].type,
+          new Date(), (err, result) => {
+              if (err) {
+                  console.log(err);
+                  reject(err);
+              } else {
+                  if (result.nModified === 1)   {
+                      stats.modified++;
+                  } else if (result.__v === 0)  {
+                      //__v is the version of the document
+                      stats.added++;
+                  }
+              }
+
+          });
     }
 
+    callback(null, stats)
 }
-
 
 //TODO: May update only one field. Status may not be modified here
 function updateThesis(id, description, requirements,
@@ -174,6 +213,39 @@ function getThesisByArea(area, callback) {
           area: { $in: area }
       }
       , callback)
+}
+
+async function getThesis() {
+    let query = Thesis.find({});
+    let docs = await query.exec();
+    return docs;
+}
+
+async function getThesisRecomendation(arraySpecialization) {
+    let thesisIdSet = new Set();
+    let result = [];
+    //todo primeira area -> fazer match com primeira posição do array; segunda área -> fazer match tambem e só devolver 2 teses
+    for (let area of arraySpecialization)  {
+        let query = Thesis.find({areas: {$eq: area}});
+        var docs = await query.exec();
+        for (let i = 0; i < 3; i++) {
+            let item = docs[Math.floor(Math.random()*docs.length)];
+
+            //Thesis is not repeated
+            if (thesisIdSet.has(item.id)) {
+                i--;
+            } else  {
+                //Repeat
+                thesisIdSet.add(item.id);
+                result.push(item);
+            }
+
+        }
+
+    }
+
+
+    return result;
 }
 
 

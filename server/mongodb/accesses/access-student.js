@@ -7,6 +7,7 @@ class AccessStudent {
     constructor() {
         this.getStudentById = AccessUser.getUserById;
         this.getStudentByEmail = AccessUser.getUserByEmail;
+        this.getStudentByEmail2 = getStudentByEmail2;
         this.addStudent = addStudent;
         this.addGender = addGender;
         this.addEnrolments = addEnrolments;
@@ -113,4 +114,10 @@ function addGender(email, gender, callback) {
 function addEnrolments(email, enrolments, callback) {
     Student.update({'email' : email},
       {'$set' : {'enrolments' : enrolments}}, false, callback);
+}
+
+
+function getStudentByEmail2(email)  {
+        const query = {email: email};
+        User.findOne(query);
 }
