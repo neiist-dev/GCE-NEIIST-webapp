@@ -1,7 +1,12 @@
 .middlePage {
     width: 70%;
-    height: 50em;
     margin: auto;
+    margin-top: 3em;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
 }
 
 [hidden] {
@@ -13,3 +18,23 @@
     color: #fff;
     font-size:2em;
     border: none; }
+
+.panel-primary > .panel-heading {
+    color: #fff;
+    font-size:2em;
+    border: none; }
+
+.panel-warning> .panel-heading {
+    background-color: #EFB920;
+    color: #fff;
+    font-size:2em;
+    border: none; }
+
+.panel-danger> .panel-heading {
+    color: #fff;
+    font-size:2em;
+    border: none; }
+
+.centered {
+    text-align: center;
+}

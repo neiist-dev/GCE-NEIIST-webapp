@@ -13,7 +13,7 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { StudentService } from './services/student.service';
 import { CompanyService } from './services/company.service';
-import { MatchmakingService } from './services/matchmaking.service';
+import { ThesisService } from './services/thesis.service';
 import { CompanyRegisterComponent } from './general/register/company-register/company-register.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { CompanyAddProposalComponent } from './user-company/company-add-proposal/company-add-proposal.component';
@@ -161,7 +161,7 @@ const appRoutes: Routes = [
     StudentService,
     AuthGuardService,
     CompanyService,
-    MatchmakingService,
+    ThesisService,
     MockBackend,
     FeedbackService,
     BaseRequestOptions

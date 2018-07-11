@@ -59,8 +59,22 @@ export class StudentService {
 
   }
 
+    invalidateApplication(id) {
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        this.authService.loadTokenUser(headers);
+        return this.http.put('student/applications/invalidate', id, {headers: headers}).map(res => res.json());
+    }
+
     loadStudentProfile()    {
         return this.authService.loadUserProfile();
     }
 
+    getRecommendedTheses() {
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        this.authService.loadTokenUser(headers);
+        return this.http.get('student/getRecommendedTheses', {headers: headers}).map(res => res.json());
+
+    }
 }

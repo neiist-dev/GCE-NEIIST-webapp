@@ -5,6 +5,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Don't commit it, since it is sensitive info!
 exports.Vars = {
     FENIX_CLIENT_ID: "GCE",
-    REDIRECT_URL: "ROCKS",
-    REDIRECT_URL_PROF: "YEAH"
+    FENIX_CLIENT_SECRET: "ROCKS",
+    REDIRECT_URL: "OH",
+    REDIRECT_URL_PROF: "YEAH",
+    GOOGLE_MAPS: "!",
+    GOOGLE_ANALYTICS: "!"
 };

@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
-import { MatchmakingService } from '../../services/matchmaking.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { StudentService } from '../../services/student.service';
 import {CompanyService} from '../../services/company.service';
@@ -7,7 +6,7 @@ import {CompanyService} from '../../services/company.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 import { TemplateRef } from '@angular/core';
-import {PopoverDirective} from "ngx-bootstrap";
+import {PopoverDirective} from 'ngx-bootstrap';
 
 
 @Component({
@@ -36,7 +35,7 @@ export class StudentDashboardProposalsComponent implements OnInit {
               private studentService: StudentService,
               private companyService: CompanyService,
               private modalService: BsModalService,
-              private matchmakingService: MatchmakingService) {
+              ) {
   }
 
 
@@ -90,7 +89,7 @@ export class StudentDashboardProposalsComponent implements OnInit {
     event.path[4].remove();
     const applicationToDelete = {id: ""};
     applicationToDelete.id = this.applicationToDelete;
-    this.matchmakingService.invalidateApplication(applicationToDelete).subscribe(res => {
+    this.studentService.invalidateApplication(applicationToDelete).subscribe(res => {
       if (res.succeeded) {
         this.flashMessage.show(res.message, {cssClass: 'alert-success', timeout: 1000});
       } else {
