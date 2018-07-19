@@ -6,17 +6,17 @@
 
 [logo]: https://groups.ist.utl.pt/~gce-neiist.daemon/assets/gce.png "GCE-Thesis"
 The home repository for our student's group, Grupo de Contacto com Empresas, [GCE][GCE]. 
-We have built the platform from scratch. Unfortunately, we had to create a new repository,
-due to api keys leaked on the first one.
 Note that this is a **WIP** project.
 
 ## Features
 - [X] Informative service about the group.
 - [X] Sign-up functionality to programming competitions.
 
-## TODO
+## Ongoing
 - [ ] Interface to navigate through DEI theses
-- [ ] Theses' repository per topic (lacks confirmation)
+
+## TODO
+- [ ] Theses' repository per topic
 
 ---
 ####
@@ -63,20 +63,23 @@ In order to run the project the required libraries need to be installed.
     5. REDIRECT_URL = [INSERT VALUE]
     6. REDIRECT_URL_PROF = [INSERT VALUE]
     
-    Note: If you wish to integrate FenixEdu in your app, using [FenixApi][Fenix] set variables from 4 to 7.
+    Note: If you wish to integrate FenixEdu in your app, using [FenixApi][Fenix] set variables from 4 to 6.
    
 7. Set the appropriate public path on staticRoot, in order index.html to be loaded, if necessary.
 8. Rename ``.env.example`` to ``.env``. Set the environment variables for the front end, by editing ``.env``.
 9. Go to ``angular-src`` and run ``npm install``. **In case of error, make sure you have completed step 8**.
+10. To build the front-end, run ```ng build --watch```. 
 
 OPTIONAL:
-1. I recommend installing and using [nodemon][nodemon], in order to reload changes automatically. It's a big time saver.
-2. When building the front-end, you can run ``ng build --watch``, in order to reload changes automatically.
-3. We use [Travis-CI][travis] to help us achieve continuous testing to our project. Feel free to configure an account there.
+1. We recommend the usage of [nodemon][nodemon] - reload backend changes automatically. It's a big time saver.
+2. We recommend the usage of [MongoCompass][compass] - a user interface for MnongoDB.
+3. We recommend the usage of [Postman][postman] - simplifies API development.
+4. We use [Travis-CI][travis] to help us achieve continuous testing to our project. Feel free to configure an account there.
 
 ## Running the server
-1. Go to ``angular/src`` and run ```ng build --watch```. 
-2. Go to the main directory and run ``node gce_base`` or ``nodemon gce_base``.
+1. Make sure you have built the front-end, as stated in step 10 of "Getting Started".
+2. Go to the main directory and run ``node gce_base`` or ``nodemon gce_base``. 
+3. To access the user interface, open a browser (Chrome is recommended) and go to ``localhost:8080``.
 
 Note that on ``package.json`` (both on the root folder and angular-src)
 we are requiring for the lastest version of some packages. If the app does not work, it might be because of 
@@ -134,3 +137,5 @@ We follow [Convenant Code Of Conduct][CC].
 [nodemon]: https://nodemon.io/
 [open-source]: https://opensource.guide/how-to-contribute/
 [CC]: https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
+[compass]: https://www.mongodb.com/products/compass
+[postman]: https://www.getpostman.com/
