@@ -22,7 +22,7 @@ function getRequest(getOptions, callback) {
         });
     });
     request.on('error', (e) => {
-        callback("Error: " + error);
+        callback("Error: " + e);
     });
     request.end();
 }
