@@ -18,8 +18,9 @@ export class GceThesisComponent implements OnInit {
     proposals: any[];
     applications: object[];
     theses: object[];
+    numberTheses: number;
     recommendedTheses: object[];
-
+    showRecomendations: boolean;
     //Apply
     proposal: string;
     motivationLetter: string;
@@ -40,6 +41,7 @@ export class GceThesisComponent implements OnInit {
     @ViewChild('proposalTable') proposalTable;
     ngOnInit() {
         this.loadUser();
+        this.getTheses();
         this.getRecommendedTheses();
 
 
@@ -60,6 +62,39 @@ export class GceThesisComponent implements OnInit {
         this.recommendedTheses = res.response_data;
     });
 
+    }
+    getTheses() {
+        this.theses = [];
+        this.thesisService.getAllTheses().subscribe(res => {
+        this.theses = res.response_data;
+        this.numberTheses = this.theses.length;
+    });
+
+    }
+    toggleShowRecomendations(event)   {
+        console.log(event);
+        this.showRecomendations = !this.showRecomendations;
+    }
+
+    addRecomendations(event)    {
+        const idSet = new Set;
+        this.studentService.getRecommendedTheses().subscribe(res => {
+            const oldTheses = this.recommendedTheses;
+            for (const oldThesis of oldTheses) {
+                idSet.add(this.getId(oldThesis));
+            }
+
+            const newTheses = res.response_data;
+            for (const newThesis of newTheses)   {
+                        if (!idSet.has(newThesis.id))  {
+                        this.recommendedTheses.unshift(newThesis);
+                    }
+                }
+        });
+    }
+
+    getId(t)    {
+        return t.id;
     }
 }
 

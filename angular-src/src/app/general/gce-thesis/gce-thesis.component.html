@@ -1,16 +1,43 @@
-<div class="container middlePage">
-    <div class="row">
-        <div class="col-md-12">
 
-            <div class="panel panel-info">
-                <div class="panel-heading">Recommended theses</div>
-                <div class="panel-body">
+
+<div class="container middlePage">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Importante!</h4>
+        <p>
+            Nesta secção podes pesquisar as teses de mestrado disponíveis para MEIC (2017-2018, 2º Semestre).
+            Para tal, basta escolheres os filtros que pretendes aplicar às
+            {{numberTheses}} teses.
+        </p>
+        <hr>
+        <p class="mb-0">Atenção que a informação aqui contida é retirada do Fénix e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
+    </div>
+
+
+    <div class="row justify-content-md-center" [hidden]="showRecomendations">
+        <div class="col-md-auto">
+            <div class="card" style="width: 28rem;">
+                <img class="card-img-top" src="https://groups.ist.utl.pt/~gce-neiist.daemon/assets/favicon.png" height=50% width=50% alt="GCE">
+                <div class="card-body">
+                    <h5 class="card-title centered">Teses recomendadas</h5>
+                    <p class="card-text centered">Clica no botão seguinte para o GCE te recomendar propostas de teses de mestrado. Estas recomnedações são baseadas nas cadeiras que fizeste.</p>
+                    <button type="button" class="btn btn-primary" (click)="toggleShowRecomendations($event)">Ajuda-me a escolher a minha tese!</button>
                 </div>
             </div>
         </div>
-
     </div>
-    <div class="row">
+
+
+    <div class="row" [hidden]="!showRecomendations">
+        <div class="col-md-auto centered"></div>
+        <button type="button" class="btn btn-primary" (click)="toggleShowRecomendations($event)">Esconder recomendações</button>
+    </div>
+
+    <div class="row" [hidden]="!showRecomendations">
+        <div class="col-md-auto centered"></div>
+        <button type="button" class="btn btn-primary" (click)="addRecomendations($event)">Mais recomendações</button>
+    </div>
+
+    <div class="row" [hidden]="!showRecomendations">
             <div *ngFor="let thesis of recommendedTheses">
                 <div class="col-md-3">
                     <div class="card" style="width: 18rem;">
@@ -29,4 +56,25 @@
                 </div>
             </div>
     </div>
+
+    <div class="row" [hidden]="showRecomendations">
+        <div *ngFor="let thesis of theses">
+            <div class="col-md-3">
+                <div class="card" style="width: 18rem;">
+                    <h3>                {{ thesis.id}}</h3>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ thesis.title}}</h5>
+                        <div *ngFor="let area of recommendedTheses['areas']">
+                            area
+                        </div>
+                        <span class="label label-default">{{thesis.areas}}</span>
+                        <a href="#" class="btn btn-primary">Mais</a>
+                    </div>
+                </div>
+
+                {{ thesis.area}}
+            </div>
+        </div>
+    </div>
+
 </div>
