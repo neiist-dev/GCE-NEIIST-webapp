@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
-import {AuthService} from "../../../services/auth.service";
-import {StudentService} from "../../../services/student.service";
-import {FlashMessagesService} from "angular2-flash-messages";
+import {AuthService} from '../../../services/auth.service';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-login-student',
@@ -10,19 +9,18 @@ import {FlashMessagesService} from "angular2-flash-messages";
   styleUrls: ['./login-student.component.css']
 })
 export class LoginStudentComponent implements OnInit {
-  constructor(private activatedRoute: ActivatedRoute, private authService : AuthService,
-              private studentService: StudentService, private router: Router,
-              private flashMessage: FlashMessagesService) { }
+  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService,
+              private router: Router, private flashMessage: FlashMessagesService) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      let token = params['code'];
+      const token = params['code'];
       this.authService.registerStudent(token).subscribe( response => {
         if (response.succeeded){
           this.authService.storeData(response.response_data.user, response.response_data.token);
-          this.router.navigate(['dashboardStudent']);
+          this.router.navigate(['profileStudent']);
         } else {
-          this.flashMessage.show("Erro interno. Por favor contacte a administração. Obrigado.", {cssClass: 'alert-danger', timeout: 5000});}
+          this.flashMessage.show('Erro interno. Por favor contacte a administração. Obrigado.', {cssClass: 'alert-danger', timeout: 5000});}
       });
     });
   }

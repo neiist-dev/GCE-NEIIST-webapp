@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
-import { Router, ActivatedRoute} from "@angular/router";
-import { FlashMessagesService} from "angular2-flash-messages";
-import { ValidateService} from "../../services/validate.service";
+import { AuthService } from '../../services/auth.service';
+import { Router} from '@angular/router';
+import { FlashMessagesService} from 'angular2-flash-messages';
+import { ValidateService} from '../../services/validate.service';
 import { Vars } from '../../../../.env';
 import { Subscription } from 'rxjs/Subscription';
 import { ChangeDetectorRef} from '@angular/core';
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   password: string;
   studentPath: string;
   professorPath: string;
-  caller:string;
+
     private subscriptions: Array<Subscription> = [];
 
   constructor(private authService: AuthService, private router: Router,
@@ -79,16 +79,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.flashMessage.show(response.message, {cssClass: 'alert-danger', timeout: 1000});
         this.router.navigate(['/', 'login']);
       }
-      if(response.response_data.user.type == "Company") {
-        this.router.navigate(["dashboardCompany"]);
-        return;
-      } else if (response.response_data.user.type == "Student") {
-        this.router.navigate(["dashboardStudent"]);
-        return;
-      } else if (response.response_data.user.type == "Professor") {
-        this.router.navigate(["dashboardProfessor"]);
-        return;
-      }
+
       this.router.navigate(['profile']);
 
     }));

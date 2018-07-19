@@ -56,15 +56,6 @@
                 </li>
 
 
-
-                <li [routerLinkActive]="['active']" class="nav-item" *ngIf="isLoggedInStudent()">
-                     <a class="nav-link"  [routerLink]="['/dashboardStudent']">
-                         <i class="fa fa-map-o"></i>
-                         <p>Empresas</p>
-                     </a>
-                </li>
-
-
                 <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedInStudent()">
                     <a class="nav-link" [routerLink]="['/profileStudent']">
                         <i class="fa fa-user-o"></i>
