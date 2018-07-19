@@ -275,8 +275,27 @@ function processThesis (theses, callback)   {
                 theses[i].title.includes("Projecto") || theses[i].title.includes("PROJECTO"))    {
                 projectsNumber ++;
                 theses[i].type = 0;
+                theses[i].title = theses[i].title.replace('(PROJECT)','');
+                theses[i].title = theses[i].title.replace('(Project)','');
+                theses[i].title = theses[i].title.replace('Project -','');
+                theses[i].title = theses[i].title.replace('Project:','');
+                theses[i].title = theses[i].title.replace('PROJECT:','');
+                theses[i].title = theses[i].title.replace('Projecto:','');
+                theses[i].title = theses[i].title.replace('PROJECTO:','');
+
             } else  {
                 //Default case
+                theses[i].title = theses[i].title.replace('Dissertação:','');
+                theses[i].title = theses[i].title.replace('DISSERTAÇÃO:','');
+                theses[i].title = theses[i].title.replace('Dissertation:','');
+                theses[i].title = theses[i].title.replace('Dissertation -','');
+                theses[i].title = theses[i].title.replace('DISSERTATION:','');
+                theses[i].title = theses[i].title.replace('(DISSERTATION)','');
+                theses[i].title = theses[i].title.replace('[Dissertation]','');
+                theses[i].title = theses[i].title.replace('[Thesis]:','');
+                theses[i].title = theses[i].title.replace('Thesis:','');
+                theses[i].title = theses[i].title.replace('[Thesis]','');
+                theses[i].title = theses[i].title.replace('Thesis -','');
                 dissertationNumber ++;
                 theses[i].type = 1;
             }
