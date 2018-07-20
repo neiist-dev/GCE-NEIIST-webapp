@@ -85,7 +85,7 @@ In order to run the project the required libraries need to be installed.
 3. To access the user interface, open a browser (Chrome is recommended) and go to ``localhost:8080``.
 
 **OPTIONAL**
-If you want to parse, classify and save in the databse the theses present in the file ``tTrad.html``, make a POST call to ``localhost:8080/thesis/add``.
+If you want to parse, classify and save in the database the theses present in the file ``tTrad.html``, make a POST call to ``localhost:8080/thesis/add``.
 
 Note that on ``package.json`` (both on the root folder and angular-src)
 we are requiring for the lastest version of some packages. If the app does not work, it might be because of 
