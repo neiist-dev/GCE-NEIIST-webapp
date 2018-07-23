@@ -226,4 +226,78 @@ router.get('/getTheses', async (req,res,next) =>   {
 
 });
 
+
+router.post('/incrementClick/:id(\\d+)', async (req,res,next) =>  {
+    let id = req.params.id;
+
+   let response = await DBAccess.thesis.incrementClicks(id);
+   if (response.length === 0) {
+       response = 'Thesis with id ' + id + ' not found';
+   }
+
+   try {
+        UtilsRoutes.replySuccess(res,response.clicks + 1);
+
+    } catch (error) {
+        console.log("ERROR ON STUDENT LOGIN:");
+        console.log(error.msg);
+        console.log("------------------");
+        console.log("Information: \n ---------------");
+        console.log(error.content);
+        console.log("------------------");
+        UtilsRoutes.replyFailure(res, '', error.msg);
+    }
+});
+
+router.post('/getClicks/:id(\\d+)', async (req,res,next) =>  {
+    let id = req.params.id;
+
+   let response = await DBAccess.thesis.getThesisById(id);
+   if (response.length === 0) {
+       response = 'Thesis with id ' + id + ' not found';
+   }
+
+   try {
+        UtilsRoutes.replySuccess(res,response.clicks);
+
+    } catch (error) {
+        console.log("ERROR ON STUDENT LOGIN:");
+        console.log(error.msg);
+        console.log("------------------");
+        console.log("Information: \n ---------------");
+        console.log(error.content);
+        console.log("------------------");
+        UtilsRoutes.replyFailure(res, '', error.msg);
+    }
+});
+
+router.post('/getType/:id(\\d+)', async (req,res,next) =>  {
+    let id = req.params.id;
+    let type = "";
+
+    let response = await DBAccess.thesis.getThesisById(id);
+    if (response.length === 0) {
+       response = 'Thesis with id ' + id + ' not found';
+    } else if (response.type === 0)  {
+       type = "Project";
+    } else {
+        type = "Dissertation";
+    }
+
+    try {
+        UtilsRoutes.replySuccess(res,type);
+
+    } catch (error) {
+        console.log("ERROR ON STUDENT LOGIN:");
+        console.log(error.msg);
+        console.log("------------------");
+        console.log("Information: \n ---------------");
+        console.log(error.content);
+        console.log("------------------");
+        UtilsRoutes.replyFailure(res, '', error.msg);
+}
+});
+
+
+
 module.exports = router;

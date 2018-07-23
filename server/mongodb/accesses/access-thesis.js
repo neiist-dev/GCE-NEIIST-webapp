@@ -12,7 +12,9 @@ class AccessThesis {
         this.getThesisByArea = getThesisByArea;
         this.addThesisArray = addThesisArray;
         this.getThesis = getThesis;
+        this.getThesisById = getThesisById;
         this.getThesisRecomendation = getThesisRecomendation;
+        this.incrementClicks = incrementClicks;
     }
 }
 
@@ -221,6 +223,12 @@ async function getThesis() {
     return docs;
 }
 
+async function getThesisById(id) {
+    let query = Thesis.findOne({id: id});
+    let docs = await query.exec();
+    return docs;
+}
+
 async function getThesisRecomendation(arraySpecialization) {
     let thesisIdSet = new Set();
     let result = [];
@@ -248,5 +256,10 @@ async function getThesisRecomendation(arraySpecialization) {
     return result;
 }
 
+async function incrementClicks(id) {
+    let query = Thesis.findOneAndUpdate({id: id}, {$inc: {'clicks': 1}});
+    let docs = await query.exec();
+    return docs;
+}
 
 
