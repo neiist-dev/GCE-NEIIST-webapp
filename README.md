@@ -50,9 +50,9 @@ layer should be interchangeable.
 In order to run the project the required libraries need to be installed.
 
 1. Install [node][node].
-2. Install [MongoDB][mon].
+2. Install [MongoDB][mon], community version.
 3. (OPTIONAL) When you use node.js libraries that require node.gyp, you need to install [Python][python].
-4. Go to ``GCE-NEIIST`` and run ```npm install```
+4. Go to ``GCE-NEIIST`` and run, in the terminal, ```npm install```
 5. Configure environment variables:
     1. NODE_ENV = "development" OR "production"
     2. DB_PRODUCTION = [INSER DATABASE PATH]
@@ -67,7 +67,7 @@ In order to run the project the required libraries need to be installed.
     **Note**: If you are using Windows, you can easily configure the environment variables by editing and then executing ``prepare_env_windows.bat``. Analogously, you can configure them in Linux by editing and running ``prepare_env_linux.sh``.
      
    
-6. Rename ``.env.template`` to ``.env``. Set the environment variables for the front end, by editing ``.env``.
+6. Make a copy of ``.env.template``. Rename that copy to ``.env``. Set the environment variables for the front end, by editing ``.env``.
 7. Go to ``angular-src`` and run ``npm install``. **In case of error, make sure you have completed step 7**.
 8. To build the front-end, run ```ng build --watch```.  **In case of error, follow step 9**
 9. In case of error, run ``npm uninstall -g angular-cli @angular/cli`` , ``npm cache uninstall`` , ``npm install -g @angular/cli``. Try to run ``ng build --watch`` once again.
