@@ -1,6 +1,8 @@
 
 
 <div class="container middlePage">
+
+<!--
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Importante!</h4>
         <p>
@@ -27,6 +29,7 @@
     </div>
 
 
+
     <div class="row" [hidden]="!showRecomendations">
         <div class="col-md-auto centered"></div>
         <button type="button" class="btn btn-primary" (click)="toggleShowRecomendations($event)">Esconder recomendações</button>
@@ -38,8 +41,8 @@
     </div>
 
     <div class="row" [hidden]="!showRecomendations">
-            <div *ngFor="let thesis of recommendedTheses">
-                <div class="col-md-3">
+            <div class="col-md-12" *ngFor="let thesis of recommendedTheses">
+
                     <div class="card" style="width: 18rem;">
                         <h3>                {{ thesis.id}}</h3>
                         <div class="card-body">
@@ -53,27 +56,38 @@
                     </div>
 
                     {{ thesis.area}}
-                </div>
+
             </div>
+    </div>
+-->
+    <div class="sidenav">
+        <div class="colorLabel" *ngFor="let area of areas" [ngStyle]="{'background-color':areaAdvanced[area][0] }">
+            <span [hidden]="false" class="labelText">{{areaAdvanced[area][1]}}</span>
+            <span [hidden]="true" class="labelTextFull">{{area}}</span>
+        </div>
     </div>
 
     <div class="row" [hidden]="showRecomendations">
-        <div *ngFor="let thesis of theses">
-            <div class="col-md-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 thesisBox" *ngFor="let thesis of theses">
+
                 <div class="card" style="width: 18rem;">
-                    <h3>                {{ thesis.id}}</h3>
-                    <div class="card-body">
+                    <div class="card-header">
                         <h5 class="card-title">{{ thesis.title}}</h5>
-                        <div *ngFor="let area of recommendedTheses['areas']">
-                            area
-                        </div>
-                        <span class="label label-default">{{thesis.areas}}</span>
-                        <a href="#" class="btn btn-primary">Mais</a>
+                    </div>
+                    <div class="card-body">
+                        <tr>
+                            <td><h4>{{ thesis.id}}</h4></td>
+                            <td>
+                        <tr>
+                            <td class="col" *ngFor="let area of thesis.areas">
+                                <span class="dot"  [ngStyle]="{'background-color':areaAdvanced[area][0] }" ></span>
+                            </td>
+                        </tr>
+                        </td>
+                        <td class="moreButton"><a href="#" class="btn btn-primary ">Mais</a></td>
+                        </tr>
                     </div>
                 </div>
-
-                {{ thesis.area}}
-            </div>
         </div>
     </div>
 

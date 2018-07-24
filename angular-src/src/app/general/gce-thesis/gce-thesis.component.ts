@@ -21,11 +21,38 @@ export class GceThesisComponent implements OnInit {
     numberTheses: number;
     recommendedTheses: object[];
     showRecomendations: boolean;
+    areas: string[] = [
+        "Software Engineering",
+        "Enterprise and Information Systems",
+        "Distributed and Cyberphysical Systems",
+        "Interaction and Visualization",
+        "Intelligent Systems",
+        "Algorithms and Applications",
+        "Cyber-Security",
+        "Games",
+        "Bioinformatics and Computational Biology",
+        "Language and Information Technologies"]
+    areaAdvanced:{[area:string]:string[]}={
+        "Software Engineering":["#34B3E4","SE"],
+        "Enterprise and Information Systems": ["#A589D9","EIS"],
+        "Distributed and Cyberphysical Systems": ["#F16D64","DCS"],
+        "Interaction and Visualization": ["#F59640","IV"],
+        "Intelligent Systems": ["#35BEC1","IS"],
+        "Algorithms and Applications": ["#F3C746","AA"],
+        "Cyber-Security": ["#F371AF","CS"],
+        "Games": ["#95C753","G"],
+        "Bioinformatics and Computational Biology": ["#A0A3A6","BCB"],
+        "Language and Information Technologies": ["purple","LIT"]
+    };
+
     //Apply
     proposal: string;
     motivationLetter: string;
     companyName: string;
     applicationToDelete: string;
+
+
+
 
     //Ng stuff
     closeResult: string;

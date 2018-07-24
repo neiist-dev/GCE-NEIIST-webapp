@@ -1,3 +1,7 @@
+@keyframes hover {
+    from {width: 20px;}
+    to {width: 200px;}
+}
 .middlePage {
     width: 70%;
     margin: auto;
@@ -37,4 +41,52 @@
 
 .centered {
     text-align: center;
+}
+.thesisBox{
+    padding-bottom:15px;
+}
+.card-body{
+    padding:7px;
+}
+.dot {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.colorLabel{
+    border-radius: 0px 20px 20px 0px;
+    padding: 20px;
+    width: 20px;
+    height: 15px;
+    margin-bottom:5px;
+}
+.colorLabel:hover{
+    border-radius: 0px 20px 20px 0px;
+    padding: 20px;
+    width: 200px;
+    height: 15px;
+    animation: hover 0.25s;
+    margin-bottom:5px;
+}
+.labelText{
+    position:relative;
+    left:-17px;
+    top:-12px;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.sidenav {
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: hidden; /* Disable horizontal scroll */
+    padding-top: 25px;
 }
