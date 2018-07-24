@@ -50,11 +50,10 @@ layer should be interchangeable.
 In order to run the project the required libraries need to be installed.
 
 1. Install [node][node].
-2. Installation of required [NPM][npm] packages can be installed by running ```npm install``` from the base project directory.
-3. Install [MongoDB][mon]. Configure your DB access, by editing ``config/db``
-4. (OPTIONAL) When you use node.js libraries that require node.gyp, you need to install [Python][python].
-5. Go to ``GCE-NEIIST`` and run ```npm install```
-6. Configure environment variables:
+2. Install [MongoDB][mon].
+3. (OPTIONAL) When you use node.js libraries that require node.gyp, you need to install [Python][python].
+4. Go to ``GCE-NEIIST`` and run ```npm install```
+5. Configure environment variables:
     1. NODE_ENV = "development" OR "production"
     2. DB_PRODUCTION = [INSER DATABASE PATH]
     2. DB_SECRET = [YOUR DATABASE SECRET]
@@ -68,17 +67,17 @@ In order to run the project the required libraries need to be installed.
     **Note**: If you are using Windows, you can easily configure the environment variables by editing and then executing ``prepare_env_windows.bat``. Analogously, you can configure them in Linux by editing and running ``prepare_env_linux.sh``.
      
    
-7. Rename ``.env.template`` to ``.env``. Set the environment variables for the front end, by editing ``.env``.
-8. Go to ``angular-src`` and run ``npm install``. **In case of error, make sure you have completed step 8**.
-9. To build the front-end, run ```ng build --watch```.  **In case of error, follow step 10.1**
-9.1 In case of error, run ``npm uninstall -g angular-cli @angular/cli`` , ``npm cache uninstall`` , ``npm install -g @angular/cli``. Try to run ``ng build --watch`` once again.
+6. Rename ``.env.template`` to ``.env``. Set the environment variables for the front end, by editing ``.env``.
+7. Go to ``angular-src`` and run ``npm install``. **In case of error, make sure you have completed step 7**.
+8. To build the front-end, run ```ng build --watch```.  **In case of error, follow step 9**
+9. In case of error, run ``npm uninstall -g angular-cli @angular/cli`` , ``npm cache uninstall`` , ``npm install -g @angular/cli``. Try to run ``ng build --watch`` once again.
 
 **OPTIONAL**:
 1. We recommend the usage of [nodemon][nodemon] - reload backend changes automatically. It's a big time saver.
 2. We recommend the usage of [MongoCompass][compass] - a user interface for MnongoDB.
 3. We recommend the usage of [Postman][postman] - simplifies API development.
 4. We use [Travis-CI][travis] to help us achieve continuous testing to our project. Feel free to configure an account there.
-
+5. A recommended IDE is [Webstorm][web]. To create a student account, just register with your school e-mail, as you will get the software for free.
 ## Running the server
 1. Make sure you have built the front-end, as stated in step 9 of "Getting Started".
 2. Go to the main directory and run ``node gce_base`` or ``nodemon gce_base``. 
@@ -145,3 +144,4 @@ We follow [Convenant Code Of Conduct][CC].
 [CC]: https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
 [compass]: https://www.mongodb.com/products/compass
 [postman]: https://www.getpostman.com/
+[web]: https://www.jetbrains.com/webstorm/
