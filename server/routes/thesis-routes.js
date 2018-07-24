@@ -277,7 +277,7 @@ router.post('/getType/:id(\\d+)', async (req,res,next) =>  {
 
     let response = await DBAccess.thesis.getThesisById(id);
     if (response.length === 0) {
-       response = 'Thesis with id ' + id + ' not found';
+       type = 'Thesis with id ' + id + ' not found';
     } else if (response.type === 0)  {
        type = "Project";
     } else {
