@@ -1,4 +1,3 @@
-
 #WebStorm config files
 angular-src/.editorconfig
 .editorconfig
@@ -16,6 +15,8 @@ sslcert/*
 !sslcert/cert-example.pem
 !sslcert/key-example.pem
 angular-src/public
+*.bat
+*.sh
 
 #Privacy policy
 angular-src/src/app/general/privacy-policy/*
@@ -124,6 +125,6 @@ typings/
 # dotenv environment variables file
 .env
 
-
+*.js___jb_tmp___
 
 # End of https://www.gitignore.io/api/mean
