@@ -11,7 +11,7 @@ export class FilterResultsPipe implements PipeTransform {
         if (!items) return [];
         if (!value) return  items;
         if (value == '' || value == null) return [];
-        return items.filter(e => e.title.toLowerCase().indexOf(value.toLowerCase()) > -1 || e.requirements.toLowerCase().indexOf(value.toLowerCase()) > -1 || e.title.toLowerCase().indexOf(value.toLowerCase()) > -1 );
+        return items.filter(e => e.title.toLowerCase().indexOf(value.toLowerCase()) > -1 || e.requirements.toLowerCase().indexOf(value.toLowerCase()) > -1 || e.objectives.toLowerCase().indexOf(value.toLowerCase()) > -1 || e.observations.toLowerCase().indexOf(value.toLowerCase()) > -1);
 
     }
 
