@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="container middlePage">
 
@@ -60,23 +60,33 @@
             </div>
     </div>
 -->
+
     <div class="sidenav">
-        <div class="colorLabel" *ngFor="let area of areas" [ngStyle]="{'background-color':areaAdvanced[area][0] }">
-            <span [hidden]="false" class="labelText">{{areaAdvanced[area][1]}}</span>
-            <span [hidden]="true" class="labelTextFull">{{area}}</span>
+    <ng-container *ngFor="let area of areas">
+        <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
+            <div class="bigColorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)">
+                <span class="labelText">{{areaAdvanced[area][1]}}</span>
+            </div>
         </div>
+        <ng-template #smallLabel>
+            <div class="colorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)">
+                <span class="labelText">{{areaAdvanced[area][1]}}</span>
+            </div>
+        </ng-template>
+    </ng-container>
     </div>
 
+    <input type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
     <div class="row" [hidden]="showRecomendations">
-        <div class="col-xs-12 col-sm-6 col-md-4 thesisBox" *ngFor="let thesis of theses">
+        <div class="col-xs-12 col-sm-6 col-md-4 thesisBox" *ngFor="let thesis of theses | filterResults: queryString : selectedAreas">
 
                 <div class="card" style="width: 18rem;">
                     <div class="card-header">
-                        <h5 class="card-title">{{ thesis.title}}</h5>
+                        <h5 class="card-title">{{ thesis.title }}</h5>
                     </div>
                     <div class="card-body">
                         <tr>
-                            <td><h4>{{ thesis.id}}</h4></td>
+                            <td><h4>{{ thesis.id }}</h4></td>
                             <td>
                         <tr>
                             <td class="col" *ngFor="let area of thesis.areas">

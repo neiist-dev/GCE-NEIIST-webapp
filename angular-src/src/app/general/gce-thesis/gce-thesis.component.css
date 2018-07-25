@@ -61,14 +61,15 @@
     height: 15px;
     margin-bottom:5px;
 }
-.colorLabel:hover{
+
+.bigColorLabel{
     border-radius: 0px 20px 20px 0px;
     padding: 20px;
-    width: 200px;
+    width: 80px;
     height: 15px;
-    animation: hover 0.25s;
     margin-bottom:5px;
 }
+
 .labelText{
     position:relative;
     left:-17px;
@@ -82,6 +83,15 @@
     font-weight: bold;
 }
 
+
+.fontAwesome{ font-family: 'Helvetica', FontAwesome, sans-serif; }
+
+.searchBar{
+    border-radius:3px 3px 3px 3px;
+    width:40%;
+    margin-left:30%;
+    margin-bottom:10px;
+}
 .sidenav {
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */

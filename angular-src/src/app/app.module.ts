@@ -61,6 +61,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { GceThesisComponent } from './general/gce-thesis/gce-thesis.component';
 import { PartnersCarouselComponent } from './general/partners-carousel/partners-carousel.component';
+import {FilterResultsPipe} from "./general/gce-thesis/filter-results.pipe";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -133,6 +134,7 @@ const appRoutes: Routes = [
     FbComponent,
     GceHashCodeProgramComponent,
     GceThesisComponent,
+      FilterResultsPipe,
     PartnersCarouselComponent
   ],
   imports: [

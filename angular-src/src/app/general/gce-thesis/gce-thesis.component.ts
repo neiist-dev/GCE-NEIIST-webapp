@@ -44,7 +44,8 @@ export class GceThesisComponent implements OnInit {
         "Bioinformatics and Computational Biology": ["#A0A3A6","BCB"],
         "Language and Information Technologies": ["purple","LIT"]
     };
-
+    filteredTheses: object[];
+    selectedAreas: string[] = [];
     //Apply
     proposal: string;
     motivationLetter: string;
@@ -122,6 +123,23 @@ export class GceThesisComponent implements OnInit {
 
     getId(t)    {
         return t.id;
+    }
+
+    changeSelectedAreas(clickedArea){
+
+        if(this.selectedAreas.indexOf(clickedArea)> -1) {
+            this.selectedAreas = this.selectedAreas.filter(str => str !== clickedArea);
+        }
+        else{
+            this.selectedAreas.push(clickedArea)
+            if (this.selectedAreas.length > 2){
+                this.selectedAreas.shift();
+            }
+            this.selectedAreas = this.selectedAreas.filter(str => str);
+        }
+
+
+
     }
 }
 
