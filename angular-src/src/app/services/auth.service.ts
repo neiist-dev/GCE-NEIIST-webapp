@@ -79,7 +79,7 @@ export class AuthService {
   registerProfessor(token) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('professor/register'.replace('3000', environment.port.toString()), { 'tokenq': token }, {headers: headers}).map(res => res.json());
+    return this.http.post('professor/register', { 'tokenq': token }, {headers: headers}).map(res => res.json());
  }
 
   registerCompany(company) {
