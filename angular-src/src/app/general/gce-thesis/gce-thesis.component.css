@@ -70,6 +70,7 @@
     margin-bottom:5px;
 }
 
+
 .labelText{
     position:relative;
     left:-17px;
@@ -99,4 +100,66 @@
     overflow-x: hidden; /* Disable horizontal scroll */
     overflow-y: hidden; /* Disable horizontal scroll */
     padding-top: 25px;
+}
+
+.typeBar{
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    right:-40px;
+    z-index: 1; /* Stay on top */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: hidden; /* Disable horizontal scroll */
+    padding-top: 240px;
+}
+.type-label{
+    padding: 20px;
+    width: 120px;
+    height: 15px;
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    margin-bottom:100px;
+    border-radius: 0px 0px 5px 5px;
+    text-align: center;
+}
+.selected-label{
+
+}
+
+.unselected-label{
+    opacity: 0.6;
+}
+
+.Dissertation{
+    background-color:#FFE0DA;
+    transition: 0.3s;
+ }
+.Dissertation:hover{
+    background-color:#FAC2BB;
+}
+.Project{
+    background-color:#CFEDFB;
+    transition: 0.3s;
+}.Project:hover{
+     background-color:#9BDAF3;
+ }
+.type-text{
+    position:relative;
+    top:-15px;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    color: #ffffff;
+    font-weight: bold;
+
+}
+
+.project-thesis{
+    background-color:#CFEDFB;
+    border-color: #9BDAF3;
+}
+.dissertation-thesis{
+    background-color:#FFE0DA;
+    border-color:#FAC2BB;
 }

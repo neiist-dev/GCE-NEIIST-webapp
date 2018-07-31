@@ -46,6 +46,8 @@ export class GceThesisComponent implements OnInit {
     };
     filteredTheses: object[];
     selectedAreas: string[] = [];
+    types: string[] = ["Project","Dissertation"];
+    selectedTypes: string[] = ["Project","Dissertation"];
     //Apply
     proposal: string;
     motivationLetter: string;
@@ -128,7 +130,7 @@ export class GceThesisComponent implements OnInit {
     changeSelectedAreas(clickedArea){
 
         if(this.selectedAreas.indexOf(clickedArea)> -1) {
-            this.selectedAreas = this.selectedAreas.filter(str => str !== clickedArea);
+            this.selectedAreas = this.selectedAreas.filter(str => str != clickedArea);
         }
         else{
             this.selectedAreas.push(clickedArea)
@@ -137,9 +139,21 @@ export class GceThesisComponent implements OnInit {
             }
             this.selectedAreas = this.selectedAreas.filter(str => str);
         }
+    }
 
+    changeSelectedTypes(clickedType){
 
+        if(this.selectedTypes.indexOf(clickedType)> -1 ){
+            if(this.selectedTypes.length >= 2) {
+                this.selectedTypes = this.selectedTypes.filter(str => str != clickedType)
+            }
 
+        }
+        else{
+            this.selectedTypes.push(clickedType)
+            this.selectedTypes = this.selectedTypes.filter(str =>str);
+        }
+        console.log(this.selectedTypes)
     }
 }
 
