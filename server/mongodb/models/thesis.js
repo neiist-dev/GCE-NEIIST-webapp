@@ -4,7 +4,7 @@ let Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
 const STATUS = ["Assigned", "Unassigned"];
-const TYPE = [0,1];
+const TYPE = ["Project","Dissertation"];
 
 const ThesisSchema = mongoose.Schema({
     id: {
@@ -61,9 +61,9 @@ const ThesisSchema = mongoose.Schema({
     },
 
     type: {
-        type: Number,
+        type: String,
         enum: TYPE,
-        default: 1,
+        default: "Dissertation",
         required: false
     },
 

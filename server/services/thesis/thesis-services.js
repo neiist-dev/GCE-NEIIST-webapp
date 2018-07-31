@@ -274,7 +274,7 @@ function processThesis (theses, callback)   {
             if (theses[i].title.includes("Project") || theses[i].title.includes("PROJECT") ||
                 theses[i].title.includes("Projecto") || theses[i].title.includes("PROJECTO"))    {
                 projectsNumber ++;
-                theses[i].type = 0;
+                theses[i].type = "Project";
                 theses[i].title = theses[i].title.replace('(PROJECT)','');
                 theses[i].title = theses[i].title.replace('(Project)','');
                 theses[i].title = theses[i].title.replace('Project -','');
@@ -297,7 +297,7 @@ function processThesis (theses, callback)   {
                 theses[i].title = theses[i].title.replace('[Thesis]','');
                 theses[i].title = theses[i].title.replace('Thesis -','');
                 dissertationNumber ++;
-                theses[i].type = 1;
+                theses[i].type = "Dissertation";
             }
             theses[i].areas = thesesClassifier.getFirstTwoLabels(theses[i],classifier);
 
