@@ -1,5 +1,5 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="controlVariable"></app-navbar>
 <app-feedback></app-feedback>
 <flash-messages></flash-messages>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<router-outlet (activate)="onActivate($event)"></router-outlet>
+<app-footer *ngIf="controlVariable"></app-footer>
