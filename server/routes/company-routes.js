@@ -12,6 +12,11 @@ const ERROR = "An error concerning DB has occurred.";
 const COMPANY_UPDATED = "Company has been updated.";
 
 router.post('/register', function (req, res) {
+    if(UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","");
+        return;
+    }
+
     let name = req.body.name;
     let email = req.body.email;
     let password = req.body.password;
@@ -35,7 +40,7 @@ router.post('/register', function (req, res) {
 });
 
 router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, res, 'Company'))    {
+    if(!UtilsRoutes.requireRole(req, res, 'Company') && UtilsRoutes.routeIsBlocked)    {
         UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
@@ -57,7 +62,12 @@ router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, 
     });
 });
 
-router.get('/numberOfProposals', /*passport.authenticate('jwt', {session: false}),*/ (req, res, next) => {
+router.get('/numberOfProposals', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    if(!UtilsRoutes.requireRole(req, res, 'Company') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
+        return;
+    }
+
     DBAccess.proposals.getNumberOfProposals((err, number) => {
         if (err) {
             return UtilsRoutes.replyFailure(res,err,ERROR);
@@ -67,7 +77,12 @@ router.get('/numberOfProposals', /*passport.authenticate('jwt', {session: false}
     });
 });
 
-router.get('/numberOfCompanies', /*passport.authenticate('jwt', {session: false}),*/ (req, res, next) => {
+router.get('/numberOfCompanies', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    if(UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
+        return;
+    }
+
     DBAccess.companies.getNumberOfCompanies((err, number) => {
         if (err) {
             return UtilsRoutes.replyFailure(res,err,ERROR);
@@ -77,7 +92,12 @@ router.get('/numberOfCompanies', /*passport.authenticate('jwt', {session: false}
     });
 });
 
-router.get('/companyNames', /*passport.authenticate('jwt', {session: false}),*/ (req, res, next) => {
+router.get('/companyNames', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    if(UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
+        return;
+    }
+
     DBAccess.companies.getCompanyNames((err, number) => {
         if (err) {
             return UtilsRoutes.replyFailure(res,err,ERROR);
@@ -88,6 +108,10 @@ router.get('/companyNames', /*passport.authenticate('jwt', {session: false}),*/ 
 });
 
 router.get('/allProposals', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    if(!UtilsRoutes.requireRole(req, res, 'Company') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
+        return;
+    }
                 DBAccess.proposals.getAllProposals((err, proposals) => {
                     if (err) {
                         throw(err);
@@ -99,7 +123,7 @@ router.get('/allProposals', passport.authenticate('jwt', {session: false}), (req
 });
 
 router.get('/proposals', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Company'))    {
+    if(!UtilsRoutes.requireRole(req, res, 'Company') && UtilsRoutes.routeIsBlocked)    {
         UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
@@ -115,7 +139,7 @@ router.get('/proposals', passport.authenticate('jwt', {session: false}), (req, r
 });
 
 router.put('/addProposal', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Company'))    {
+    if(!UtilsRoutes.requireRole(req, res, 'Company') && UtilsRoutes.routeIsBlocked)    {
         UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
@@ -145,11 +169,12 @@ router.put('/addProposal', passport.authenticate('jwt', {session: false}), (req,
 });
 
 router.put('/proposals/update', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Company'))    {
+    if(!UtilsRoutes.requireRole(req, res, 'Company') && UtilsRoutes.routeIsBlocked)    {
         UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
-    //TODO Do again
+
+    //TODO Refactor
     let id = req.body._id;
     let description = req.body.description;
     let requirements = req.body.requirements;
@@ -173,7 +198,7 @@ router.put('/proposals/update', passport.authenticate('jwt', {session: false}), 
 });
 
 router.put('/proposals/delete', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Company'))    {
+    if(!UtilsRoutes.requireRole(req, res, 'Company') && UtilsRoutes.routeIsBlocked)    {
         UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
