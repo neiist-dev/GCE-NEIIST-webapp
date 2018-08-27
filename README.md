@@ -11,12 +11,13 @@ Note that this is a **WIP** project.
 ## Features
 - [X] Informative service about the group.
 - [X] Sign-up functionality to programming competitions.
+- [X] Interface to navigate through DEI theses
 
 ## Ongoing
-- [ ] Interface to navigate through DEI theses
+- [ ] Theses' repository per topic
 
 ## TODO
-- [ ] Theses' repository per topic
+
 
 ---
 ####
@@ -123,7 +124,7 @@ For more information, read [LICENSE.md][license].
 
 # Contact
 Feel free to contact us using the feedback form at <a href="https://gce-neiist.org">gce-neiist.org</a>.
-Alternatively, <a href="mailto:rafael.belchior@tecnico.ulisboa.pt?Subject=Hello%20again" target="_top">send me an e-mail</a>.
+Alternatively, <a href="mailto:rafael.belchior@tecnico.ulisboa.pt?Subject=Concerning%20GCE-Thesis" target="_top">send me an e-mail</a>.
 
 # Code of Conduct
 We follow [Convenant Code Of Conduct][CC].
