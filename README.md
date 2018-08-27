@@ -52,7 +52,7 @@ In order to run the project the required libraries need to be installed.
 1. Install [node][node].
 2. Install [MongoDB][mon], community version.
 3. (OPTIONAL) When you use node.js libraries that require node.gyp, you need to install [Python][python].
-4. Go to ``GCE-NEIIST`` and run, in the terminal, ```npm install```
+4. Clone the project ``git clone https://github.com/RafaelAPB/GCE-NEIIST.git``. Go to the directory ``GCE-NEIIST`` and run, in the terminal, ```npm install```.
 5. Configure environment variables:
     1. NODE_ENV = "development" OR "production"
     2. DB_PRODUCTION = [INSER DATABASE PATH]

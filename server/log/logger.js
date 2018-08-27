@@ -1,9 +1,8 @@
+require('winston-daily-rotate-file');
 const winston = require('winston');
 const path = require('path');
 const fs = require('fs');
 const process = require('process');
-require('winston-daily-rotate-file');
-
 const logName = 'access.log';
 const logDirectory = path.join(__dirname,'access');
 const logFile = path.join(logDirectory, logName);
@@ -12,8 +11,8 @@ const logFile = path.join(logDirectory, logName);
 let level = process.env.NODE_ENV === 'development' ? 'verbose' : 'info';
 let levelConsole = process.env.NODE_ENV === 'development' ? 'verbose' : 'warn';
 
-console.log("Log files, level: " + level);
-console.log("Log to console, level: " + level);
+console.log("Writing on Log, level: " + level);
+console.log("Logging to Console, level: " + level);
 
 //Makes sure that log folder exists
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
@@ -48,7 +47,7 @@ let logger = new winston.Logger({
 
 module.exports = logger;
 module.exports.stream = {
-    write: function(message, encoding) {
+    write: function(message) {
         logger.info(message);
     }
 };

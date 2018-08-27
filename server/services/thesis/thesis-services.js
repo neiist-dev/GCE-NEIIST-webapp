@@ -242,8 +242,6 @@ function trainSaveClassifier(type, callback) {
 //Receives a raw thesis and returns a categorized thesis
 function processThesis (theses, callback)   {
 
-    console.log("processThesis- Serviços,incio");
-
     // Categorias
 
     //load classifier
@@ -332,7 +330,6 @@ function saveFile(data, name) {
 function printThesesArray(array, id)    {
 
     if (id) {
-        console.log("ha id");
         for (let i = 0; i < array.length; i++)  {
             if (array[i].id = id)    {
                 console.log("===================");
@@ -356,7 +353,6 @@ function printThesesArray(array, id)    {
 function printThesesArraySimplified(array, id)    {
 
     if (id) {
-        console.log("ha id");
         for (let i = 0; i < array.length; i++)  {
             if (array[i].id = id)    {
                 console.log("===================");

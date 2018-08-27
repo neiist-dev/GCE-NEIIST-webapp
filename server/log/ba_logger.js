@@ -1,7 +1,6 @@
 const winston = require('winston');
 const path = require('path');
 const fs = require('fs');
-const process = require('process');
 require('winston-daily-rotate-file');
 
 const logName = 'ba_access.log';
@@ -9,7 +8,6 @@ const logDirectory = path.join(__dirname,'business_analytics');
 const logFile = path.join(logDirectory, logName);
 
 //If the app is in production (not in development), the level specified is 'info'
-console.log("BA logger initiated");
 
 //Makes sure that log folder exists
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
@@ -58,7 +56,7 @@ let logger = new winston.Logger({
 
 module.exports = logger;
 module.exports.stream = {
-    write: function(message, encoding) {
+    write: function(message) {
         logger.info(message);
     }
 };

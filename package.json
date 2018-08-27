@@ -5,7 +5,7 @@
   "main": "gce_base.js",
   "scripts": {
     "test": "mocha --reporter dot --timeout 10000 \"server/tests/*.spec.js\"",
-    "start": "node gce_base.js",
+    "start": "nodemon gce_base.js",
     "build": "npm run config -- --environment=prod && ng build --environment=prod"
   },
   "nodemonConfig": {

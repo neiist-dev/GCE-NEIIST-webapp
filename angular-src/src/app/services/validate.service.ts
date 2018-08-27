@@ -7,13 +7,7 @@ export class ValidateService {
   constructor() { }
 
   validateFeedback(feedback)  {
-    if (feedback.email == null
-      || feedback.rate == null
-) {
-      return false;
-    } else {
-      return true;
-    }
+    return (feedback.email && feedback.name && feedback.entity && feedback.message);
   }
 
 
@@ -34,10 +28,10 @@ export class ValidateService {
   }
 
   validateTeamContact(email)  {
-    if (email == null || email == "undefined")  {
+    if (email == null || email == 'undefined')  {
       return false;
     }
-    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email.toLowerCase());
   }
 
