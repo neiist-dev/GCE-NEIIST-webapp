@@ -15,6 +15,7 @@ class AccessStudent {
         this.getNumberOfStudents = getNumberOfStudents;
         this.getAreasOfInterest = getAreasOfInterest;
         this.getStudents = getStudents;
+        this.updateEnrolments = updateEnrolments;
     }
 
     /*Can we just define
@@ -120,4 +121,12 @@ function addEnrolments(email, enrolments, callback) {
 function getStudentByEmail2(email)  {
         const query = {email: email};
         User.findOne(query);
+}
+
+async function updateEnrolments(email,enrolments) {
+    let query = Student.findOneAndUpdate({email: email},
+                                        {$set: {'enrolments': enrolments}},
+                                        { new: true, overwrite: true });
+    let docs = await query.exec();
+    return docs;
 }

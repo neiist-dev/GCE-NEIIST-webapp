@@ -41,8 +41,8 @@ router.post('/register', (req, res, next) => {
     }
 
     async function getStudentFromFenix (token)  {
-            //Token has properties: access_token, refresh token, expires in
-           let out = await new Promise((resolve, reject) => {
+        //Token has properties: access_token, refresh token, expires in
+        let out = await new Promise((resolve, reject) => {
             FenixApi.person.getPerson(token.access_token, (person) =>   {
                 if (person.hasOwnProperty('error')) {
                     //Could not get Student
@@ -63,22 +63,22 @@ router.post('/register', (req, res, next) => {
                 }
             });
         });
-       return out;
+        return out;
     }
 
     //Gets courses from this Academic Term and the previous
     //Todo refactor, get rid of callback hell
     async function getStudentCourses (info) {
-            //Token has properties: access_token, refresh token, expires in
-            const token = info[0].access_token;
-            const person = info[1];
+        //Token has properties: access_token, refresh token, expires in
+        const token = info[0].access_token;
+        const person = info[1];
 
-           let out = await new Promise((resolve, reject) => {
-               let student = [];
+        let out = await new Promise((resolve, reject) => {
+            let student = [];
 
 
 
-               FenixApi.person.getCourses(token, '2015/2016', (courses) =>   {
+            FenixApi.person.getCourses(token, '2015/2016', (courses) =>   {
                 if (courses.hasOwnProperty('error')) {
                     error.content = courses;
                     error.msg = "Erro na comunicação com o Fénix em getCourses  .";
@@ -90,11 +90,8 @@ router.post('/register', (req, res, next) => {
                 } else {
                     student.push(person);
                     student.push(courses);
-                    console.log(courses);
 
-                    //Todo; if failed courses?
                     FenixApi.person.getCourses(token, '2016/2017', (recenteCourses) =>   {
-                        console.log(recenteCourses);
                         if (recenteCourses.hasOwnProperty('error')) {
                             error.content = recenteCourses;
                             error.msg = "Erro na comunicação com o Fénix em getCourses  .";
@@ -110,7 +107,6 @@ router.post('/register', (req, res, next) => {
                             }
 
                             FenixApi.person.getCourses(token, '2017/2018', (recenteCourses) =>   {
-                                console.log(recenteCourses);
                                 if (recenteCourses.hasOwnProperty('error')) {
                                     error.content = recenteCourses;
                                     error.msg = "Erro na comunicação com o Fénix em getCourses  .";
@@ -133,7 +129,7 @@ router.post('/register', (req, res, next) => {
                 }
             });
         });
-       return out;
+        return out;
     }
 
     async function loginStudentPromise (student)  {
@@ -141,7 +137,6 @@ router.post('/register', (req, res, next) => {
 
             StudentServices.parseStudentData(student, (err, parsedStudent) => {
                 if (err) {
-                    console.log("erro");
                     //Error parsing student data. Default message will be sent to the user
                     error.content = err;
                     error.msg = "Error parsing student data";
@@ -173,144 +168,16 @@ router.post('/register', (req, res, next) => {
             const info = await getStudentFromFenix(token);
             const student = await getStudentCourses(info);
             const login = await loginStudentPromise(student);
-            console.log(login);
         } catch (error) {
-                console.log("ERROR ON STUDENT LOGIN:");
-                console.log(error.msg);
-                console.log("------------------");
-                console.log("Information: \n ---------------");
-                console.log(error.content);
-                console.log("------------------");
-                UtilsRoutes.replyFailure(res, '', error.msg);
+            logger.err("ERROR ON STUDENT LOGIN:");
+            logger.err(error.msg);
+            logger.err(error.content);
+            UtilsRoutes.replyFailure(res, '', error.msg);
         }
     }
 
 });
 
-router.get('/myApplications', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Student'))    {
-        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
-        return;
-    }
-
-    let studentEmail = req.user.email;
-
-    DBAccess.applications.getValidApplicationsByStudentEmail(studentEmail, (err, applications) => {
-        if (err) {
-            UtilsRoutes.replyFailure(res, err, ERROR);
-        } else {
-            UtilsRoutes.replySuccess(res, applications);
-        }
-    });
-});
-
-//FIXME Not needed now
-router.put('/applications/invalidate', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Student'))    {
-        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
-        return;
-    }
-    //TODO not needed now
-    return false;
-
-    let id = req.body.id;
-    let studentEmail = req.user.email;
-
-    DBAccess.applications.invalidateApplication(id, (err, result) => {
-        if (err)  {
-            return UtilsRoutes.replyFailure(res,err, "Não foi possível apagar a candidatura");
-        }  else {
-            return UtilsRoutes.replySuccess(res,result,"A candidatura foi apagada");
-        }
-    });
-});
-
-//FIXME Not needed now
-router.post('/saveResume', passport.authenticate('jwt', {session: false}), function (req, res) {
-    if(!UtilsRoutes.roleIs(req, 'Student'))    {
-        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
-        return;
-    }
-
-    //We will use the student's email as a way to store their CV
-    let studentEmail = req.user.email;
-
-
-
-
-    let storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, __dirname.replace('routes', '') + '/files/CV');
-        },
-        filename: function (req, file, cb) {
-            if(!file.originalname.match(/\.(pdf)$/))    {
-                let error = new Error();
-                error.code = "filetype";
-                return cb(error);
-            } else {
-                //The original file name is overrriden. (file.originalname)
-                cb(null, "CV-" + studentEmail + ".pdf");
-            }
-        }
-    });
-
-    //CV is the name of the file model name in the front end
-    //Filesize limit is 2mb
-    var upload = multer({
-        storage: storage,
-        limits: { fileSize: 2000000 }
-    }).single('file');
-
-    upload(req, res, function (err) {
-
-            if (err)    {
-                console.log(err);
-            if (err.code === "LIMIT_FILE_SIZE") {
-                UtilsRoutes.replyFailure(res,"", 'O CV tem de ser menor que 2MB. Faça upload novamente.');
-            } else if (err.code === 'filetype') {
-                UtilsRoutes.replyFailure(res,"", 'O CV tem de ser do tipo PDF. Faça upload novamente.');
-            } else  {
-                UtilsRoutes.replyFailure(res,"", 'O ficheiro não pode ser enviado. Contacte a administração');
-            }
-
-          } else {
-                console.log(req.file);
-            if(!req.file)   {
-                UtilsRoutes.replyFailure(res,"", 'Ocorreu um erro interno. Contacte a administração');
-            } else  {
-                UtilsRoutes.replySuccess(res,"", 'O seu CV foi guardado com sucesso. Já se pode candidatar a propostas');
-            }
-        }
-    });
-});
-
-//FIXME Not needed now
-router.post('/apply', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Student'))    {
-        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
-        return;
-    }
-
-
-    //TODO not needed now
-    return false;
-
-    let studentEmail = req.user.email;
-    let company = req.body.company;
-    let proposal = req.body.proposal;
-    let curriculumVitae = req.body.curriculumVitae;
-    let motivationLetter = req.body.motivationLetter;
-    let creationDate = new Date();
-
-    DBAccess.applications.addApplication(studentEmail, company, proposal, curriculumVitae,
-        motivationLetter, creationDate, (err, application) => {
-            if (err) {
-                UtilsRoutes.replyFailure(res, err, ERROR);
-            } else {
-                UtilsRoutes.replySuccess(res, application);
-            }
-        });
-});
 
 router.get('/getStudentSpecializationAreas', passport.authenticate('jwt', {session: false}), (req,res,next) =>   {
     if(!UtilsRoutes.roleIs(req, 'Student'))    {
@@ -343,19 +210,16 @@ router.get('/getRecommendedTheses', passport.authenticate('jwt', {session: false
         UtilsRoutes.replySuccess(res,theses);
 
     } catch (error) {
-        console.log("ERROR ON STUDENT LOGIN:");
-        console.log(error);
-        console.log("------------------");
-        console.log("Information: \n ---------------");
-        console.log(error.content);
-        console.log("------------------");
+        logger.err("ERROR ON STUDENT LOGIN:");
+        logger.err(error);
+        logger.err(error.content);
         UtilsRoutes.replyFailure(res, '', error.msg);
     }
 
 });
 
 //Public info
-router.get('/numberOfStudents', (req, res, next) => {
+router.get('/numberOfStudents', (req, res) => {
     DBAccess.students.getNumberOfStudents((err, number) => {
         if (err) {
             return UtilsRoutes.replyFailure(res,err,ERROR);
@@ -366,7 +230,7 @@ router.get('/numberOfStudents', (req, res, next) => {
 });
 
 //Public info
-router.get('/numberOfStudentsPerCourse', (req, res, next) => {
+router.get('/numberOfStudentsPerCourse', (req, res) => {
     DBAccess.students.getNumberOfStudentsPerCourse((err, result) => {
         if (err) {
             return UtilsRoutes.replyFailure(res,err,ERROR);
@@ -384,15 +248,20 @@ module.exports = router;
  *******************************/
 
 function registerOrLogin(name, email, courses, gender, enrolments, ip, callback) {
-    DBAccess.students.getStudentByEmail(email, function (err, student) {
+     DBAccess.students.getStudentByEmail(email, async (err, student) => {
         if (err) {
-            console.log(err);
+            logger.err(err);
             callback("Erro a pesquisar na base de dados",null);
             return;
         }
 
-        else if (student === null) {
-            student = DBAccess.students.addStudent(name, email, courses, gender, enrolments, function (err) {
+        //numberEnrolments comes from the FenixApi (most recent data)
+        const numberEnrolments = enrolments.length;
+
+        //If it's not in the database, we add a new student
+         //TODO use await async
+        if (student === null) {
+            student = DBAccess.students.addStudent(name, email, courses, gender, enrolments, (err) => {
                 if (err) {
                     callback("Erro a adicionar aluno",null);
                     return false;
@@ -400,33 +269,34 @@ function registerOrLogin(name, email, courses, gender, enrolments, ip, callback)
                     ba_logger.ba("BA|"+ "NS|" + student.email + "|" + ip);
                 }
             });
-            //TODO add if students enrolments have different size -> means that we are at new academic semester /other special case
-                //todo in this case, add the ones remaining
-            } if (student.enrolments.length === 0) {
-            console.log("Adding from the beggining:" + enrolments);
-            DBAccess.students.addEnrolments(email, enrolments, function (err) {
-                if (err) {
-                    console.log(err);
-                    callback("Erro a adicionar cadeiras",null);
-                }
-                console.log("Os enrolments foram adicionados a bd:" + enrolments);
-            });
 
-        } if (!student.gender) {
-            DBAccess.students.addGender(email, gender, function (err) {
-                if (err) {
-                    console.log(err);
-                    callback("Erro a adicionar género",null);
-                }
-            }
+            }    if (student.enrolments.length === 0) {
+                    //Student already registered on the previous platform version, add enrolments
 
+                    DBAccess.students.addEnrolments(email, enrolments, function (err) {
+                        if (err) {
+                            logger.err(err);
+                            callback("Erro a adicionar cadeiras",null);
+                        }
+                        ba_logger.ba("BA|"+ "AE|" + student.email);
+                    });
 
-            )};
+        }   if (student.enrolments.length !== numberEnrolments && student.enrolments.length > 0)   {
+            //New semester or quitting enrolments, updating them.
+            let response = await DBAccess.students.updateEnrolments(email,enrolments);
+             ba_logger.ba("BA|"+ "UE|" + student.email);
 
-
-        //TODO: Verificação para ver se aluno tem cadeiras guardadas. Se não tiver, adicionar.
-        //Todo:problema: Token assinado tem também as cadeiras do aluno, sempre que aluno tiver novas cadeiras emite-se novo token? ou sempre que aluno faça update das cadeiras estas não são guardadas.
-        const token = jwt.sign(student, DbConfig.DB_SECRET, {expiresIn: 3600});
+        }   if (!student.gender) {
+                DBAccess.students.addGender(email, gender, (err) => {
+                    if (err) {
+                        logger.err(err);
+                        callback("Erro a adicionar género",null);
+                    }
+                });
+             ba_logger.ba("BA|"+ "AG|" + student.email);
+         };
+        //Send auth token
+        const token = jwt.sign(student.toJSON(), DbConfig.DB_SECRET, {expiresIn: 3600});
         const resData = {token: 'bearer ' + token,
                         user: {
                             name: student.name,
@@ -436,7 +306,9 @@ function registerOrLogin(name, email, courses, gender, enrolments, ip, callback)
                         }};
         callback(null,resData);
     });
+
 }
+
 
 function getAreasOfInterest(courses, numberOfAreas) {
     const SoftwareEngineering = new Set(["Arquitecturas de Software", "Especificação de Software","Programação Avançada",
@@ -516,21 +388,6 @@ function getAreasOfInterest(courses, numberOfAreas) {
 
 }
 
-function arrayMax(arr) {
-    let len = arr.length, max = 0;
-    while (len--) {
-        if (arr[len] > max) {
-            max = arr[len];
-            index = len;
-        }
-    }
-    result =  {
-        max: max,
-        index: index
-    };
-    return result;
-}
-
 function getAreaFromIndex(index)  {
     switch (index)  {
         case 0:
@@ -555,3 +412,143 @@ function getAreaFromIndex(index)  {
             return "Language and Information Technologies";
     }
 }
+
+function arrayMax(arr) {
+    let len = arr.length, max = 0;
+    while (len--) {
+        if (arr[len] > max) {
+            max = arr[len];
+            index = len;
+        }
+    }
+    result =  {
+        max: max,
+        index: index
+    };
+    return result;
+}
+
+/********************************
+ *  Blocked Routes
+ *******************************/
+
+router.get('/myApplications', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    if(!UtilsRoutes.requireRole(req, res, 'Student') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
+
+    let studentEmail = req.user.email;
+
+    DBAccess.applications.getValidApplicationsByStudentEmail(studentEmail, (err, applications) => {
+        if (err) {
+            UtilsRoutes.replyFailure(res, err, ERROR);
+        } else {
+            UtilsRoutes.replySuccess(res, applications);
+        }
+    });
+});
+
+router.put('/applications/invalidate', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    if(!UtilsRoutes.requireRole(req, res, 'Student') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
+
+    let id = req.body.id;
+    let studentEmail = req.user.email;
+
+    DBAccess.applications.invalidateApplication(id, (err, result) => {
+        if (err)  {
+            return UtilsRoutes.replyFailure(res,err, "Não foi possível apagar a candidatura");
+        }  else {
+            return UtilsRoutes.replySuccess(res,result,"A candidatura foi apagada");
+        }
+    });
+});
+
+
+router.post('/saveResume', passport.authenticate('jwt', {session: false}), function (req, res) {
+    if(!UtilsRoutes.roleIs(req, 'Student') && UtilsRoutes.isBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
+
+    //We will use the student's email as a way to store their CV
+    let studentEmail = req.user.email;
+
+
+
+
+    let storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, __dirname.replace('routes', '') + '/files/CV');
+        },
+        filename: function (req, file, cb) {
+            if(!file.originalname.match(/\.(pdf)$/))    {
+                let error = new Error();
+                error.code = "filetype";
+                return cb(error);
+            } else {
+                //The original file name is overrriden. (file.originalname)
+                cb(null, "CV-" + studentEmail + ".pdf");
+            }
+        }
+    });
+
+    //CV is the name of the file model name in the front end
+    //Filesize limit is 2mb
+    var upload = multer({
+        storage: storage,
+        limits: { fileSize: 2000000 }
+    }).single('file');
+
+    upload(req, res, function (err) {
+
+        if (err)    {
+            logger.err(err);
+            if (err.code === "LIMIT_FILE_SIZE") {
+                UtilsRoutes.replyFailure(res,"", 'O CV tem de ser menor que 2MB. Faça upload novamente.');
+            } else if (err.code === 'filetype') {
+                UtilsRoutes.replyFailure(res,"", 'O CV tem de ser do tipo PDF. Faça upload novamente.');
+            } else  {
+                UtilsRoutes.replyFailure(res,"", 'O ficheiro não pode ser enviado. Contacte a administração');
+            }
+
+        } else {
+            logger.err(req.file);
+            if(!req.file)   {
+                UtilsRoutes.replyFailure(res,"", 'Ocorreu um erro interno. Contacte a administração');
+            } else  {
+                UtilsRoutes.replySuccess(res,"", 'O seu CV foi guardado com sucesso. Já se pode candidatar a propostas');
+            }
+        }
+    });
+});
+
+
+router.post('/apply', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    if(!UtilsRoutes.requireRole(req, res, 'Student') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
+
+    //TODO not needed now
+    return false;
+
+    let studentEmail = req.user.email;
+    let company = req.body.company;
+    let proposal = req.body.proposal;
+    let curriculumVitae = req.body.curriculumVitae;
+    let motivationLetter = req.body.motivationLetter;
+    let creationDate = new Date();
+
+    DBAccess.applications.addApplication(studentEmail, company, proposal, curriculumVitae,
+      motivationLetter, creationDate, (err, application) => {
+          if (err) {
+              UtilsRoutes.replyFailure(res, err, ERROR);
+          } else {
+              UtilsRoutes.replySuccess(res, application);
+          }
+      });
+});
