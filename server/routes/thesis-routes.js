@@ -4,27 +4,40 @@ const UtilsRoutes = require('./utils-routes');
 const thesisServices = require('./../services/thesis/thesis-services');
 const ba_logger = require('../log/ba_logger');
 const DBAccess = require('../mongodb/accesses/mongo-access');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
-//TODO
 router.post('/train/:link', (req, res) =>  {
-   //Requere privilegios
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Não permitido");
+        return;
+    }
+
     let link = req.params.link;
     thesisServices.trainSaveClassifierUsingLink(link, (err,answer) =>   {
 
     });
 
-});//TODO
+});
+
 router.post('/testClassifier', (req, res) =>  {
-   //
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Não permitido");
+        return;
+    }
+
 });
 
 
 
-router.post('/add', (req, res, next) => {
+router.post('/add', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    if(!UtilsRoutes.isFromAdministration(req))    {
+        UtilsRoutes.replyFailure(res,"","Não permitido");
+        return;
+    }
 
     let loadThesis = () =>   {
         return new Promise((resolve,reject) =>   {
-            console.log("loadThesis");
             thesisServices.parseThesis((err, processedThesis, numberOfProcessedThesis) =>  {
                 if (err) {
                     console.log(err);
@@ -32,8 +45,6 @@ router.post('/add', (req, res, next) => {
                     error.content = err;
                     reject(error);
                 } else   {
-                    console.log("loadThesis - Resolve");
-
                     result =   {
                         theses: processedThesis,
                         number: numberOfProcessedThesis
@@ -45,20 +56,15 @@ router.post('/add', (req, res, next) => {
         });
     };
 
-     let processThesis = (thesisArray) =>   {
-        console.log("processThesis");
-
+    let processThesis = (thesisArray) =>   {
         return new Promise((resolve,reject) =>   {
             thesisServices.processThesis(thesisArray, (err,theses, projectsNumber, dissertationNumber) =>    {
                 if (err)    {
-                    console.log("erro a processar tese");
                     console.log(err);
                     error.msg = "Error processing thesis";
                     error.content = err;
                     reject(error);
                 }   else {
-                    console.log("processThesis resultados");
-
                     result =   {
                         theses: theses,
                         projectsNumber: projectsNumber,
@@ -92,8 +98,6 @@ router.post('/add', (req, res, next) => {
 
                     theses[i].requirements, theses[i].areas, 0 , theses[i].type, new Date(), (err, result) =>    {
                         if (err) {
-                            console.log(err);
-                            console.log("erro");
                             reject(err);
                         } else {
                             if (result.nModified === 1)   {
@@ -149,18 +153,17 @@ router.post('/add', (req, res, next) => {
     });
 
 
-
-
-
-
-
-
 });
 
 
 
 //Trains the classifier (hardcoded) and saves the classifier
 router.post('/train', (req, res, next) => {
+    if(!UtilsRoutes.isFromAdministration(req))    {
+        UtilsRoutes.replyFailure(res,"","Não permitido");
+        return;
+    }
+
     let error = {};
     error.content = "";
     error.msg = "Error not defined";
@@ -198,13 +201,11 @@ router.post('/train', (req, res, next) => {
 });
 
 
-router.get('/getTheses', async (req,res,next) =>   {
-/*    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+router.get('/getTheses', passport.authenticate('jwt', {session: false}), async (req,res) =>   {
+    if(!UtilsRoutes.roleIs(req, 'Student'))    {
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
         return;
     }
-
-    , passport.authenticate('jwt', {session: false})*/
 
     let error = {};
     error.content = "";
@@ -227,9 +228,14 @@ router.get('/getTheses', async (req,res,next) =>   {
 });
 
 
-router.post('/incrementClick/:id(\\d+)', async (req,res,next) =>  {
-    let id = req.params.id;
+router.post('/incrementClick/:id(\\d+)', async (req,res) =>  {
+    //For extra securiy, one may consider adding a daily threshold for each student
+    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
 
+    let id = req.params.id;
    let response = await DBAccess.thesis.incrementClicks(id);
    if (response.length === 0) {
        response = 'Thesis with id ' + id + ' not found';
@@ -250,6 +256,11 @@ router.post('/incrementClick/:id(\\d+)', async (req,res,next) =>  {
 });
 
 router.post('/getClicks/:id(\\d+)', async (req,res,next) =>  {
+    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
+
     let id = req.params.id;
 
    let response = await DBAccess.thesis.getThesisById(id);
@@ -272,6 +283,11 @@ router.post('/getClicks/:id(\\d+)', async (req,res,next) =>  {
 });
 
 router.post('/getType/:id(\\d+)', async (req,res,next) =>  {
+    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
+        return;
+    }
+
     let id = req.params.id;
     let type = "";
 
