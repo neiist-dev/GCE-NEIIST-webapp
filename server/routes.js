@@ -5,17 +5,15 @@ const studentRoutes = require('./routes/student-routes');
 const thesisRoutes = require('./routes/thesis-routes');
 const professorRoutes = require('./routes/professor-routes');
 const adminRoutes = require('./routes/admin-routes');
-const matchMakingRoutes = require('./routes/match-making-routes');
 const generalRoutes = require('./routes/general-routes');
 
-module.exports = function(app, baseDir) {
+module.exports = (app) => {
 
     app.use('/users', usersRoutes);
     app.use('/student', studentRoutes);
     app.use('/professor', professorRoutes);
     app.use('/company', companyRoutes);
     app.use('/admin', adminRoutes);
-    app.use('/match', matchMakingRoutes);
     app.use('/gce', generalRoutes);
     app.use('/thesis', thesisRoutes);
 
