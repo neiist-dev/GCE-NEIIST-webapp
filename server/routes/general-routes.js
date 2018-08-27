@@ -15,9 +15,7 @@ const path = require('path');
 
 //Others, related with student
 router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    //Not needed now,Admin only
-
-    if(!UtilsRoutes.roleIs(req,'Admin'))    {
+    if(UtilsRoutes.routeIsBlocked)    {
         UtilsRoutes.replyFailure(res,"","Fechado");
         return;
     }
@@ -76,9 +74,8 @@ router.post('/signupHashCode', passport.authenticate('jwt', {session: false}), (
 
 //To pre-signup Google Hash Code
 router.post('/saveCVHashCode', passport.authenticate('jwt', {session: false}), function (req, res) {
-    //TODO Add auth headers on front-end
-    if(!UtilsRoutes.roleIs(req,'Student'))    {
-        UtilsRoutes.replyFailure(res,"","Só os estudantes podem inscrever-se");
+    if(UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Fechado");
         return;
     }
 

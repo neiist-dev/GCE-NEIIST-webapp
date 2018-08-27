@@ -7,6 +7,7 @@ function Utils() {
     this.requireRole = requireRole;
     this.roleIs = roleIs;
     this.saveFile = saveFile;
+    this.routeIsBlocked = true;
 }
 
 let utils = module.exports = exports = new Utils;

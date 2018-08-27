@@ -11,8 +11,8 @@ const ba_logger = require('../log/ba_logger');
 
 
 router.post('/aproveCompany/:email', passport.authenticate('jwt', {session: false}), (req, res, next) =>{
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
 
@@ -32,8 +32,8 @@ router.post('/aproveCompany/:email', passport.authenticate('jwt', {session: fals
 });
 
 router.post('/invalidateCompany', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
 
@@ -52,18 +52,17 @@ router.post('/invalidateCompany', passport.authenticate('jwt', {session: false})
     });
 });
 
-router.post('/aproveThesisProposal/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
-        return;
-    }
+router.post('/aproveThesisProposal/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+    UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
+    return;
+}
 
     let id = req.query.id;
 });
 
 router.post('/cancelThesisProposal/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
 
@@ -71,8 +70,8 @@ router.post('/cancelThesisProposal/:id', passport.authenticate('jwt', {session: 
 });
 
 router.post('/getFeedback', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
 
@@ -81,8 +80,8 @@ router.post('/getFeedback', passport.authenticate('jwt', {session: false}), (req
 
 
 router.post('/getBusinessAnalyticsLogs', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
 
@@ -90,8 +89,8 @@ router.post('/getBusinessAnalyticsLogs', passport.authenticate('jwt', {session: 
 });
 
 router.post('/getBusinessAnalyticsLogsSince/:date', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
 
@@ -99,8 +98,8 @@ router.post('/getBusinessAnalyticsLogsSince/:date', passport.authenticate('jwt',
 });
 
 router.get('/getLogs', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
 
@@ -108,16 +107,16 @@ router.get('/getLogs', passport.authenticate('jwt', {session: false}), (req, res
 });
 
 router.post('/getLogsSince/:date', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
     //TODO Gets logs (normal ones) since date
 });
 
 router.get('/getStudents',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
 
@@ -133,8 +132,8 @@ router.get('/getStudents',  passport.authenticate('jwt', {session: false}), (req
 });
 
 router.get('/getStudentEmails',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.roleIs(req, 'Admin'))    {
-        UtilsRoutes.replyFailure(res,"","Só os administradores podem realizar esta ação");
+    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Só as empresas podem realizar esta ação");
         return;
     }
 

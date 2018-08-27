@@ -8,7 +8,10 @@ const FenixApi = require('./../fenixapi/fenix');
 const ProfessorServices = require('./../services/professor-services');
 
 router.post('/register', (req, res, next) => {
-    //TODO Create another Fenix App. Implement with promises, similarly to Student
+    if(UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","");
+        return;
+    }
     /*
     const code = req.body.tokenq;
     console.log(req);
@@ -21,6 +24,7 @@ router.post('/register', (req, res, next) => {
         });
     });
 
+    const has = Object.prototype.hasOwnProperty;
     let getProfessorFromFenix = (token) => {
 
         return new Promise((resolve, reject) => {
@@ -32,7 +36,7 @@ router.post('/register', (req, res, next) => {
                     [{type: 'TEACHER', concludedRegistrations: []}]
 
             };
-            if (person.hasOwnProperty('error')) {
+            if (has.call(person,'error')) {
                 UtilsRoutes.replyFailure(res, 'Student not found.', '');
                 reject();
             } else if (!FenixApi.professor.isProfessor(person)) {
