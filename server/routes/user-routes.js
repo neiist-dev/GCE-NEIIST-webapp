@@ -6,9 +6,6 @@ const dbConfig = require('../../config/db');
 const Utils = require('../mongodb/accesses/utils-accesses');
 const UtilsRoutes = require('../routes/utils-routes');
 const ba_logger = require('../log/ba_logger');
-const fs = require('fs');
-const path = require('path');
-
 
 const USER_NOT_FOUND = "Utilizador não encontrado.";
 const WRONG_PASSWORD_PART_1 = "Password errada. Tem ";
@@ -18,7 +15,7 @@ const USER_INVALID = "A sua conta está invalidada. Por favor contacte a adminis
 const USER_UNCONFIRMED = "A sua conta está por confirmar. Por favor contacte a administração, para que se proceda à ativação da conta";
 const ERROR_F = "Não foi possível adicionar feedback. Por favor contacte a administração";
 
-router.post('/login', (req, res, next) => {
+router.post('/login', (req, res) => {
     const email = req.body.username;
     const password = req.body.password;
     DBAccess.users.getUserByEmail(email, (err, user) => {
@@ -36,14 +33,13 @@ router.post('/login', (req, res, next) => {
                 } else if (!isMatch) {
                     remaining_attempts = user.remaining_attempts - 1;
                     if (remaining_attempts === 0) {
-                        DBAccess.companies.invalidateCompany(email,(err,user) =>{
+                        DBAccess.companies.invalidateCompany(email,(err) =>{
                             if (err)    {
                                 throw(err);
                             }
                             return UtilsRoutes.replyFailure(res,err,WRONG_PASSWORD_INVALIDATE);
                         });
                     } else  {
-                        //decrementar tentativas e notificar user
                         DBAccess.companies.decrementAttempts(email,(err,user) =>{
                             if (err)    {
                                 throw(err);
@@ -53,7 +49,7 @@ router.post('/login', (req, res, next) => {
                     }
 
                 } else {
-                    DBAccess.companies.resetAttempts(email,(err,user) =>{
+                    DBAccess.companies.resetAttempts(email,(err) =>{
                         if (err)    {
                             throw(err);
                         }
@@ -103,43 +99,25 @@ router.post('/login', (req, res, next) => {
     });
 });
 
-router.post('/feedback', (req, res, next) => {
+router.post('/feedback', (req, res) => {
 
     const name = req.body.name;
     const email = req.body.email;
     const message = req.body.message;
-    const rate = req.body.rate;
     const entity = req.body.entity;
 
     DBAccess.feedback.addFeedback(name, entity,email,
-                                    rate,message,  (err) => {
+                                    message,  (err) => {
           if (err)  {
               console.log(err);
               return UtilsRoutes.replyFailure(res,err,ERROR_F);
           }  else {
-              ba_logger.ba("BA|"+ "F|"+ email + "|" + rate + "|" +
+              ba_logger.ba("BA|"+ "F|"+ email + "|" +
                 new Date().toJSON().slice(0,16).replace(/-/g,'/') + "h");
               return UtilsRoutes.replySuccess(res,"","");
           }
       });
 
-    /*Save as a file
-    fileContent =   "[TYPE]:" + type + "\n" +
-                    "[RATE]:" + rate + "\n" +
-                    "[NOME]:" + name + "\n" + "[EMAIL]:" + email + "\n" +
-                    "[ENTITY]:" + entity + "\n" +
-                    "[MENSAGEM]:" + message + "\n";
-
-    const filePath = '../files/Feedback/' + "Feedback-" + name + "-" + Date.now() + ".txt";
-
-    fs.writeFile(path.join(__dirname, filePath), fileContent, function (err) {
-        if (err) {
-            return UtilsRoutes.replyFailure(res, err, "Não foi possível enviar o feedback. Contacte a administração");
-        }
-        ba_logger.ba("Feedback:" + email + ":Gave Feedback:" + Utils.utc);
-        UtilsRoutes.replySuccess(res, "", "Feedback foi enviado com sucesso");
-    });
-    */
 });
 
 module.exports = router;

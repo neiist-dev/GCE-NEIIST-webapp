@@ -12,12 +12,11 @@ let access_signup = module.exports = exports = new AccessFeedback();
 /********************************
  *  C.R.U.D. FUNCTIONS
  *******************************/
-function addFeedback(name, entity, email, rating, message, callback) {
+function addFeedback(name, entity, email, message, callback) {
     let newFeedback = new Feedback({
         name: name,
         entity: entity,
         email: email,
-        rating: rating,
         message: message
     });
 

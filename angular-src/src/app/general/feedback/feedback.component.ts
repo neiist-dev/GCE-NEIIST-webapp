@@ -11,17 +11,12 @@ import {FeedbackService} from '../../services/feedback.service';
   styleUrls: ['./feedback.component.css']
 })
 export class FeedbackComponent implements OnInit {
-  public max:number = 5;
-  public rate:number = null;
-  public isReadonly:boolean = false;
-  public entity:string;
-  public overStar:number;
-  public percent:number;
+
   public modalRef: BsModalRef;
   public name:string;
   public email:string;
   public message:string;
-  public type:string;
+  public entity:string;
 
   constructor(private modalService: BsModalService,
               private validateService: ValidateService,
@@ -29,15 +24,6 @@ export class FeedbackComponent implements OnInit {
               private feedbackService: FeedbackService) { }
 
   ngOnInit() {
-  }
-
-  public hoveringOver(value:number):void {
-    this.overStar = value;
-    this.percent = 100 * (value / this.max);
-  };
-
-  public resetStar():void {
-    this.overStar = void 0;
   }
 
   public openModal(template: TemplateRef<any>) {
@@ -56,7 +42,6 @@ export class FeedbackComponent implements OnInit {
     this.email = null;
     this.message = null;
     this.entity = null;
-    this.type = null;
   }
 
   sendFeedback() {
@@ -65,26 +50,26 @@ export class FeedbackComponent implements OnInit {
       name: this.name,
       email: this.email,
       message: this.message,
-      rate: this.rate,
-      entity: this.entity,
-      type: this.type
+      entity: this.entity
     };
 
     if (!this.validateService.validateFeedback(feedback))  {
-      this.flashMessage.show("Por favor, preencha o número de estrelas e e-mail", {cssClass: 'alert-danger', timeout: 2500});
+      this.flashMessage.show("Por favor introduz todas as informações necessárias", {cssClass: 'alert-danger', timeout: 2500});
       return false;
     }
 
       if (!this.validateService.validateTeamContact(this.email))  {
-          this.flashMessage.show('Introduz um e-mail válido, por favor.', {cssClass: 'alert-danger', timeout: 1500});
+          this.flashMessage.show('Por favor introduz um e-mail válido.', {cssClass: 'alert-danger', timeout: 1500});
           return false;
       }
 
     this.feedbackService.sendFeedback(feedback).subscribe(data => {
       if (data.succeeded) {
-        this.modalRef.hide();
         this.clearFeedbackForm();
         this.flashMessage.show("Feedback enviado com sucesso", {cssClass: 'alert-success', timeout: 3000});
+        setTimeout( () =>  {
+            this.modalRef.hide();
+        }, 1000);
       } else {
         this.flashMessage.show("Feedback não enviado. Contacte a administração", {cssClass: 'alert-danger', timeout: 3000});
 
