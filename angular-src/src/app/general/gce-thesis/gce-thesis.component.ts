@@ -2,16 +2,15 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { StudentService } from '../../services/student.service';
 import { ThesisService } from '../../services/thesis.service';
-import {CompanyService} from '../../services/company.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 import { TemplateRef } from '@angular/core';
 import {PopoverDirective} from 'ngx-bootstrap';
 
 @Component({
-  selector: 'app-gce-thesis',
-  templateUrl: './gce-thesis.component.html',
-  styleUrls: ['./gce-thesis.component.css']
+    selector: 'app-gce-thesis',
+    templateUrl: './gce-thesis.component.html',
+    styleUrls: ['./gce-thesis.component.css']
 })
 export class GceThesisComponent implements OnInit {
     user: object;
@@ -64,7 +63,7 @@ export class GceThesisComponent implements OnInit {
                 private studentService: StudentService,
                 private thesisService: ThesisService,
                 private modalService: BsModalService,
-               ) {
+    ) {
     }
 
     @ViewChild('pop') pop: PopoverDirective;
@@ -89,16 +88,16 @@ export class GceThesisComponent implements OnInit {
     getRecommendedTheses() {
         this.recommendedTheses = [];
         this.studentService.getRecommendedTheses().subscribe(res => {
-        this.recommendedTheses = res.response_data;
-    });
+            this.recommendedTheses = res.response_data;
+        });
 
     }
     getTheses() {
         this.theses = [];
         this.thesisService.getAllTheses().subscribe(res => {
-        this.theses = res.response_data;
-        this.numberTheses = this.theses.length;
-    });
+            this.theses = res.response_data;
+            this.numberTheses = this.theses.length;
+        });
 
     }
     toggleShowRecomendations(event)   {
@@ -116,10 +115,10 @@ export class GceThesisComponent implements OnInit {
 
             const newTheses = res.response_data;
             for (const newThesis of newTheses)   {
-                        if (!idSet.has(newThesis.id))  {
-                        this.recommendedTheses.unshift(newThesis);
-                    }
+                if (!idSet.has(newThesis.id))  {
+                    this.recommendedTheses.unshift(newThesis);
                 }
+            }
         });
     }
 
