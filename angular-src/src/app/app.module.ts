@@ -8,166 +8,114 @@ import { NavbarComponent } from './general/navbar/navbar.component';
 import { LoginComponent } from './general/login/login.component';
 import { HomeComponent } from './general/home/home.component';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent} from './general/register/register.component';
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { StudentService } from './services/student.service';
-import { CompanyService } from './services/company.service';
 import { ThesisService } from './services/thesis.service';
-import { CompanyRegisterComponent } from './general/register/company-register/company-register.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
-import { CompanyAddProposalComponent } from './user-company/company-add-proposal/company-add-proposal.component';
 import { DashboardStudentComponent } from './user-student/student-dashboard/student-dashboard.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { FeedbackService } from './services/feedback.service';
-import { ShowAllProposalsComponent } from './general/show-all-proposals/show-all-proposals.component';
-import { CompanyProposalsComponent } from './user-company/company-proposals/company-proposals.component';
-import { DashboardCompanyComponent } from './user-company/company-dashboard/company-dashboard.component';
 import { FooterComponent } from './general/footer/footer.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { FileSelectDirective } from 'ng2-file-upload';
-import { CompanyProfileComponent } from './user-company/company-profile/company-profile.component';
 import { StudentProfileComponent } from './user-student/student-profile/student-profile.component';
 import { InfoComponent } from './general/info/info.component';
-import { CompanyStatsComponent } from './user-company/company-stats/company-stats.component';
-import { ShowAllCompaniesComponent } from './general/show-all-companies/show-all-companies.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { ProfessorDashboardComponent } from './user-professor/professor-dashboard/professor-dashboard.component';
-import { ProfessorProfileComponent } from './user-professor/professor-profile/professor-profile.component';
 import { LoginStudentComponent } from './general/login/login-student/login-student.component';
-import { LoginProfessorComponent } from './general/login/login-professor/login-professor.component';
 import {MockBackend} from '@angular/http/testing';
 import { FeedbackComponent } from './general/feedback/feedback.component';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AgmCoreModule } from '@agm/core';
-import { CompanyMyProposalsComponent } from './user-company/company-my-proposals/company-my-proposals.component';
 import { ComingSoonComponent } from './general/coming-soon/coming-soon.component';
-import { MaintenanceComponent } from './general/maintenance/maintenance.component';
-import { StudentDashboardProposalsComponent } from './user-student/student-dashboard-proposals/student-dashboard-proposals.component';
-import { WorkInProgressComponent } from './general/work-in-progress/work-in-progress.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PrivacyPolicyComponent } from './general/privacy-policy/privacy-policy.component';
 import { TermsUsageComponent } from './general/terms-usage/terms-usage.component';
-import { FaqComponent } from './general/faq/faq.component';
 import { GceHashCodeComponent } from './general/gce-hash-code/gce-hash-code.component';
 import { GceHashCodeNextComponent } from './general/gce-hash-code-next/gce-hash-code-next.component';
 import { Vars } from  '../../.env';
 import { UploadCvComponent } from './general/upload-cv/upload-cv.component';
-import { FbComponent } from './general/fb/fb.component';
 import { GceHashCodeProgramComponent } from './general/gce-hash-code-program/gce-hash-code-program.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { GceThesisComponent } from './general/gce-thesis/gce-thesis.component';
 import { PartnersCarouselComponent } from './general/partners-carousel/partners-carousel.component';
-import {FilterResultsPipe} from "./general/gce-thesis/filter-results.pipe";
+import {FilterResultsPipe} from './general/gce-thesis/filter-results.pipe';
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'register', children: [
-    {path: '', component: RegisterComponent},
-    {path: 'company', component: CompanyRegisterComponent}
-  ]},
-  {path: 'login', children: [
-    {path: '', component: LoginComponent},
-    {path: 'student', component: LoginStudentComponent},
-    {path: 'professor', component: LoginProfessorComponent}
-  ]},
-  {path: 'dashboardStudent', component: DashboardStudentComponent, canActivate:[AuthGuardService]},
-  {path: 'dashboardProfessor', component: ProfessorDashboardComponent, canActivate:[AuthGuardService]},
-  {path: 'dashboardCompany', component: DashboardCompanyComponent, canActivate:[AuthGuardService]},
-  {path: 'stats', component: CompanyStatsComponent, canActivate:[AuthGuardService]},
-  {path: 'profileCompany', component: CompanyProfileComponent, canActivate:[AuthGuardService]},
-  {path: 'profileStudent', component: StudentProfileComponent, canActivate:[AuthGuardService]},
-  {path: 'profileProfessor', component: ProfessorProfileComponent, canActivate:[AuthGuardService]},
-  {path: 'addProposals', component: CompanyAddProposalComponent, canActivate:[AuthGuardService]},
-  {path: 'showAllProposals', component: ShowAllProposalsComponent},
-  {path: 'showProposals', component: CompanyProposalsComponent, canActivate:[AuthGuardService]},
-  {path: 'wip', component: ComingSoonComponent},
-  {path: 'terms-of-use', component: TermsUsageComponent},
-  {path: 'privacy-policy', component: PrivacyPolicyComponent},
-  {path: 'partners', component: PartnersCarouselComponent},
-  {path: 'faq', component: FaqComponent},
-  //{path: 'hashcode', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
+    {path: '', component: HomeComponent},
+    {path: 'login', children: [
+        {path: '', component: LoginComponent},
+        {path: 'student', component: LoginStudentComponent}
+    ]},
+    {path: 'dashboardStudent', component: DashboardStudentComponent, canActivate:[AuthGuardService]},
+    {path: 'profileStudent', component: StudentProfileComponent, canActivate:[AuthGuardService]},
+    {path: 'wip', component: ComingSoonComponent},
+    {path: 'terms-of-use', component: TermsUsageComponent},
+    {path: 'privacy-policy', component: PrivacyPolicyComponent},
+    {path: 'partners', component: PartnersCarouselComponent},
+    //{path: 'hashcode', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
     //{path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]},
-   {path: 'thesis', component: GceThesisComponent,canActivate:[AuthGuardService]}
+    {path: 'thesis', component: GceThesisComponent, canActivate:[AuthGuardService]}
 
-  ];
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    LoginComponent,
-    HomeComponent,
-    DashboardStudentComponent,
-    RegisterComponent,
-    CompanyRegisterComponent,
-    CompanyAddProposalComponent,
-    ShowAllProposalsComponent,
-    CompanyProposalsComponent,
-    DashboardCompanyComponent,
-    FooterComponent,
-    FileSelectDirective,
-    CompanyProfileComponent,
-    StudentProfileComponent,
-    InfoComponent,
-    CompanyStatsComponent,
-    ShowAllCompaniesComponent,
-    ProfessorDashboardComponent,
-    ProfessorProfileComponent,
-    LoginStudentComponent,
-    LoginProfessorComponent,
-    FeedbackComponent,
-    CompanyMyProposalsComponent,
-    ComingSoonComponent,
-    MaintenanceComponent,
-    StudentDashboardProposalsComponent,
-    WorkInProgressComponent,
-    PrivacyPolicyComponent,
-    TermsUsageComponent,
-    FaqComponent,
-    GceHashCodeComponent,
-    GceHashCodeNextComponent,
-    UploadCvComponent,
-    FbComponent,
-    GceHashCodeProgramComponent,
-    GceThesisComponent,
-      FilterResultsPipe,
-    PartnersCarouselComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    ReactiveFormsModule,
-    ChartsModule,
-    AccordionModule.forRoot(),
-    BsDatepickerModule.forRoot(),
-    RouterModule.forRoot(appRoutes),
-    PopoverModule.forRoot(),
-    ModalModule.forRoot(),
-    ProgressbarModule.forRoot(),
-    RatingModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: Vars.GOOGLE_MAPS,
-    }),
-    FlashMessagesModule,
-  ],
-  providers: [
-    ValidateService,
-    AuthService,
-    StudentService,
-    AuthGuardService,
-    CompanyService,
-    ThesisService,
-    MockBackend,
-    FeedbackService,
-    BaseRequestOptions
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NavbarComponent,
+        LoginComponent,
+        HomeComponent,
+        DashboardStudentComponent,
+        FooterComponent,
+        FileSelectDirective,
+        StudentProfileComponent,
+        InfoComponent,
+        LoginStudentComponent,
+        FeedbackComponent,
+        ComingSoonComponent,
+        PrivacyPolicyComponent,
+        TermsUsageComponent,
+        GceHashCodeComponent,
+        GceHashCodeNextComponent,
+        UploadCvComponent,
+        GceHashCodeProgramComponent,
+        GceThesisComponent,
+        FilterResultsPipe,
+        PartnersCarouselComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        ReactiveFormsModule,
+        ChartsModule,
+        AccordionModule.forRoot(),
+        BsDatepickerModule.forRoot(),
+        RouterModule.forRoot(appRoutes),
+        PopoverModule.forRoot(),
+        ModalModule.forRoot(),
+        ProgressbarModule.forRoot(),
+        RatingModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        TabsModule.forRoot(),
+        AgmCoreModule.forRoot({
+            apiKey: Vars.GOOGLE_MAPS,
+        }),
+        FlashMessagesModule,
+    ],
+    providers: [
+        ValidateService,
+        AuthService,
+        StudentService,
+        AuthGuardService,
+        ThesisService,
+        MockBackend,
+        FeedbackService,
+        BaseRequestOptions
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
