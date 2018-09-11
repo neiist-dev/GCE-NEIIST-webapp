@@ -32,10 +32,11 @@ Note that this is a **WIP** project.
 In order to run the project the required libraries need to be installed.
 
 1. Install [node][node].
+1. Install node dependencies by running ``npm install``.
 2. Install [MongoDB][mon], community version.
 6. **Make a copy of** ``.env.template``. Rename that copy to ``.env``. Set the environment variables for the front end, by editing ``.env``.
 7. Go to ``angular-src`` and run ``npm install``. 
-8. To build the front-end, run ```ng build --watch```. 
+8. To build the front-end, run ```ng build --watch```. To build it in production mode, run ``ng build --prod --aot=false --build-optimizer=false``.
 1. If you wish,[follow our recommendations](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Recommendations).
 1. In case of errors, see our  [Troubleshooting page](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Troubleshooting).
 
