@@ -1,6 +1,4 @@
 import { Component, OnInit, TemplateRef  } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 import {ValidateService} from '../../services/validate.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {FeedbackService} from '../../services/feedback.service';
@@ -12,14 +10,12 @@ import {FeedbackService} from '../../services/feedback.service';
 })
 export class FeedbackComponent implements OnInit {
 
-  public modalRef: BsModalRef;
   public name:string;
   public email:string;
   public message:string;
   public entity:string;
 
-  constructor(private modalService: BsModalService,
-              private validateService: ValidateService,
+  constructor(private validateService: ValidateService,
               private flashMessage: FlashMessagesService,
               private feedbackService: FeedbackService) { }
 
@@ -28,7 +24,6 @@ export class FeedbackComponent implements OnInit {
 
   public openModal(template: TemplateRef<any>) {
 
-    this.modalRef = this.modalService.show(template);
   }
 
   //FIXME Doesn't work in Firefox
@@ -68,7 +63,6 @@ export class FeedbackComponent implements OnInit {
         this.clearFeedbackForm();
         this.flashMessage.show("Feedback enviado com sucesso", {cssClass: 'alert-success', timeout: 3000});
         setTimeout( () =>  {
-            this.modalRef.hide();
         }, 1000);
       } else {
         this.flashMessage.show("Feedback não enviado. Contacte a administração", {cssClass: 'alert-danger', timeout: 3000});

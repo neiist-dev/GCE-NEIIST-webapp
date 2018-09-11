@@ -2,10 +2,7 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { StudentService } from '../../services/student.service';
 import { ThesisService } from '../../services/thesis.service';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 import { TemplateRef } from '@angular/core';
-import {PopoverDirective} from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-gce-thesis',
@@ -14,11 +11,10 @@ import {PopoverDirective} from 'ngx-bootstrap';
 })
 export class GceThesisComponent implements OnInit {
     user: object;
-    proposals: any[];
-    applications: object[];
-    theses: object[];
+    applications: any[];
+    theses: any[];
     numberTheses: number;
-    recommendedTheses: object[];
+    recommendedTheses: any[];
     showRecomendations: boolean;
     areas: string[] = [
         "Software Engineering",
@@ -58,15 +54,12 @@ export class GceThesisComponent implements OnInit {
 
     //Ng stuff
     closeResult: string;
-    public modalRef: BsModalRef;
     constructor(private flashMessage: FlashMessagesService,
                 private studentService: StudentService,
-                private thesisService: ThesisService,
-                private modalService: BsModalService,
+                private thesisService: ThesisService
     ) {
     }
 
-    @ViewChild('pop') pop: PopoverDirective;
     @ViewChild('proposalTable') proposalTable;
     ngOnInit() {
         this.loadUser();
@@ -77,7 +70,6 @@ export class GceThesisComponent implements OnInit {
     }
 
     public openModal(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
     }
 
 
