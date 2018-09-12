@@ -58,16 +58,15 @@
                 </div>
         </div>
     -->
-
     <div class="sidenav">
         <ng-container *ngFor="let area of areas">
             <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
-                <div class="bigColorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)">
+                <div class="bigColorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
                     <span class="labelText">{{areaAdvanced[area][1]}}</span>
                 </div>
             </div>
             <ng-template #smallLabel>
-                <div class="colorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)">
+                <div class="colorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
                     <span class="labelText">{{areaAdvanced[area][1]}}</span>
                 </div>
             </ng-template>
