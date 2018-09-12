@@ -100,7 +100,7 @@
     overflow-x: hidden; /* Disable horizontal scroll */
     overflow-y: hidden; /* Disable horizontal scroll */
     padding-top: 25px;
-    width:inherit;
+    overflow:visible;
 }
 
 .typeBar{
