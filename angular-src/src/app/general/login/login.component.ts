@@ -79,8 +79,6 @@ export class LoginComponent implements OnInit, OnDestroy {
             return false;
         }
 
-        //TODO: Add Autorization header, or remove route protection on user
-        //The student is treated at student-register.component
         this.subscriptions.push(this.authService.authUser(user).subscribe(response => {
             if (response.succeeded) {
                 this.authService.storeData(response.response_data.user, response.response_data.token);
