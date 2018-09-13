@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseRequestOptions, HttpModule } from '@angular/http';
@@ -82,6 +83,12 @@ const appRoutes: Routes = [
         NgbModule,
         ReactiveFormsModule,
         ChartsModule,
+        JwtModule.forRoot({
+            config: {
+                whitelistedDomains: ['localhost:3001', 'localhost:8080', 'gce-neiist.org',
+                                    'fenix.tecnico.ulisboa.pt/oauth, maps.googleapis.com']
+            }
+        }),
         RouterModule.forRoot(appRoutes),
         AgmCoreModule.forRoot({
             apiKey: Vars.GOOGLE_MAPS,

@@ -16,8 +16,8 @@ export class NavbarComponent implements OnInit {
   link: string;
   LogoPath: string;
   name: string = "Perfil";
-    private toggleButton: any;
-    private sidebarVisible: boolean;
+
+    sidebarVisible: boolean;
 
   constructor(private authService: AuthService, private router: Router, public location: Location, private element : ElementRef
   ) {
