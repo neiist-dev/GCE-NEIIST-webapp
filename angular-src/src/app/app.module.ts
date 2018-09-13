@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { PopoverModule } from 'ngx-bootstrap/popover';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseRequestOptions, HttpModule } from '@angular/http';
@@ -17,32 +16,24 @@ import { DashboardStudentComponent } from './user-student/student-dashboard/stud
 import { AuthGuardService } from './services/auth-guard.service';
 import { FeedbackService } from './services/feedback.service';
 import { FooterComponent } from './general/footer/footer.component';
-import { ModalModule } from 'ngx-bootstrap';
-import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
-import { FileSelectDirective } from 'ng2-file-upload';
 import { StudentProfileComponent } from './user-student/student-profile/student-profile.component';
 import { InfoComponent } from './general/info/info.component';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { LoginStudentComponent } from './general/login/login-student/login-student.component';
 import {MockBackend} from '@angular/http/testing';
 import { FeedbackComponent } from './general/feedback/feedback.component';
-import { RatingModule } from 'ngx-bootstrap/rating';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AgmCoreModule } from '@agm/core';
 import { ComingSoonComponent } from './general/coming-soon/coming-soon.component';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PrivacyPolicyComponent } from './general/privacy-policy/privacy-policy.component';
 import { TermsUsageComponent } from './general/terms-usage/terms-usage.component';
 import { GceHashCodeComponent } from './general/gce-hash-code/gce-hash-code.component';
 import { GceHashCodeNextComponent } from './general/gce-hash-code-next/gce-hash-code-next.component';
 import { Vars } from  '../../.env';
-import { UploadCvComponent } from './general/upload-cv/upload-cv.component';
 import { GceHashCodeProgramComponent } from './general/gce-hash-code-program/gce-hash-code-program.component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { GceThesisComponent } from './general/gce-thesis/gce-thesis.component';
 import { PartnersCarouselComponent } from './general/partners-carousel/partners-carousel.component';
 import {FilterResultsPipe} from './general/gce-thesis/filter-results.pipe';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -70,7 +61,6 @@ const appRoutes: Routes = [
         HomeComponent,
         DashboardStudentComponent,
         FooterComponent,
-        FileSelectDirective,
         StudentProfileComponent,
         InfoComponent,
         LoginStudentComponent,
@@ -80,7 +70,6 @@ const appRoutes: Routes = [
         TermsUsageComponent,
         GceHashCodeComponent,
         GceHashCodeNextComponent,
-        UploadCvComponent,
         GceHashCodeProgramComponent,
         GceThesisComponent,
         FilterResultsPipe,
@@ -90,17 +79,10 @@ const appRoutes: Routes = [
         BrowserModule,
         FormsModule,
         HttpModule,
+        NgbModule,
         ReactiveFormsModule,
         ChartsModule,
-        AccordionModule.forRoot(),
-        BsDatepickerModule.forRoot(),
         RouterModule.forRoot(appRoutes),
-        PopoverModule.forRoot(),
-        ModalModule.forRoot(),
-        ProgressbarModule.forRoot(),
-        RatingModule.forRoot(),
-        BsDropdownModule.forRoot(),
-        TabsModule.forRoot(),
         AgmCoreModule.forRoot({
             apiKey: Vars.GOOGLE_MAPS,
         }),

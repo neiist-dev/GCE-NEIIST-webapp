@@ -58,16 +58,15 @@
                 </div>
         </div>
     -->
-
     <div class="sidenav">
         <ng-container *ngFor="let area of areas">
             <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
-                <div class="bigColorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)">
+                <div class="bigColorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
                     <span class="labelText">{{areaAdvanced[area][1]}}</span>
                 </div>
             </div>
             <ng-template #smallLabel>
-                <div class="colorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)">
+                <div class="colorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
                     <span class="labelText">{{areaAdvanced[area][1]}}</span>
                 </div>
             </ng-template>
@@ -100,18 +99,14 @@
                 </div>
 
 
-                <div class="card-body">
-                    <tr>
-                        <td><h4>{{ thesis.id }}</h4></td>
-                        <td>
-                    <tr>
-                        <td class="col" *ngFor="let area of thesis.areas">
-                            <span class="dot"  [ngStyle]="{'background-color':areaAdvanced[area][0] }" ></span>
-                        </td>
-                    </tr>
-                    </td>
-                    <td class="moreButton"><a href="#" class="btn btn-primary ">Mais</a></td>
-                    </tr>
+                <div class="card-body" >
+                    <table style="width:100%">
+                        <tr>
+                            <ng-container *ngFor="let area of thesis.areas">
+                                <td  [ngStyle]="{'background-color':areaAdvanced[area][0]}" style="width: 50%; height:10px"></td>
+                            </ng-container>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

@@ -46,7 +46,7 @@
     padding-bottom:15px;
 }
 .card-body{
-    padding:7px;
+    padding:0px;
 }
 .dot {
     height: 25px;
@@ -100,6 +100,7 @@
     overflow-x: hidden; /* Disable horizontal scroll */
     overflow-y: hidden; /* Disable horizontal scroll */
     padding-top: 25px;
+    width:inherit;
 }
 
 .typeBar{
@@ -163,3 +164,4 @@
     background-color:#FFE0DA;
     border-color:#FAC2BB;
 }
+

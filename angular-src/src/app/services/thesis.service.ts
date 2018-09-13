@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import { AuthService} from './auth.service';
-import 'rxjs/add/operator/map'
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ThesisService {
@@ -12,7 +12,7 @@ export class ThesisService {
         let headers = new Headers();
         headers.append('Content-Type','application/json');
         this.authService.loadTokenUser(headers);
-        return this.http.get('thesis/getTheses', {headers: headers}).map(res => res.json());
+        return this.http.get('thesis/getTheses', {headers: headers}).pipe(map(res => res.json()));
 
     }
 

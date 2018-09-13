@@ -1,18 +1,14 @@
 const path = require('path');
-const companyRoutes = require('./routes/company-routes');
 const usersRoutes = require('./routes/user-routes');
 const studentRoutes = require('./routes/student-routes');
 const thesisRoutes = require('./routes/thesis-routes');
-const professorRoutes = require('./routes/professor-routes');
 const adminRoutes = require('./routes/admin-routes');
-const generalRoutes = require('./routes/general-routes');
+const generalRoutes = require('./routes/events');
 
 module.exports = (app) => {
 
     app.use('/users', usersRoutes);
     app.use('/student', studentRoutes);
-    app.use('/professor', professorRoutes);
-    app.use('/company', companyRoutes);
     app.use('/admin', adminRoutes);
     app.use('/gce', generalRoutes);
     app.use('/thesis', thesisRoutes);
