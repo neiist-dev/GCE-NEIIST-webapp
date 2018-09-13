@@ -74,14 +74,6 @@
                     </a>
                 </li>
 
-
-
-                <!-- Company Navbar -->
-                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/dashboardCompany']"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard</a></li>
-                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/stats']"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Estatísticas</a></li>
-                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()=='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/addProposals']"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>Submeter proposta</a></li>
-                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/profileCompany']"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{name}}</a></li>
-
             </ul>
         </div>
     </div>
