@@ -5,12 +5,13 @@
   "main": "gce_base.js",
   "engines": {
     "node": "10.4.1",
-    "npm": "5.10.0"
+    "npm": "6.1.0"
   },
   "scripts": {
     "test": "mocha --reporter dot --timeout 10000 \"server/tests/*.spec.js\"",
+    "first-setup": "npm install && npm run heroku-postbuild",
     "start": "nodemon gce_base.js",
-    "build": "npm run config -- --environment=prod && ng build --environment=prod",
+    "build": "",
     "heroku-postbuild": "cd angular-src && npm install"
   },
   "nodemonConfig": {
@@ -67,6 +68,11 @@
     "type": "git",
     "url": "https://github.com/RafaelAPB/GCE-Thesis.git"
   },
-  "homepage" : "https://gce-neiist.org",
-  "keywords": ["MEAN Stack", "Open-Source", "FenixAPI", "Machine Learning"]
+  "homepage": "https://gce-neiist.org",
+  "keywords": [
+    "MEAN Stack",
+    "Open-Source",
+    "FenixAPI",
+    "Machine Learning"
+  ]
 }
