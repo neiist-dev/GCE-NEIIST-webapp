@@ -82,7 +82,7 @@
                 </div>
             </div>
             <ng-template #notSelected>
-                <div class="type-label unselected-label {{type}}"(click)="changeSelectedTypes(type)">
+                <div class="type-label unselected-label {{type}}" (click)="changeSelectedTypes(type)">
                     <span class="type-text">{{type}}</span>
                 </div>
             </ng-template>
@@ -91,7 +91,7 @@
 
     <input type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
     <div class="row" [hidden]="showRecomendations">
-        <div class="col-xs-12 col-sm-6 col-md-4 thesisBox" *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes">
+        <div class="col-xs-12 col-sm-6 col-md-4 thesisBox" *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes" (click)="openModal(content,thesis)">
 
             <div class="card" style="width: 18rem;">
                 <div class="card-header {{thesis.type}}">
@@ -113,3 +113,21 @@
     </div>
 
 </div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 id="thesis-title"> </h4>
+        <div id="thesis-vacancies"> </div>
+    </div>
+    <div class="modal-body">
+        <div class="divider" id="thesis-objectives"> </div>
+        <div class="divider" id="thesis-requirements"> </div>
+        <div class="divider" id="thesis-observations"> </div>
+        <div class="divider" id="thesis-supervisors"> </div>
+
+    </div>
+    <div class="modal-footer">
+        <div id="thesis-location"> </div>
+    </div>
+</ng-template>
