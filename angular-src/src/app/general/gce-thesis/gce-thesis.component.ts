@@ -40,14 +40,13 @@ export class GceThesisComponent implements OnInit {
         "Language and Information Technologies": ["purple","LIT"]
     };
     filteredTheses: object[];
+    queryString: string;
     selectedAreas: string[] = [];
     types: string[] = ["Project","Dissertation"];
     selectedTypes: string[] = ["Project","Dissertation"];
-    //Apply
     proposal: string;
     motivationLetter: string;
-    companyName: string;
-    applicationToDelete: string;
+
 
 
 
