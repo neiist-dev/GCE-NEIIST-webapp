@@ -31,12 +31,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         const clientId = Vars.FENIX_CLIENT_ID;
         const redirectUri = Vars.REDIRECT_URL;
-        const redirectUriProf = Vars.REDIRECT_URL_PROF;
 
         this.studentPath = 'https://fenix.tecnico.ulisboa.pt/oauth/userdialog?' +
           'client_id=' + clientId + '&redirect_uri=' + redirectUri;
 
-        this.professorPath = redirectUriProf;
     }
 
     ngOnInit() {
