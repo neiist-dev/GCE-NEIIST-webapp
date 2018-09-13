@@ -46,7 +46,7 @@
     padding-bottom:15px;
 }
 .card-body{
-    padding:0px;
+    padding:0;
 }
 .dot {
     height: 25px;
@@ -55,7 +55,7 @@
     display: inline-block;
 }
 .colorLabel{
-    border-radius: 0px 20px 20px 0px;
+    border-radius: 0 20px 20px 0;
     padding: 20px;
     width: 20px;
     height: 15px;
@@ -63,7 +63,7 @@
 }
 
 .bigColorLabel{
-    border-radius: 0px 20px 20px 0px;
+    border-radius: 0 20px 20px 0;
     padding: 20px;
     width: 80px;
     height: 15px;
@@ -97,10 +97,9 @@
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     left: 0;
-    overflow-x: hidden; /* Disable horizontal scroll */
-    overflow-y: hidden; /* Disable horizontal scroll */
     padding-top: 25px;
     width:inherit;
+    overflow: visible; /* To display the bootstrap tooltip*/
 
 }
 
@@ -120,7 +119,7 @@
     -ms-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     margin-bottom:100px;
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 0 0 5px 5px;
     text-align: center;
 }
 .selected-label{
