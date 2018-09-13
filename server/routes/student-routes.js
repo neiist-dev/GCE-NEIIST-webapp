@@ -13,6 +13,7 @@ const Utils = require('../mongodb/accesses/utils-accesses');
 const fs = require('fs');
 const path = require('path');
 const ERROR = "An error occurred in student-routes";
+const logger = require('../log/logger');
 
 router.post('/register', (req, res, next) => {
     const code = req.body.tokenq;
@@ -169,9 +170,9 @@ router.post('/register', (req, res, next) => {
             const student = await getStudentCourses(info);
             const login = await loginStudentPromise(student);
         } catch (error) {
-            logger.err("ERROR ON STUDENT LOGIN:");
-            logger.err(error.msg);
-            logger.err(error.content);
+            logger.error("ERROR ON STUDENT LOGIN:");
+            logger.error(error.msg);
+            logger.error(error.content);
             UtilsRoutes.replyFailure(res, '', error.msg);
         }
     }
@@ -210,9 +211,9 @@ router.get('/getRecommendedTheses', passport.authenticate('jwt', {session: false
         UtilsRoutes.replySuccess(res,theses);
 
     } catch (error) {
-        logger.err("ERROR ON STUDENT LOGIN:");
-        logger.err(error);
-        logger.err(error.content);
+        logger.error("ERROR ON STUDENT LOGIN:");
+        logger.error(error);
+        logger.error(error.content);
         UtilsRoutes.replyFailure(res, '', error.msg);
     }
 
@@ -250,7 +251,7 @@ module.exports = router;
 function registerOrLogin(name, email, courses, gender, enrolments, ip, callback) {
      DBAccess.students.getStudentByEmail(email, async (err, student) => {
         if (err) {
-            logger.err(err);
+            logger.error(err);
             callback("Erro a pesquisar na base de dados",null);
             return;
         }
@@ -275,7 +276,7 @@ function registerOrLogin(name, email, courses, gender, enrolments, ip, callback)
 
                     DBAccess.students.addEnrolments(email, enrolments, function (err) {
                         if (err) {
-                            logger.err(err);
+                            logger.error(err);
                             callback("Erro a adicionar cadeiras",null);
                         }
                         ba_logger.ba("BA|"+ "AE|" + student.email);
@@ -289,7 +290,7 @@ function registerOrLogin(name, email, courses, gender, enrolments, ip, callback)
         }   if (!student.gender) {
                 DBAccess.students.addGender(email, gender, (err) => {
                     if (err) {
-                        logger.err(err);
+                        logger.error(err);
                         callback("Erro a adicionar género",null);
                     }
                 });
@@ -506,7 +507,7 @@ router.post('/saveResume', passport.authenticate('jwt', {session: false}), funct
     upload(req, res, function (err) {
 
         if (err)    {
-            logger.err(err);
+            logger.error(err);
             if (err.code === "LIMIT_FILE_SIZE") {
                 UtilsRoutes.replyFailure(res,"", 'O CV tem de ser menor que 2MB. Faça upload novamente.');
             } else if (err.code === 'filetype') {
@@ -516,7 +517,7 @@ router.post('/saveResume', passport.authenticate('jwt', {session: false}), funct
             }
 
         } else {
-            logger.err(req.file);
+            logger.error(req.file);
             if(!req.file)   {
                 UtilsRoutes.replyFailure(res,"", 'Ocorreu um erro interno. Contacte a administração');
             } else  {
