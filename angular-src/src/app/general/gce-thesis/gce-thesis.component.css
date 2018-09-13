@@ -44,6 +44,7 @@
 }
 .thesisBox{
     padding-bottom:15px;
+    cursor: pointer;
 }
 .card-body{
     padding:0;
@@ -60,6 +61,7 @@
     width: 20px;
     height: 15px;
     margin-bottom:5px;
+    cursor: pointer;
 }
 
 .bigColorLabel{
@@ -68,6 +70,7 @@
     width: 80px;
     height: 15px;
     margin-bottom:5px;
+    cursor: pointer;
 }
 
 
@@ -98,7 +101,6 @@
     z-index: 1; /* Stay on top */
     left: 0;
     padding-top: 25px;
-    width:inherit;
     overflow: visible; /* To display the bootstrap tooltip*/
 
 }
@@ -121,10 +123,9 @@
     margin-bottom:100px;
     border-radius: 0 0 5px 5px;
     text-align: center;
+    cursor: pointer;
 }
-.selected-label{
 
-}
 
 .unselected-label{
     opacity: 0.6;
