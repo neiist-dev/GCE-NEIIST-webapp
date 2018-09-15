@@ -10,7 +10,7 @@ export class AuthGuardService implements CanActivate{
 
   //Checks loggin using token not expired
   canActivate() {
-    if(this.authService.loggedIn()) {
+    if (this.authService.loggedIn()) {
       return true;
     } else {
       this.router.navigate(['/login']);

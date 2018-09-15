@@ -3,6 +3,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { StudentService } from '../../services/student.service';
 import { ThesisService } from '../../services/thesis.service';
 import { TemplateRef } from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-gce-thesis',
@@ -40,14 +41,13 @@ export class GceThesisComponent implements OnInit {
         "Language and Information Technologies": ["purple","LIT"]
     };
     filteredTheses: object[];
+    queryString: string;
     selectedAreas: string[] = [];
     types: string[] = ["Project","Dissertation"];
     selectedTypes: string[] = ["Project","Dissertation"];
-    //Apply
     proposal: string;
     motivationLetter: string;
-    companyName: string;
-    applicationToDelete: string;
+
 
 
 
@@ -56,7 +56,8 @@ export class GceThesisComponent implements OnInit {
     closeResult: string;
     constructor(private flashMessage: FlashMessagesService,
                 private studentService: StudentService,
-                private thesisService: ThesisService
+                private thesisService: ThesisService,
+                private modalService: NgbModal
     ) {
     }
 
@@ -69,8 +70,38 @@ export class GceThesisComponent implements OnInit {
 
     }
 
-    public openModal(template: TemplateRef<any>) {
+    public openModal(content,thesis) {
+        this.modalService.open(content);
+        document.getElementById("thesis-title").textContent = thesis.title;
+
+        if (thesis.objectives.length > 0){
+            document.getElementById("thesis-objectives").innerHTML = '<h5>Objectives: </h5> <p style="word-wrap: break-word;">'+thesis.objectives+'</p>';
+        }
+
+        if (thesis.requirements.length > 0){
+            document.getElementById("thesis-requirements").innerHTML = '<h5>Requirements: </h5> <p style="word-wrap: break-word;">'+thesis.requirements+'</p>';
+        }
+
+        if (thesis.observations.length > 0){
+            document.getElementById("thesis-observations").innerHTML = '<h5>Observations: </h5> <p style="word-wrap: break-word;">'+thesis.observations+'</p>';
+        }
+
+        if(thesis.supervisors.length > 0) {
+            var supervisorText = '<h5> Supervisors: </h5>'
+            for (const supervisor in thesis.supervisors) {
+                supervisorText += '<p>' + thesis.supervisors[supervisor] + '</p>';
+            }
+            document.getElementById("thesis-supervisors").innerHTML = supervisorText;
+        }
+
+        if (thesis.vacancies != null){
+            document.getElementById("thesis-vacancies").innerHTML = '<button type="button" class="btn btn-primary">Vacancies <span class="badge">'+thesis.vacancies+'</span></button>';
+        }
+        if (thesis.location.length > 0){
+            document.getElementById("thesis-location").innerHTML = '<h6 style="display: inline">Location: </h6>  <p style="display: inline" class="footer-p">'+thesis.location+'</p>';
+        }
     }
+
 
 
     loadUser() {

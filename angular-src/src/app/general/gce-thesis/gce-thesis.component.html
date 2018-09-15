@@ -58,16 +58,15 @@
                 </div>
         </div>
     -->
-
     <div class="sidenav">
         <ng-container *ngFor="let area of areas">
             <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
-                <div class="bigColorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)">
+                <div class="bigColorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
                     <span class="labelText">{{areaAdvanced[area][1]}}</span>
                 </div>
             </div>
             <ng-template #smallLabel>
-                <div class="colorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)">
+                <div class="colorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
                     <span class="labelText">{{areaAdvanced[area][1]}}</span>
                 </div>
             </ng-template>
@@ -83,7 +82,7 @@
                 </div>
             </div>
             <ng-template #notSelected>
-                <div class="type-label unselected-label {{type}}"(click)="changeSelectedTypes(type)">
+                <div class="type-label unselected-label {{type}}" (click)="changeSelectedTypes(type)">
                     <span class="type-text">{{type}}</span>
                 </div>
             </ng-template>
@@ -92,7 +91,7 @@
 
     <input type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
     <div class="row" [hidden]="showRecomendations">
-        <div class="col-xs-12 col-sm-6 col-md-4 thesisBox" *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes">
+        <div class="col-xs-12 col-sm-6 col-md-4 thesisBox" *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes" (click)="openModal(content,thesis)">
 
             <div class="card" style="width: 18rem;">
                 <div class="card-header {{thesis.type}}">
@@ -100,21 +99,35 @@
                 </div>
 
 
-                <div class="card-body">
-                    <tr>
-                        <td><h4>{{ thesis.id }}</h4></td>
-                        <td>
-                    <tr>
-                        <td class="col" *ngFor="let area of thesis.areas">
-                            <span class="dot"  [ngStyle]="{'background-color':areaAdvanced[area][0] }" ></span>
-                        </td>
-                    </tr>
-                    </td>
-                    <td class="moreButton"><a href="#" class="btn btn-primary ">Mais</a></td>
-                    </tr>
+                <div class="card-body" >
+                    <table style="width:100%">
+                        <tr>
+                            <ng-container *ngFor="let area of thesis.areas">
+                                <td  [ngStyle]="{'background-color':areaAdvanced[area][0]}" style="width: 50%; height:10px"></td>
+                            </ng-container>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
 </div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 id="thesis-title"> </h4>
+        <div id="thesis-vacancies"> </div>
+    </div>
+    <div class="modal-body">
+        <div class="divider" id="thesis-objectives"> </div>
+        <div class="divider" id="thesis-requirements"> </div>
+        <div class="divider" id="thesis-observations"> </div>
+        <div class="divider" id="thesis-supervisors"> </div>
+
+    </div>
+    <div class="modal-footer">
+        <div id="thesis-location"> </div>
+    </div>
+</ng-template>
