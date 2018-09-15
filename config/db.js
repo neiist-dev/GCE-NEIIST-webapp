@@ -1,3 +1,7 @@
+const DB_PROD = process.env.DB_PRODUCTION;
+let DB_DEV = process.env.DB_DEV;
+const secret = process.env.DB_SECRET;
+
 if (!process.env.DB_DEVELOPMENT)    {
     DB_DEV = 'mongodb://localhost:27017/gce_base';
 }   else {
@@ -8,12 +12,12 @@ if (!process.env.DB_DEVELOPMENT)    {
 
 
 module.exports = {
-    DB_SECRET : process.env.DB_SECRET,
-    DB_PRODUCTION : process.env.DB_PRODUCTION,
+    DB_SECRET : secret,
+    DB_PRODUCTION : DB_PROD,
     urls : {
         //using remote BD example
 
-        production : process.env.DB_PRODUCTION,
+        production : DB_PROD,
         development : DB_DEV
           //LOCAL: 'mongodb://localhost:27017/gce_base'
         //production : 'mongodb://user:pass@host.net:port/project_name',
