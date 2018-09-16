@@ -91,25 +91,31 @@
 
     <input type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
     <div class="row" [hidden]="showRecomendations">
-        <div class="col-xs-12 col-sm-6 col-md-4 thesisBox" *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes" (click)="openModal(content,thesis)">
 
-            <div class="card" style="width: 18rem;">
-                <div class="card-header {{thesis.type}}">
+        <ng-container *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes">
+
+            <div class="card thesisBox" style="width: 18rem;"  >
+                <div class="card-header {{thesis.type}}" (click)="openModal(content,thesis)">
                     <h5 class="card-title">{{ thesis.title }}</h5>
+
                 </div>
 
 
                 <div class="card-body" >
-                    <table style="width:100%">
-                        <tr>
-                            <ng-container *ngFor="let area of thesis.areas">
+                    <table class="area-colours" style="width:100%">
+                        <tr  (click)="openModal(content,thesis)">
+                            <ng-container *ngFor="let area of thesis.areas" >
                                 <td  [ngStyle]="{'background-color':areaAdvanced[area][0]}" style="width: 50%; height:10px"></td>
                             </ng-container>
                         </tr>
                     </table>
                 </div>
             </div>
-        </div>
+
+
+
+        </ng-container>
+
     </div>
 
 </div>
