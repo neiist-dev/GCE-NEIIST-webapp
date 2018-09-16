@@ -32,17 +32,17 @@ Note that this is a **WIP** project.
 In order to run the project the required libraries need to be installed.
 
 1. Install [node][node].
-2. Install [MongoDB][mon], community version.
-6. **Make a copy of** ``.env.template``. Rename that copy to ``.env``. Set the environment variables for the front end, by editing ``.env``.
-7. Go to ``angular-src`` and run ``npm install``. 
-8. To build the front-end, run ```ng build --watch```. 
+1. Install [MongoDB][mon], community version.
+1. Set the environment variables by editing and replacing its values on ``prepare_env_windows.bat`` 
+if you are working on Windows or ``prepare_env_linux.sh`` if you are working on Linux. 
+1. Run ``prepare_env_windows.bat``  or ``prepare_env_linux.sh`` using your console. Now your environment variables should be set.
+1. Run ```npm run first-setup```. This script installs dependencies and builds the front end.
 1. If you wish,[follow our recommendations](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Recommendations).
 1. In case of errors, see our  [Troubleshooting page](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Troubleshooting).
 
 ## Running the server
-1. Make sure you have built the front-end, as stated in step 5 of the previous section.
-2. Go to the main directory and run ``node gce_base`` or ``nodemon gce_base``. 
-3. To access the user interface, open a browser (Chrome is recommended) and go to ``localhost:8080``.
+1. Go to the main directory and run ``node gce_base`` or ``nodemon gce_base``. 
+1. To access the user interface, open a browser (Chrome is recommended) and go to ``localhost:8080``.
 
 
 

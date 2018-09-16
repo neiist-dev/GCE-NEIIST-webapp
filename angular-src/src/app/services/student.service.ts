@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import { AuthService} from './auth.service';
-import 'rxjs/add/operator/map'
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class StudentService {
@@ -12,21 +12,21 @@ export class StudentService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     this.authService.loadTokenUser(headers);
-    return this.http.get('student/numberOfStudents', {headers: headers}).map(res => res.json());
+    return this.http.get('student/numberOfStudents', {headers: headers}).pipe(map(res => res.json()));
   }
 
   getTotalNumberOfRegisteredStudentsPerCourse() {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       this.authService.loadTokenUser(headers);
-      return this.http.get('student/numberOfStudentsPerCourse', {headers: headers}).map(res => res.json());
+      return this.http.get('student/numberOfStudentsPerCourse', {headers: headers}).pipe(map(res => res.json()));
   }
 
   saveResume(student) {
     let headers = new Headers();
     this.authService.loadTokenUser(headers);
     headers.append('Content-Type', 'application/json');
-    return this.http.post('student/saveResume', {"user": student}, {headers: headers}).map(res => res.json());
+    return this.http.post('student/saveResume', {"user": student}, {headers: headers}).pipe(map(res => res.json()));
   }
 
   //TODO add auth headers, in case the signup is via fenix
@@ -34,28 +34,28 @@ export class StudentService {
     let headers = new Headers();
       this.authService.loadTokenUser(headers);
       headers.append('Content-Type', 'application/json');
-    return this.http.post('gce/signupHashCode', {"signup":info}, {headers: headers}).map(res => res.json());
+    return this.http.post('gce/signupHashCode', {"signup":info}, {headers: headers}).pipe(map(res => res.json()));
   }
 
   getResume() {
     let headers = new Headers();
     this.authService.loadTokenUser(headers);
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/student/resume', {headers: headers}).map(res => res.json());
+    return this.http.get('http://localhost:3000/student/resume', {headers: headers}).pipe(map(res => res.json()));
   }
 
   applyToProposal(application) {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
     this.authService.loadTokenUser(headers);
-    return this.http.post('student/apply', application, {headers: headers}).map(res => res.json());
+    return this.http.post('student/apply', application, {headers: headers}).pipe(map(res => res.json()));
   }
 
   getStudentApplications() {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
     this.authService.loadTokenUser(headers);
-    return this.http.get('student/myApplications', {headers: headers}).map(res => res.json());
+    return this.http.get('student/myApplications', {headers: headers}).pipe(map(res => res.json()));
 
   }
 
@@ -63,7 +63,7 @@ export class StudentService {
         let headers = new Headers();
         headers.append('Content-Type','application/json');
         this.authService.loadTokenUser(headers);
-        return this.http.put('student/applications/invalidate', id, {headers: headers}).map(res => res.json());
+        return this.http.put('student/applications/invalidate', id, {headers: headers}).pipe(map(res => res.json()));
     }
 
     loadStudentProfile()    {
@@ -74,7 +74,7 @@ export class StudentService {
         let headers = new Headers();
         headers.append('Content-Type','application/json');
         this.authService.loadTokenUser(headers);
-        return this.http.get('student/getRecommendedTheses', {headers: headers}).map(res => res.json());
+        return this.http.get('student/getRecommendedTheses', {headers: headers}).pipe(map(res => res.json()));
 
     }
 }

@@ -48,9 +48,9 @@ if (!node_env) {
 
 logger.info("NODE_ENV = " + node_env);
 if (DB_SECRET)  {
-    logger.info("DB_SECRET = " + "DEFINED");
+    logger.info("DB_SECRET IS " + "DEFINED");
 }   else    {
-    logger.warn("DB_SECRET = " + "NOT DEFINED");
+    logger.warn("DB_SECRET IS NOT " + "NOT DEFINED");
 }
 
 logger.info("DB_PRODUCTION = " + DB_PRODUCTION);
@@ -59,16 +59,16 @@ logger.info("DB_BACKUP_PRODUCTION_URI = " + DB_BACKUP_PRODUCTION_URI);
 logger.log("DB_USER = " + DB_USER);
 
 if (DB_PASSWORD)  {
-    logger.info("DB_PASSWORD = " + "DEFINED");
+    logger.info("DB_PASSWORD IS" + "DEFINED");
 }   else    {
-    logger.warn("DB_PASSWORD = " + "NOT DEFINED");
+    logger.warn("DB_PASSWORD IS NOT " + "NOT DEFINED");
 }
 
 logger.info("FENIX_CLIENT_ID = " + FENIX_CLIENT_ID);
 if (FENIX_CLIENT_SECRET)  {
-    logger.info("FENIX_CLIENT_SECRET = " + "DEFINED");
+    logger.info("FENIX_CLIENT_SECRET IS " + "DEFINED");
 }   else    {
-    logger.warn("FENIX_CLIENT_SECRET = " + "NOT DEFINED");
+    logger.warn("FENIX_CLIENT_SECRET IS NOT " + "NOT DEFINED");
 }
 logger.info("REDIRECT_URL = " + REDIRECT_URL);
 
