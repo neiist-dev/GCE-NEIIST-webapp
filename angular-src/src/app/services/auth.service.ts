@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from "@angular/http";
-import { environment } from './../../environments/environment';
-import 'rxjs/add/operator/map';
-import { tokenNotExpired } from 'angular2-jwt';
+import { map } from 'rxjs/operators';
+import {JwtHelperService} from '@auth0/angular-jwt';
+
 @Injectable()
 export class AuthService {
   authToken: any;
   user: any;
 
-  constructor(private http:Http) { }
+  constructor(private http:Http, public jwtHelper: JwtHelperService) { }
 
   //Login
   authUser(user) {
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('users/login', user, {headers: headers}).map(res => res.json());
+    return this.http.post('users/login', user, {headers: headers}).pipe(map(res => res.json()));
   }
 
   //Checks if user is logged in
-  loggedIn() {
-    return tokenNotExpired('authToken' );
-  }
+    loggedIn() {
+        const token = localStorage.getItem('authToken');
+        return token != null && !this.jwtHelper.isTokenExpired(token);
+    }
 
   logOut()  {
     this.authToken = null;
@@ -36,7 +37,7 @@ export class AuthService {
 
   getCurrentUserType() {
     this.user = this.loadUserProfile();
-    if (this.user != null && this.user != undefined) {
+    if (this.user != null && this.user !== undefined) {
       return this.user.type;
     } else {
       return null;
@@ -45,7 +46,7 @@ export class AuthService {
 
   getCurrentUserName() {
     this.user = this.loadUserProfile();
-    if (this.user != null && this.user != undefined) {
+    if (this.user != null && this.user !== undefined) {
       return this.user.name;
     } else {
       return null;
@@ -70,22 +71,9 @@ export class AuthService {
   }
 
   registerStudent(token) {
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('student/register', { 'tokenq': token }, {headers: headers}).map(res => res.json());
+    return this.http.post('student/register', { 'tokenq': token }, {headers: headers}).pipe(map(res => res.json()));
   }
-
-  //Mock up. Should send token
-  registerProfessor(token) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post('professor/register', { 'tokenq': token }, {headers: headers}).map(res => res.json());
- }
-
-  registerCompany(company) {
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    return this.http.post('company/register', company, {headers: headers}).map(res => res.json());
- }
 
 }

@@ -1,52 +1,52 @@
 <footer id="myFooter">
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-3">
-        <h5>Get started</h5>
-        <ul>
-          <li><a routerLink='/'>Início</a></li>
-          <li><a routerLink='/thesis'>GCE-Thesis</a></li>
-          <li><a routerLink='/partners'>Parceiros</a></li>
-        </ul>
-      </div>
-      <div class="col-sm-3">
-        <h5>Sobre o GCE </h5>
-        <ul>
-          <li><a  routerLink='/wip'>Opiniões</a></li>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                <h5>Get started</h5>
+                <ul>
+                    <li><a routerLink='/'>Início</a></li>
+                    <li><a routerLink='/thesis'>GCE-Thesis</a></li>
+                    <li><a routerLink='/partners'>Parceiros</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <h5>Sobre o GCE </h5>
+                <ul>
+                    <li><a  routerLink='/wip'>Opiniões</a></li>
 
-        </ul>
-      </div>
-      <div class="col-sm-3">
-        <h5>Suporte</h5>
-        <ul>
-          <li><a routerLink='/faq'>FAQ</a></li>
-          <li><a href="mailto:geral@gce-neiist.tecnico.ulisboa.pt">Contacta-nos</a></li>
-        </ul>
-      </div>
-      <div class="col-sm-3">
-        <h5>Legal</h5>
-        <ul>
-          <li><a  routerLink='/wip'>Terms of Use</a></li>
-          <li><a  routerLink='/privacy-policy'>Privacy Policy</a></li>
-        </ul>
-      </div>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <h5>Suporte</h5>
+                <ul>
+                    <li><a routerLink='/faq'>FAQ</a></li>
+                    <li><a href="mailto:admin@gce-neiist.org">Contacta-nos</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a  routerLink='/wip'>Terms of Use</a></li>
+                    <li><a  routerLink='/privacy-policy'>Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Here we use the Google Embed API to show Google Maps. -->
+        <!-- In order for this to work in your project you will need to generate a unique API key.  -->
+
+        <agm-map [zoom] = "17" [latitude]="lat" [longitude]="lng">
+            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+
+
     </div>
-    <!-- Here we use the Google Embed API to show Google Maps. -->
-    <!-- In order for this to work in your project you will need to generate a unique API key.  -->
-
-    <agm-map [zoom] = "17" [latitude]="lat" [longitude]="lng">
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-    </agm-map>
-
-
-  </div>
-  <div class="social-networks">
-    <a target="_blank" href="https://www.facebook.com/gce.neiist" class="facebook"><i class="fa fa-facebook"></i></a>
-    <a target="_blank" href="https://www.linkedin.com/company/11163917" class="linkedin"><i class="fa fa-linkedin"></i></a>
-  </div>
-  <div class="footer-copyright">
-    <p>© 2018 GCE-NEIIST</p>
-    <p> Made with ♥ at GCE - code available <a id = "refRep" target="_blank" href="https://github.com/RafaelAPB/GCE-NEIIST">here</a></p>
-  </div>
+    <div class="social-networks">
+        <a target="_blank" href="https://www.facebook.com/gce.neiist" class="facebook"><i class="fa fa-facebook"></i></a>
+        <a target="_blank" href="https://www.linkedin.com/company/11163917" class="linkedin"><i class="fa fa-linkedin"></i></a>
+    </div>
+    <div class="footer-copyright">
+        <p>© 2018 GCE-NEIIST</p>
+        <p> Made with ♥ at GCE - code available <a id = "refRep" target="_blank" href="https://github.com/RafaelAPB/GCE-NEIIST">here</a></p>
+    </div>
 </footer>

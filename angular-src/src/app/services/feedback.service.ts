@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from "@angular/http";
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class FeedbackService {
@@ -10,6 +11,6 @@ export class FeedbackService {
   sendFeedback(feedback) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('users/feedback', feedback, {headers: headers}).map(res => res.json());
+    return this.http.post('users/feedback', feedback, {headers: headers}).pipe(map(res => res.json()));
   }
 }

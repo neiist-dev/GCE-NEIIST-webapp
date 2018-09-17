@@ -4,7 +4,7 @@
             <a [routerLink]="['/']">
                 <img style="width: 80px;height: 80px;" src="https://groups.ist.utl.pt/~gce-neiist.daemon/assets/favicon.png" alt="GCE">
             </a>
-            <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
+            <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-bar"></span>
                 <span class="navbar-toggler-bar"></span>
                 <span class="navbar-toggler-bar"></span>
@@ -73,14 +73,6 @@
                     <p>Logout</p>
                     </a>
                 </li>
-
-
-
-                <!-- Company Navbar -->
-                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/dashboardCompany']"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard</a></li>
-                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/stats']"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Estatísticas</a></li>
-                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()=='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/addProposals']"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>Submeter proposta</a></li>
-                <li *ngIf="authService.loggedIn()&&authService.getCurrentUserType()==='Company'" [routerLinkActive]="['active']"><a [routerLink]="['/profileCompany']"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{name}}</a></li>
 
             </ul>
         </div>
