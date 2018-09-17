@@ -18,10 +18,6 @@ angular-src/public
 *.bat
 *.sh
 
-#Privacy policy
-angular-src/src/app/general/privacy-policy/*
-
-
 #Placeholders
 !server/files/GoogleHashCode/placeholder.txt
 !server/files/Feedback/placeholder.txt

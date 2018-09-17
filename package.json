@@ -1,12 +1,31 @@
 {
   "name": "GCE",
+  "author": "GCE's team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RafaelAPB/GCE-Thesis.git"
+  },
+  "homepage": "https://gce-neiist.org",
+  "keywords": [
+    "MEAN Stack",
+    "Open-Source",
+    "FenixAPI",
+    "Machine Learning"
+  ],
   "version": "1.0.0",
-  "description": "GCE-NEIIST home",
+  "description": "GCE-NEIIST is the home for our student's group, Grupo de Contacto com Empresas. This platform aims to provide services for Técnico Lisboa students.",
   "main": "gce_base.js",
+  "engines": {
+    "node": "10.4.1",
+    "npm": "6.1.0"
+  },
   "scripts": {
     "test": "mocha --reporter dot --timeout 10000 \"server/tests/*.spec.js\"",
+    "first-setup": "npm install && npm run heroku-postbuild",
     "start": "nodemon gce_base.js",
-    "build": "npm run config -- --environment=prod && ng build --environment=prod"
+    "build": "",
+    "heroku-postbuild": "cd angular-src && npm install"
   },
   "nodemonConfig": {
     "ignore": [
@@ -43,25 +62,5 @@
     "nodemon": "^1.14.12",
     "nyc": "^11.8.0",
     "sinon": "^5.0.7"
-  },
-  "author": [
-    {
-      "name": "Rafael Belchior",
-      "email": "rafael.belchior@tecnico.ulisboa.pt",
-      "url": "https://web.ist.utl.pt/~rafael.belchior/"
-    },
-    {
-      "name": "Inês Sequeira"
-    },
-    {
-      "name": "Daniel Ramos"
-    }
-  ],
-  "license": {
-    "type": "MIT"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/RafaelAPB/GCE-Thesis.git"
   }
 }

@@ -6,6 +6,8 @@ class Person {
         this.getPerson = getPerson;
         this.getCourses = getCourses;
         this.isStudent = isStudent;
+        this.isTeacher = isTeacher;
+        this.isAlumni = isAlumni;
     }
 }
 
@@ -19,10 +21,10 @@ function getAccessToken(code, callback) {
     let REDIRECT_URL = process.env.REDIRECT_URL;
 
     const query = 'client_id=' + FENIX_CLIENT_ID +
-        '&client_secret=' + encodeURIComponent(FENIX_CLIENT_SECRET) +
-        '&redirect_uri=' + REDIRECT_URL +
-        '&code=' + code +
-        '&grant_type=authorization_code';
+      '&client_secret=' + encodeURIComponent(FENIX_CLIENT_SECRET) +
+      '&redirect_uri=' + REDIRECT_URL +
+      '&code=' + code +
+      '&grant_type=authorization_code';
 
     const postOptions = {
         host: 'fenix.tecnico.ulisboa.pt',
@@ -66,6 +68,22 @@ function getCourses(accessToken, academicTerm, callback) {
 function isStudent(person) {
     for (let role of person.roles) {
         if (role.type === 'STUDENT') {
+            return true;
+        }
+    } return false;
+}
+
+function isTeacher(person) {
+    for (let role of person.roles) {
+        if (role.type === 'TEACHER') {
+            return true;
+        }
+    } return false;
+}
+
+function isAlumni(person) {
+    for (let role of person.roles) {
+        if (role.type === 'ALUMNI') {
             return true;
         }
     } return false;

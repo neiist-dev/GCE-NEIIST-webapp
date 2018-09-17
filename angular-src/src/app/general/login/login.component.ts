@@ -31,12 +31,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         const clientId = Vars.FENIX_CLIENT_ID;
         const redirectUri = Vars.REDIRECT_URL;
-        const redirectUriProf = Vars.REDIRECT_URL_PROF;
 
         this.studentPath = 'https://fenix.tecnico.ulisboa.pt/oauth/userdialog?' +
           'client_id=' + clientId + '&redirect_uri=' + redirectUri;
 
-        this.professorPath = redirectUriProf;
     }
 
     ngOnInit() {
@@ -79,8 +77,6 @@ export class LoginComponent implements OnInit, OnDestroy {
             return false;
         }
 
-        //TODO: Add Autorization header, or remove route protection on user
-        //The student is treated at student-register.component
         this.subscriptions.push(this.authService.authUser(user).subscribe(response => {
             if (response.succeeded) {
                 this.authService.storeData(response.response_data.user, response.response_data.token);
