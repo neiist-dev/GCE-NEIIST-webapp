@@ -50,7 +50,9 @@ router.post('/register', (req, res, next) => {
                     error.content = person;
                     error.msg = "Erro na comunicação com o Fénix, em getStudentFromFenix.";
                     reject(error);
-                } else if (!FenixApi.person.isStudent(person)) {
+                } else if (!FenixApi.person.isStudent(person) &&
+                            !FenixApi.person.isAlumni(person) &&
+                            !FenixApi.person.isTeacher(person)) {
                     error.content = person;
                     error.msg = "Tem de ser um estudante para fazer login através deste meio";
                     reject(error);
