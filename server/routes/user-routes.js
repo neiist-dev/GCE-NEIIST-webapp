@@ -6,6 +6,7 @@ const dbConfig = require('../../config/db');
 const Utils = require('../mongodb/accesses/utils-accesses');
 const UtilsRoutes = require('../routes/utils-routes');
 const ba_logger = require('../log/ba_logger');
+const passport = require('passport');
 
 const USER_NOT_FOUND = "Utilizador não encontrado.";
 const WRONG_PASSWORD_PART_1 = "Password errada. Tem ";
@@ -15,7 +16,13 @@ const USER_INVALID = "A sua conta está invalidada. Por favor contacte a adminis
 const USER_UNCONFIRMED = "A sua conta está por confirmar. Por favor contacte a administração, para que se proceda à ativação da conta";
 const ERROR_F = "Não foi possível adicionar feedback. Por favor contacte a administração";
 
+//Deprecated
 router.post('/login', (req, res) => {
+    if(UtilsRoutes.routeIsBlocked)    {
+        UtilsRoutes.replyFailure(res,"","Não permitido");
+        return;
+    }
+
     const email = req.body.username;
     const password = req.body.password;
     DBAccess.users.getUserByEmail(email, (err, user) => {
@@ -99,7 +106,7 @@ router.post('/login', (req, res) => {
     });
 });
 
-router.post('/feedback', (req, res) => {
+router.post('/feedback', passport.authenticate('jwt', {session: false}), (req, res) => {
 
     const name = req.body.name;
     const email = req.body.email;
