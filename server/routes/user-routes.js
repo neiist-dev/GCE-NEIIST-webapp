@@ -111,9 +111,9 @@ router.post('/feedback', passport.authenticate('jwt', {session: false}), (req, r
     const name = req.body.name;
     const email = req.body.email;
     const message = req.body.message;
-    const entity = req.body.entity;
+    //const entity = req.body.entity;
 
-    DBAccess.feedback.addFeedback(name, entity,email,
+    DBAccess.feedback.addFeedback(name,email,
                                     message,  (err) => {
           if (err)  {
               console.log(err);

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const FeedbackSchema = mongoose.Schema({
     entity: {
         type: String,
-        required: true
+        required: false
     },
     name: {
         type: String,
