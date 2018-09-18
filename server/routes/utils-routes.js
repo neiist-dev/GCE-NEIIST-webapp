@@ -63,5 +63,4 @@ function isFromAdministration(req) {
     const admins = new Set(adminArray);
     const user = req.user.email;
     return admins.has(user);
-
 }

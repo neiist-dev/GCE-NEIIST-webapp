@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navbar-translate">
             <a [routerLink]="['/']">
-                <img style="width: 80px;height: 80px;" src="https://groups.ist.utl.pt/~gce-neiist.daemon/assets/favicon.png" alt="GCE">
+                <img style="width: 80px;height: 80px;" src="https://web.ist.utl.pt/~ist180970/assets/img/favicon.png" alt="GCE">
             </a>
             <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-bar"></span>
@@ -48,7 +48,7 @@
                      </a>
                 </li>
 
-                <li [routerLinkActive]="['active']" class="nav-item" *ngIf="isLoggedInStudent()">
+                <li [routerLinkActive]="['active']" class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" [routerLink]="['/thesis']" >
                         <i class="fa fa-folder-o"></i>
                         <p>GCE-Thesis</p>
@@ -56,7 +56,7 @@
                 </li>
 
 
-                <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedInStudent()">
+                <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" [routerLink]="['/profileStudent']">
                         <i class="fa fa-user-o"></i>
                         <p>{{name}}</p>
