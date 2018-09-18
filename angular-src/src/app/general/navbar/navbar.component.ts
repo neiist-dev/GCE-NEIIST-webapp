@@ -71,6 +71,7 @@ export class NavbarComponent implements OnInit {
         return titlee === '/login';
     }
 
+    //TODO deprecated
     isLoggedInStudent() {
         return this.authService.loggedIn() && this.authService.getCurrentUserType() === 'Student';
     }
