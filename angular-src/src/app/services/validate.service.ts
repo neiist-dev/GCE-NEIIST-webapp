@@ -7,7 +7,7 @@ export class ValidateService {
   constructor() { }
 
   validateFeedback(feedback)  {
-    return (feedback.email && feedback.name && feedback.entity && feedback.message);
+    return (feedback.email && feedback.name && feedback.message);
   }
 
 

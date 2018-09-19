@@ -1,4 +1,4 @@
-const Student = require('../models/student');
+const Student = require('../models/ist');
 const Utils = require('./utils-accesses');
 const AccessUser = require('./access-user');
 const TYPE = "Student";
@@ -32,10 +32,11 @@ let access_student = module.exports = exports = new AccessStudent();
 /********************************
  *  C.R.U.D. FUNCTIONS
  *******************************/
-
-function addStudent(name, email, courses, gender, enrolments, callback) {
+function addStudent(name, istid, roles, email, courses, gender, enrolments, callback) {
     let newUser = new Student({
         name: name,
+        istid: istid,
+        roles: roles,
         email: email,
         gender: gender,
         enrolments: enrolments,
