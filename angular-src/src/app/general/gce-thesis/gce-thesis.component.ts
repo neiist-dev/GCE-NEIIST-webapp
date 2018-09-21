@@ -95,8 +95,8 @@ export class GceThesisComponent implements OnInit {
         if (thesis.vacancies != null){
             document.getElementById("thesis-applicants").innerHTML = '<button type="button" class="btn btn-primary">Applicants <span class="badge">'+thesis.vacancies+'</span></button>';
         }
-        if (thesis.vacancies != null){
-            document.getElementById("thesis-id").innerHTML = '<button type="button" class="btn btn-primary">ID <span class="badge">'+thesis.id+'</span></button>';
+        if (thesis.location.length > 0){
+            document.getElementById("thesis-id").innerHTML = '<h6 style="display: inline">ID: </h6>  <p style="display: inline" class="footer-p">'+thesis.id+'</p>';
         }
         if (thesis.location.length > 0){
             document.getElementById("thesis-location").innerHTML = '<h6 style="display: inline">Location: </h6>  <p style="display: inline" class="footer-p">'+thesis.location+'</p>';
