@@ -5,16 +5,30 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterResultsPipe implements PipeTransform {
 
+
+
+
+
     transform(items: any[], value: string, areas: string[],types: string[]): any[] {
         items = this.filterAreas(items,areas);
         items = this.filterType(items,types);
         if (!items) return [];
         if (!value) return  items;
         if (value == '' || value == null) return [];
-        return items.filter(e => e.title.toLowerCase().indexOf(value.toLowerCase()) > -1 || e.requirements.toLowerCase().indexOf(value.toLowerCase()) > -1 || e.objectives.toLowerCase().indexOf(value.toLowerCase()) > -1 || e.observations.toLowerCase().indexOf(value.toLowerCase()) > -1);
+        var splitted = value.split(" ");
+
+        for (var token in splitted){
+            items = items.filter(e =>  e.title.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
+                e.requirements.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
+                e.objectives.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
+                e.observations.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
+                e.supervisors.toString().replace(","," ").toLowerCase().indexOf(splitted[token].toLowerCase()) > -1);
+        }
+
+
+        return items;
 
     }
-
     filterAreas(theses: any[], areas: string[]){
         let size = areas.length;
         if (size == 0)
