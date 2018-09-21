@@ -89,7 +89,7 @@
             Na barra de navegação da direita, consegues filtrar as teses por Projeto e Dissertação, e na barra da esquerda
             consegues filtrar pela sua àrea.<br>
 
-            A qualquer momento podes passar o rato por cima das marcas à esquerda (premir as marcas se estiveres num dispositivo móvel) para te saberes o que significam as siglas.
+            A qualquer momento podes passar o rato por cima das marcas à esquerda (premir as marcas se estiveres num dispositivo móvel) para saberes o que significam as siglas.
         </p>
         <hr>
         <p class="mb-0">Atenção que a informação aqui contida é retirada do Fénix e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
@@ -128,10 +128,14 @@
 
 
 <ng-template #content let-modal>
+
     <div class="modal-header">
         <h4 id="thesis-title"> </h4>
         <div id="thesis-applicants"> </div>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span></button>
     </div>
+
     <div class="modal-body">
         <div class="divider" id="thesis-objectives"> </div>
         <div class="divider" id="thesis-requirements"> </div>
