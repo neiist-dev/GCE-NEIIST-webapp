@@ -14,7 +14,7 @@ function Utils() {
 let utils = module.exports = exports = new Utils;
 
 //For extra security, use environment variables instead of hardcoding.
-let adminArray = ["rafael.belchior@tecnico.ulisboa.pt", "daniel.r.ramos@tecnico.ulisboa.pt"];
+let adminArray = ["rafael.belchior@tecnico.ulisboa.pt", "daniel.r.ramos@tecnico.ulisboa.pt","joao.pedro.trindade@tecnico.ulisboa.pt"];
 
 /*****************************
  Quick Replies
@@ -63,5 +63,4 @@ function isFromAdministration(req) {
     const admins = new Set(adminArray);
     const user = req.user.email;
     return admins.has(user);
-
 }

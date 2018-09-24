@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { StudentService } from '../../services/student.service';
 import { ThesisService } from '../../services/thesis.service';
-import { TemplateRef } from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -40,7 +39,6 @@ export class GceThesisComponent implements OnInit {
         "Bioinformatics and Computational Biology": ["#A0A3A6","BCB"],
         "Language and Information Technologies": ["purple","LIT"]
     };
-    filteredTheses: object[];
     queryString: string;
     selectedAreas: string[] = [];
     types: string[] = ["Project","Dissertation"];
@@ -53,7 +51,6 @@ export class GceThesisComponent implements OnInit {
 
 
     //Ng stuff
-    closeResult: string;
     constructor(private flashMessage: FlashMessagesService,
                 private studentService: StudentService,
                 private thesisService: ThesisService,
@@ -71,6 +68,7 @@ export class GceThesisComponent implements OnInit {
     }
 
     public openModal(content,thesis) {
+
         this.modalService.open(content);
         document.getElementById("thesis-title").textContent = thesis.title;
 
@@ -95,7 +93,10 @@ export class GceThesisComponent implements OnInit {
         }
 
         if (thesis.vacancies != null){
-            document.getElementById("thesis-vacancies").innerHTML = '<button type="button" class="btn btn-primary">Vacancies <span class="badge">'+thesis.vacancies+'</span></button>';
+            document.getElementById("thesis-applicants").innerHTML = '<button type="button" class="btn btn-primary">Applicants <span class="badge">'+thesis.vacancies+'</span></button>';
+        }
+        if (thesis.location.length > 0){
+            document.getElementById("thesis-id").innerHTML = '<h6 style="display: inline">ID: </h6>  <p style="display: inline" class="footer-p">'+thesis.id+'</p>';
         }
         if (thesis.location.length > 0){
             document.getElementById("thesis-location").innerHTML = '<h6 style="display: inline">Location: </h6>  <p style="display: inline" class="footer-p">'+thesis.location+'</p>';
@@ -216,7 +217,7 @@ class Thesis {
 
     }
 
-    incrementClicks() {
+    public incrementClicks() {
         this.clicks += 1;
     }
 }
