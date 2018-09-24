@@ -16,6 +16,18 @@ export class ThesisService {
 
     }
 
+    incrementClicks(id: number){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        let url = "/thesis/incrementClick/" + id.toString();
+        this.authService.loadTokenUser(headers);
+        return this.http.post(url, "",{headers: headers}).subscribe(
+            () => {},
+            err => console.error(err)
+        );
+
+    }
+
 
 
 }
