@@ -38,6 +38,11 @@ export class NavbarComponent implements OnInit {
     this.loadUser();
 
   }
+    navbarOpen = false;
+
+    toggleNavbar() {
+        this.navbarOpen = !this.navbarOpen;
+    }
 
   onLogoutClick() {
     this.authService.logOut();
