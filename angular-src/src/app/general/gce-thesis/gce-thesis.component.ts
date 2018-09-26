@@ -70,6 +70,7 @@ export class GceThesisComponent implements OnInit {
     public openModal(content,thesis) {
 
         this.modalService.open(content);
+        this.thesisService.incrementClicks(thesis.id);
         document.getElementById("thesis-title").textContent = thesis.title;
 
         if (thesis.objectives.length > 0){
