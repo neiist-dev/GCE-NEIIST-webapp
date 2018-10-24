@@ -82,7 +82,13 @@ export class NavbarComponent implements OnInit {
     }
 
     isLoggedIn() {
-        return this.authService.loggedIn();
+    	if (this.authService.loggedIn()){
+    		if (this.name=="Perfil"){
+    			this.loadUser();
+    		}
+    		return true;
+    	}
+    	return false;
     }
 }
 
