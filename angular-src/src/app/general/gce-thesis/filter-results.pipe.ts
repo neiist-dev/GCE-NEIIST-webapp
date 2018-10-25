@@ -6,7 +6,7 @@ import {ThesisService} from "../../services/thesis.service";
 })
 export class FilterResultsPipe implements PipeTransform {
 
-    availableTheses: string;
+    availableTheses: number;
     constructor(private thesisService: ThesisService){}
 
     ngOnInit(){
