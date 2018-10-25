@@ -4,6 +4,7 @@ import { StudentService } from '../../services/student.service';
 import { ThesisService } from '../../services/thesis.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
+
 @Component({
     selector: 'app-gce-thesis',
     templateUrl: './gce-thesis.component.html',
@@ -45,7 +46,7 @@ export class GceThesisComponent implements OnInit {
     selectedTypes: string[] = ["Project","Dissertation"];
     proposal: string;
     motivationLetter: string;
-
+    availableTheses: number;
 
 
 
@@ -54,7 +55,7 @@ export class GceThesisComponent implements OnInit {
     constructor(private flashMessage: FlashMessagesService,
                 private studentService: StudentService,
                 private thesisService: ThesisService,
-                private modalService: NgbModal
+                private modalService: NgbModal,
     ) {
     }
 
@@ -63,6 +64,7 @@ export class GceThesisComponent implements OnInit {
         this.loadUser();
         this.getTheses();
         this.getRecommendedTheses();
+        this.thesisService.currentTheses.subscribe(availableTheses => this.availableTheses = availableTheses);
 
 
     }
@@ -177,7 +179,7 @@ export class GceThesisComponent implements OnInit {
             this.selectedTypes.push(clickedType)
             this.selectedTypes = this.selectedTypes.filter(str =>str);
         }
-        console.log(this.selectedTypes)
+
     }
 }
 
