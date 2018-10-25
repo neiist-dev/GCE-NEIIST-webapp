@@ -1,29 +1,36 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import {ThesisService} from "../../services/thesis.service";
 
 @Pipe({
   name: 'filterResults'
 })
 export class FilterResultsPipe implements PipeTransform {
 
+    availableTheses: string;
+    constructor(private thesisService: ThesisService){}
 
-
-
+    ngOnInit(){
+        this.thesisService.currentTheses.subscribe(availableTheses => this.availableTheses = availableTheses);
+    }
 
     transform(items: any[], value: string, areas: string[],types: string[]): any[] {
         items = this.filterAreas(items,areas);
         items = this.filterType(items,types);
-        if (!items) return [];
-        if (!value) return  items;
-        if (value == '' || value == null) return [];
-        var splitted = value.split(" ");
 
-        for (var token in splitted){
-            items = items.filter(e =>  e.title.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
-                e.requirements.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
-                e.objectives.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
-                e.observations.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
-                e.supervisors.toString().replace(","," ").toLowerCase().indexOf(splitted[token].toLowerCase()) > -1);
+        if(value != ''  && value != null) {
+            var splitted = value.split(" ");
+
+            for (var token in splitted) {
+                items = items.filter(e => e.title.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
+                    e.requirements.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
+                    e.objectives.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
+                    e.observations.toLowerCase().indexOf(splitted[token].toLowerCase()) > -1 ||
+                    e.supervisors.toString().replace(",", " ").toLowerCase().indexOf(splitted[token].toLowerCase()) > -1);
+            }
         }
+
+       this.thesisService.changeTheses(items.length);
+
 
 
         return items;
