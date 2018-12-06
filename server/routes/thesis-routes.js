@@ -219,14 +219,15 @@ router.get('/getTheses', passport.authenticate('jwt', {session: false}), async (
 
 router.post('/incrementClick/:id(\\d+)', passport.authenticate('jwt', {session: false}), async (req,res) =>  {
     //For extra securiy, one may consider adding a daily threshold for each student
-    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+
+    if(!UtilsRoutes.roleIs(req, 'STUDENT'))    {
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
         return;
     }
 
     let id = req.params.id;
    let response = await DBAccess.thesis.incrementClicks(id);
-   if (response.length === 0) {
+   if (response === null) {
        response = 'Thesis with id ' + id + ' not found';
    }
 

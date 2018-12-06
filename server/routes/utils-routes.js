@@ -14,7 +14,7 @@ function Utils() {
 let utils = module.exports = exports = new Utils;
 
 //For extra security, use environment variables instead of hardcoding.
-let adminArray = ["rafael.belchior@tecnico.ulisboa.pt", "daniel.r.ramos@tecnico.ulisboa.pt"];
+let adminArray = ["rafael.belchior@tecnico.ulisboa.pt", "daniel.r.ramos@tecnico.ulisboa.pt","joao.pedro.trindade@tecnico.ulisboa.pt","ricardojosexavier@tecnico.ulisboa.pt"];
 
 /*****************************
  Quick Replies
@@ -45,7 +45,12 @@ function requireRole(req, res, role) {
 // roleIs is meant to be called before the DB queries.
 // It provides an extra layer of security and resources saving
 function roleIs(req, role) {
-    return (req.user.__t === role);
+    for (var userRole of req.user.roles){
+        if(userRole === role){
+            return (true)
+        }
+    }
+    return (false);
 }
 
 function saveFile(data, name) {

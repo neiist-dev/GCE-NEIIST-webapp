@@ -38,6 +38,11 @@ export class NavbarComponent implements OnInit {
     this.loadUser();
 
   }
+    navbarOpen = false;
+
+    toggleNavbar() {
+        this.navbarOpen = !this.navbarOpen;
+    }
 
   onLogoutClick() {
     this.authService.logOut();
@@ -77,7 +82,13 @@ export class NavbarComponent implements OnInit {
     }
 
     isLoggedIn() {
-        return this.authService.loggedIn();
+    	if (this.authService.loggedIn()){
+    		if (this.name=="Perfil"){
+    			this.loadUser();
+    		}
+    		return true;
+    	}
+    	return false;
     }
 }
 

@@ -3,7 +3,7 @@ let DB_DEV = process.env.DB_DEV;
 const secret = process.env.DB_SECRET;
 
 if (!process.env.DB_DEVELOPMENT)    {
-    DB_DEV = 'mongodb://localhost:27017/gce_base';
+    DB_DEV = 'mongodb://<dbuser>:<dbpassword>@ds263571.mlab.com:63571/gce_base';
 }   else {
     DB_DEV = process.env.DB_DEVELOPMENT;
 }
