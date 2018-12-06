@@ -37,6 +37,13 @@
                     </a>
                 </li>
 
+                <li [routerLinkActive]="['active']" class="nav-item">
+                    <a class="nav-link" [routerLink]="['/articles']" >
+                        <i class="fa fa-search"></i>
+                        <p>GCE-IV</p>
+                    </a>
+                </li>
+
                 <li class="nav-item" *ngIf="!isLoggedIn() && !isLoginPage()">
                      <a class="nav-link" [routerLink]="['/login']">
                          <i class="fa fa-sign-in"></i>
@@ -64,7 +71,6 @@
                         <p>GCE-Thesis</p>
                     </a>
                 </li>
-
 
                 <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" [routerLink]="['/profileStudent']">
