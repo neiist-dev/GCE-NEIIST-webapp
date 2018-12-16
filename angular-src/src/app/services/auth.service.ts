@@ -35,6 +35,7 @@ export class AuthService {
     return user;
   }
 
+  //TODO deprecated
   getCurrentUserType() {
     this.user = this.loadUserProfile();
     if (this.user != null && this.user !== undefined) {

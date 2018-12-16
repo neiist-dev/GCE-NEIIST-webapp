@@ -7,8 +7,8 @@ const DBAccess = require('../mongodb/accesses/mongo-access');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
-router.post('/train/:link', (req, res) =>  {
-    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+router.post('/train/:link', passport.authenticate('jwt', {session: false}), (req, res) =>  {
+    if(!UtilsRoutes.isFromAdministration(req))    {
         UtilsRoutes.replyFailure(res,"","Não permitido");
         return;
     }
@@ -20,15 +20,13 @@ router.post('/train/:link', (req, res) =>  {
 
 });
 
-router.post('/testClassifier', (req, res) =>  {
-    if(!UtilsRoutes.requireRole(req, res, 'Admin') && UtilsRoutes.routeIsBlocked)    {
+router.post('/testClassifier', passport.authenticate('jwt', {session: false}), (req, res) =>  {
+    if(!UtilsRoutes.isFromAdministration(req))    {
         UtilsRoutes.replyFailure(res,"","Não permitido");
         return;
     }
 
 });
-
-
 
 router.post('/add', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     if(!UtilsRoutes.isFromAdministration(req))    {
@@ -155,10 +153,8 @@ router.post('/add', passport.authenticate('jwt', {session: false}), (req, res, n
 
 });
 
-
-
 //Trains the classifier (hardcoded) and saves the classifier
-router.post('/train', (req, res, next) => {
+router.post('/train', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     if(!UtilsRoutes.isFromAdministration(req))    {
         UtilsRoutes.replyFailure(res,"","Não permitido");
         return;
@@ -200,13 +196,7 @@ router.post('/train', (req, res, next) => {
 
 });
 
-
 router.get('/getTheses', passport.authenticate('jwt', {session: false}), async (req,res) =>   {
-    if(!UtilsRoutes.roleIs(req, 'Student'))    {
-        UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
-        return;
-    }
-
     let error = {};
     error.content = "";
     error.msg = "";
@@ -227,17 +217,17 @@ router.get('/getTheses', passport.authenticate('jwt', {session: false}), async (
 
 });
 
-
-router.post('/incrementClick/:id(\\d+)', async (req,res) =>  {
+router.post('/incrementClick/:id(\\d+)', passport.authenticate('jwt', {session: false}), async (req,res) =>  {
     //For extra securiy, one may consider adding a daily threshold for each student
-    if(!UtilsRoutes.roleIs(req, 'Student'))    {
+
+    if(!UtilsRoutes.roleIs(req, 'STUDENT'))    {
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
         return;
     }
 
     let id = req.params.id;
    let response = await DBAccess.thesis.incrementClicks(id);
-   if (response.length === 0) {
+   if (response === null) {
        response = 'Thesis with id ' + id + ' not found';
    }
 
@@ -255,7 +245,7 @@ router.post('/incrementClick/:id(\\d+)', async (req,res) =>  {
     }
 });
 
-router.post('/getClicks/:id(\\d+)', async (req,res,next) =>  {
+router.post('/getClicks/:id(\\d+)', passport.authenticate('jwt', {session: false}), async (req,res,next) =>  {
     if(!UtilsRoutes.roleIs(req, 'Student'))    {
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
         return;
@@ -282,7 +272,7 @@ router.post('/getClicks/:id(\\d+)', async (req,res,next) =>  {
     }
 });
 
-router.post('/getType/:id(\\d+)', async (req,res,next) =>  {
+router.post('/getType/:id(\\d+)', passport.authenticate('jwt', {session: false}), async (req,res,next) =>  {
     if(!UtilsRoutes.roleIs(req, 'Student'))    {
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
         return;
