@@ -1,12 +1,9 @@
+require('dotenv').load();
 const DB_PROD = process.env.DB_PRODUCTION;
 let DB_DEV = process.env.DB_DEV;
 const secret = process.env.DB_SECRET;
 
-if (!process.env.DB_DEVELOPMENT)    {
-
-    DB_DEV = process.env.DB_PROD;
-
-}   else {
+if (process.env.DB_DEVELOPMENT)    {
     DB_DEV = process.env.DB_DEVELOPMENT;
 }
 
