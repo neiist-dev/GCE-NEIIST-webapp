@@ -14,7 +14,9 @@ export class FeedbackService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
+
     this.authService.loadTokenUser(headers);
+
 
     return this.http.post('users/feedback', feedback, {headers: headers}).pipe(map(res => res.json()));
   }

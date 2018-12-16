@@ -1,6 +1,7 @@
 <div class="container middlePage">
 
 
+
     <!--  <div class="row justify-content-md-center" [hidden]="showRecomendations">
           <div class="col-md-auto">
               <div class="card" style="width: 28rem;">
@@ -90,6 +91,7 @@
         <p class="mb-0">Atenção que a informação aqui contida é retirada do Fénix e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
     </div>
 
+
     <input type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
     <h1 class="availabe-theses-message" *ngIf="availableTheses != 0;else noAvailableTheses"> {{availableTheses}} Available Theses</h1>
     <ng-template #noAvailableTheses><h1 class="availabe-theses-message">No Available Theses</h1></ng-template>
@@ -105,7 +107,9 @@
                 </div>
 
 
+
                 <div class="card-body" >
+
 
                     <table class="area-colours" style="width:100%">
                         <tr  (click)="openModal(content,thesis)">
@@ -137,16 +141,19 @@
     </div>
 
 
+
     <div class="modal-body">
         <div class="divider" id="thesis-objectives"> </div>
         <div class="divider" id="thesis-requirements"> </div>
         <div class="divider" id="thesis-observations"> </div>
         <div class="divider" id="thesis-supervisors"> </div>
 
+
     </div>
     <div class="modal-footer">
 
         <div id="thesis-id"> </div>
+
 
         <div id="thesis-location"> </div>
     </div>

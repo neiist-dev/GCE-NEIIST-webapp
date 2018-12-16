@@ -45,6 +45,7 @@
 .thesisBox{
     padding-bottom:15px;
     cursor: pointer;
+
 }
 .card-header{
     border: 1px solid rgba(0,0,0,.125);
@@ -62,6 +63,7 @@
     border: 1px solid rgba(0,0,0,.125);
     border-top-width: 0;
     cursor: pointer;
+
 
 }
 .dot {
@@ -180,6 +182,7 @@
     background-color:#FFE0DA;
     border-color:#FAC2BB;
 }
+
 
 #white-div{
     height: 25rem;
