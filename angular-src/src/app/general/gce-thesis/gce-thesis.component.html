@@ -1,9 +1,6 @@
 <div class="container middlePage">
 
 
-
-
-
     <!--  <div class="row justify-content-md-center" [hidden]="showRecomendations">
           <div class="col-md-auto">
               <div class="card" style="width: 28rem;">
@@ -16,8 +13,6 @@
               </div>
           </div>
       </div>
-
-
 
       <div class="row" [hidden]="!showRecomendations">
           <div class="col-md-auto centered"></div>
@@ -106,20 +101,22 @@
                 <div class="card-header {{thesis.type}}" (click)="openModal(content,thesis)">
                     <h5 class="card-title">{{ thesis.title }}</h5>
 
+
                 </div>
 
 
                 <div class="card-body" >
+
                     <table class="area-colours" style="width:100%">
                         <tr  (click)="openModal(content,thesis)">
                             <ng-container *ngFor="let area of thesis.areas" >
+
                                 <td  [ngStyle]="{'background-color':areaAdvanced[area][0]}" style="width: 50%; height:10px"></td>
                             </ng-container>
                         </tr>
                     </table>
                 </div>
             </div>
-
 
 
         </ng-container>
@@ -131,12 +128,14 @@
 
 <ng-template #content let-modal>
 
+
     <div class="modal-header">
         <h4 id="thesis-title"> </h4>
         <div id="thesis-applicants"> </div>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span></button>
     </div>
+
 
     <div class="modal-body">
         <div class="divider" id="thesis-objectives"> </div>
@@ -146,7 +145,9 @@
 
     </div>
     <div class="modal-footer">
+
         <div id="thesis-id"> </div>
+
         <div id="thesis-location"> </div>
     </div>
 </ng-template>

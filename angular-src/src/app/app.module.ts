@@ -38,7 +38,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AboutUsComponent } from './general/about-us/about-us.component';
 import { GceArticlesComponent } from './general/gce-articles/gce-articles.component';
 
-
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'login', children: [
@@ -50,6 +49,7 @@ const appRoutes: Routes = [
     {path: 'wip', component: ComingSoonComponent},
     {path: 'terms-of-use', component: TermsUsageComponent},
     {path: 'articles', component: GceArticlesComponent},
+
     {path: 'privacy-policy', component: PrivacyPolicyComponent},
 		{path: 'aboutUs', component: AboutUsComponent},
     {path: 'partners', component: PartnersCarouselComponent},

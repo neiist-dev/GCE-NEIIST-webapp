@@ -4,6 +4,7 @@ import { AuthService} from './auth.service';
 import { map } from 'rxjs/operators';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
+
 @Injectable()
 export class ThesisService {
 
@@ -18,6 +19,7 @@ export class ThesisService {
         this.authService.loadTokenUser(headers);
         return this.http.get('thesis/getTheses', {headers: headers}).pipe(map(res => res.json()));
 
+
     }
 
     incrementClicks(id: number){
@@ -31,6 +33,7 @@ export class ThesisService {
         );
 
     }
+
 
     changeTheses(availableTheses: number){
         this.thesesSource.next(availableTheses)

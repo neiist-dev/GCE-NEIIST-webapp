@@ -32,6 +32,7 @@ Note that this is a **WIP** project.
 In order to run the project the required libraries need to be installed.
 
 1. Install [node][node].
+
 1. Create an account and a MongoDB Deployment in [Mlab][mlab].
 1. Go to your deployment and create a new user. (Save this username and password they will be used later)
 1. Set the environment variables by editing and replacing its values on ``prepare_env_windows.bat`` 
@@ -119,3 +120,4 @@ We follow [Convenant Code Of Conduct][CC].
 [express]: https://expressjs.com/
 [mon]: http://www.mongodb.org/
 [mlab]: https://mlab.com/
+
