@@ -1,6 +1,6 @@
 require('dotenv').load();
 const DB_PROD = process.env.DB_PRODUCTION;
-let DB_DEV = DB_DEV = process.env.DB_DEVELOPMENT;
+let DB_DEV = process.env.DB_DEVELOPMENT;
 const secret = process.env.DB_SECRET;
 
 module.exports = {
