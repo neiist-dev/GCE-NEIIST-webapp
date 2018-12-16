@@ -7,6 +7,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 
+
 @Component({
     selector: 'app-gce-thesis',
     templateUrl: './gce-thesis.component.html',
@@ -43,6 +44,7 @@ export class GceThesisComponent implements OnInit {
         "Language and Information Technologies": ["purple","LIT"]
     };
 
+
     queryString: string;
     selectedAreas: string[] = [];
     types: string[] = ["Project","Dissertation"];
@@ -56,12 +58,15 @@ export class GceThesisComponent implements OnInit {
 
 
 
+
     //Ng stuff
+
 
     constructor(private flashMessage: FlashMessagesService,
                 private studentService: StudentService,
                 private thesisService: ThesisService,
                 private modalService: NgbModal,
+
 
     ) {
     }
@@ -77,6 +82,7 @@ export class GceThesisComponent implements OnInit {
     }
 
     public openModal(content,thesis) {
+
 
 
         this.modalService.open(content);
@@ -105,6 +111,7 @@ export class GceThesisComponent implements OnInit {
         }
 
         if (thesis.vacancies != null){
+
 
             document.getElementById("thesis-applicants").innerHTML = '<button type="button" class="btn btn-primary">Applicants <span class="badge">'+thesis.vacancies+'</span></button>';
         }

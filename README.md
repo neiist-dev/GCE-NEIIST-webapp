@@ -7,6 +7,7 @@
 # GCE-NEIIST webapp
 ![GCE-Thesis][logo]
 
+
 [logo]: https://groups.ist.utl.pt/~gce-neiist.daemon/assets/gce.png
 [GCE-NEIIST][GCE] is the home for our student's group, Grupo de Contacto com Empresas.
 
@@ -33,6 +34,7 @@ In order to run the project the required libraries need to be installed.
 
 1. Install [node][node].
 
+
 1. Create an account and a MongoDB Deployment in [Mlab][mlab].
 1. Go to your deployment and create a new user. (Save this username and password they will be used later)
 1. Set the environment variables by editing and replacing its values on ``prepare_env_windows.bat`` 
@@ -58,7 +60,6 @@ To run the tests, run ``npm test``.
 If you are wondering if you should contribute, this is a  [fine reading][open-source].
 
 Please read our [Contribution Guidelines](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/blob/master/.github/CONTRIBUTING.md).
-
 Please follow our [Commit Message Style Guide](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Commit-Message-Style-Guide) while sending Pull Requests.
 
 If you want to report bugs or requests features, open an issue, with the respective label.

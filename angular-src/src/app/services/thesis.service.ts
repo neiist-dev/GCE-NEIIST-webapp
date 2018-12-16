@@ -35,6 +35,7 @@ export class ThesisService {
     }
 
 
+
     changeTheses(availableTheses: number){
         this.thesesSource.next(availableTheses)
     }
