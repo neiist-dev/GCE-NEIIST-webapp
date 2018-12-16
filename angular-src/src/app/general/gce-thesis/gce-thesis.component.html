@@ -1,63 +1,50 @@
 <div class="container middlePage">
 
-    <!--
-        <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">Importante!</h4>
-            <p>
-                Nesta secção podes pesquisar as teses de mestrado disponíveis para MEIC (2017-2018, 2º Semestre).
-                Para tal, basta escolheres os filtros que pretendes aplicar às
-                {{numberTheses}} teses.
-            </p>
-            <hr>
-            <p class="mb-0">Atenção que a informação aqui contida é retirada do Fénix e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
-        </div>
 
 
-        <div class="row justify-content-md-center" [hidden]="showRecomendations">
-            <div class="col-md-auto">
-                <div class="card" style="width: 28rem;">
-                    <img class="card-img-top" src="https://groups.ist.utl.pt/~gce-neiist.daemon/assets/favicon.png" height=50% width=50% alt="GCE">
-                    <div class="card-body">
-                        <h5 class="card-title centered">Teses recomendadas</h5>
-                        <p class="card-text centered">Clica no botão seguinte para o GCE te recomendar propostas de teses de mestrado. Estas recomnedações são baseadas nas cadeiras que fizeste.</p>
-                        <button type="button" class="btn btn-primary" (click)="toggleShowRecomendations($event)">Ajuda-me a escolher a minha tese!</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!--  <div class="row justify-content-md-center" [hidden]="showRecomendations">
+          <div class="col-md-auto">
+              <div class="card" style="width: 28rem;">
+                  <img class="card-img-top" src="https://groups.ist.utl.pt/~gce-neiist.daemon/assets/favicon.png" height=50% width=50% alt="GCE">
+                  <div class="card-body">
+                      <h5 class="card-title centered">Teses recomendadas</h5>
+                      <p class="card-text centered">Clica no botão seguinte para o GCE te recomendar propostas de teses de mestrado. Estas recomnedações são baseadas nas cadeiras que fizeste.</p>
+                      <button type="button" class="btn btn-primary" (click)="toggleShowRecomendations($event)">Ajuda-me a escolher a minha tese!</button>
+                  </div>
+              </div>
+          </div>
+      </div>
 
+      <div class="row" [hidden]="!showRecomendations">
+          <div class="col-md-auto centered"></div>
+          <button type="button" class="btn btn-primary" (click)="toggleShowRecomendations($event)">Esconder recomendações</button>
+      </div>
 
+      <div class="row" [hidden]="!showRecomendations">
+          <div class="col-md-auto centered"></div>
+          <button type="button" class="btn btn-primary" (click)="addRecomendations($event)">Mais recomendações</button>
+      </div>
 
-        <div class="row" [hidden]="!showRecomendations">
-            <div class="col-md-auto centered"></div>
-            <button type="button" class="btn btn-primary" (click)="toggleShowRecomendations($event)">Esconder recomendações</button>
-        </div>
+      <div class="row" [hidden]="!showRecomendations">
+              <div class="col-md-12" *ngFor="let thesis of recommendedTheses">
 
-        <div class="row" [hidden]="!showRecomendations">
-            <div class="col-md-auto centered"></div>
-            <button type="button" class="btn btn-primary" (click)="addRecomendations($event)">Mais recomendações</button>
-        </div>
+                      <div class="card" style="width: 18rem;">
+                          <h3>                {{ thesis.id}}</h3>
+                          <div class="card-body">
+                              <h5 class="card-title">{{ thesis.title}}</h5>
+                              <div *ngFor="let area of recommendedTheses['areas']">
+                                  area
+                              </div>
+                              <span class="label label-default">{{thesis.areas}}</span>
+                              <a href="#" class="btn btn-primary">Mais</a>
+                          </div>
+                      </div>
 
-        <div class="row" [hidden]="!showRecomendations">
-                <div class="col-md-12" *ngFor="let thesis of recommendedTheses">
+                      {{ thesis.area}}
 
-                        <div class="card" style="width: 18rem;">
-                            <h3>                {{ thesis.id}}</h3>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ thesis.title}}</h5>
-                                <div *ngFor="let area of recommendedTheses['areas']">
-                                    area
-                                </div>
-                                <span class="label label-default">{{thesis.areas}}</span>
-                                <a href="#" class="btn btn-primary">Mais</a>
-                            </div>
-                        </div>
+              </div>
+      </div> -->
 
-                        {{ thesis.area}}
-
-                </div>
-        </div>
-    -->
     <div class="sidenav">
         <ng-container *ngFor="let area of areas">
             <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
@@ -89,45 +76,85 @@
         </ng-container>
     </div>
 
-    <input type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
-    <div class="row" [hidden]="showRecomendations">
-        <div class="col-xs-12 col-sm-6 col-md-4 thesisBox" *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes" (click)="openModal(content,thesis)">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Importante!</h4>
+        <p>
+            Nesta secção podes pesquisar as teses de mestrado disponíveis para MEIC (2017-2018, 2º Semestre).
+            Para tal, basta escolheres os filtros que pretendes aplicar às
+            <b>{{numberTheses}}</b> teses.<br>
+            Na barra de navegação da direita, consegues filtrar as teses por Projeto e Dissertação, e na barra da esquerda
+            consegues filtrar pela sua àrea.<br>
 
-            <div class="card" style="width: 18rem;">
-                <div class="card-header {{thesis.type}}">
+            A qualquer momento podes passar o rato por cima das marcas à esquerda (premir as marcas se estiveres num dispositivo móvel) para saberes o que significam as siglas.
+        </p>
+        <hr>
+        <p class="mb-0">Atenção que a informação aqui contida é retirada do Fénix e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
+    </div>
+
+
+    <input type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
+    <h1 class="availabe-theses-message" *ngIf="availableTheses != 0;else noAvailableTheses"> {{availableTheses}} Available Theses</h1>
+    <ng-template #noAvailableTheses><h1 class="availabe-theses-message">No Available Theses</h1></ng-template>
+    <div class="row" [hidden]="showRecomendations">
+
+        <ng-container *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes">
+
+            <div class="card thesisBox" style="width: 18rem;"  >
+                <div class="card-header {{thesis.type}}" (click)="openModal(content,thesis)">
                     <h5 class="card-title">{{ thesis.title }}</h5>
+
+
                 </div>
 
 
+
                 <div class="card-body" >
-                    <table style="width:100%">
-                        <tr>
-                            <ng-container *ngFor="let area of thesis.areas">
+
+
+                    <table class="area-colours" style="width:100%">
+                        <tr  (click)="openModal(content,thesis)">
+                            <ng-container *ngFor="let area of thesis.areas" >
+
                                 <td  [ngStyle]="{'background-color':areaAdvanced[area][0]}" style="width: 50%; height:10px"></td>
                             </ng-container>
                         </tr>
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
 
+
+        </ng-container>
+
+    </div>
+    <div id="white-div"></div>
 </div>
 
 
 <ng-template #content let-modal>
+
+
     <div class="modal-header">
         <h4 id="thesis-title"> </h4>
-        <div id="thesis-vacancies"> </div>
+        <div id="thesis-applicants"> </div>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span></button>
     </div>
+
+
+
     <div class="modal-body">
         <div class="divider" id="thesis-objectives"> </div>
         <div class="divider" id="thesis-requirements"> </div>
         <div class="divider" id="thesis-observations"> </div>
         <div class="divider" id="thesis-supervisors"> </div>
 
+
     </div>
     <div class="modal-footer">
+
+        <div id="thesis-id"> </div>
+
+
         <div id="thesis-location"> </div>
     </div>
 </ng-template>

@@ -1,22 +1,13 @@
-<a id = "feedback-button" class="btn btn-primary" (click)="openModal(template)"><i class="fa fa-hand-scissors-o"></i> Feedback</a>
+<a id = "feedback-button" class="btn btn-primary" (click)="openModal(content)"><i class="fa fa-hand-scissors-o"></i> Feedback</a>
 
-<template #template>
+<ng-template #content let-modal>
     <div id="form-main">
         <div id="form-div">
             <form id = "form1" (submit)="sendFeedback()" method="post" action="" class="form">
-                <div class="btn-group" dropdown>
-                    <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-                        Eu sou ...  <span class="caret"></span>
-                    </button>
-                    <ul *dropdownMenu class="dropdown-menu" role="menu">
-                        <li role="menuitem"><a class="dropdown-item" (click) = "setEntity($event,'Empresa')">Empresa</a></li>
-                        <li role="menuitem"><a class="dropdown-item" (click) = "setEntity($event,'Professor')">Professor</a></li>
-                        <li role="menuitem"><a class="dropdown-item" (click) = "setEntity($event,'Estudante')">Estudante</a></li>
-                        <li role="menuitem"><a class="dropdown-item" (click) = "setEntity($event,'Outro')">Outro (especifique na mensagem)</a></li>
-                    </ul>
-                </div>
+
                 <br><br>
-                <p class="focusedW">O que achas da plataforma?</p>
+                <p class="focusedW">Dá-nos a tua sugestão!</p>
+                <p class="focusedW"> Deves estar autenticado para enviares feedback</p>
 
                 <br><br>
                 <p class="name">
@@ -44,4 +35,4 @@
         </div>
     </div>
 
-</template>
+</ng-template>

@@ -1,14 +1,8 @@
+
+require('dotenv').load();
 const DB_PROD = process.env.DB_PRODUCTION;
-let DB_DEV = process.env.DB_DEV;
+let DB_DEV = process.env.DB_DEVELOPMENT;
 const secret = process.env.DB_SECRET;
-
-if (!process.env.DB_DEVELOPMENT)    {
-    DB_DEV = 'mongodb://localhost:27017/gce_base';
-}   else {
-    DB_DEV = process.env.DB_DEVELOPMENT;
-}
-
-
 
 
 module.exports = {
