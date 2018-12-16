@@ -36,6 +36,7 @@ import { PartnersCarouselComponent } from './general/partners-carousel/partners-
 import {FilterResultsPipe} from './general/gce-thesis/filter-results.pipe';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AboutUsComponent } from './general/about-us/about-us.component';
+import { GceArticlesComponent } from './general/gce-articles/gce-articles.component';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -47,6 +48,8 @@ const appRoutes: Routes = [
     {path: 'profileStudent', component: StudentProfileComponent, canActivate:[AuthGuardService]},
     {path: 'wip', component: ComingSoonComponent},
     {path: 'terms-of-use', component: TermsUsageComponent},
+    {path: 'articles', component: GceArticlesComponent},
+
     {path: 'privacy-policy', component: PrivacyPolicyComponent},
 		{path: 'aboutUs', component: AboutUsComponent},
     {path: 'partners', component: PartnersCarouselComponent},
@@ -77,7 +80,8 @@ const appRoutes: Routes = [
         GceThesisComponent,
         FilterResultsPipe,
         PartnersCarouselComponent,
-        AboutUsComponent
+        AboutUsComponent,
+        GceArticlesComponent
     ],
     imports: [
         BrowserModule,

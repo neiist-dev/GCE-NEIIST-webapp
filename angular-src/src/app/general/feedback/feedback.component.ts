@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef  } from '@angular/core';
 import {ValidateService} from '../../services/validate.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {FeedbackService} from '../../services/feedback.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-feedback',
@@ -17,35 +18,32 @@ export class FeedbackComponent implements OnInit {
 
   constructor(private validateService: ValidateService,
               private flashMessage: FlashMessagesService,
-              private feedbackService: FeedbackService) { }
+              private feedbackService: FeedbackService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
   }
 
-  public openModal(template: TemplateRef<any>) {
 
-  }
+  //TODO - add an auth interceptor, instead of having a message in the front-end.
 
-  //FIXME Doesn't work in Firefox
-  private setEntity(event,entity) {
-    event.path[3].firstElementChild.innerHTML = entity + " <span class=\"caret\"></span>";
-    this.entity = entity;
-  }
 
   clearFeedbackForm() {
     this.name = null;
     this.email = null;
     this.message = null;
-    this.entity = null;
   }
 
+    public openModal(content) {
+        this.modalService.open(content);
+
+    }
   sendFeedback() {
 
     const feedback = {
       name: this.name,
       email: this.email,
-      message: this.message,
-      entity: this.entity
+      message: this.message
     };
 
     if (!this.validateService.validateFeedback(feedback))  {

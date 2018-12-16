@@ -32,10 +32,13 @@ Note that this is a **WIP** project.
 In order to run the project the required libraries need to be installed.
 
 1. Install [node][node].
-1. Install [MongoDB][mon], community version.
+
+1. Create an account and a MongoDB Deployment in [Mlab][mlab].
+1. Go to your deployment and create a new user. (Save this username and password they will be used later)
 1. Set the environment variables by editing and replacing its values on ``prepare_env_windows.bat`` 
-if you are working on Windows or ``prepare_env_linux.sh`` if you are working on Linux. 
+if you are working on Windows or ``prepare_env_linux.sh`` if you are working on Linux. (replace &lt;dbuser&gt; with the username that was previously saved. Do the same with  &lt;dbpassword&gt; ) 
 1. Run ``prepare_env_windows.bat``  or ``prepare_env_linux.sh`` using your console. Now your environment variables should be set.
+1. Open config/db.js and update the DB_DEV URI with your username and password.
 1. Run ```npm run first-setup```. This script installs dependencies and builds the front end.
 1. If you wish,[follow our recommendations](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Recommendations).
 1. In case of errors, see our  [Troubleshooting page](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Troubleshooting).
@@ -116,3 +119,5 @@ We follow [Convenant Code Of Conduct][CC].
 [angular]: https://angular.io/
 [express]: https://expressjs.com/
 [mon]: http://www.mongodb.org/
+[mlab]: https://mlab.com/
+

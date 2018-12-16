@@ -1,16 +1,28 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-primary" color-on-scroll="500">
+
     <div class="container">
         <div class="navbar-translate">
             <a [routerLink]="['/']">
-                <img style="width: 80px;height: 80px;" src="https://groups.ist.utl.pt/~gce-neiist.daemon/assets/favicon.png" alt="GCE">
+                <img style="width: 80px;height: 80px;" src="https://web.ist.utl.pt/~ist180970/assets/img/favicon.png" alt="GCE">
             </a>
-            <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+
+
+           <!-- <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+
                 <span class="navbar-toggler-bar"></span>
                 <span class="navbar-toggler-bar"></span>
                 <span class="navbar-toggler-bar"></span>
-            </button>
+            </button> -->
         </div>
-        <div class="collapse navbar-collapse">
+        <button class="navbar-toggler" type="button"
+                (click)="toggleNavbar()">
+            <i id="hamburger-icon" class="fa fa-bars fa-2x"></i>
+        </button>
+
+
+
+    <div class="collapse navbar-collapse"
+         [ngClass]="{ 'show': navbarOpen }">
             <ul class="navbar-nav ml-auto">
 
                 <li class="nav-item" *ngIf="isHome() && !isLoggedIn()">
@@ -24,6 +36,13 @@
                     <a class="nav-link" rel="tooltip" title="GCE's GitHub" data-placement="bottom" href="https://github.com/RafaelAPB/GCE-NEIIST" target="_blank">
                         <i class="fa fa-github"></i>
                         <p class="d-lg-none">GitHub</p>
+                    </a>
+                </li>
+
+                <li [routerLinkActive]="['active']" class="nav-item">
+                    <a class="nav-link" [routerLink]="['/articles']" >
+                        <i class="fa fa-search"></i>
+                        <p>GCE-IV</p>
                     </a>
                 </li>
 
@@ -48,15 +67,14 @@
                      </a>
                 </li>
 
-                <li [routerLinkActive]="['active']" class="nav-item" *ngIf="isLoggedInStudent()">
+                <li [routerLinkActive]="['active']" class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" [routerLink]="['/thesis']" >
                         <i class="fa fa-folder-o"></i>
                         <p>GCE-Thesis</p>
                     </a>
                 </li>
 
-
-                <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedInStudent()">
+                <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" [routerLink]="['/profileStudent']">
                         <i class="fa fa-user-o"></i>
                         <p>{{name}}</p>
@@ -78,3 +96,9 @@
         </div>
     </div>
 </nav>
+
+    <div *ngIf="navbarOpen"  id="overlay" (click)="toggleNavbar()">
+
+    </div>
+
+

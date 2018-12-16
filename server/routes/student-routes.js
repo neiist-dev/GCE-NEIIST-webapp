@@ -50,7 +50,32 @@ router.post('/register', (req, res, next) => {
                     error.content = person;
                     error.msg = "Erro na comunicação com o Fénix, em getStudentFromFenix.";
                     reject(error);
-                } else if (!FenixApi.person.isStudent(person) &&
+                } else {
+
+                    let info = [];
+                    info.push(token);
+                    info.push(person);
+
+                    resolve(info);
+                }
+            });
+        });
+        return out;
+    }
+
+    //Gets courses from this Academic Term and the previous
+    //Todo refactor, get rid of callback hell
+    async function getStudentFromFenix (token)  {
+        //Token has properties: access_token, refresh token, expires in
+        let out = await new Promise((resolve, reject) => {
+            FenixApi.person.getPerson(token.access_token, (person) =>   {
+                if (person.hasOwnProperty('error')) {
+                    //Could not get Student
+                    error.content = person;
+                    error.msg = "Erro na comunicação com o Fénix, em getStudentFromFenix.";
+                    reject(error);
+                } else if ( !FenixApi.person.isStudent(person) &&
+
                             !FenixApi.person.isAlumni(person) &&
                             !FenixApi.person.isTeacher(person)) {
                     error.content = person;
@@ -78,66 +103,56 @@ router.post('/register', (req, res, next) => {
 
         let out = await new Promise((resolve, reject) => {
             let student = [];
-
-
-
+            if (FenixApi.person.isStudent(person))  {
             FenixApi.person.getCourses(token, '2015/2016', (courses) =>   {
                 if (courses.hasOwnProperty('error')) {
                     error.content = courses;
                     error.msg = "Erro na comunicação com o Fénix em getCourses  .";
                     reject(error);
-                } else if (!FenixApi.person.isStudent(person)) {
-                    error.content = "";
-                    error.msg = "Tem de ser um estudante para fazer login através deste meio";
-                    reject(error);
-                } else {
+                }  else {
                     student.push(person);
                     student.push(courses);
+                        FenixApi.person.getCourses(token, '2016/2017', (recenteCourses) =>   {
+                            if (recenteCourses.hasOwnProperty('error')) {
+                                error.content = recenteCourses;
+                                error.msg = "Erro na comunicação com o Fénix em getCourses  .";
+                                reject(error);
+                            }  else {
 
-                    FenixApi.person.getCourses(token, '2016/2017', (recenteCourses) =>   {
-                        if (recenteCourses.hasOwnProperty('error')) {
-                            error.content = recenteCourses;
-                            error.msg = "Erro na comunicação com o Fénix em getCourses  .";
-                            reject(error);
-                        } else if (!FenixApi.person.isStudent(person)) {
-                            error.content = "";
-                            error.msg = "Tem de ser um estudante para fazer login através deste meio";
-                            reject(error);
-                        } else {
-
-                            for (let enrolment of recenteCourses.enrolments)   {
-                                student[1].enrolments.push(enrolment);
-                            }
-
-                            FenixApi.person.getCourses(token, '2017/2018', (recenteCourses) =>   {
-                                if (recenteCourses.hasOwnProperty('error')) {
-                                    error.content = recenteCourses;
-                                    error.msg = "Erro na comunicação com o Fénix em getCourses  .";
-                                    reject(error);
-                                } else if (!FenixApi.person.isStudent(person)) {
-                                    error.content = "";
-                                    error.msg = "Tem de ser um estudante para fazer login através deste meio";
-                                    reject(error);
-                                } else {
-
-                                    for (let enrolment of recenteCourses.enrolments)   {
-                                        student[1].enrolments.push(enrolment);
-                                    }
-                                    resolve(student);
+                                for (let enrolment of recenteCourses.enrolments)   {
+                                    student[1].enrolments.push(enrolment);
                                 }
-                            });
-                        }
-                    });
 
-                }
-            });
+                                FenixApi.person.getCourses(token, '2017/2018', (recenteCourses) =>   {
+                                    if (recenteCourses.hasOwnProperty('error')) {
+                                        error.content = recenteCourses;
+                                        error.msg = "Erro na comunicação com o Fénix em getCourses  .";
+                                        reject(error);
+                                    }  else {
+
+                                        for (let enrolment of recenteCourses.enrolments)   {
+                                            student[1].enrolments.push(enrolment);
+                                        }
+                                        resolve(student);
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                });
+            }
+
+            else  {
+                student.push(person);
+                resolve(student);
+            }
         });
         return out;
     }
 
     async function loginStudentPromise (student)  {
         let out = await new Promise((resolve,reject) => {
-
             StudentServices.parseStudentData(student, (err, parsedStudent) => {
                 if (err) {
                     //Error parsing student data. Default message will be sent to the user
@@ -146,7 +161,9 @@ router.post('/register', (req, res, next) => {
                     reject(error);
                 }
                 else {
-                    registerOrLogin(parsedStudent.name, parsedStudent.email, parsedStudent.courses, parsedStudent.gender, parsedStudent.enrolments, ip, (err, data) => {
+                    registerOrLogin(parsedStudent.name, parsedStudent.username, parsedStudent.roles, parsedStudent.email,
+                        parsedStudent.courses, parsedStudent.gender,
+                        parsedStudent.enrolments, ip, (err, data) => {
                         if (err)    {
                             error.msg = "Erro a registar aluno";
                             error.content = err;
@@ -169,6 +186,7 @@ router.post('/register', (req, res, next) => {
         try {
             const token = await getFenixToken();
             const info = await getStudentFromFenix(token);
+            //TODO put student verification here
             const student = await getStudentCourses(info);
             const login = await loginStudentPromise(student);
         } catch (error) {
@@ -250,7 +268,7 @@ module.exports = router;
  *  Aux Functions
  *******************************/
 
-function registerOrLogin(name, email, courses, gender, enrolments, ip, callback) {
+function registerOrLogin(name, istid, roles, email, courses, gender, enrolments, ip, callback) {
      DBAccess.students.getStudentByEmail(email, async (err, student) => {
         if (err) {
             logger.error(err);
@@ -264,7 +282,7 @@ function registerOrLogin(name, email, courses, gender, enrolments, ip, callback)
         //If it's not in the database, we add a new student
          //TODO use await async
         if (student === null) {
-            student = DBAccess.students.addStudent(name, email, courses, gender, enrolments, (err) => {
+            student = DBAccess.students.addStudent(name, istid, roles, email, courses, gender, enrolments, (err) => {
                 if (err) {
                     callback("Erro a adicionar aluno",null);
                     return false;
@@ -305,7 +323,7 @@ function registerOrLogin(name, email, courses, gender, enrolments, ip, callback)
                             name: student.name,
                             email: student.email,
                             courses: student.courses,
-                            type: student.__t
+                            roles: student.roles
                         }};
         callback(null,resData);
     });
@@ -436,7 +454,7 @@ function arrayMax(arr) {
  *******************************/
 
 router.get('/myApplications', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.requireRole(req, res, 'Student') && UtilsRoutes.routeIsBlocked)    {
+    if(!UtilsRoutes.requireRole(req, res, 'ist') && UtilsRoutes.routeIsBlocked)    {
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
         return;
     }
@@ -453,7 +471,7 @@ router.get('/myApplications', passport.authenticate('jwt', {session: false}), (r
 });
 
 router.put('/applications/invalidate', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.requireRole(req, res, 'Student') && UtilsRoutes.routeIsBlocked)    {
+    if(!UtilsRoutes.requireRole(req, res, 'ist') && UtilsRoutes.routeIsBlocked)    {
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
         return;
     }
@@ -531,7 +549,7 @@ router.post('/saveResume', passport.authenticate('jwt', {session: false}), funct
 
 
 router.post('/apply', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    if(!UtilsRoutes.requireRole(req, res, 'Student') && UtilsRoutes.routeIsBlocked)    {
+    if(!UtilsRoutes.requireRole(req, res, 'ist') && UtilsRoutes.routeIsBlocked)    {
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
         return;
     }

@@ -14,30 +14,33 @@ function parseStudentData(person, callback) {
     const enrolments = person[1];
 
     parsedStudent.name = student.name;
+    parsedStudent.username = student.username;
     parsedStudent.gender = student.gender;
     parsedStudent.email = student.institutionalEmail;
     parsedStudent.campus = student.campus;
     parsedStudent.enrolments = [];
+    parsedStudent.roles = [];
 
     // Check if is a student
     let studentRole = null;
     for (let role of student.roles) {
+        parsedStudent.roles.push(role.type)
         if (role.type === 'STUDENT') {
             studentRole = role;
         }
     }
-    if (!studentRole) {
-        callback('Not a student.', null);
+
+    if(studentRole) {
+        parsedStudent.courses = [];
+        for (let registration of studentRole.registrations) {
+            parsedStudent.courses.push(registration.name);
+        }
+
+        for (let enrolment of enrolments.enrolments)   {
+            parsedStudent.enrolments.push(enrolment.name);
+        }
     }
 
-    parsedStudent.courses = [];
-    for (let registration of studentRole.registrations) {
-        parsedStudent.courses.push(registration.name);
-    }
-
-    for (let enrolment of enrolments.enrolments)   {
-        parsedStudent.enrolments.push(enrolment.name);
-    }
 
     callback(null, parsedStudent);
 }
