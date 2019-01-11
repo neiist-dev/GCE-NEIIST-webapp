@@ -45,6 +45,7 @@
 .thesisBox{
     padding-bottom:15px;
     cursor: pointer;
+
 }
 .card-header{
     border: 1px solid rgba(0,0,0,.125);
@@ -62,6 +63,8 @@
     border: 1px solid rgba(0,0,0,.125);
     border-top-width: 0;
     cursor: pointer;
+
+
 }
 .dot {
     height: 25px;
@@ -180,6 +183,12 @@
     border-color:#FAC2BB;
 }
 
+
 #white-div{
     height: 25rem;
 }
+
+.availabe-theses-message{
+    text-align: center;
+}
+

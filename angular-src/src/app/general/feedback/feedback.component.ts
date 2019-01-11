@@ -24,7 +24,11 @@ export class FeedbackComponent implements OnInit {
   ngOnInit() {
   }
 
+
+
   //TODO - add an auth interceptor, instead of having a message in the front-end.
+
+
 
   clearFeedbackForm() {
     this.name = null;

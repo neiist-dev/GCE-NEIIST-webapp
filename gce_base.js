@@ -7,7 +7,7 @@
 *
 * Thanks to António Higgs for the early support
 * */
-
+require('dotenv').load();
 // Modules =================================================
 const express = require('express');
 const path = require('path');
