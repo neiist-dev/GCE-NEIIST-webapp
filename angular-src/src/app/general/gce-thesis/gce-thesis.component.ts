@@ -2,7 +2,11 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { StudentService } from '../../services/student.service';
 import { ThesisService } from '../../services/thesis.service';
+
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
+
+
 
 @Component({
     selector: 'app-gce-thesis',
@@ -39,6 +43,8 @@ export class GceThesisComponent implements OnInit {
         "Bioinformatics and Computational Biology": ["#A0A3A6","BCB"],
         "Language and Information Technologies": ["purple","LIT"]
     };
+
+
     queryString: string;
     selectedAreas: string[] = [];
     types: string[] = ["Project","Dissertation"];
@@ -46,15 +52,22 @@ export class GceThesisComponent implements OnInit {
     proposal: string;
     motivationLetter: string;
 
+    availableTheses: number;
+
+
 
 
 
 
     //Ng stuff
+
+
     constructor(private flashMessage: FlashMessagesService,
                 private studentService: StudentService,
                 private thesisService: ThesisService,
-                private modalService: NgbModal
+                private modalService: NgbModal,
+
+
     ) {
     }
 
@@ -63,14 +76,18 @@ export class GceThesisComponent implements OnInit {
         this.loadUser();
         this.getTheses();
         this.getRecommendedTheses();
+        this.thesisService.currentTheses.subscribe(availableTheses => this.availableTheses = availableTheses);
 
 
     }
 
     public openModal(content,thesis) {
 
+
+
         this.modalService.open(content);
         this.thesisService.incrementClicks(thesis.id);
+
         document.getElementById("thesis-title").textContent = thesis.title;
 
         if (thesis.objectives.length > 0){
@@ -94,10 +111,13 @@ export class GceThesisComponent implements OnInit {
         }
 
         if (thesis.vacancies != null){
+
+
             document.getElementById("thesis-applicants").innerHTML = '<button type="button" class="btn btn-primary">Applicants <span class="badge">'+thesis.vacancies+'</span></button>';
         }
         if (thesis.location.length > 0){
             document.getElementById("thesis-id").innerHTML = '<h6 style="display: inline">ID: </h6>  <p style="display: inline" class="footer-p">'+thesis.id+'</p>';
+
         }
         if (thesis.location.length > 0){
             document.getElementById("thesis-location").innerHTML = '<h6 style="display: inline">Location: </h6>  <p style="display: inline" class="footer-p">'+thesis.location+'</p>';
@@ -177,7 +197,7 @@ export class GceThesisComponent implements OnInit {
             this.selectedTypes.push(clickedType)
             this.selectedTypes = this.selectedTypes.filter(str =>str);
         }
-        console.log(this.selectedTypes)
+
     }
 }
 
