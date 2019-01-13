@@ -54,7 +54,10 @@ const appRoutes: Routes = [
     {path: 'privacy-policy', component: PrivacyPolicyComponent},
 		{path: 'aboutUs', component: AboutUsComponent},
     {path: 'partners', component: PartnersCarouselComponent},
-    //{path: 'hashcode', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
+    {path: 'hashcode', children: [
+        {path: '', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
+        {path: 'faq', component: PrivacyPolicyComponent}
+    ]},
     //{path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]},
     {path: 'thesis', component: GceThesisComponent, canActivate:[AuthGuardService]}
 

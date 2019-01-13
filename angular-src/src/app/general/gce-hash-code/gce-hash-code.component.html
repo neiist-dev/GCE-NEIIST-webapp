@@ -2,29 +2,22 @@
 
 <div class="bg">
     <div class="container middlePage">
-
-        <div class="row">
-        <div class="col-md-12">
-          <div class="nav-tab-holder text-right">
-            <ul class="nav nav-tabs row" role="tablist">
-              <a id="pre-ins" aria-controls="home" role="tab" data-toggle="tab">PRÉ-INSCRIÇÃO</a>
-            </ul>
-          </div>
-        </div>
-      </div>
-
         <div class="row">
             <div class="col-md-12">
                 <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="home">
                     <div class="row">
 
-                        <div id = "contentorProposta" class="col-xl-10"  style="background-color: blue; ">
+                        <div id = "contentorProposta">
 
                             <article role="login">
+                                <div class="row">
+            <div class="col-md-12">
+                <h3 class="centered">Pré-inscrição</h3>                     
+                </div>
+        </div>
                                 <form (submit)="addPreSign()" class="signup">
                                     <flash-messages></flash-messages>
-
                                     <div class="form-group">
                                         <input [(ngModel)]="teamName" class="form-control" placeholder="Nome da equipa"  name="TC">
                                     </div>
@@ -40,7 +33,6 @@
                                     <div class="form-group">
                                         <input [(ngModel)]="teamContactPhone" class="form-control optional" placeholder="Contacto telefónico do Team Captain"  name="Co">
                                     </div>
-
                                     <div id = "numeroParticipantes" class="btn-group" dropdown>
                                         <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
                                             Número de membros da equipa<span class="caret"></span>
@@ -72,15 +64,19 @@
 
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" (click)="clickedc()"><b>Subscrever a newsletter do GCE</b>, para obter novidades sobre eventos semelhantes.
+                                            <input type="checkbox" (click)="clickedc()"><b> Subscrever a newsletter do GCE</b> para obter novidades sobre eventos semelhantes.
                                         </label>
                                     </div>
                                     <flash-messages></flash-messages>
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-primary btn-block"  value="Pré-inscrição,nailed it!">
+                                        <input type="submit" class="btn btn-primary btn-block"  value="Pré-inscrição, nailed it!">   
                                     </div>
 
-
+<div class="col-md-12">
+                        <div class="centered panel panel-info">
+                            <div class="panel-heading"><a routerLink="/faq"> Consulta a FAQ</a></div>
+                            </div>
+                        </div> 
 
 
 
