@@ -58,7 +58,7 @@ const appRoutes: Routes = [
         {path: '', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
         {path: 'faq', component: PrivacyPolicyComponent}
     ]},
-    //{path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]},
+    {path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]},
     {path: 'thesis', component: GceThesisComponent, canActivate:[AuthGuardService]}
 
 ];

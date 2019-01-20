@@ -1,8 +1,8 @@
 .middlePage {
   width: 70%;
-  height: 50em;
-  margin: auto;
-  margin-top: 3em;
+  height: auto;
+  margin-top: 5em;
+  margin-bottom: 5em;
 }
 
 .btn-file {

@@ -1,5 +1,4 @@
 .bg{
-  background:url("https://groups.ist.utl.pt/gce-neiist/assets/img/ghc.jpg") no-repeat 0px 0px;
   background-size:cover;
   margin-bottom: 2%;
 }
@@ -8,6 +7,15 @@
   height: 100%;
   margin: auto;
 }
+
+@media (max-width: 767px) {
+
+      .middlePage {
+            width: 100%;
+       }
+
+}
+
 .num  {
   font-size:0.3em;
 }
