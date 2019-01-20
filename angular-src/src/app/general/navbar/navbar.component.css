@@ -70,6 +70,7 @@
     position: relative;
     top: 4px;
     right: 3px;
+    cursor: pointer;
 }
 .navbar .nav-link [class^="fa"] {
     top: 2px;
@@ -82,10 +83,12 @@
     font-size: 16px;
     line-height: 1.5em;
     padding: 15px 0;
+    cursor: pointer;
 }
 .navbar .nav-link p:hover {
     color: #9A9A9A !important;
 }
+
 .navbar .navbar-nav .nav-item .nav-link {
     line-height: 1.6;
     margin: 15px 0px;
@@ -107,6 +110,7 @@
 .navbar .navbar-collapse .nav-item .nav-link p {
     display: inline;
 }
+
 .navbar .navbar-collapse .nav-item .dropdown-item i {
     margin: 0 10px;
     margin: 0 10px 0px 5px;

@@ -7,7 +7,7 @@ function Utils() {
     this.requireRole = requireRole;
     this.roleIs = roleIs;
     this.saveFile = saveFile;
-    this.routeIsBlocked = true;
+    this.routeIsBlocked = false;
     this.isFromAdministration = isFromAdministration;
 }
 
