@@ -3,6 +3,12 @@ const DB_PROD = process.env.DB_PRODUCTION;
 let DB_DEV = process.env.DB_DEVELOPMENT;
 const secret = process.env.DB_SECRET;
 
+if (!process.env.DB_DEVELOPMENT)    {
+    DB_DEV = 'mongodb://pevidex:zepovinho96@ds135290.mlab.com:35290/gce_base';
+}   else {
+    DB_DEV = process.env.DB_DEVELOPMENT;
+}
+
 module.exports = {
     DB_SECRET : secret,
     DB_PRODUCTION : DB_PROD,
