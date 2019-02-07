@@ -4,8 +4,8 @@
 setx NODE_ENV "development"
 setx DB_PRODUCTION "mongodb://<dbuser>:<dbpassword>@<dbid>.mlab.com:63571/gce_base"
 setx DB_SECRET "secret"
-setx FENIX_CLIENT_ID "1977390058176570"
-setx FENIX_CLIENT_SECRET "5fMaQkZjor0x+0VmBSntVx54CbuZf/PYenLziqp3kVYdLmHzzn/cNJkY26avmXVrGjlYZHPOlewBEip4at6plA=="
+setx FENIX_CLIENT_ID "id"
+setx FENIX_CLIENT_SECRET "secret"
 ::For example
 setx REDIRECT_URL "http://localhost:8080/login/student"
 setx REDIRECT_URL_PROF "RedirectURLProfNotSet"
