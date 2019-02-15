@@ -61,7 +61,7 @@ export class GceHashCodeComponent implements OnInit {
         this.newsletter = true;
     }
 
-    private setNumber(event,number) {
+    setNumber(event,number) {
         this.participantsNumber = number;
         event.path[3].firstElementChild.innerHTML = number + " <span class=\"caret\"></span>";
     }
