@@ -4,7 +4,7 @@ let DB_DEV = process.env.DB_DEVELOPMENT;
 const secret = process.env.DB_SECRET;
 
 if (!process.env.DB_DEVELOPMENT)    {
-    DB_DEV = 'mongodb://pevidex:zepovinho96@ds135290.mlab.com:35290/gce_base';
+    DB_DEV = 'mongodb://<dbuser>:<dbpassword>@<dbid>.mlab.com:63571/gce_base';
 }   else {
     DB_DEV = process.env.DB_DEVELOPMENT;
 }
