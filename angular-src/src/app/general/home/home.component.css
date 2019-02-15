@@ -88,7 +88,17 @@ width: 100%;
     padding: 18px 24px;
     transition:0.2s background-color;
 }
+#hashbutton {
+    background: url('https://cdn.discordapp.com/attachments/316948358856179723/546014239286886400/google-original-material-image_3.png') no-repeat;
+    background-color: rgba(0,0,0,0.6);
+    padding: 30px 60px !important;
+    font-size: 35px;
+}
 
+#hashbutton:hover{
+    background-color: rgba(0,0,0,1);
+    background: url('https://cdn.discordapp.com/attachments/316948358856179723/546010490950778880/google-original-material-image_1.png') no-repeat;
+}
 .header-nightsky .btn-primary:hover {
     background-color:rgba(0,219,255,0.4);
 }
