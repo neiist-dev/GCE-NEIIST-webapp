@@ -1,12 +1,21 @@
 .bg{
-  background:url("https://groups.ist.utl.pt/gce-neiist/assets/img/ghc.jpg") no-repeat 0px 0px;
   background-size:cover;
+  margin-bottom: 2%;
 }
 .middlePage {
   width: 70%;
   height: 100%;
   margin: auto;
 }
+
+@media (max-width: 767px) {
+
+      .middlePage {
+            width: 100%;
+       }
+
+}
+
 .num  {
   font-size:0.3em;
 }
@@ -83,15 +92,12 @@ article[role="login"]:hover {
 }
 
 article[role="login"] h3 {
-  font-size: 26px;
-  font-weight: 300;
-  color: #3cba54;;
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 4%;
 }
 
 article[role="login"] p {
   font-size: 16px;
-  padding: 5px 15px;
 }
 
 .nav-tab-holder {
