@@ -72,7 +72,7 @@ let appConfig = require('./config/app');
 let port = process.env.PORT || appConfig.ports[node_env];
 
 // Connect to mongoDB database ===========================================
-mongoose.connect(dbConfig.urls[node_env],{useMongoClient: true});
+mongoose.connect(dbConfig.urls[node_env], { useNewUrlParser: true });
 mongoose.connection.on("connected", () => {
     logger.info("Connected to MongoDB on " + dbConfig.urls[node_env]);
 });
@@ -80,6 +80,7 @@ mongoose.connection.on("error", (dbError) => {
     logger.error("Could not connect to database on: " + dbConfig.urls[node_env]);
     throw new Error(dbError);
 });
+mongoose.set('useCreateIndex', true);
 
 if(DB_BACKUP)   {
     //Run at ten of Thursdays
