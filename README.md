@@ -8,13 +8,16 @@
 ![GCE-Thesis][logo]
 
 
-[logo]: https://groups.ist.utl.pt/~gce-neiist.daemon/assets/gce.png
+[logo]: https://web.ist.utl.pt/~ist180970/assets/img/favicon.png
 [GCE-NEIIST][GCE] is the home for our student's group, Grupo de Contacto com Empresas.
 
 This platform aims to provide services for [Técnico Lisboa](www.tecnico.ulisboa.pt) students, such as:
 * Informative service about the group.
 * Events sign up (i.e. programming competitions, open-days)
 * GCE-Thesis: Using AI to classify MEIC masters' theses proposals. We provide a simple and intuitive interface to navigate through them.
+* GCE-Inside View: A project that shows different careers on Computer Science and Engineering.
+
+**Upcoming** : GCE-Thesis v2: A smart chatbot that helps students to pick their master thesis.
 
 Note that this is a **WIP** project.
 
@@ -24,7 +27,7 @@ Note that this is a **WIP** project.
 ## Setup and Run
 1. [Fork, Clone, Remote](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Fork,-Clone,-Remote)
 
-2. [Set environment variables](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Setting-Environment-Variables).
+2. DEPRECATED - [Set environment variables](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Setting-Environment-Variables).
 
 
 ### Run the App
@@ -35,12 +38,10 @@ In order to run the project the required libraries need to be installed.
 1. Install [node][node].
 
 
-1. Create an account and a MongoDB Deployment in [Mlab][mlab].
+1. Create an account and a MongoDB Deployment in [Mlab][mlab], up to Step 3.
 1. Go to your deployment and create a new user. (Save this username and password they will be used later)
-1. Set the environment variables by editing and replacing its values on ``prepare_env_windows.bat`` 
-if you are working on Windows or ``prepare_env_linux.sh`` if you are working on Linux. (replace &lt;dbuser&gt; with the username that was previously saved. Do the same with  &lt;dbpassword&gt; ) 
-1. Run ``prepare_env_windows.bat``  or ``prepare_env_linux.sh`` using your console. Now your environment variables should be set.
-1. Open config/db.js and update the DB_DEV URI with your username and password.
+1. Set the environment variables by **duplicating** .env.example. Rename the duplicated file to .env.  and replace its values.
+1. Duplicate angular-src/.scripts/set-env.env.example. Set FENIX_CLIENT_ID, on angular-src/.scripts/set-env.env.
 1. Run ```npm run first-setup```. This script installs dependencies and builds the front end.
 1. If you wish,[follow our recommendations](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Recommendations).
 1. In case of errors, see our  [Troubleshooting page](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Troubleshooting).
@@ -120,5 +121,5 @@ We follow [Convenant Code Of Conduct][CC].
 [angular]: https://angular.io/
 [express]: https://expressjs.com/
 [mon]: http://www.mongodb.org/
-[mlab]: https://mlab.com/
+[mlab]: https://docs.mlab.com/
 

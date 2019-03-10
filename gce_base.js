@@ -1,12 +1,3 @@
-/*
-* GCE-THESIS
-* This project has been started by the GCE's team:
-* Rafael Belchior
-* Daniel Ramos
-* Inês Sequeira
-*
-* Thanks to António Higgs for the early support
-* */
 require('dotenv').load();
 // Modules =================================================
 const express = require('express');
@@ -35,7 +26,6 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 //Env. variables needed to use Fenix API
 const FENIX_CLIENT_ID = process.env.FENIX_CLIENT_ID;
 const FENIX_CLIENT_SECRET = process.env.FENIX_CLIENT_SECRET;
-const REDIRECT_URL_PROF = process.env.REDIRECT_URL_PROF;
 const REDIRECT_URL = process.env.REDIRECT_URL;
 
 const NODE_ENV_ERROR =
