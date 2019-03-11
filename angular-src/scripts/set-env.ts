@@ -1,29 +1,30 @@
 // Credits: Sara Lara: https://github.com/natchiketa/angular-cli-envvars
 const fs = require('fs');
+const path = require('path');
 
-//import { argv } from 'yargs';
+// import { argv } from 'yargs';
 
 // This is good for local dev environments, when it's better to
 // store a projects environment variables in a .gitignore'd file
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, 'set-env.env')});
 
 // Would be passed to script like this:
 // `ts-node set-env.ts --environment=dev`
 // we get it from yargs's argv object
 
-//No need to diferentiate between development and productino environments.
-//const environment = argv.environment;
-//const isProd = environment === 'prod';
+// No need to diferentiate between development and productino environments.
+// const environment = argv.environment;
+// const isProd = environment === 'prod';
 
-//If we want to differentiate, on package.json, change to:
-  //"start": "npm run config -- --environment=dev && ng serve --environment=dev",
-  //"build": "pm run config -- --environment=prod && ng build --environment=prod",
+// If we want to differentiate, on package.json, change to:
+  // "start": "npm run config -- --environment=dev && ng serve --environment=dev",
+  // "build": "pm run config -- --environment=prod && ng build --environment=prod",
 const targetPath = `./.env.ts`;
 const envConfigFile = `
 export const Vars = {
   FENIX_CLIENT_ID: "${process.env.FENIX_CLIENT_ID}",
   REDIRECT_URL: "${process.env.REDIRECT_URL}",
-  GOOGLE_MAPS: "AIzaSyArbU462lOUJl9dhdne0n-nM5H_ADqoNXo"
+  GOOGLE_MAPS: "${process.env.GOOGLE_MAPS_KEY}"
 };
 `;
 
