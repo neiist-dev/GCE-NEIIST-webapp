@@ -269,8 +269,9 @@ function processThesis (theses, callback)   {
         for (let i = 0; i < thesisNumber; i++)  {
 
 
-            if (theses[i].title.includes("Project") || theses[i].title.includes("PROJECT") ||
-                theses[i].title.includes("Projecto") || theses[i].title.includes("PROJECTO"))    {
+            if ((theses[i].title.toLowerCase().includes("projeto")||theses[i].title.toLowerCase().includes("project") ||
+                theses[i].title.toLowerCase().includes("projecto")) && 
+                !(theses[i].title.toLowerCase().includes("thesis") || theses[i].title.toLowerCase().includes("dissertação") || theses[i].title.toLowerCase().includes("dissertation") ))    {
                 projectsNumber ++;
                 theses[i].type = "Project";
                 theses[i].title = theses[i].title.replace('(PROJECT)','');
@@ -280,6 +281,8 @@ function processThesis (theses, callback)   {
                 theses[i].title = theses[i].title.replace('PROJECT:','');
                 theses[i].title = theses[i].title.replace('Projecto:','');
                 theses[i].title = theses[i].title.replace('PROJECTO:','');
+                theses[i].title = theses[i].title.replace('Projeto:','');
+                theses[i].title = theses[i].title.replace('PROJETO:','');
 
             } else  {
                 //Default case

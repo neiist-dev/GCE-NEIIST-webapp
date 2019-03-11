@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
-const STATUS = ["Assigned", "Unassigned"];
+// status switches according  to the language of the downloaded page
+//const STATUS = ["Assigned", "Unassigned"];
+const STATUS = ["Atribuída", "Não atribuída"];
 const TYPE = ["Project","Dissertation"];
 
 const ThesisSchema = mongoose.Schema({
