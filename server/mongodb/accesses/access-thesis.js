@@ -15,6 +15,7 @@ class AccessThesis {
         this.getThesisById = getThesisById;
         this.getThesisRecomendation = getThesisRecomendation;
         this.incrementClicks = incrementClicks;
+        this.removeThesis = removeThesis;
     }
 }
 
@@ -263,3 +264,6 @@ async function incrementClicks(id) {
 }
 
 
+function removeThesis(){
+  
+}
