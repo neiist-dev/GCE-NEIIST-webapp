@@ -30,6 +30,7 @@ class ThesisServices {
 
 let thesis_services = module.exports = exports = new ThesisServices();
 
+
 function parseThesis(callback)    {
 
     let parsedTheses = [];
@@ -379,4 +380,8 @@ function printThesesArraySimplified(array, id)    {
             console.log();
         }
     }
+}
+
+function removeTheses(){
+    
 }
