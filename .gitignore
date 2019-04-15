@@ -17,6 +17,8 @@ sslcert/*
 angular-src/public
 *.bat
 *.sh
+.env
+angular-src/scripts/set-env.env
 
 #Placeholders
 !server/files/GoogleHashCode/placeholder.txt
