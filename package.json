@@ -22,6 +22,7 @@
   },
   "scripts": {
     "test": "mocha --reporter dot --timeout 10000 \"server/tests/*.spec.js\"",
+    "test-routes": "mocha --reporter dot --timeout 10000 \"server/tests/*-routes.spec.js\"",
     "first-setup": "npm install && npm run heroku-postbuild",
     "start": "nodemon gce_base.js",
     "build": "",
