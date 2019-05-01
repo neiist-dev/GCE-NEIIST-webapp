@@ -18,6 +18,7 @@ export class GceThesisComponent implements OnInit {
     applications: any[];
     theses: any[];
     numberTheses: number;
+    numberFreeTheses: number = 0;
     recommendedTheses: any[];
     showRecomendations: boolean;
     areas: string[] = [
@@ -142,6 +143,12 @@ export class GceThesisComponent implements OnInit {
         this.thesisService.getAllTheses().subscribe(res => {
             this.theses = res.response_data;
             this.numberTheses = this.theses.length;
+            for (let thesis of this.theses) {
+                console.log(thesis.status);
+                if (thesis.status == "Não atribuída")  {
+                    this.numberFreeTheses++;
+                }
+            }
         });
 
     }
