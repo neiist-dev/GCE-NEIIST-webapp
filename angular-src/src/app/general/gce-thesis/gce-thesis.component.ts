@@ -177,7 +177,7 @@ export class GceThesisComponent implements OnInit {
             this.selectedAreas = this.selectedAreas.filter(str => str != clickedArea);
         }
         else{
-            this.selectedAreas.push(clickedArea)
+            this.selectedAreas.push(clickedArea);
             if (this.selectedAreas.length > 2){
                 this.selectedAreas.shift();
             }

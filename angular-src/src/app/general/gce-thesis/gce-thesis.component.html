@@ -79,11 +79,13 @@
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Importante!</h4>
         <p>
-            Nesta secção podes pesquisar as teses de mestrado disponíveis para MEIC (2017-2018, 2º Semestre).
+            Nesta secção podes pesquisar as teses de mestrado disponíveis para MEIC (2018-2019, 1º Semestre).
             Para tal, basta escolheres os filtros que pretendes aplicar às
             <b>{{numberTheses}}</b> teses.<br>
             Na barra de navegação da direita, consegues filtrar as teses por Projeto e Dissertação, e na barra da esquerda
             consegues filtrar pela sua àrea.<br>
+            Para procurares por uma keyword (i.e., machine learning, big data) basta inseri-la na search. Também podes procurar por um professor, inserindo o seu nome. <br>
+            A lista de docentes do Departamento de Engenharia Informática está disponível <a href="https://fenix.tecnico.ulisboa.pt/departamentos/dei/docentesman">aqui</a>.
 
             A qualquer momento podes passar o rato por cima das marcas à esquerda (premir as marcas se estiveres num dispositivo móvel) para saberes o que significam as siglas.
         </p>
@@ -93,8 +95,8 @@
 
 
     <input type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
-    <h1 class="availabe-theses-message" *ngIf="availableTheses != 0;else noAvailableTheses"> {{availableTheses}} Available Theses</h1>
-    <ng-template #noAvailableTheses><h1 class="availabe-theses-message">No Available Theses</h1></ng-template>
+    <h1 class="availabe-theses-message" *ngIf="availableTheses != 0;else noAvailableTheses"> {{availableTheses}} propostas de tese</h1>
+    <ng-template #noAvailableTheses><h1 class="availabe-theses-message">A carregar...</h1></ng-template>
     <div class="row" [hidden]="showRecomendations">
 
         <ng-container *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes">
