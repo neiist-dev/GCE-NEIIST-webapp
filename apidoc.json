@@ -1,0 +1,11 @@
+{
+  "name": "GCE-WebApp",
+  "version": "0.17.7",
+  "description": "\uD83C\uDF0E GCE-NEIIST web app",
+  "title": "GCE-WebApp Docs",
+  "url": "https://github.com/GCE-NEIIST/GCE-NEIIST-webapp",
+  "sampleUrl": "https://gce-neiist.org/",
+  "footer": {
+    "title": "GCE-NEIIST"
+  }
+}
