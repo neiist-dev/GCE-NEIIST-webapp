@@ -16,6 +16,7 @@ class AccessThesis {
         this.getThesisRecomendation = getThesisRecomendation;
         this.incrementClicks = incrementClicks;
         this.removeThesis = removeThesis;
+        this.asyncAddThesis = asyncAddThesis;
     }
 }
 
@@ -161,6 +162,129 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
     /*
 
     */
+}
+
+async function asyncAddThesis(id, title, supervisors, vacancies, location, courses,
+                   observations, objectives, status, requirements, areas,
+                   clicks, type, lastModified, callback) {
+    Thesis.find(
+        {
+            id: id
+        }, (err, thesis) =>   {
+            if (err)  {
+               return new Error(err);
+            }
+            if (thesis[0]) {
+                if (thesis[0].title === title && thesis[0].supervisors === supervisors &&
+                    thesis[0].vacancies === vacancies && thesis[0].observations === observations &&
+                    thesis[0].objectives === objectives && thesis[0].status === status && thesis[0].requirements === requirements
+                    && thesis[0].areas=== areas)  {
+                    return;
+                }
+
+                if (thesis[0].title !== title) {
+                    Thesis.update({ id: id }, { $set: { title: title }}, (err,result) =>  {
+                        if (err)  {
+                            return new Error(err);
+                        } else    {
+                            return result;
+                        }
+                    });
+                }
+                if (thesis[0].supervisors !== supervisors) {
+                    Thesis.update({ id: id }, { $set: { supervisors: supervisors }}, (err,result) =>  {
+                        if (err)  {
+                            return new Error(err);
+                        } else    {
+                            return result;
+                        }
+                    });
+                }
+                if (thesis[0].vacancies !== vacancies) {
+                    Thesis.update({ id: id }, { $set: { vacancies: vacancies }}, (err,result) =>  {
+                        if (err)  {
+                            return new Error(err);
+                        } else    {
+                            return result;
+                        }
+                    });
+                }
+                if (thesis[0].observations !== observations) {
+                    Thesis.update({ id: id }, { $set: { observations: observations }}, (err,result) =>  {
+                        if (err)  {
+                            return new Error(err);
+                        } else    {
+                            return result;
+                        }
+                    });
+                }
+                if (thesis[0].objectives !== objectives) {
+                    Thesis.update({ id: id }, { $set: { objectives: objectives }}, (err,result) =>  {
+                        if (err)  {
+                            return new Error(err);
+                        } else    {
+                            return result;
+                        }
+                    });
+                }
+                if (thesis[0].status !== status) {
+                    Thesis.update({ id: id }, { $set: { status: status }}, (err,result) =>  {
+                        if (err)  {
+                            return new Error(err);
+                        } else    {
+                            return result;
+                        }
+                    });
+                }
+                if (thesis[0].requirements !== requirements) {
+                    Thesis.update({ id: id }, { $set: { requirements: requirements }}, (err,result) =>  {
+                        if (err)  {
+                            return new Error(err);
+                        } else    {
+                            return result;
+                        }
+                    });
+                }
+
+                if (thesis[0].areas !== areas) {
+                    Thesis.update({ id: id }, { $set: { areas: areas }}, (err,result) =>  {
+                        if (err)  {
+                            return new Error(err);
+                        } else    {
+                            return result;
+                        }
+                    });
+                }
+            } else    {
+
+                let newThesis = new Thesis({
+                    id: id,
+                    title: title,
+                    supervisors: supervisors,
+                    vacancies: vacancies,
+                    location: location,
+                    courses: courses,
+                    observations: observations,
+                    objectives: objectives,
+                    status: status,
+                    requirements: requirements,
+                    areas: areas,
+                    type: type,
+                    clicks: clicks,
+                    lastModified: lastModified
+                });
+
+                newThesis.save((err,result)=>   {
+                    console.log(err);
+                    if (err)  {
+                        return new Error(err);
+                    } else    {
+                        return result;
+                    }
+                });
+            }
+
+        });
 }
 
 function addThesisArray(thesesArray, callback) {

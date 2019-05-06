@@ -1,23 +1,56 @@
 const natural = require("natural");
-const bClassifierThesis = new natural.BayesClassifier(null,0.1);
+const path = require('path');
+let htmlparser = require("htmlparser2");
+let bClassifierThesis = new natural.BayesClassifier();
+const fileServices = require('./file-services');
+natural.PorterStemmer.attach();
+const util = require('util');
+const DBAccess = require('../mongodb/accesses/mongo-access');
+const fs = require('fs');
 
 class ThesesServices {
     constructor() {
         this.trainClassifier = trainClassifier;
+        this.saveClassifier = saveClassifier;
+        this.parseTheses = parseTheses;
+        this.saveParsedThesesOnFile = saveParsedTheses;
+        this.classifyTheses = classifyTheses;
+        this.saveClassifiedTheses = saveClassifiedTheses;
+        this.loadClassifier = loadClassifier;
+        this.loadClassifiedTheses = loadClassifiedTheses;
+        this.classifyAux = classifyAux;
+        this.saveClassifiedThesesOnDB = saveClassifiedThesesOnDB;
+        this.thesisBackup = thesisBackup;
+        this.getTheses = getTheses;
     }
 }
 
 let thesesServices = module.exports = exports = new ThesesServices();
-trainClassifier();
-async function trainClassifier (type, latestId) {
-    natural.PorterStemmer.attach();
-    console.log("i am waking up to the sounds of chainsaws".tokenizeAndStem());
-    console.log("chainsaws".stem());
 
+/*
+Network Services and Applications
+Embedded Systems and Computer Architecture
+Distributed Systems and Operating Systems
+
+Interaction and Multimedia
+Graphical Visualization
+
+Artificial Intelligence Technologies
+Intelligent Systems
+
+Algorithms and Applications
+Software Engineering
+Programming
+
+Architecture and Management of Information Systems
+Information Systems Technologies
+
+ */
+async function trainClassifier (type) {
+    const classCase = type || 1;
     //By discipline groups
     //https://fenix.tecnico.ulisboa.pt/departamentos/dei/disciplinas
-
-    if (type === "1")  {
+    if (classCase === 1)  {
 
         ///////////////////////////////////////////////////////////
         ////////////// Scientific Area of Programming Methodology and Technology
@@ -81,7 +114,7 @@ async function trainClassifier (type, latestId) {
         //let objCPDDS = "Understanding the models, techniques, and programming methods for parallel algorithms. Analyzing and designing parallel algorithms. Understanding the foundations of distributed computing.";
         let projCPDDS = "Parallel computing models: multiprocessors and multicomputers. Memory organization; communication complexity. Interconnection networks. Flynn’s taxonomy. Programming message-passing systems: MPI. Programming shared memory systems: OpenMP, threads, race conditions, deadlock detection. Analysis and synthesis of parallel algorithms: problem partitioning; data organization; synchronization; balancing and scheduling. Performance analysis for parallel algorithms. Foundations of distributed computing and their applications to parallel algorithms. Limits of parallel computing. Analysis of parallel algorithms: sorting algorithms; numerical algorithms, matrix multiplication, solving systems of linear equations; algorithms on graphs; search and optimization algorithms.";
 
-        //bClassifierThesis.addDocument(objCPDDS,"Distributed and Cyberphysical Systems");
+        //bClassifierThesis.addDocument(objCPDDS,"Distributed Systems and Operating Systems");
         bClassifierThesis.addDocument(projCPDDS,"Algorithms and Applications");
 
         //Advanced Algorithms - AAva
@@ -119,7 +152,7 @@ async function trainClassifier (type, latestId) {
         //Ambient Intelligence - AI
         //let objAI = "•\tunderstand the concept of Ambient Intelligence and be aware of the multiple fields where it can be applied; •\trecognize the importance of having sensitive and responsive environments that react accordingly to the presence and preferences of people; •\tbe introduced to different technologies that are applied in this field and be aware of the main challenges regarding power consumption, communication, security, reliability, interface with sensors and actuators and interface with people. •\tlearn about three specific application areas: smart homes/home automation and intelligent buildings, wireless sensor and actuator networks, and intelligent mobility systems; •\tbe aware of different energy management policies, in the field of home/building automation, keeping focus on the user requirements and preferences; •\tbe able to understand, define the requirements and address the implementation of a system that monitors an environment and reacts to different events and to the profile of the people present.";
         let projAI = "Ambient Intelligence. From current smart environments to future ambient intelligence: smart cities, health and assisted life, smart dust. Architecture and technologies to support ambient intelligence: sensors, actuators, embedded computing. 2.	Detection, classification, and identification general requirements for intelligent environments. Main detection technologies for humans and objects: tagging, radio-frequency (RF/ID), image processing. Location systems. 3.	Intelligent buildings and homes. Requirements: comfort, energy management, security. Environment sensing and control. a.	Legacy automation platforms: X10, KNX, LonWorks. IP based platforms: Building Automation and Control Network (BACnet), Open Building Information Exchange (oBIX). Integrated platforms: Apple iHome. b.	Facility management: environment, energy, safety, and security. Smart Grid. 4.	Smart Cities and Mobility: characteristics of urban environments – services, mobility/accessibility, environment, energy. a.	Intelligent mobility systems: Public transport modes, identification and ticketing requirements, types of services (regular vs flexible / on demand). b.	Intelligent transportation systems (ITS): Legacy platforms – detection, classification and identification of vehicles, traffic management. c.	Mobility patterns: data capture and collection (explicit, implicit, crowd-sourced). d.	On-board computational systems: architecture, functional segmentation (driving, safety, comfort); automotive buses. Integration of applications (EBSF). e.	Autonomous and connected vehicles: vehicle to vehicle and to insfrastructure interactions (V2V, V2I); vehicular communications, data models for interoperation (SAE J2735). 5.	Industry and Logistics: Characteristics of the production and supply chain. Reactive and reconfigurable production (Industry 4.0). 6. Supply chain management a.	Product and container identification – bar codes and electronic tags; global Electronic Product Code architecture. b.	Supply chain facilities: intelligent warehouses, smart shops, transportation fleets. c.	Internet of Things (IoT). 7.	Assisted Life: Biosensors and wearables; smart clothing and textiles. Vital signs monitoring and life support. Remote monitoriring of risk groups (security, elderly and disabled). 8.	Other application domains: structural monitoring, intelligent materials; natural environment, smart farming.".tokenizeAndStem();
-        //bClassifierThesis.addDocument(objAI,"Distributed and Cyberphysical Systems");
+        //bClassifierThesis.addDocument(objAI,"Distributed Systems and Operating Systems");
         bClassifierThesis.addDocument(projAI,"Network Services and Applications");
 
         //AInfra-Structures and Network Management
@@ -184,8 +217,8 @@ async function trainClassifier (type, latestId) {
         //Design and Implementation of Distributed Applications
         //let objPADIDS = "Understand the system level problems underlying the design and development of large-scale applications. Learn the existing solutions concerning the middleware for large-scale applications with emphasis on the models and architectures taking into account non-functional requirements (scalability, performance, etc.). Specify, design, analyse and implement large scale distributed applications as well as its underlying middleware.";
         let projPADIDS = "Part I: System Models System models Synchronous vs asynchronous systems. Message passing vs shared memory. Fault-models. Consistency models and the CAP theorem. System scales: Client server Clusters and Grid Computing Cloud Computing Peer to peer Part II: Abstractions Distributed Coordination: Physical clocks and clock synchronization Logical time and logical clocks Vector clocks Global states and distributed snapshots Mutual exclusion Leader election Distributed agreement Reliable multicast Total order Consensus Group communication and virtual synchrony Distributed transaction processing Concurrency control Distributed atomic commitment Part III: Systems Building large reliable systems Replicated File-systems Lazy replication Peer-to-peer systems. Geo-replicated systems The google case-study".tokenizeAndStem();
-        //bClassifierThesis.addDocument(objPADIDS,"Distributed and Cyberphysical Systems");
-        bClassifierThesis.addDocument(projPADIDS,"Distributed and Cyberphysical Systems");
+        //bClassifierThesis.addDocument(objPADIDS,"Distributed Systems and Operating Systems");
+        bClassifierThesis.addDocument(projPADIDS,"Distributed Systems and Operating Systems");
 
         //Engineering of Large Scale Systems
         //let DDRS = "Performance and scalability are key factors to the success of Internet services such as those provided by Google, Amazon, Microsoft, Facebook or Netflix. The goal of this course is to equip students with the ability to reason about performance and scalability in large scale systems in general, and in cloud-based systems in particular. Students will learn to identify scalability limitations and system bottlenecks, by monitoring and modelling system behaviour. Students will also learn how to properly design benchmarks and simulations and how to interpret results through appropriate data representation. Equipped with these skills, students will be able to design scalable systems with good performance running in cloud platforms and enhance existing systems. Students will exercise these skills through concrete cases studies that will exploit Machine Learning, resource heterogeneity, and other techniques to predict future behaviour, perform capacity planning, and develop self-adapting systems. By the end of the course, students should be able to: ● Engineer systems for performance and scalability ●\tDesign benchmarks to correctly assess system behaviour under different workloads ●\tMeasure, identify and address system bottlenecks ●\tPredict future system behaviour for capacity planning ●\tSimulate new systems to assess their behaviour before implementation and simulate existing systems to assess impact of potential changes.";
@@ -280,7 +313,7 @@ async function trainClassifier (type, latestId) {
 
         //Data Science
         //let objRSIPR5 = "Students should be able to: •\tUnderstand the statistics and data processing concepts used in complex information processes. •\tDesign systems for knowledge discovery processes automation, and communication of their outcomes using the appropriate algorithms and validation methods at each stage. •\tUnderstand the techniques for frequent patterns recognition and outlier detection in data sets. • Identify sensitive data that might be subject to processing restrictions and data anonymization techniques that enable privacy-preserving data mining, •\tAddress large-scale data processing challenges.";
-        let projRSIPR5 = "1.\tData Science. What is data science? The multidisciplinary nature. Data engineering vs. Data science. The role of a data scientist. 2. Knowledge Discovery Process. Formulating questions. Exploratory data analysis. Pre-processing overview. Evaluation overview - Occam’s razor. Information Visualization overview. Documenting the process: Notebooks. 3.\tPre-processing. Data scaling and centring. Data reduction: PCA, SVD, DFT, wavelets, SAX. Data balancing: resampling and SMOTE. Data discretization: equal-width, equal-frequency, taxonomies. Labelling. 4.\tPattern Mining. Association rules - apriori algorithm. Closed vs Maximal patterns. Evaluation metrics: support, confidence, lift and Jaccard 5.\tClustering. Algorithms: K-means, hierarchical. Evaluation: SSE (MSE), silhouette coefficient, Dunn and DB indexes. 6.\tClassification and Regression. Supervised learning: overfitting, training strategies, cross-validation. Linear and logistic regression. Classification Algorithms: KNN, Naive Bayes, Decision trees: metrics and pruning. Ensembles: AdaBoost, Random forests. Evaluation: Metrics (Accuracy, sensibility and specificity, f-measure, ROC area, confusion matrix); ROC and Lift charts 7.\tOutliers detection. 8.\tPrivacy-preserving data mining. 9.\tLarge-scale data mining. Parallelization: map-reduce, online algorithms. Indexing: LSH, Multidimensional. 10.\tCase Studies / Advanced Topics (9h) Time series and sequential analysis. Social Networks analysis; Mining graphs. Recommender Systems, Computational Advertising. Text and opinion mining. Process Mining. Stream Processing and Mining. Computational biology".tokenizeAndStem();
+        let objRSIPR5 = "1.\tData Science. What is data science? The multidisciplinary nature. Data engineering vs. Data science. The role of a data scientist. 2. Knowledge Discovery Process. Formulating questions. Exploratory data analysis. Pre-processing overview. Evaluation overview - Occam’s razor. Information Visualization overview. Documenting the process: Notebooks. 3.\tPre-processing. Data scaling and centring. Data reduction: PCA, SVD, DFT, wavelets, SAX. Data balancing: resampling and SMOTE. Data discretization: equal-width, equal-frequency, taxonomies. Labelling. 4.\tPattern Mining. Association rules - apriori algorithm. Closed vs Maximal patterns. Evaluation metrics: support, confidence, lift and Jaccard 5.\tClustering. Algorithms: K-means, hierarchical. Evaluation: SSE (MSE), silhouette coefficient, Dunn and DB indexes. 6.\tClassification and Regression. Supervised learning: overfitting, training strategies, cross-validation. Linear and logistic regression. Classification Algorithms: KNN, Naive Bayes, Decision trees: metrics and pruning. Ensembles: AdaBoost, Random forests. Evaluation: Metrics (Accuracy, sensibility and specificity, f-measure, ROC area, confusion matrix); ROC and Lift charts 7.\tOutliers detection. 8.\tPrivacy-preserving data mining. 9.\tLarge-scale data mining. Parallelization: map-reduce, online algorithms. Indexing: LSH, Multidimensional. 10.\tCase Studies / Advanced Topics (9h) Time series and sequential analysis. Social Networks analysis; Mining graphs. Recommender Systems, Computational Advertising. Text and opinion mining. Process Mining. Stream Processing and Mining. Computational biology".tokenizeAndStem();
         bClassifierThesis.addDocument(objRSIPR5,"Information Systems Technologies");
 
         //Business Process Management - ETPN
@@ -318,19 +351,19 @@ async function trainClassifier (type, latestId) {
         //Interactive Visual Communication - CVI
         //let objCVI = "The goal is to provide students with knowledge and competencies needed for the effective communication of concepts, trneds and information based on interactive graphic applications. We’ll describe the relevant specificities of different data types that can be used to communicate, and the best way of using and combining them towards that end. Next, we’ll teach metadata and descriptor extraction techniques from the different media, with an emphasis in images, thus allowing their more efficient manipulation and usage. Indexing and retrieving media based on that metadata will be studied next. Possessing the data in an easy to use format, students will then learn how to visually represent and explore them, interactively. Finally, we’ll approach the question of how best to present concepts, trends and information with the creation of public multimedia presentations, maximizing their impact and the amount of information apprehended by the audience.";
         let projCVI = "1.\tIntroduction 2.\tImages and other Media 3.\tMetadata and Content Information 4.\tThe special case of personal information: PIM and Lifelogging 5.\tFeature Extraction and Indexing 6.\tRetrieval evaluation 7.\tGraphic design principles 8.\tHuman Factors 9. Communicating with data 10.\tPhotography, Video and Animations 11.\tMultimedia Presentations".tokenizeAndStem();
-        //bClassifierThesis.addDocument(objCVI,"Interaction and Visualization");
+        //bClassifierThesis.addDocument(objCVI,"Interaction and Multimedia");
         bClassifierThesis.addDocument(projCVI,"Interaction and Multimedia");
 
         //User Centered Design - CCU
         //let objCCU = "Understand the basic principles and the methodologies of interactive systems user centred design. Understand users and their needs, how to really acquire them, and the need of user involvement in interactive systems design and implementation. Adapt the above knowledge to user centered design methodologies. Design and implement an interactive system involving real users at various levels in light of the above.";
         let projCCU = "Lectures: Introduction to User Centered Design. Users and Stakeholders. Inquiring Users and Experts. Observing Users. User Involvement and Participation. User Needs and Requirements. Usability Engineering. Data Analysis and Interpretation. Building Prototypes. Interface Types. Affective Aspects. Accessibility. Ethics in User Centered Design. Laboratory: Workshops with the following themes: Who are the Users? What the Users want? Applying Cultural Probes Workshops with Users Initial Requirements Validation of Requirements Conceptual Model and First Low Fidelity Prototypes. Usability Testing. Low Fidelity Prototypes. Functional Prototype.".tokenizeAndStem();
-        //bClassifierThesis.addDocument(objCCU,"Interaction and Visualization");
+        //bClassifierThesis.addDocument(objCCU,"Interaction and Multimedia");
         bClassifierThesis.addDocument(projCCU,"Interaction and Multimedia");
 
         //Internet of Things Interaction Design
         //let objIOT2 = "Students should be able to: Understand how Internet of Things (IoT) Interaction Design differs from traditional disciplines of Human-Computer Interaction (HCI); Think beyond “brick” devices (e.g. phones, tablets) to IoT environments and new interaction modalities; Apply Interaction Design techniques to ideate and prototype novel IoT concepts; Gain skills in developing interactive prototypes that combine software and hardware in new ways; Gain a foundation of contemporary and classic research in the fields of Interaction Design and Ubiquitous Computing; Understand challenges in evaluating the user experience of IoT-based systems and environments.";
         let projIOT2 = "1.\tInteraction Design and the Internet of Things a.\tWhat is Interaction Design b.\tWho creates Interaction Design c.\tWhat is the Internet of Things d.\tChallenges of designing for IoT Experiences 2.\tTechniques for Designing User Experiences a.\tSketching b.\tThe design funnel c.\tSketching with templates and foam core d.\tCreating sequential and narrative storyboards e.\tUser research techniques: Uncoverting the mental model, Wizard of Oz, and Think Aloud 3.\tPrototyping tools for the Internet of Things a.\tArduino for interactive objects b.\tKinect sensors for interactive spaces 4.\tDisciplines of Human-Computer Interaction within the Internet of Things a.\tTangible interaction b.\tWearable interaction c.\tContext-aware environments 5.\tInput and Output Technologies for IoT a.\tTouchscreens, from smartwatches to wall displays b.\tVoice interaction c.\t3D gestures d.\tOther input modalities from accoustic input to brain signals e. Audio output f.\tHaptic feedback, from vibrotactile to muscle-propelled feedback g.\tOther output modalities 6.\tEvaluating User Experience of IoT systems a.\tChallenges b.\tResearch methods c.\tQualitative and Quantitative analysis".tokenizeAndStem();
-        //bClassifierThesis.addDocument(objIOT2,"Distributed and Cyberphysical Systems");
+        //bClassifierThesis.addDocument(objIOT2,"Distributed Systems and Operating Systems");
         bClassifierThesis.addDocument(projIOT2,"Interaction and Multimedia");
 
         //Game Design - DDJ
@@ -342,8 +375,8 @@ async function trainClassifier (type, latestId) {
         //Multimedia Content Production - PCM
         //let objPCM = "Know the different types of multimédia information and how to manipulate them to poduce multimedia content. To understand the technological constraints that affect Production. To understand critical factors affect the success of a production, namely in aspects such as capture, encoding, processing and visualization of the different media. To know the different kinds of available authoring tools. To create Multimedia contents; To identify the different contexts in which multimedia can be consumed, with emphasys on online and network issues (evaluate bandwidth, latency, synchronization, etc.) and mobile devices. Introduce some advanged multimedia usages such as procedural modelling, generative art augmented reality. Apply efficient methods of multimedia content retrieval.";
         let projPCM = "1.\tMultimedia Data Types a.\tText b.\tBitmap Images c.\tVector Images and SVG d.\tSound e.\tVideo f.\tAnimations 2.\tProcessing and Visualization of multimedia signals 3.\tCapture and encoding of multimedia information 4.\tMultimedia design principles 5.\tLinear and Non-Linear edition of audio and video 6.\tSynchronization 7.\tScripting languages and interactive applications 8.\tMultimedia and networks 9.\tMobile multimedia 10.\tAdvanced multimédia applications 11.\tContent-based multimedia retrieval 12.\tMultimédia databases".tokenizeAndStem();
-        //bClassifierThesis.addDocument(objPCM,"Interaction and Visualization");
-        bClassifierThesis.addDocument(projPCM,"Interaction and Visualization");
+        //bClassifierThesis.addDocument(objPCM,"Interaction and Multimedia");
+        bClassifierThesis.addDocument(projPCM,"Interaction and Multimedia");
 
         //Usability and Information Systems
         let projUIS = "1. Usability and Usability Engineering 2. Requirements Gathering (User and Task Analysis) 3. Methods for Data Collection 4. Human Factors 5. Conceptual and Mental Models 6. Interaction Styles 7. Screen Design and Prototyping 8. Heuristic evaluation and Evaluation with users 9. Evaluation Data Analysis 10. Web Usability".tokenizeAndStem();
@@ -353,7 +386,7 @@ async function trainClassifier (type, latestId) {
         //Three-Dimensional Vizualization and Animation - AVT
         //let objAVT = "This course introduces design and development techniques for 3D real-time interactive applications by using graphic APIs such as Modern OpenGL and WebGL. It includes the development of an immersive 3D game for mobile devices by using a low-cost VR glasses set. The course covers also the latest advances in GPU technology and their applications to simulation and computer games. Students should be able to describe and justify methods, procedures and example systems used in Real-Time Interactive Virtual Environments, by identifying the underlying terms, concepts and base principles.";
         let projAVT = "Real-Time Image Synthesis, 3D Viewing Pipeline (Modern OpenGL and WebGL), GLSL Shading language programming, Scenes description formats, 3D Geometric Transformations; Visual Appearance: advanced Lighting and Texturing (Bump mapping and Environmental mapping); Collision Detection, Special visual effects: lens flare, stencil, billboards, particle systems; Stereoscopic effect; Acceleration Techniques for games and simulators".tokenizeAndStem();
-        //bClassifierThesis.addDocument(objAVT,"Interaction and Visualization");
+        //bClassifierThesis.addDocument(objAVT,"Interaction and Multimedia");
         bClassifierThesis.addDocument(projAVT,"Graphical Visualization");
 
         //Computer Graphics for Games - CGJ
@@ -365,13 +398,13 @@ async function trainClassifier (type, latestId) {
         //3d Programming - PSJ
         //let objPSJ = "This course introduces the concepts and theory of a modern photorealistic rendering. Through the ideas and software in this course, the students will learn to design and develop a rendering system for creating stunning imagery. It covers also the development of a Unity 3D-based application by using its Assets library and the built-in shaders for photorealistic appearance.";
         let projPSJ = "Rendering Equation, Photorealistic Rendering and the Ray-Tracing Algorithm, Geometry Intersection techniques, Acceleration Structures: Grids, KD-Trees and Bounding-Volumes Hierarchy; Materials, Monte Carlo Integration, BRDF and Light Sampling, Combined Sampling & Path Tracing, Photon Mapping, Unity 3D game engine: GUI, game objects and components, lights, materials, rigid bodies, scripting, input and character control, cameras, prefabs, colliders, triggers and shaders.".tokenizeAndStem();
-        //bClassifierThesis.addDocument(objPSJ,"Interaction and Visualization");
+        //bClassifierThesis.addDocument(objPSJ,"Interaction and Multimedia");
         bClassifierThesis.addDocument(projPSJ,"Graphical Visualization");
 
         //Information Visualization - VI
         //let objVI = "This course introduces design and development techniques for 3D real-time interactive applications by using graphic APIs such as Modern OpenGL and WebGL. It includes the development of an immersive 3D game for mobile devices by using a low-cost VR glasses set. The course covers also the latest advances in GPU technology and their applications to simulation and computer games. Students should be able to describe and justify methods, procedures and example systems used in Real-Time Interactive Virtual Environments, by identifying the underlying terms, concepts and base principles.";
         let projVI = "Real-Time Image Synthesis, 3D Viewing Pipeline (Modern OpenGL and WebGL), GLSL Shading language programming, Scenes description formats, 3D Geometric Transformations; Visual Appearance: advanced Lighting and Texturing (Bump mapping and Environmental mapping); Collision Detection, Special visual effects: lens flare, stencil, billboards, particle systems; Stereoscopic effect; Acceleration Techniques for games and simulators".tokenizeAndStem();
-        //bClassifierThesis.addDocument(objVI,"Interaction and Visualization");
+        //bClassifierThesis.addDocument(objVI,"Interaction and Multimedia");
         bClassifierThesis.addDocument(projVI,"Graphical Visualization");
 
         //Virtual Reality
@@ -457,188 +490,416 @@ async function trainClassifier (type, latestId) {
 
         ///////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////
-
-
-        /*
-
-        Courses not present on https://fenix.tecnico.ulisboa.pt/departamentos/dei/disciplinas
-
-        //Image Processing and Vision - PIV
-        let objPIV = "This course introduces image analysis methods as well as perception methods to extract information from 3D scenes using cameras. This includes techniques for the following problems: image filtering, segmentation, recognition, detection and tracking, self-localization and reconstruction of 3D scenes.";
-        let projPIV = "(1) Camera model: projective model, camera calibration; (2) Image processing: filtering, noise reduction, pyramids and space-scale; (3) Feature extraction: edges, corners, lines, SIFT; (4) Image alignment: based on marks, dense methods; (5) Segmentation: thresholding, independent and joint labeling, Markov random fields; (6) Object recognition: shape, texture and color descriptors, scene descriptors; (7) Structure from motion: stereo vision, epipolar geometry, motion estimation.";
-
-        bClassifierThesis.addDocument(objPIV,"Intelligent Systems");
-        bClassifierThesis.addDocument(projPIV,"Intelligent Systems");
-
-
-        //Robotic Systems in Manipulation
-        let objRSIPR2 = "This course aims to expose students to the major related topics in robot manipulation, given from a computer science perspective. A high-level approach is adopted, where the student is first exposed to the software/hardware architectural specificity of a robot manipulator cell. Hands-on robot programming will be constant throughout the course using state of the art development environments such as open source research oriented ROS as well as industrial robot languages such as ABB RAPID and KUKA KRL, available at the robotics lab of the Department of Mechanical Engineering. The course concludes with advanced topics in manipulation involving visual feedback and force feedback in various application scenarios such as industrial co-worker, medical and surgical, in human-friendly environments.";
-        let projRSIPR2 = "1. Introduction 2. Requirements of Robot Architectures a. Modularity and Hierarchy b. Layered Robot Control Architectures c. Fault tolerance and redundancy 3. Robot Operating System (ROS) 4. Industrial Manipulation Robots - ABB RAPID architecture and the IRB-140 Industrial Robot 5. Service Manipulation Robots - KUKA KRL architecture and the KUKA collaborative robot 6. Human-in-the-Loop: pHRI - physical Human Robot Interaction 7. Co-manipulation and Tele-manipulation architectures 8. Robot programing by demonstration 9. Visual Servoing and Visual Tracking";
-
-        bClassifierThesis.addDocument(objRSIPR2,"Intelligent Systems");
-        bClassifierThesis.addDocument(projRSIPR2,"Intelligent Systems");
-
-
-        //Introduction to Robotics
-        let objRSIPR3 = "1. Recognize the main modules of a robotic system (perception, navigation, decision making and task execution) and their organization and interconnection 2. Introduce the main techniques for modeling, sensory processing, navigation and decision-making in Robotics, from a perspective of applying artificial intelligence to robotics for the development of autonomous robots with machine-intelligence.";
-        let projRSIPR3 = "1. What is a robot. Examples of robots. Mobile robots. (1 class - 1.5 hours). 2. Robot Systems Architectures (3 classes - 4.5 hours) a. Functional architectures (hierarchical, behavior-based, hybrid) b. Software architectures: Robot Operating System (ROS) c. Hardware architectures 3. Perception (4 classes - 6 hours) a. Sensors in Robotics (encoders, gyroscopes, accelerometers, laser scanner, vision, ...) b. Fundamentals of Robot Vision (pinhole model, stereo vision, visual tracking, object recognition in images) c. Representation of sensor uncertainty - model of observation 4. Mobile Robot Localization (7 classes - 10.5 hours) a. The localization problem: relative localization and absolute localization b. Coordinate systems. Homogeneous coordinate transformations. c. Basic concepts on Probabilistic Robotics: Bayes Filter d. Particular cases of the Bayes filter: Kalman filter, particles filter e. Kalman filter based localization f. Monte-Carlo Localization 5. Mobile Robot Motion Planning and Guidance (4 classes - 6 hours) a. The \"bug\" algorithm b. Potential Fields for Path Planning c. Probabilistic roadmaps d. RRT (Rapidly-exploring Random Trees) e. Path following: closed loop control; path as the control system reference signal. Differential kinematics. 6. Learning, Decision Making and Execution (4 classes - 7.5 hours) a. The decision-making problem b. Uncertainty in robot systems c. Decision making under uncertainty: MDPs and POMDPs d. Reinforcement learning e. Demonstration learning";
-
-        bClassifierThesis.addDocument(objRSIPR3,"Intelligent Systems");
-        bClassifierThesis.addDocument(projRSIPR3,"Intelligent Systems");
-
- //Computability and Complexity - CC
-        let objCC = "Characterize computational classes, identify complete sets, distinguish between uniform and nonuniform complexity classes and perform reductions; study open problems in computational complexity.";
-        let projCC = "Time and space bounded computations. Structural relations between complexity classes. Bounded resources many-to-one (polynomial time, logarithmic space) and Turing reducibilities. NP-complete, PSPACE-complete and NL-complete sets. The polynomial time hierarchy. Probabilistic Turing machines. Classes PP, BPP, R and ZPP. PP-complete sets. Polynomial time hierarchy. Nonuniform complexity classes and Boolean circuits. P-complete sets. Negative and positive relativisations. Isomorphism and NP-completeness: cylinders and sparse complete sets. Interactive Turing machines: Arthur against Merlin games and proof-systems.";
-
-        bClassifierThesis.addDocument(objCC,"Algorithms and Applications");
-        bClassifierThesis.addDocument(projCC,"Algorithms and Applications");
-
-        //Complex Networks Science
-        let objARC = "This course provides an introduction to the study of complex networks, including algorithms, models and applications to both artificial and real networks, including social, biological and technological networks, all sharing common features and properties. The course addresses the development of scalable algorithms and data structures so that we can efficiently study large complex networks, but also in the creation of theoretical models capable of describing empirically observed patterns. The number of applications is enormous, including web search engines, evolutionary dynamics, information diffusion on Internet, social networks and blogs, network resilience, network-driven phenomena in epidemiology and computer viruses, networks dynamics, with connections in the social sciences, physics, computational biology, and economics.";
-        let projARC = "Introduction to complex systems and networks science: Theory and basic concepts. Properties and characterization of biological, social and technological networks. Network models and random graphs. Efficient representation of large (sparse) networks. Succinct data-structures and coding strategies. Design and analysis of efficient and scalable algorithms for large network processing and analysis, including both sampling and randomization techniques. Databases and distributed platforms for the analysis of large networks. Link analysis and random walks. Community finding and graph partitioning. Ranking algorithms. Vertex relabeling. Dynamical processes on complex networks: The impact of network structure on economic, social and biological systems. Introduction to stochastic processes, Monte-Carlo simulations and large-scale multi-agent systems. Disease spreading and tolerance to attacks. Models of peer-influence and opinion formation. Game theory and population dynamics. Public goods problems, cooperation and reputation dynamics. Decision-making on (static and adaptive) interaction networks.";
-
-        bClassifierThesis.addDocument(objARC,"Algorithms and Applications");
-        bClassifierThesis.addDocument(projARC,"Algorithms and Applications");
-        //Forensics Cyber-Security - CSF
-        let objCSF = "The aim of the course is the study of forensic techniques and methodologies applied to digital evidence. During the course students will seize the different phases of the forensic methodology and its application to the collection and processing of digital evidence gathered form different sources, including evidence gathered from the network, from volatile and persistent memory, and from the memory of mobile devices. In the course the class will also discuss some legal issues relevant to the process of collecting and processing data in order to allow the production evidence in court.";
-        let projCSF = "Fundamentals of forensic analysis Methodology Data Type Network Forensics Analysis of network data Analysis of network active systems System Forensics Analysis of Windows systems Analysis of Linux systems Analysis of mobile systems Legal Aspects (U.S., Europe).";
-
-        bClassifierThesis.addDocument(objCSF,"Cyber-Security");
-        bClassifierThesis.addDocument(projCSF,"Cyber-Security");
-
-
-
-        //Cryptography and Security Protocols - CPS
-        let objCPS = "Master cryptosystems and cryptographic protocols in current use, develop protocols to solve specific problems and forecast future developments.";
-        let projCPS = "Basic concepts and central problems in cryptography. Private key cryptosystems. Sequential ciphers. Contribution of information theory. Attacks: divide to conquer and fast correlation. Block ciphers. Examples: DES and AES. Perfect and computational security. Public key cryptosystems. RSA cryptosystem. Factoring and primality algorithms. Quantum critpoanalysis. Projective coordinates. Elliptic curves. Gauss integers. Euclidean algorithm for polynomials. Hilbert theorem. Gröbner bases. Elliptic and hyperelliptic cryptosystems. Public key protocols. ElGamal signature scheme and DSS. Elliptic curve digital signature algorithms. Blind signatures. Hash functions. Diffie-Hellman key exchange scheme. Quantum key distribution protocols. Station to station and MTI protocols. Authentication codes. Shamir secret sharing scheme. Zero-knowledge proof systems. Schnorr and Fiat-Shamir identification protocols. Muti-party secure computation and applications.";
-
-        bClassifierThesis.addDocument(objCPS,"Cyber-Security");
-        bClassifierThesis.addDocument(projCPS,"Cyber-Security");
-
-        //Spoken Language Processing - PF
-        let objPF = "At the end of the course students are supposed to know the basic principles and techniques of speech coding, synthesis and recognition.";
-        let projPF = "Spoken Language Processing The course is structured into 7 chapters. The first introductory chapter presents the goals of the course, and the main applications of spoken language processing. It also briefly reviews the digital signal processing concepts that are needed in this course. The second chapter discusses the way humans generate and perceive speech, describing the production and audition/perception mechanisms. The next four chapters study the way computers try to mimic this human performance, including speech signal analysis techniques, speech coding models, text-to-speech conversion (synthesis) and speech-to-text conversion (recognition) techniques. The last of these four chapters covers not only the speech recognition area but also the speaker and language recognition areas. The final chapter frequently includes talks by researchers of other areas of natural language processing (namely from other faculties) and/or visits to labs. The course is planned for 27 theory classes of 1h30 each. 1 - 2 classes 2 - 3 classes 3 - 4 classes 4 - 3 classes 5 - 5 classes 6 - 8 classes 7 - 2 classes";
-
-        bClassifierThesis.addDocument(objPF,"Language and Information Technologies");
-        bClassifierThesis.addDocument(projPF,"Language and Information Technologies");
-
-    */
-
     }
 
-    //Manual adjustments
-    bClassifierThesis.addDocument("Laboratório de Sistemas de Língua Falada - L2F (INESC-ID Lisboa)", "Language and Information Technologies");
-    bClassifierThesis.addDocument("Alberto Abad", "Language and Information Technologies");
-    bClassifierThesis.addDocument("fixed expressions", "Language and Information Technologies");
-    bClassifierThesis.addDocument("popular sayings", "Language and Information Technologies");
-    bClassifierThesis.addDocument("speech therapy", "Language and Information Technologies");
-    bClassifierThesis.addDocument("Development of a mobile application for speech therapy", "Language and Information Technologies");
-
-
-    bClassifierThesis.addDocument("Nuno Jardim Nunes", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Alfredo Ferreira", "Interaction and Visualization");
-    bClassifierThesis.addDocument("João Brisson", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Joaquim Jorge", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Daniel Jorge Viegas Gonçalves", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Hugo Miguel Aleixo Albuquerque Nicolau", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Jacinto Carlos Marques Peixoto do Nascimento", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Augmenting Rehabilitation", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Virtual Reality", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Design", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Experience", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Collaborative Modeling", "Interaction and Visualization");
-    bClassifierThesis.addDocument("AR on Smartphones", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Flat Design", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Sensing", "Interaction and Visualization");
-    bClassifierThesis.addDocument("Visualizing", "Interaction and Visualization");
-
-
-
-    bClassifierThesis.addDocument("network fault injection", "Cyber-Security");
-    bClassifierThesis.addDocument("Security", "Cyber-Security");
-    bClassifierThesis.addDocument("Artificial Intelligence in Security", "Cyber-Security");
-    bClassifierThesis.addDocument("REST APIs", "Cyber-Security");
-    bClassifierThesis.addDocument("Communication Contracts", "Cyber-Security");
-    bClassifierThesis.addDocument("Verification", "Cyber-Security");
-
-
-
-
-
-
-    bClassifierThesis.addDocument("Smart-Graphs", "Algorithms and Applications");
-    bClassifierThesis.addDocument("Constraint Logic", "Algorithms and Applications");
-
-
-
-
-
-    bClassifierThesis.addDocument("microservices architecture", "Software Engineering");
-    bClassifierThesis.addDocument("Framework", "Software Engineering");
-    bClassifierThesis.addDocument("Virtualization", "Software Engineering");
-    bClassifierThesis.addDocument("Dynamic API Invocation", "Software Engineering");
-    bClassifierThesis.addDocument("monolithic architecture", "Software Engineering");
-    bClassifierThesis.addDocument("António Paulo Teles de Menezes Correia Leitão", "Software Engineering");
-    bClassifierThesis.addDocument("António Rito Silva", "Software Engineering");
-    bClassifierThesis.addDocument("Responsive Web Applications", "Software Engineering");
-    bClassifierThesis.addDocument("Service Virtualization Framework", "Software Engineering");
-    bClassifierThesis.addDocument("Mobile Application", "Software Engineering");
-    bClassifierThesis.addDocument("Mobile", "Software Engineering");
-    bClassifierThesis.addDocument("App", "Software Engineering");
-
-
-
-    bClassifierThesis.addDocument("NPC", "Games");
-    bClassifierThesis.addDocument("Digital Games", "Games");
-    bClassifierThesis.addDocument("Digital Games", "Games");
-    bClassifierThesis.addDocument("Digital Games", "Games");
-    bClassifierThesis.addDocument("Digital Games", "Games");
-    bClassifierThesis.addDocument("Digital Games", "Games");
-    bClassifierThesis.addDocument("Games", "Games");
-    bClassifierThesis.addDocument("Game", "Games");
-    bClassifierThesis.addDocument("tactically", "Games");
-    bClassifierThesis.addDocument("João Miguel De Sousa de Assis Dias", "Games");
-    bClassifierThesis.addDocument("Carlos António Roque Martinho", "Games");
-    bClassifierThesis.addDocument("Rui Filipe Fernandes Prada", "Games");
-
-
-
-    bClassifierThesis.addDocument("Architecture", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("Support Services for Digital Operations Transformation", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("Digital Transformation", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("IT Project Management", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("Enterprise Architecture", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("Business Architecture", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("COBIT", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("Modeling", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("Archimate", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("Startup", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("Business processes", "Enterprise and Information Systems");
-    bClassifierThesis.addDocument("Sérgio Luís Proença Duarte Guerreiro", "Enterprise and Information Systems");
-
-
-
-
-    bClassifierThesis.addDocument("robots", "Intelligent Systems");
-    bClassifierThesis.addDocument("behavior for robots", "Intelligent Systems");
-    bClassifierThesis.addDocument("Change Detection on Frequent Patterns", "Intelligent Systems");
-    bClassifierThesis.addDocument("Matching", "Intelligent Systems");
-    bClassifierThesis.addDocument("Matching", "Intelligent Systems");
-
-
-
-    bClassifierThesis.addDocument("Urban transport", "Distributed and Cyberphysical Systems");
-    bClassifierThesis.addDocument("IoT", "Distributed and Cyberphysical Systems");
-    bClassifierThesis.addDocument("Domotic", "Distributed and Cyberphysical Systems");
-    bClassifierThesis.addDocument("Internet-of-Things", "Distributed and Cyberphysical Systems");
-    bClassifierThesis.addDocument("Framework", "Distributed and Cyberphysical Systems");
-    bClassifierThesis.addDocument("Rui Policarpo Duarte", "Distributed and Cyberphysical Systems");
-    bClassifierThesis.addDocument("Horácio Neto", "Distributed and Cyberphysical Systems");
-    bClassifierThesis.addDocument("OpenCL", "Distributed and Cyberphysical Systems");
-    bClassifierThesis.addDocument("processor", "Distributed and Cyberphysical Systems");
-    bClassifierThesis.addDocument("P3", "Distributed and Cyberphysical Systems");
+    //TODO
+    //Maps professors to areas
 
     bClassifierThesis.train();
-
     return bClassifierThesis;
+
+
 }
+
+
+async function saveClassifier (classifier,latestId)    {
+    const classfierPath = path.join(__dirname, '../files/Thesis/c' + latestId +'.json');
+    classifier.save(classfierPath, function(err) {
+        if (err) {
+            throw new Error(err);
+        } else {
+            console.log('Classifier saved on ' + classfierPath + ' at time: ' + new Date().toGMTString());
+        }
+    });
+
+}
+
+
+async function parseTheses(latestId, specificFile)    {
+    let filePath;
+
+    if (!specificFile)   {
+        filePath = path.join(__dirname, "../files/Thesis/f" + latestId + ".html");
+    } else  {
+        filePath =  path.join(__dirname, "../files/Thesis/"+ specificFile);
+    }
+
+    let parsedTheses = [];
+    const readFile = util.promisify(fs.readFile);
+    try {
+        let data = await readFile(filePath,{encoding: 'utf-8'});
+        let handler = new htmlparser.DomHandler(function (error, dom) {
+            if (error)  {
+                throw new Error(error);
+            }
+            else    {
+
+                //Path to table responsive is children[3].children[7].children[1].children[3].children[9].children[7].children[3].children[3]
+                //Path to table  is  dom[4].children[3].children[7].children[1].children[3].children[9].children[7].children[3].children[3].children[1]
+                //Path to table head is dom[4].children[3].children[7].children[1].children[3].children[9].children[7].children[3].children[3].children[1].children[1].name);
+                //Path to table body is dom[4].children[3].children[7].children[1].children[3].children[9].children[7].children[3].children[3].children[1].children[3].name);
+
+                //Table body holds tr. Each tr corresponds to one master thesis
+                let tableBody = dom[4].children[3].children[7].children[1].children[3].children[9].children[7].children[3].children[3].children[1].children[3];
+
+
+                tableBody.children.forEach((element)=>  {
+                    if (element.type === "tag" && element.name === "tr")  {
+
+                        let oneThesis = {
+                            id: "",
+                            title: "",
+                            supervisors: "",
+                            vacancies: "",
+                            location: "",
+                            courses: "",
+                            observations: "",
+                            objectives: "",
+                            status: "",
+                            requirements: "",
+                            areas: "",
+                            type: ""
+                        };
+
+
+                        //contém os td's com info
+                        let trChild = element.children;
+
+                        //We have td's in iterations 1,3,5,7,9,11
+                        let i = 0;
+                        //Entre texto (espaços) e tds, trChild tem 13 elementos
+                        //há 6 td's, alguns com info nested
+                        trChild.forEach((subelement)=>  {
+                            if (subelement.type === "tag" && subelement.name === "td")  {
+
+                                //ID
+                                if (i === 1)    {
+                                    //console.log("Case 1, ID");
+                                    let id = subelement.children[0].data;
+                                    if (id === null)    {
+                                        callback("ID of thesis is not defined", null, null);
+                                    }
+                                    oneThesis.id = id;
+                                }
+
+                                //Title
+                                if (i === 3)    {
+                                    //console.log("Case 3, Title");
+                                    let title = subelement.children[0].data;
+                                    oneThesis.title = title;
+                                }
+
+                                //Supervisors
+                                if (i === 5)    {
+                                    //console.log("Case 5, Superv");
+                                    let elementsNumber = subelement.children.length;
+                                    let arraySupervisors = [];
+                                    //let supervisorsNumber = (elementsNumber - 1) / 2;
+                                    for (let j = 1; j < elementsNumber; j = j+2)  {
+                                        let supervisorDiv = subelement.children[j];
+                                        let supervisor = supervisorDiv.children[0].data;
+                                        arraySupervisors.push(supervisor);
+                                    }
+
+
+                                    oneThesis.supervisors = arraySupervisors;
+                                }
+
+                                //Vacancies
+                                if (i === 7)    {
+                                    //console.log("Caso 7, Vac");
+                                    let vacancies = subelement.children[0].data;
+                                    oneThesis.vacancies = vacancies;
+                                }
+
+                                if (i === 9)    {
+                                    //console.log("Caso 9, status");
+                                    let status = subelement.children[1].children[0].data;
+                                    if (status === "Not assigned")    {
+                                        status = "Unassigned";
+                                    }
+                                    oneThesis.status = status;
+                                }
+
+                                if (i === 11)    {
+                                    //TODO: Impact of \n and \t at FE. Remove?
+                                    //console.log("Caso 11, General");
+                                    let info = subelement.children[1].children[3].children[5];
+
+                                    let observations = info.attribs["data-observations"];
+                                    if(observations)    {
+                                        observations = observations.replace("\t",": ");
+                                    }
+                                    oneThesis.observations = observations;
+
+                                    let requirements = info.attribs["data-requirements"];
+                                    if (requirements)   {
+                                        requirements = requirements.replace("\t",": ");
+                                        requirements = requirements.replace("\n","");
+                                    }
+                                    oneThesis.requirements = requirements;
+
+                                    let objectives = info.attribs["data-goals"];
+                                    oneThesis.objectives = objectives;
+
+                                    let location = info.attribs["data-localization"];
+                                    oneThesis.location = location;
+
+
+                                    let courses = info.attribs["data-degrees"];
+                                    oneThesis.courses = courses;
+
+                                }
+
+                            }
+
+                            //Last iteration, push thesis to array.
+                            if (i === 12)   {
+                                parsedTheses.push(oneThesis);
+                            }
+
+                            i++;
+                        });
+
+                        //console.log("Processed Thesis. ID: "+ oneThesis.id);
+                        //console.log("Processed Thesis Number: "+ parsedTheses.length);
+
+
+                    }
+
+                    //For each thesis
+
+
+                });
+            }
+
+            //End of DOM parser
+        }, {normalizeWhitespace: true, withStartIndices: true});
+        let parser = new htmlparser.Parser(handler);
+        parser.write(data);
+        parser.end();
+        return parsedTheses;
+    } catch (e) {
+        throw new Error(e);
+    }
+
+}
+
+async function saveParsedTheses(parsedTheses, latestId) {
+    const filePath =  path.join(__dirname, "../files/Thesis/p" + latestId + ".json");
+    const toWrite = JSON.stringify(parsedTheses);
+    fs.writeFileSync(filePath, toWrite, 'utf8', (err) => {
+        if (err) {
+            throw new Error(err);
+        }
+        console.log("The file was saved!");
+    });
+}
+
+async function getTheses ()  {
+    return  await DBAccess.thesis.getThesis();
+}
+async function thesisBackup(theses) {
+    const filePath = path.join(__dirname, "../files/Thesis/b" + new Date().getTime() + ".json");
+    const toWrite = JSON.stringify(theses);
+    fs.writeFileSync(filePath, toWrite, (err) => {
+        if (err) {
+            return (err);
+        }
+        console.log("The file was saved!");
+    });
+
+}
+
+async function loadClassifier(latestId) {
+    let classifierFilePath = path.join(__dirname, "../files/Thesis/c" + latestId + ".json");
+    const readFile = util.promisify(fs.readFile);
+    let rawClassifier = await readFile(classifierFilePath, {encoding: 'utf-8'});
+    return await natural.BayesClassifier.restore(JSON.parse(rawClassifier));
+}
+
+async function loadTheses(latestId = 0, specificFile = null) {
+    const readFile = util.promisify(fs.readFile);
+    let parsedTheses = [];
+
+    let thesesFilePath;
+
+    if (latestId)   {
+        thesesFilePath = path.join(__dirname, "../files/Thesis/p" + latestId + ".json");
+    } else  {
+        thesesFilePath  =  path.join(__dirname, "../files/Thesis/p" + specificFile + ".json");
+
+    }
+    try {
+        let theses = await readFile(thesesFilePath, {encoding: 'utf-8'});
+        parsedTheses = JSON.parse(theses);
+        return parsedTheses;
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+async function classifyTheses(latestId, specificFile) {
+    let classifiedTheses = [];
+
+    //load classifier and theses
+    try {
+        let restoredClassifier = await loadClassifier(specificFile);
+        let parsedTheses = await loadTheses(latestId, specificFile);
+        return await classifyAux(parsedTheses,restoredClassifier);
+    } catch (e) {
+        throw new Error(e);
+    }
+
+}
+
+async function classifyAux(theses,classifier) {
+    theses.map(thesis =>        thesis.title.tokenizeAndStem().includes("project") ||
+                                thesis.title.tokenizeAndStem().includes("projecto") ||
+                                thesis.title.tokenizeAndStem().includes("projeto") ?
+                                thesis.type = "Project"  : thesis.type = "Dissertation");
+
+    theses.map(thesis =>       thesis.areas = getFirstTwoLabels(thesis,classifier,1));
+
+    return theses;
+}
+
+function getFirstTwoLabels (thesis, bClassifierThesis, type) {
+    var criteria;
+    switch(type) {
+        case 0:
+            criteria = thesis.title;
+            break;
+        case 1:
+            criteria = thesis.title + " " + thesis.objectives;
+            break;
+        case 2:
+            criteria = thesis.title + " " + thesis.requirements;
+            break;
+        case 3:
+            criteria = thesis.title + " " + thesis.objectives + " " + thesis.requirements;
+            break;
+        case 4:
+            criteria = thesis.title + " " + thesis.location;
+            break;
+        default:
+            criteria = thesis.title;
+    }
+
+    let classArray = [];
+    var classifications = bClassifierThesis.getClassifications(criteria);
+    classifications.forEach(function(classPlusProbability) {
+        classArray.push(classPlusProbability.label)
+    });
+    return classArray.slice(0,2)
+
+}
+
+async function saveClassifiedTheses(classifiedTheses, latestId) {
+    const filePath =  path.join(__dirname, "../files/Thesis/t" + latestId + ".json");
+    const toWrite = JSON.stringify(classifiedTheses);
+    fs.writeFileSync(filePath, toWrite, (err) => {
+        if (err) {
+            return (err);
+        }
+        console.log("The file was saved!");
+    });
+}
+
+async function loadClassifiedTheses(latestId = 0, specificFile = null) {
+    const readFile = util.promisify(fs.readFile);
+    let parsedTheses = [];
+
+    let thesesFilePath;
+
+    if (latestId)   {
+        thesesFilePath = path.join(__dirname, "../files/Thesis/t" + latestId + ".json");
+    } else  {
+        thesesFilePath  =  path.join(__dirname, "../files/Thesis/t" + specificFile + ".json");
+
+    }
+    try {
+        let theses = await readFile(thesesFilePath, {encoding: 'utf-8'});
+        parsedTheses = JSON.parse(theses);
+        return parsedTheses;
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+async function saveClassifiedThesesOnDB(theses) {
+    try {
+        theses.map (async thesis => await DBAccess.thesis.asyncAddThesis(thesis.id, thesis.title, thesis.supervisors,
+            thesis.vacancies, thesis.location, thesis.courses,
+            thesis.observations, thesis.objectives, thesis.status,
+            thesis.requirements, thesis.areas, 0 , thesis.type, new Date()))
+    } catch (e) {
+        throw new Error(e);
+    }
+
+}
+
+
+/*
+
+    classificationLabels: function(thesis, bClassifierThesis,type) {
+            var criteria;
+            switch(type) {
+                case 0:
+                    criteria = thesis.title;
+                    break;
+                case 1:
+                    criteria = thesis.title + " " + thesis.objectives;
+                    break;
+                case 2:
+                    criteria = thesis.title + " " + thesis.requirements;
+                    break;
+                case 3:
+                    criteria = thesis.title + " " + thesis.objectives + " " + thesis.requirements;
+                    break;
+                case 4:
+                    criteria = thesis.title + " " + thesis.location;
+                    break;
+                default:
+                    criteria = thesis.title;
+            }
+
+            var classifications = bClassifierThesis.getClassifications(criteria);
+            classifications.forEach(function(classPlusProbability) {
+                console.log('Class ' + classPlusProbability.label + ' : ' + classPlusProbability.value);
+            });
+
+    },
+
+    getFirstTwoLabels: function(thesis, bClassifierThesis, type) {
+        var criteria;
+        switch(type) {
+            case 0:
+                criteria = thesis.title;
+                break;
+            case 1:
+                criteria = thesis.title + " " + thesis.objectives;
+                break;
+            case 2:
+                criteria = thesis.title + " " + thesis.requirements;
+                break;
+            case 3:
+                criteria = thesis.title + " " + thesis.objectives + " " + thesis.requirements;
+                break;
+            case 4:
+                criteria = thesis.title + " " + thesis.location;
+                break;
+            default:
+                criteria = thesis.title;
+        }
+
+            let classArray = [];
+            var classifications = bClassifierThesis.getClassifications(criteria);
+            classifications.forEach(function(classPlusProbability) {
+                classArray.push(classPlusProbability.label)
+            });
+            return classArray.slice(0,2)
+
+    },
+
+ */
