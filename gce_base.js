@@ -72,8 +72,8 @@ let appConfig = require('./config/app');
 let port = process.env.PORT || appConfig.ports[node_env];
 
 // Connect to mongoDB database ===========================================
-mongoose.connect(dbConfig.urls[node_env], { useNewUrlParser: true, server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-    replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 }  }});
+mongoose.connect(dbConfig.urls[node_env], { useNewUrlParser: true, keepAlive: 1, connectTimeoutMS: 30000,
+    keepAlive: 1, connectTimeoutMS: 30000 });
 mongoose.connection.on("connected", () => {
     logger.info("Connected to MongoDB on " + dbConfig.urls[node_env]);
 });
