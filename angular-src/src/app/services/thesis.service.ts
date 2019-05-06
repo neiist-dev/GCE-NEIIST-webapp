@@ -17,7 +17,7 @@ export class ThesisService {
         let headers = new Headers();
         headers.append('Content-Type','application/json');
         this.authService.loadTokenUser(headers);
-        return this.http.get('thesis/getTheses', {headers: headers}).pipe(map(res => res.json()));
+        return this.http.get('theses/getTheses', {headers: headers}).pipe(map(res => res.json()));
 
 
     }
@@ -25,7 +25,7 @@ export class ThesisService {
     incrementClicks(id: number){
         let headers = new Headers();
         headers.append('Content-Type','application/json');
-        let url = "/thesis/incrementClick/" + id.toString();
+        let url = "/theses/incrementClick/" + id.toString();
         this.authService.loadTokenUser(headers);
         return this.http.post(url, "",{headers: headers}).subscribe(
             () => {},

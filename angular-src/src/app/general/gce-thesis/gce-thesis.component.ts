@@ -22,27 +22,31 @@ export class GceThesisComponent implements OnInit {
     recommendedTheses: any[];
     showRecomendations: boolean;
     areas: string[] = [
-        "Software Engineering",
-        "Enterprise and Information Systems",
-        "Distributed and Cyberphysical Systems",
-        "Interaction and Visualization",
+        "Network Services and Applications",
+        "Embedded Systems and Computer Architectures",
+        "Distributed Systems and Operating Systems",
+        "Artificial Intelligence Technologies",
         "Intelligent Systems",
+        "Interaction and Multimedia",
+        "Graphical Visualization",
         "Algorithms and Applications",
-        "Cyber-Security",
-        "Games",
-        "Bioinformatics and Computational Biology",
-        "Language and Information Technologies"]
+        "Software Engineering",
+        "Programming",
+        "Architecture and Management of Information Systems",
+        "Information Systems Technologies"];
     areaAdvanced:{[area:string]:string[]}={
-        "Software Engineering":["#34B3E4","SE"],
-        "Enterprise and Information Systems": ["#A589D9","EIS"],
-        "Distributed and Cyberphysical Systems": ["#F16D64","DCS"],
-        "Interaction and Visualization": ["#F59640","IV"],
-        "Intelligent Systems": ["#35BEC1","IS"],
-        "Algorithms and Applications": ["#F3C746","AA"],
-        "Cyber-Security": ["#F371AF","CS"],
-        "Games": ["#95C753","G"],
-        "Bioinformatics and Computational Biology": ["#A0A3A6","BCB"],
-        "Language and Information Technologies": ["purple","LIT"]
+        "Network Services and Applications":["#0b6623","NSA"],
+        "Embedded Systems and Computer Architectures": ["#3f704d","ESCA"],
+        "Distributed Systems and Operating Systems": ["#01796F","DSOS"],
+        "Artificial Intelligence Technologies": ["#FFFDD0","AIT"],
+        "Intelligent Systems": ["#FFE5B4","IS"],
+        "Interaction and Multimedia": ["#111E6C","IM"],
+        "Graphical Visualization": ["#1D2951","GV"],
+        "Algorithms and Applications": ["#F8DE7E","AA"],
+        "Software Engineering": ["#FADA5E","SE"],
+        "Programming": ["#F9A602","P"],
+        "Architecture and Management of Information Systems": ["#C21807","AMIS"],
+        "Information Systems Technologies": ["#Dff2800","IST"]
     };
 
 
@@ -104,7 +108,7 @@ export class GceThesisComponent implements OnInit {
         }
 
         if(thesis.supervisors.length > 0) {
-            var supervisorText = '<h5> Supervisors: </h5>'
+            var supervisorText = '<h5> Supervisors: </h5>';
             for (const supervisor in thesis.supervisors) {
                 supervisorText += '<p>' + thesis.supervisors[supervisor] + '</p>';
             }
@@ -201,7 +205,7 @@ export class GceThesisComponent implements OnInit {
 
         }
         else{
-            this.selectedTypes.push(clickedType)
+            this.selectedTypes.push(clickedType);
             this.selectedTypes = this.selectedTypes.filter(str =>str);
         }
 
