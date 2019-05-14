@@ -11,8 +11,8 @@ export class StudentProfileComponent implements OnInit {
     user: any;
     TYPE: string;
     company: any;
-    partner: any;
     student: any;
+    authToken: any;
 
     constructor(private authService: AuthService,
                 private flashMessage: FlashMessagesService
@@ -34,6 +34,7 @@ export class StudentProfileComponent implements OnInit {
         } else if (this.TYPE == 'Admin') {
             // TODO
         }
+        this.authToken = this.authService.retrieveTokenUser();
 
     }
 }
