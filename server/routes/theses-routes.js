@@ -29,26 +29,39 @@ router.get('/latestId', passport.authenticate('jwt', {session: false}), async (r
         UtilsRoutes.replyFailure(res,"","Não permitido");
         return;
     }
-    const latestId = await fileServices.getCurrentRawHTMLFileId('t');
-    UtilsRoutes.replySuccess(res,latestId,"Latest id");
+    try {
+        const latestId = await fileServices.getCurrentRawHTMLFileId('t');
+        UtilsRoutes.replySuccess(res,latestId,"Latest id");
+        ba_logger.ba("BA|TR|latestId|" + req.user.email);
+    } catch (e) {
+        ba_logger.ba("BA|TR|ERROR|latestId|" + req.user.email);
+        UtilsRoutes.replyFailure(res,e,"Error at latestId");
+
+    }
 });
 
-router.post('/trainClassifier/:trainingCase?', /*passport.authenticate('jwt', {session: false}),*/ async (req, res) => {
+router.post('/trainClassifier/:trainingCase?', passport.authenticate('jwt', {session: false}), async (req, res) => {
     //Classifier training hardcoded
-    /*if(!UtilsRoutes.isFromAdministration(req))    {
+    if(!UtilsRoutes.isFromAdministration(req))    {
         UtilsRoutes.replyFailure(res,"","Não permitido");
         return;
-    }*/
+    }
     //gets string
     const trainingCase = req.params.trainingCase;
-    const latestId = await fileServices.getCurrentRawHTMLFileId();
-    const trainedClassifier = await thesesServices.trainClassifier(trainingCase);
     try {
+        const latestId = await fileServices.getCurrentRawHTMLFileId();
+        const trainedClassifier = await thesesServices.trainClassifier(trainingCase);
         await thesesServices.saveClassifier(trainedClassifier,latestId);
+        let responseData = {};
+        responseData.classifierName = "c" + latestId + ".json";
+        responseData.classifierContent = trainedClassifier;
+        UtilsRoutes.replySuccess(res,responseData,"Latest id");
+        ba_logger.ba("BA|TR|trainClassifier|" + req.user.email);
     } catch (e) {
+        ba_logger.ba("BA|TR|ERROR|trainClassifier|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at thesesServices.saveClassifier");
     }
-    UtilsRoutes.replySuccess(res,a,"Latest id");
+
 });
 
 router.post('/parseTheses/:thesesFileName?', passport.authenticate('jwt', {session: false}), async (req, res) => {
@@ -66,18 +79,23 @@ router.post('/parseTheses/:thesesFileName?', passport.authenticate('jwt', {sessi
     try {
         const parsedTheses = await thesesServices.parseTheses(latestId, specificFile);
         await thesesServices.saveParsedThesesOnFile(parsedTheses, latestId);
-        UtilsRoutes.replySuccess(res,"","Theses were parsed");
+        let responseData = {};
+        responseData.parsedThesesName = "p" + latestId + ".json";
+        responseData.parsedThesesContent = parsedTheses;
+        ba_logger.ba("BA|TR|parseTheses|" + req.user.email);
+        UtilsRoutes.replySuccess(res,responseData,"Theses were parsed");
     } catch (e) {
+        ba_logger.ba("BA|TR|ERROR|parseTheses|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at parseTheses");
     }
 
 });
 
 router.post('/classifyTheses/:parsedThesesFileName?', passport.authenticate('jwt', {session: false}), async (req, res) => {
-    /*if(!UtilsRoutes.isFromAdministration(req))    {
+    if(!UtilsRoutes.isFromAdministration(req))    {
         UtilsRoutes.replyFailure(res,"","Não permitido");
         return;
-    }*/
+    }
 
     let specificFile = null;
     if (req.params.parsedThesesFileName) {
@@ -86,19 +104,24 @@ router.post('/classifyTheses/:parsedThesesFileName?', passport.authenticate('jwt
     const latestId = await fileServices.getCurrentRawHTMLFileId();
 
     try {
-        const classifiedTheses = await thesesServices.classifyTheses(specificFile, latestId);
+        const classifiedTheses = await thesesServices.classifyTheses(latestId, specificFile);
         await thesesServices.saveClassifiedTheses(classifiedTheses, latestId);
-        UtilsRoutes.replySuccess(res,"","Theses were classified");
+        let responseData = {};
+        responseData.classifiedThesesName = "t" + latestId + ".json";
+        responseData.classifiedThesesContent = classifiedTheses;
+        ba_logger.ba("BA|TR|classifyTheses|" + req.user.email);
+        UtilsRoutes.replySuccess(res,responseData,"Theses were classified");
     } catch (e) {
+        ba_logger.ba("BA|TR|ERROR|classifyTheses|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at classifyTheses");
     }
 });
 
-router.post('/saveTheses/:classifiedThesesFileName?', /*passport.authenticate('jwt', {session: false}), */async (req, res) => {
-    /*if(!UtilsRoutes.isFromAdministration(req))    {
+router.post('/saveTheses/:classifiedThesesFileName?', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    if(!UtilsRoutes.isFromAdministration(req))    {
         UtilsRoutes.replyFailure(res,"","Não permitido");
         return;
-    }*/
+    }
 
     let specificFile = null;
     if (req.params.classifiedThesesFileName) {
@@ -108,34 +131,41 @@ router.post('/saveTheses/:classifiedThesesFileName?', /*passport.authenticate('j
         const latestId = await fileServices.getCurrentRawHTMLFileId();
         const classifiedTheses = await thesesServices.loadClassifiedTheses(latestId,specificFile);
         await thesesServices.saveClassifiedThesesOnDB(classifiedTheses);
+        let responseData = {};
+        //TODO Send the user the number of classified thesis and their type
+        ba_logger.ba("BA|TR|ERROR|saveTheses|" + req.user.email);
         UtilsRoutes.replySuccess(res,"","Theses were classified");
     } catch (e) {
+        ba_logger.ba("BA|TR|ERROR|saveTheses|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at classifyTheses");
     }
 });
 
 
-router.post('/processAll', passport.authenticate('jwt', {session: false}), async (req, res) => {
-    /*if(!UtilsRoutes.isFromAdministration(req))    {
+router.post('/processAll/:trainingCase?', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    if(!UtilsRoutes.isFromAdministration(req))    {
          UtilsRoutes.replyFailure(res,"","Não permitido");
          return;
-     }*/
-    const latestId = await fileServices.getCurrentRawHTMLFileId();
+     }
+    const trainingCase = req.params.trainingCase;
     try {
         //assumes that gce_base creates collection
         //mongoose.connection.db.dropCollection('theses');
-        const trainedClassifier = await thesesServices.trainClassifier();
+        const latestId = await fileServices.getCurrentRawHTMLFileId();
+        const trainedClassifier = await thesesServices.trainClassifier(trainingCase);
         await thesesServices.saveClassifier(trainedClassifier,latestId);
         const parsedTheses = await thesesServices.parseTheses(latestId, null);
         await thesesServices.saveParsedThesesOnFile(parsedTheses, latestId);
+        const classifiedTheses = await thesesServices.classifyTheses(latestId, null);
+        await thesesServices.saveClassifiedTheses(classifiedTheses, latestId);
+        const loadClassifiedTheses = await thesesServices.loadClassifiedTheses(latestId);
+        await thesesServices.saveClassifiedThesesOnDB(loadClassifiedTheses);
+        ba_logger.ba("BA|TR|ProcessAll|" + req.user.email);
+        UtilsRoutes.replySuccess(res,"","ALL PROCESSED");
     } catch (e) {
-        UtilsRoutes.replyFailure(res,e,"Error at classifyTheses");
-        return;
+        ba_logger.ba("BA|TR|ERROR|ProcessAll|" + req.user.email);
+        UtilsRoutes.replyFailure(res,e,"Error at ProcessAll");
     }
-    UtilsRoutes.replySuccess(res,"","ALL PROCESSED");
-
-
-
 });
 
 router.get('/backupTheses', /*passport.authenticate('jwt', {session: false}), */ async (req,res) =>   {

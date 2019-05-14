@@ -29,7 +29,7 @@ let thesesServices = module.exports = exports = new ThesesServices();
 
 /*
 Network Services and Applications
-Embedded Systems and Computer Architecture
+Embedded Systems and Computer Architectures
 Distributed Systems and Operating Systems
 
 Interaction and Multimedia
@@ -46,11 +46,10 @@ Architecture and Management of Information Systems
 Information Systems Technologies
 
  */
-async function trainClassifier (type) {
-    const classCase = type || 1;
+async function trainClassifier (type = 1) {
     //By discipline groups
     //https://fenix.tecnico.ulisboa.pt/departamentos/dei/disciplinas
-    if (classCase === 1)  {
+    if (type === 1)  {
 
         ///////////////////////////////////////////////////////////
         ////////////// Scientific Area of Programming Methodology and Technology
@@ -167,21 +166,21 @@ async function trainClassifier (type) {
         let projSNS= "Security architecture of an organisation. Security policies. Network vulnerability. System vulnerability. Code design and certification. Periphery control systems. Application of cryptographic mechanisms. Key distribution. Authentication protocols. Secure communications protocols. Authorisation models. Practical applications: analysis of wireless networks protocols (GSM, UMTS, WiFi, Bluetooth); analysis of VPNs (IPSec, TLS, PPTP, OpenVPN); analysis of information systems.".tokenizeAndStem();
         bClassifierThesis.addDocument(projSNS,"Network Services and Applications");
 
-        //////////// Arquitectura de Computadores e Sistemas Embebidos => Embedded Systems and Computer Architecture
+        //////////// Arquitectura de Computadores e Sistemas Embebidos => Embedded Systems and Computer Architectures
 
         ////Applications and Computation for the Internet of Things
         //let objIOT = "Students should be able to design, develop, integrate and test cyber-physical systems for the Internet of Things (IoT) with a focus on the requirements and restrictions of cyber-physical interfacing and related software. To study the control and evaluation of cyber-physical interfaces, system-software architectures, and common design patterns; design and performance evaluation of constrained systems (power, memory). Relevant case studies: widespread technologies (identification based on smart cards and tags and biometrics); widespread devices (sensors in smartphones).";
         let progIIOT = "Characteristics of cyber-physical systems in the IoT: requirements, life cycle, economy. 2.\tInput/Output interface and devices. Modes of service. Interfacing the physical world – cyber-physical interfaces (logical interaction with sensors and actuators). Performance evaluation (latency, bandwidth, precision, resolution). 3.\tSystem-software architectures – Run-time platforms: Round robin, function-queue scheduling, multitasking; preemption, scheduling (RMS, EDF). Performance evaluation: workload, latency, reliability. 4.\tSoftware design patterns. Non-functional requirements: execution time, energy management, memory usage. 5.\tReal-time systems. 6.\tFault tolerance. 7.\tDesign and development of embedded systems. System specification. Development and life cycles. 8. Case studies: widespread technologies – electronic identification (smart cards and tags) and biometrics; widespread devices (sensors in smartphones). 9.\tAdvanced topics: Co-design, sensor networks. 10.\tSeminar.".tokenizeAndStem();
-        //bClassifierThesis.addDocument(objIOT,"Embedded Systems and Computer Architecture");
-        bClassifierThesis.addDocument(progIIOT,"Embedded Systems and Computer Architecture");
+        //bClassifierThesis.addDocument(objIOT,"Embedded Systems and Computer Architectures");
+        bClassifierThesis.addDocument(progIIOT,"Embedded Systems and Computer Architectures");
 
         ////Architectures for Embedded Computing
         let progAEC = "embedded systems, impact in the architecture design. Review of basic concepts in microprocessor-based digital systems: ISA, datapath, control, memory, I/O. Introduction to ILP: pipeline, superscalar and VLIW processing. Definition of ISA for VLIW processors and their architecture: datapath, registers, memory, speculation, energy consumption. Input/output system: typical devices, A/D-D/A converters, standard buses. Core processors and systems-on-chip. Compilation and code generation for ILP. Exceptions, interruptions and traps. Code compression. Performance analysis and tuning. Operating systems: multi-tasking and multi-threading.".tokenizeAndStem();
-        bClassifierThesis.addDocument(progAEC,"Embedded Systems and Computer Architecture");
+        bClassifierThesis.addDocument(progAEC,"Embedded Systems and Computer Architectures");
 
         ////Devices and Networks for Logistics
         let progDNL = "Introduction Characteristics of IT infrastructures to support operations management and logistics: Requirements, life cycle, economical factors, geographical coverage, response time. Object identification: Electronic Product Code. Electronic identification (R/F ID). Object location: Global positioning, cells Mobile and wireless communication networks. Services on mobile networks. Quality of service. Architecture of information systems for mobile teams. Integration with ERPs. Case study: Fleet management. Case study: Distribution and retail. Advanced topics: Sensor networks and smart materials. Presentation of student Works.".tokenizeAndStem();
-        bClassifierThesis.addDocument(progDNL,"Embedded Systems and Computer Architecture");
+        bClassifierThesis.addDocument(progDNL,"Embedded Systems and Computer Architectures");
 
         ////// Sistemas Operativos e Sistemas Distribuídos => Distributed Systems and Operating Systems
 
@@ -380,7 +379,7 @@ async function trainClassifier (type) {
 
         //Usability and Information Systems
         let projUIS = "1. Usability and Usability Engineering 2. Requirements Gathering (User and Task Analysis) 3. Methods for Data Collection 4. Human Factors 5. Conceptual and Mental Models 6. Interaction Styles 7. Screen Design and Prototyping 8. Heuristic evaluation and Evaluation with users 9. Evaluation Data Analysis 10. Web Usability".tokenizeAndStem();
-        bClassifierThesis.addDocument(projUIS,"Information Systems Technologies");
+        bClassifierThesis.addDocument(projUIS,"Interaction and Multimedia");
 
         ////////////Visualização Gráfica -> Graphical Visualization
         //Three-Dimensional Vizualization and Animation - AVT
@@ -744,7 +743,7 @@ async function classifyTheses(latestId, specificFile) {
 
     //load classifier and theses
     try {
-        let restoredClassifier = await loadClassifier(specificFile);
+        let restoredClassifier = await loadClassifier(latestId || specificFile);
         let parsedTheses = await loadTheses(latestId, specificFile);
         return await classifyAux(parsedTheses,restoredClassifier);
     } catch (e) {
