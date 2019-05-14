@@ -117,6 +117,7 @@ router.post('/classifyTheses/:parsedThesesFileName?', passport.authenticate('jwt
     }
 });
 
+
 router.post('/saveTheses/:classifiedThesesFileName?', passport.authenticate('jwt', {session: false}), async (req, res) => {
     if(!UtilsRoutes.isFromAdministration(req))    {
         UtilsRoutes.replyFailure(res,"","Não permitido");
@@ -147,6 +148,55 @@ router.post('/processAll/:trainingCase?', passport.authenticate('jwt', {session:
          UtilsRoutes.replyFailure(res,"","Não permitido");
          return;
      }
+    const trainingCase = parseInt(req.params.trainingCase);
+    if (!trainingCase)  {
+        ba_logger.ba("BA|TR|ERROR|ProcessAll|" + req.user.email);
+        UtilsRoutes.replySuccess(res,"","Cannot ProcessAll. You have to specify a training case." +
+            "1 - process theses by scientific area;" +
+            "2- process theses by scientific area and specialization area");
+        return;
+    }
+    try {
+        //assumes that gce_base creates collection
+        //mongoose.connection.db.dropCollection('theses');
+        const latestId = await fileServices.getCurrentRawHTMLFileId();
+        const trainedClassifier = await thesesServices.trainClassifier(1);
+        await thesesServices.saveClassifier(trainedClassifier,latestId);
+        const parsedTheses = await thesesServices.parseTheses(latestId, null);
+        await thesesServices.saveParsedThesesOnFile(parsedTheses, latestId);
+        const classifiedTheses = await thesesServices.classifyTheses(latestId, null);
+        if (trainingCase === 1) {
+            await thesesServices.saveClassifiedTheses(classifiedTheses, latestId);
+            await thesesServices.saveClassifiedThesesOnDB(classifiedTheses);
+        } else if (trainingCase === 2)  {
+            const trainedAreaClassifier = await thesesServices.trainClassifier(2);
+            const classifiedThesesArea = await thesesServices.classifyThesesArea(classifiedTheses,trainedAreaClassifier);
+            await thesesServices.saveClassifiedTheses(classifiedThesesArea, latestId);
+            await thesesServices.saveClassifiedThesesOnDBAreaAndSpecialization(classifiedThesesArea);
+            //await thesesServices.saveClassifiedTheses(classifiedTheses, latestId);
+            //const loadClassifiedTheses = await thesesServices.loadClassifiedTheses(latestId);
+            //await thesesServices.saveClassifiedThesesOnDB(loadClassifiedTheses);
+        } else {
+            ba_logger.ba("BA|TR|ERROR|ProcessAll|" + req.user.email);
+            UtilsRoutes.replySuccess(res,"","Cannot ProcessAll. You have to specify a training case." +
+                "1 - process theses by scientific area;" +
+                "2- process theses by scientific area and specialization area");
+            return;
+        }
+
+        ba_logger.ba("BA|TR|ProcessAll|" + req.user.email);
+        UtilsRoutes.replySuccess(res,"","ALL PROCESSED");
+    } catch (e) {
+        ba_logger.ba("BA|TR|ERROR|ProcessAll|" + req.user.email);
+        UtilsRoutes.replyFailure(res,e,"Error at ProcessAll");
+    }
+});
+
+router.post('/processAllAreaAndS/:trainingCase?', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    if(!UtilsRoutes.isFromAdministration(req))    {
+        UtilsRoutes.replyFailure(res,"","Não permitido");
+        return;
+    }
     const trainingCase = req.params.trainingCase;
     try {
         //assumes that gce_base creates collection
