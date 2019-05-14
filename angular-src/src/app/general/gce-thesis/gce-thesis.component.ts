@@ -148,7 +148,6 @@ export class GceThesisComponent implements OnInit {
             this.theses = res.response_data;
             this.numberTheses = this.theses.length;
             for (let thesis of this.theses) {
-                console.log(thesis.status);
                 if (thesis.status == "Não atribuída")  {
                     this.numberFreeTheses++;
                 }
