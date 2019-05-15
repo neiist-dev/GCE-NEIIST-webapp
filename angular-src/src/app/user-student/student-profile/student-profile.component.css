@@ -39,3 +39,10 @@
 .centered {
   text-align: center;
 }
+
+.token {
+  display: table;
+  table-layout: fixed;
+  word-wrap: break-word;
+  white-space: pre;
+}
