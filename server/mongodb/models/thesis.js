@@ -56,6 +56,11 @@ const ThesisSchema = mongoose.Schema({
         required: false
     },
 
+    specializationAreas:  {
+        type: [String],
+        required: false
+    },
+
     clicks: {
         type: Number,
         default: 1,

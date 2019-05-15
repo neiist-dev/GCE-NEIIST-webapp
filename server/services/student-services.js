@@ -18,7 +18,7 @@ function parseStudentData(person, callback) {
     parsedStudent.gender = student.gender;
     parsedStudent.email = student.institutionalEmail;
     parsedStudent.campus = student.campus;
-    parsedStudent.enrolments = [];
+    parsedStudent.enrolments = ["default"];
     parsedStudent.roles = [];
 
     // Check if is a student
