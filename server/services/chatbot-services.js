@@ -1,77 +1,61 @@
-//Bot infrastructure: https://botkit.ai/getstarted.html
-
-//Middleware: sentiment analysis for botkit
-// https://github.com/BotBuilderCommunity/botbuilder-community-js/blob/master/libraries/botbuilder-text-analytics-middleware/README.md
-
-
-//  __   __  ___        ___
-// |__) /  \  |  |__/ |  |
-// |__) \__/  |  |  \ |  |
-
-// This is the main file for the a bot.
-
-// Import Botkit's core features
-const { Botkit } = require('botkit');
-const { BotkitCMSHelper } = require('botkit-plugin-cms');
-
-// Import a platform-specific adapter for web.
-
-const { WebAdapter } = require('botbuilder-adapter-web');
-
-const { MongoDbStorage } = require('botbuilder-storage-mongodb');
-
-// Load process.env values from .env file
 let dotenv = require('dotenv');
 const path = require('path')
 dotenv.config({path: path.join(__dirname,'../../.env')});
+const NodeCache = require('node-cache');
+// stdTTL time in seconds (15 mins)
+const searchCache = new NodeCache({ stdTTL: 900 });
 
+const AssistantV2 = require('ibm-watson/assistant/v2');
 
-let storage = null;
-if (process.env.MONGO_URI) {
-    storage = mongoStorage = new MongoDbStorage({
-        url : process.env.MONGO_URI,
-    });
-}
-
-
-const adapter = new WebAdapter({});
-
-
-const controller = new Botkit({
-    debug: true,
-    webhook_uri: '/api/messages',
-
-    adapter: adapter,
-
-    storage
+var assistant = new AssistantV2({
+    iam_apikey: process.env.ASSISTANT_IAM_APIKEY,
+    url: process.env.ASSISTANT_URL_ASSISTANT,
+    version: process.env.ASSISTANT_VERSION,
+    headers: {
+        'X-Watson-Learning-Opt-Out': 'true'
+    }
 });
 
-if (process.env.cms_uri) {
-    controller.usePlugin(new BotkitCMSHelper({
-        cms_uri: process.env.cms_uri,
-        token: process.env.cms_token,
-    }));
+class ChatBotServices {
+    constructor() {
+        this.getChabotAssistant = assistant;
+        this.createSession = createSession;
+        this.sendMessage = sendMessage;
+    }
 }
 
-// Once the bot has booted up its internal services, you can use them to do stuff.
-controller.ready(() => {
+let chatbotServices = module.exports = exports = new ChatBotServices();
 
-    // load traditional developer-created local custom feature modules
-    controller.loadModules(__dirname + '/chatbot-features');
+async function createSession () {
+    let res = await assistant.createSession({
+        assistant_id: process.env.ASSISTANT_ID,
+    });
+    return res;
+}
 
-    /* catch-all that uses the CMS to trigger dialogs */
-    if (controller.plugins.cms) {
-        controller.on('message,direct_message', async (bot, message) => {
-            let results = false;
-            results = await controller.plugins.cms.testTrigger(bot, message);
+async function sendMessage (sessionId, messageToProcess, contextWithAcc) {
+    const payload = {
+        assistant_id: process.env.ASSISTANT_ID,
+        session_id: sessionId,
+        context: contextWithAcc,
+        input: {
+            message_type: 'text',
+            text: messageToProcess,
+            options: {
+                return_context: true,
+            },
+        },
+    };
+    return await assistant.message(payload);
+}
 
-            if (results !== false) {
-                // do not continue middleware!
-                return false;
-            }
-        });
+
+/*
+await assistant.createSession({
+    assistant_id: process.env.ASSISTANT_ID || '{assistant_id}',
+}, (error, response) => {
+    if (error) {
     }
 
-});
-
-
+    return response
+});*/
