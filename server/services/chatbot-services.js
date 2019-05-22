@@ -20,6 +20,7 @@ class ChatBotServices {
     constructor() {
         this.getChabotAssistant = assistant;
         this.createSession = createSession;
+        this.destroySession = destroySession;
         this.sendMessage = sendMessage;
     }
 }
@@ -29,6 +30,14 @@ let chatbotServices = module.exports = exports = new ChatBotServices();
 async function createSession () {
     let res = await assistant.createSession({
         assistant_id: process.env.ASSISTANT_ID,
+    });
+    return res;
+}
+
+async function destroySession (sessionId) {
+    let res = await assistant.deleteSession({
+        assistant_id: process.env.ASSISTANT_ID,
+        session_id: sessionId,
     });
     return res;
 }
