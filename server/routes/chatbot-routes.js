@@ -1,25 +1,18 @@
 let chatbotServices = require('../services/chatbot-services');
+let studentServices = require('../services/student-services');
 const express = require('express');
 const UtilsRoutes = require('./utils-routes');
 const ba_logger = require('../log/ba_logger');
 const router = express.Router();
 const passport = require('passport');
-let requestNumber = new Map();
-//TODO: While a map might work, one might prefer to use NodeCache, as backend servers might break and the session is lost
-//Nonetheless, we are keeping the session ID "private", as the user is not aware of it
 let sessionsMap = new Map();
-const date = new Date();
-
-
 
 router.post('/ask', passport.authenticate('jwt', {session: false}), async (req, res) => {
     if(!UtilsRoutes.isFromAdministration(req))    {
         UtilsRoutes.replyFailure(res,"","Não permitido");
         return;
     }
-
     try {
-
         let responseData = {};
         responseData.response = chatbotServices.getChabotAssistant;
         UtilsRoutes.replySuccess(res,responseData,"Latest id");
@@ -33,21 +26,11 @@ router.post('/ask', passport.authenticate('jwt', {session: false}), async (req, 
 
 
 router.post('/session', passport.authenticate('jwt', {session: false}), async (req, res) => {
-    //Control number of requests
-    //requestNumber.set(req.user.email,requestNumber.get(req.user.email) + 1);
-    //TODO Improve control
-    /*if (requestNumber.get(req.user.email) > 100)    {
-        UtilsRoutes.replyFailure(res,e,"Too many requests. Please try later");
-        ba_logger.important("BA|CHATBOT|WARNING|TOO MANY REQUEST|" + req.user.email);
-        throw new Error ("Too many requests");
-    }*/
-
     try {
-        //We are sending response_data { session_id} instead of { session_id }
         let responseData = await chatbotServices.createSession();
+        //Save the current session per user
         sessionsMap.set(req.user.email,responseData.session_id);
-        console.log(sessionsMap)
-        UtilsRoutes.replySuccess(res,responseData,"Latest id");
+        UtilsRoutes.replySuccess(res,responseData,"Session initialized successfully");
         ba_logger.ba("BA|CHATBOT|CREATE_SESSION|" + req.user.email);
     } catch (e) {
         ba_logger.ba("BA|CHATBOT|ERROR|CREATE_SESSION|" + req.user.email);
@@ -63,78 +46,64 @@ router.post('/destroySession', passport.authenticate('jwt', {session: false}), a
         return;
     }
     try {
-        //We are sending response_data { session_id} instead of { session_id }
         let responseData = await chatbotServices.destroySession(sessionId);
         sessionsMap.delete(req.user.email);
-        console.log(sessionsMap)
         UtilsRoutes.replySuccess(res,responseData,"Destroyed Session Successfully");
     } catch (e) {
         ba_logger.ba("BA|CHATBOT|ERROR|DELETE_SESSION|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at chatbotRoutes.destroySession");
     }
-
 });
 
 router.post('/message', passport.authenticate('jwt', {session: false}), async (req, res) => {
-//TODO define default context
-    const defaultContext = {
+    //TODO is all the context needed in every situation? Probably not, a cheaper option could exist
+    const firstName = req.user.name.split(/(?<=^\S+)\s/)[0];
+    const course = req.user.courses;
+    //get specialization areas and send them as context
+    let areas = studentServices.getAreasOfInterest(req.user.enrolments,2);
+
+    //If no specialization area is found, send "UNDEFINED" to the bot
+    if (areas === undefined || areas === null || areas.length === 0) {
+        areas = "UNDEFINED";
+    }
+    const mainRole = studentServices.getMainRole(req.user.roles);
+
+    const context = {
         global: {
             system: {
                 turn_count: 1,
             },
         },
         skills: {
-            'Theses Advisor': {
+            'main skill': {
                 user_defined: {
-                    time: date.getTime(),
+                    firstName: firstName,
+                    course: course,
+                    specializationAreas: areas,
+                    mainRole :mainRole
                 },
             },
         },
     };
-    //Control number of requests
-    //requestNumber.set(req.user.email,requestNumber.get(req.user.email) + 1);
-    //TODO Improve control
-    /*if (requestNumber.get(req.user.email) > 100)    {
-        UtilsRoutes.replyFailure(res,e,"Too many requests. Please try later");
-        ba_logger.important("BA|CHATBOT|WARNING|TOO MANY REQUEST|" + req.user.email);
-        throw new Error ("Too many requests");
-    }*/
 
-    //our context
-    const name = req.user.name;
-    const email = req.user.email;
-
-    const course = req.user.courses;
-    const roles = req.user.roles;
-
-    //note: Body, raw, type: JSON (APPLICATION/JSON)
-    //replace takes \n out
+    //Message sent without /n
     const message = req.body.message.replace(/\n/g, '');
-    console.log(req.body.message);
-    //get session id
+
+    //get session id to send message
     let sessionId = sessionsMap.get(req.user.email);
     if (!sessionId) {
-        UtilsRoutes.replyFailure(res,"","First call /session to create sessionId");
+        UtilsRoutes.replyFailure(res,"","A session id is needed to send a message. Please refresh the page");
         return;
     }
-    console.log("Session Id is:" + sessionId);
-
-
     try {
-        //We are sending response_data { session_id} instead of { session_id }
-        const contextWithAcc = (req.body.context) ? req.body.context : defaultContext;
-        let responseData = await chatbotServices.sendMessage(sessionId,message,contextWithAcc);
-        console.log(responseData)
-        //define function that handles responses. Alter responses
+        let responseData = await chatbotServices.sendMessage(sessionId,message,context);
         UtilsRoutes.replySuccess(res,responseData,responseData.output.generic[0].text);
-        //ba_logger.ba("BA|CHATBOT|ASK|" + req.user.email);
+        ba_logger.ba("BA|CHATBOT|MESSAGE|" + req.user.email);
     } catch (e) {
-        //ba_logger.ba("BA|CHATBOT|ERROR|ASK|" + req.user.email);
-        UtilsRoutes.replyFailure(res,e,"Error at thesesServices.saveClassifier");
+        ba_logger.ba("BA|CHATBOT|ERROR|MESSAGE|" + req.user.email);
+        UtilsRoutes.replyFailure(res,e,"Internal error. Please contact the administration through the feedback form");
     }
 
 });
-
-
 
 module.exports = router;
