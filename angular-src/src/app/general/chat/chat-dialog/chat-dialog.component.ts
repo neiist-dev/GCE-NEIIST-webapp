@@ -1,5 +1,5 @@
 import { ChatService, Message } from './../chat.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/scan';
 
@@ -30,7 +30,10 @@ export class ChatDialogComponent implements OnInit {
     });
     */
     this.chatService.createSession().subscribe();
+  }
 
+  ngOnDestroy() {
+    this.chatService.destroySession().subscribe();
   }
 
   sendMessage() {

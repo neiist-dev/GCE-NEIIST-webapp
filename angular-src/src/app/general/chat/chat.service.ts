@@ -35,10 +35,20 @@ export class ChatService {
     };
     this.sendMessage(messageToSend).subscribe(data =>  {
         console.log(data);
-      this.currentMessage = new Message (data, 'bot');
+      /**
+       *Data:
+       * message: from the backend we send responseData.output.generic[0].text as the field "message"
+       * response_data  {
+       *     output {
+       *         entities
+       *         generic
+       *         intents
+       *     }
+       * }
+       * */
+      this.currentMessage = new Message (data.message, 'bot');
+      this.update(this.currentMessage);
     });
-
-    this.update(this.currentMessage);
   }
 
   createSession() {
@@ -48,9 +58,14 @@ export class ChatService {
     return this.http.post('chatbot/session', '', {headers: headers}).pipe(map(res => res.json()));
   }
 
+  destroySession() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    this.authService.loadTokenUser(headers);
+    return this.http.post('chatbot/destroySession', '', {headers: headers}).pipe(map(res => res.json()));
+  }
+
   sendMessage(message) {
-    console.log("AAAAAAAAAAAAA MESSAGE IS:"+message);
-    const messageToSend = JSON.stringify(message);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     this.authService.loadTokenUser(headers);
