@@ -13,7 +13,7 @@ module.exports = (app) => {
     app.use('/admin', adminRoutes);
     app.use('/gce', generalRoutes);
     app.use('/theses', thesesRoutes);
-    //app.use('/chat', chatbotRoutes);
+    app.use('/chatbot', chatbotRoutes);
 
     /***********************************************************************************************
      * MAIN

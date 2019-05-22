@@ -107,7 +107,7 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/feedback', passport.authenticate('jwt', {session: false}), (req, res) => {
-
+    //TODO try catch, handle exception
     const name = req.body.name;
     const email = req.body.email;
     const message = req.body.message;
