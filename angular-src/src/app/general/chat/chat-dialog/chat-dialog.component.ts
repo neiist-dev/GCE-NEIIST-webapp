@@ -34,6 +34,7 @@ export class ChatDialogComponent implements OnInit {
 
   ngOnDestroy() {
     this.chatService.destroySession().subscribe();
+    this.formValue = '';
   }
 
   sendMessage() {
