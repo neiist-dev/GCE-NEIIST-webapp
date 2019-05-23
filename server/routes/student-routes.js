@@ -135,7 +135,21 @@ router.post('/register', (req, res, next) => {
                                         for (let enrolment of recenteCourses.enrolments)   {
                                             student[1].enrolments.push(enrolment);
                                         }
-                                        resolve(student);
+
+                                        FenixApi.person.getCourses(token, '2018/2019', (recenteCourses) => {
+                                            if (recenteCourses.hasOwnProperty('error')) {
+                                                error.content = recenteCourses;
+                                                error.msg = "Erro na comunicação com o Fénix em getCourses  .";
+                                                reject(error);
+                                            } else {
+
+                                                for (let enrolment of recenteCourses.enrolments) {
+                                                    student[1].enrolments.push(enrolment);
+                                                }
+
+                                                resolve(student);
+                                            }
+                                        });
                                     }
                                 });
                             }
