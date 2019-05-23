@@ -1,0 +1,26 @@
+<div class="container middlePage">
+  <div class="chat">
+    <div class="chat-title">
+      <h1>Mr. Goopy</h1>
+      <h2>The First Digital Thesis Advisor for Tecnico Lisboa Students</h2>
+      <figure class="avatar">
+        <img src="https://web.ist.utl.pt/~ist180970/assets/img/favicon.png" /></figure>
+    </div>
+    <div style="overflow: auto; height: 400px;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+      <ng-container *ngFor="let message of messages | async">
+
+        <div class="message" [ngClass]="{ 'from': message.sentBy === 'bot',
+                                          'to':   message.sentBy === 'user' }">
+          {{ message.content }}
+        </div>
+
+      </ng-container>
+    </div>
+    <div class="message-box">
+      <textarea [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text" class="message-input" placeholder="Type message..."></textarea>
+      <button (click)="sendMessage()" type="submit" class="message-submit">Send</button>
+    </div>
+
+  </div>
+  <div class="bg"></div>
+</div>
