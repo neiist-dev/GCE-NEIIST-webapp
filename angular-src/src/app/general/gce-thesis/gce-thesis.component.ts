@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { StudentService } from '../../services/student.service';
 import { ThesisService } from '../../services/thesis.service';
@@ -8,12 +8,13 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 
+
 @Component({
     selector: 'app-gce-thesis',
     templateUrl: './gce-thesis.component.html',
     styleUrls: ['./gce-thesis.component.css']
 })
-export class GceThesisComponent implements OnInit {
+export class GceThesisComponent implements OnInit, OnDestroy {
     user: object;
     applications: any[];
     theses: any[];
@@ -21,6 +22,8 @@ export class GceThesisComponent implements OnInit {
     numberFreeTheses: number = 0;
     recommendedTheses: any[];
     showRecomendations: boolean;
+    specializationBool = false;
+
     areas: string[] = [
         "Network Services and Applications",
         "Embedded Systems and Computer Architectures",
@@ -48,7 +51,30 @@ export class GceThesisComponent implements OnInit {
         "Architecture and Management of Information Systems": ["#C21807","AMIS"],
         "Information Systems Technologies": ["#Dff2800","IST"]
     };
+    specializationAreas: string[] = [
+        "Software Engineering",
+        "Enterprise and Information Systems",
+        "Distributed and Cyberphysical Systems",
+        "Interaction and Visualization",
+        "Intelligent Systems",
+        "Algorithms and Applications",
+        "Cyber-Security",
+        "Games",
+        "Bioinformatics and Computational Biology",
+        "Language and Information Technologies"]
 
+        specializationAreasAdvanced:{[area:string]:string[]}={
+        "Software Engineering":["#34B3E4","SE"],
+        "Enterprise and Information Systems": ["#A589D9","EIS"],
+        "Distributed and Cyberphysical Systems": ["#F16D64","DCS"],
+        "Interaction and Visualization": ["#F59640","IV"],
+        "Intelligent Systems": ["#35BEC1","IS"],
+        "Algorithms and Applications": ["#F3C746","AA"],
+        "Cyber-Security": ["#F371AF","CS"],
+        "Games": ["#95C753","G"],
+        "Bioinformatics and Computational Biology": ["#A0A3A6","BCB"],
+        "Language and Information Technologies": ["purple","LIT"]
+    };
 
     queryString: string;
     selectedAreas: string[] = [];
@@ -56,14 +82,9 @@ export class GceThesisComponent implements OnInit {
     selectedTypes: string[] = ["Project","Dissertation"];
     proposal: string;
     motivationLetter: string;
+    idsBot: number[];
 
     availableTheses: number;
-
-
-
-
-
-
     //Ng stuff
 
 
@@ -82,10 +103,17 @@ export class GceThesisComponent implements OnInit {
         this.getTheses();
         this.getRecommendedTheses();
         this.thesisService.currentTheses.subscribe(availableTheses => this.availableTheses = availableTheses);
-
+        this.thesisService.currentIds.subscribe(ids => this.idsBot = ids);
 
     }
 
+    ngOnDestroy() {
+        this.thesisService.changeIdsBot([]);
+    }
+    public changeAreas(){
+        this.specializationBool = !this.specializationBool;
+        this.selectedAreas = [];
+    }
     public openModal(content,thesis) {
 
 

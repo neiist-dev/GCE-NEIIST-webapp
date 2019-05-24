@@ -44,9 +44,8 @@
 
               </div>
       </div> -->
-
     <div class="sidenav">
-        <ng-container *ngFor="let area of areas">
+        <ng-container *ngIf="!specializationBool"><ng-container *ngFor="let area of areas">
             <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
                 <div class="bigColorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
                     <span class="labelText">{{areaAdvanced[area][1]}}</span>
@@ -57,7 +56,19 @@
                     <span class="labelText">{{areaAdvanced[area][1]}}</span>
                 </div>
             </ng-template>
-        </ng-container>
+        </ng-container></ng-container>
+        <ng-container *ngIf="specializationBool"><ng-container *ngFor="let area of specializationAreas">
+            <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
+                <div class="bigColorLabel" [ngStyle]="{'background-color':specializationAreasAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
+                    <span class="labelText">{{specializationAreasAdvanced[area][1]}}</span>
+                </div>
+            </div>
+            <ng-template #smallLabel>
+                <div class="colorLabel" [ngStyle]="{'background-color':specializationAreasAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
+                    <span class="labelText">{{specializationAreasAdvanced[area][1]}}</span>
+                </div>
+            </ng-template>
+        </ng-container></ng-container>
     </div>
 
     <div class="typeBar">
@@ -76,7 +87,7 @@
         </ng-container>
     </div>
 
-    <div class="alert alert-success" role="alert">
+    <div *ngIf="idsBot.length === 0" class="alert alert-success" role="alert">
         <h4 class="alert-heading">Importante!</h4>
         <p>
             Nesta secção podes pesquisar as teses de mestrado disponíveis para <b>MEIC (2018-2019, 1º Semestre)</b>.
@@ -91,13 +102,14 @@
             <br>Atenção que a informação aqui contida é <a href="https://fenix.tecnico.ulisboa.pt/student/finalists/studentCandidacies" target="_blank"> retirada do Fénix </a> e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
     </div>
 
+    <button type="button" class="btn btn-primary" (click)="changeAreas()">Change Areas</button>
 
-    <input type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
+    <input *ngIf="idsBot.length === 0" type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
     <h1 class="availabe-theses-message" *ngIf="availableTheses != 0;else noAvailableTheses"> {{availableTheses}} propostas de tese</h1>
     <ng-template #noAvailableTheses><h1 class="availabe-theses-message">A carregar...</h1></ng-template>
     <div class="row" [hidden]="showRecomendations">
 
-        <ng-container *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes">
+        <ng-container *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes : idsBot">
 
             <div class="card thesisBox" style="width: 18rem;"  >
                 <div class="card-header {{thesis.type}}" (click)="openModal(content,thesis)">
@@ -113,9 +125,12 @@
 
                     <table class="area-colours" style="width:100%">
                         <tr  (click)="openModal(content,thesis)">
-                            <ng-container *ngFor="let area of thesis.areas" >
+                            <ng-container *ngIf="specializationBool"><ng-container  *ngFor="let area of thesis.specializationAreas" >
+                                <td  [ngStyle]="{'background-color':specializationAreasAdvanced[area][0]}" style="width: 50%; height:10px"></td>
+                            </ng-container></ng-container>
+                            <ng-container *ngIf="!specializationBool"><ng-container  *ngFor="let area of thesis.areas" >
                                 <td  [ngStyle]="{'background-color':areaAdvanced[area][0]}" style="width: 50%; height:10px"></td>
-                            </ng-container>
+                            </ng-container></ng-container>
                         </tr>
                     </table>
                 </div>

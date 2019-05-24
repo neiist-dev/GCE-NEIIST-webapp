@@ -6,19 +6,28 @@ Chat
   margin: auto;
   margin-top: 20em;
 }
-
+.faq {
+  position: relative;
+  left: 30%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
 .chat {
   position: relative;
-  top: 50%;
-  left: 50%;
+  left: 30%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 300px;
+  width: 20em;
   height: 80vh;
   max-height: 500px;
   z-index: 2;
   overflow: hidden;
-  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.59);
   background: rgba(0, 0, 0, 0.5);
   border-radius: 20px;
   display: flex;
@@ -33,7 +42,7 @@ Chat Title
   flex: 0 1 45px;
   position: relative;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.67);
   color: #fff;
   text-transform: uppercase;
   text-align: left;
@@ -74,10 +83,11 @@ Messages
 --------------------*/
 .message {
     border-radius: 50px;
-    margin: 0 15px 10px 0px;
+    margin: 0 1em 1em 1em;
     padding: 15px 20px;
     position: relative;
     font-weight: bold;
+    font-size: 0.9em;
 }
 .message.to {
     background-color: #2095FE;
@@ -129,7 +139,7 @@ Message Box
   right: 10px;
   color: #fff;
   border: none;
-  background: #248a52;
+  background: #16545f;
   font-size: 10px;
   text-transform: uppercase;
   line-height: 1;
@@ -139,5 +149,5 @@ Message Box
   transition: background 0.2s ease;
 }
 .message-box .message-submit:hover {
-  background: #1d7745;
+  background: #0b3d46;
 }
