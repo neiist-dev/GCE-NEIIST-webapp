@@ -4,6 +4,8 @@ import { Http } from "@angular/http";
 import {map} from "rxjs/operators";
 import {AuthService} from "../../services/auth.service";
 import {Headers} from "@angular/http";
+import {ThesisService} from "../../services/thesis.service";
+import {Router} from "@angular/router"
 
 // Message class for displaying messages in the component
 export class Message {
@@ -15,9 +17,16 @@ export class Message {
 })
 export class ChatService {
 
+  idsBot: number[];
+
   conversation = new BehaviorSubject<Message[]>([]);
 
-  constructor(private authService: AuthService, private http: Http) { }
+  constructor(private authService: AuthService,
+              private thesisService: ThesisService,
+              private http: Http,
+              private router: Router) {
+    this.thesisService.currentIds.subscribe(ids => this.idsBot = ids);
+  }
   currentMessage: Message;
   messageToSend: string;
 
@@ -25,7 +34,9 @@ export class ChatService {
   update(msg: Message) {
     this.conversation.next([msg]);
   }
-
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then();
+  }
   converse(msg: string) {
     const userMessage = new Message(msg, 'user');
     this.update(userMessage);
@@ -48,6 +59,19 @@ export class ChatService {
        * */
       this.currentMessage = new Message (data.message, 'bot');
       this.update(this.currentMessage);
+
+      if (data.response_data.desiredTheses) {
+        const thesesIdList = data.response_data.desiredTheses;
+        this.thesisService.changeIdsBot(thesesIdList);
+        let msg = new Message("Alright, redirecting in 3...", "bot");
+        this.update(msg);
+        this.delay(3000).then(any=>{
+          this.router.navigate(['/thesis'])
+        });
+
+        //mudar vista com o router
+      }
+
     });
   }
 

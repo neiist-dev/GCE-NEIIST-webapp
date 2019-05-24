@@ -97,6 +97,14 @@ router.post('/message', passport.authenticate('jwt', {session: false}), async (r
     }
     try {
         let responseData = await chatbotServices.sendMessage(sessionId,message,context);
+        const obtainedContext = responseData.context.skills["main skill"].user_defined;
+        //gets context - from the extra entities on context, guesses what the user wants (i.e. print thesis). that context is returned to a switch, which calls functions and returns different stuff
+        //if there is no specific context, send the "normal" message
+        //let specificContext = await chatbotServices.handleContext(responseData)
+        //let processedResponse = await chatbotServices.processResponse(relevantContext);
+        //let finalResponse =  responseData.output.generic[0].text + processedResponse;
+        //TODO not to return the whole responseData on second field. On third return finalResponse
+        responseData.desiredTheses = [11378,13085,11394];
         UtilsRoutes.replySuccess(res,responseData,responseData.output.generic[0].text);
         ba_logger.ba("BA|CHATBOT|MESSAGE|" + req.user.email);
     } catch (e) {
