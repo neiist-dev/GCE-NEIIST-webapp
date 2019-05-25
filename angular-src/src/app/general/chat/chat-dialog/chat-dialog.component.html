@@ -1,0 +1,48 @@
+<div class="container middlePage">
+  <div class="row">
+    <div class="col-7">
+
+      <div class="alert alert-info faq" role="alert">
+        <h4 class="alert-heading">F.A.Q</h4>
+        <p>
+        Aqui podes falar com o Mr. Thesis, que te vai tentar recomendar teses adequadas ao teu perfil. No entanto, não é a única coisa que consegue fazer.
+          Força, testa-o!<br>
+          Os cursos atualemente suportados são: <br>
+          <span class="badge badge-primary">MEIC</span>
+        </p>
+        <hr>
+        <p class="mb-0">
+          Pedidos para funcionalidades/sugestões podem ser feitas no formulário de feedback à direita, ou através do e-mail: rafael.belchior@tecnico.ulisboa.pt.
+          <b>Se gostarias de usar este serviço para o teu curso, contacta-nos!</b> </p>
+      </div>
+
+    </div>
+    <div class="col-5">
+      <div class="chat">
+        <div class="chat-title">
+          <h1>Mr. Thesis</h1>
+          <h2>The First Digital Thesis Advisor for Técnico Lisboa Students</h2>
+          <figure class="avatar">
+            <img src="https://web.ist.utl.pt/~ist180970/assets/img/favicon.png" /></figure>
+        </div>
+        <div style="overflow: auto; height: 400px;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+          <ng-container *ngFor="let message of messages | async">
+
+            <div class="message" [ngClass]="{ 'from': message.sentBy === 'bot',
+                                          'to':   message.sentBy === 'user' }">
+              {{ message.content }}
+            </div>
+
+          </ng-container>
+        </div>
+        <div class="message-box">
+          <textarea [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text" class="message-input" placeholder="Type message..."></textarea>
+          <button (click)="sendMessage()" type="submit" class="message-submit">Send</button>
+        </div>
+
+      </div>
+    </div>
+
+  <div class="bg"></div>
+  </div>
+</div>

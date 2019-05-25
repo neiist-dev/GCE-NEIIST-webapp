@@ -92,6 +92,13 @@
                     </a>
                 </li>
 
+                <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
+                    <a class="nav-link" [routerLink]="['/chatbot']">
+                        <i class="fa fa-heart"></i>
+                        <p>Get advice!</p>
+                    </a>
+                </li>
+
 
 
 

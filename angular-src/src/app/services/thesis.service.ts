@@ -8,8 +8,10 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 @Injectable()
 export class ThesisService {
 
+    private idsBotSource = new BehaviorSubject([]);
     private thesesSource = new BehaviorSubject<number>(0);
     currentTheses = this.thesesSource.asObservable();
+    currentIds = this.idsBotSource.asObservable();
 
     constructor(private http:Http, private authService: AuthService) { }
 
@@ -40,6 +42,9 @@ export class ThesisService {
         this.thesesSource.next(availableTheses)
     }
 
+    changeIdsBot(newIds: number[]) {
+        this.idsBotSource.next(newIds);
+    }
 
 
 }
