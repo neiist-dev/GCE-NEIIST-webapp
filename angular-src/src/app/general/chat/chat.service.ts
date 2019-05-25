@@ -44,8 +44,8 @@ export class ChatService {
     const messageToSend = {
       message: msg,
     };
-    this.sendMessage(messageToSend).subscribe(data =>  {
-        console.log(data);
+    this.sendMessage(messageToSend).subscribe(data => {
+      console.log(data);
       /**
        *Data:
        * message: from the backend we send responseData.output.generic[0].text as the field "message"
@@ -57,24 +57,35 @@ export class ChatService {
        *     }
        * }
        * */
-      this.currentMessage = new Message (data.message, 'bot');
-      this.update(this.currentMessage);
-
+      for (let message of data.response_data.output.generic) {
+        this.currentMessage = new Message(message.text, 'bot');
+        this.update(this.currentMessage);
+      }
       if (data.response_data.desiredTheses) {
         const thesesIdList = data.response_data.desiredTheses;
         this.thesisService.changeIdsBot(thesesIdList);
         let msg = new Message("Alright, redirecting in 3...", "bot");
         this.update(msg);
-        this.delay(3000).then(any=>{
+        this.delay(3000).then(any => {
           this.router.navigate(['/thesis'])
         });
 
         //mudar vista com o router
       }
 
-    });
+    })
   }
 
+  initMessage() {
+    //fazer chamada a backend, obter resposta e atualizar a mensagem, com update
+    const messageToSend = {
+      message: '',
+    };
+    this.sendMessage(messageToSend).subscribe(data => {
+        const msg = new Message(data.message, "bot");
+        this.update(msg);
+    });
+  }
   createSession() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
