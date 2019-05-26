@@ -9,6 +9,7 @@ const ba_logger = require('../log/ba_logger');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const UtilsRoutes = require('./utils-routes');
+const DBAccess = require('../mongodb/accesses/mongo-access');
 
 // f - raw html theses file (from Fenix)
 // c - naive bayes classifier
