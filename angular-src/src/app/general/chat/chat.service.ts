@@ -63,10 +63,15 @@ export class ChatService {
       }
       if (data.response_data.desiredTheses) {
         const thesesIdList = data.response_data.desiredTheses;
+        if (thesesIdList.length === 0)  {
+          let msg = new Message("Unfortunately, we did not find any theses that matches your areas of specialization ☹. Please consult www.gce-neiist.org/thesis to access the full list️", "bot");
+          this.update(msg);
+          return;
+        }
         this.thesisService.changeIdsBot(thesesIdList);
-        let msg = new Message("Alright, redirecting in 3...", "bot");
+        let msg = new Message("We found " + thesesIdList.length + " theses. Redirecting in 5 seconds.", "bot");
         this.update(msg);
-        this.delay(3000).then(any => {
+        this.delay(5000).then(any => {
           this.router.navigate(['/thesis'])
         });
 
