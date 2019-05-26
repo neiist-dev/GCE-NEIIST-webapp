@@ -36,7 +36,7 @@ router.get('/latestId', passport.authenticate('jwt', {session: false}), async (r
     } catch (e) {
         ba_logger.ba("BA|TR|ERROR|latestId|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at latestId");
-
+        throw new Error(e);
     }
 });
 
@@ -60,6 +60,7 @@ router.post('/trainClassifier/:trainingCase?', passport.authenticate('jwt', {ses
     } catch (e) {
         ba_logger.ba("BA|TR|ERROR|trainClassifier|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at thesesServices.saveClassifier");
+        throw new Error(e);
     }
 
 });
@@ -87,6 +88,7 @@ router.post('/parseTheses/:thesesFileName?', passport.authenticate('jwt', {sessi
     } catch (e) {
         ba_logger.ba("BA|TR|ERROR|parseTheses|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at parseTheses");
+        throw new Error(e);
     }
 
 });
@@ -114,6 +116,7 @@ router.post('/classifyTheses/:parsedThesesFileName?', passport.authenticate('jwt
     } catch (e) {
         ba_logger.ba("BA|TR|ERROR|classifyTheses|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at classifyTheses");
+        throw new Error(e);
     }
 });
 
@@ -139,6 +142,7 @@ router.post('/saveTheses/:classifiedThesesFileName?', passport.authenticate('jwt
     } catch (e) {
         ba_logger.ba("BA|TR|ERROR|saveTheses|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at classifyTheses");
+        throw new Error(e);
     }
 });
 
@@ -148,7 +152,7 @@ router.post('/processAll/:trainingCase?', passport.authenticate('jwt', {session:
          UtilsRoutes.replyFailure(res,"","Não permitido");
          return;
      }
-    const trainingCase = parseInt(req.params.trainingCase);
+    const trainingCase = req.params.trainingCase;
     if (!trainingCase)  {
         ba_logger.ba("BA|TR|ERROR|ProcessAll|" + req.user.email);
         UtilsRoutes.replySuccess(res,"","Cannot ProcessAll. You have to specify a training case." +
@@ -160,16 +164,16 @@ router.post('/processAll/:trainingCase?', passport.authenticate('jwt', {session:
         //assumes that gce_base creates collection
         //mongoose.connection.db.dropCollection('theses');
         const latestId = await fileServices.getCurrentRawHTMLFileId();
-        const trainedClassifier = await thesesServices.trainClassifier(1);
+        const trainedClassifier = await thesesServices.trainClassifier("1");
         await thesesServices.saveClassifier(trainedClassifier,latestId);
         const parsedTheses = await thesesServices.parseTheses(latestId, null);
         await thesesServices.saveParsedThesesOnFile(parsedTheses, latestId);
         const classifiedTheses = await thesesServices.classifyTheses(latestId, null);
-        if (trainingCase === 1) {
+        if (trainingCase === "1") {
             await thesesServices.saveClassifiedTheses(classifiedTheses, latestId);
             await thesesServices.saveClassifiedThesesOnDB(classifiedTheses);
-        } else if (trainingCase === 2)  {
-            const trainedAreaClassifier = await thesesServices.trainClassifier(2);
+        } else if (trainingCase === "2")  {
+            const trainedAreaClassifier = await thesesServices.trainClassifier("2");
             const classifiedThesesArea = await thesesServices.classifyThesesArea(classifiedTheses,trainedAreaClassifier);
             await thesesServices.saveClassifiedTheses(classifiedThesesArea, latestId);
             await thesesServices.saveClassifiedThesesOnDBAreaAndSpecialization(classifiedThesesArea);
@@ -189,6 +193,7 @@ router.post('/processAll/:trainingCase?', passport.authenticate('jwt', {session:
     } catch (e) {
         ba_logger.ba("BA|TR|ERROR|ProcessAll|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at ProcessAll");
+        throw new Error(e);
     }
 });
 
@@ -215,6 +220,7 @@ router.post('/processAllAreaAndS/:trainingCase?', passport.authenticate('jwt', {
     } catch (e) {
         ba_logger.ba("BA|TR|ERROR|ProcessAll|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at ProcessAll");
+        throw new Error(e);
     }
 });
 
