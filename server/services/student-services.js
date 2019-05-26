@@ -1,14 +1,19 @@
+const DBAccess = require('../mongodb/accesses/mongo-access');
+
 class StudentServices {
     constructor() {
         this.parseStudentData = parseStudentData;
         this.getAreasOfInterest = getAreasOfInterest;
         this.getMainRole = getMainRole;
+
     }
 }
 
 let student_services = module.exports = exports = new StudentServices();
 
 // Functions
+
+
 
 function parseStudentData(person, callback) {
     let parsedStudent = {};

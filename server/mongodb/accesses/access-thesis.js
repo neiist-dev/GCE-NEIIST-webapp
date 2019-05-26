@@ -18,6 +18,8 @@ class AccessThesis {
         this.removeThesis = removeThesis;
         this.asyncAddThesis = asyncAddThesis;
         this.asyncAddThesisSpecialization = asyncAddThesisSpecialization;
+        this.getThesisRecomendationByAdvisor = getThesisRecomendationByAdvisor;
+        this.getThesisRecomendationByAreaAndAdvisor = getThesisRecomendationByAreaAndAdvisor;
     }
 }
 
@@ -671,9 +673,9 @@ async function getThesisRecomendation(arraySpecialization) {
     let result = [];
     //todo primeira area -> fazer match com primeira posição do array; segunda área -> fazer match tambem e só devolver 2 teses
     for (let area of arraySpecialization)  {
-        let query = Thesis.find({areas: {$eq: area}});
+        let query = Thesis.find({specializationAreas: {$eq: area}});
         var docs = await query.exec();
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < docs.length; i++) {
             let item = docs[Math.floor(Math.random()*docs.length)];
 
             //Thesis is not repeated
@@ -690,6 +692,49 @@ async function getThesisRecomendation(arraySpecialization) {
     }
 
 
+    return result;
+}
+async function getThesisRecomendationByAdvisor(advisor) {
+    let thesisIdSet = new Set();
+    let result = [];
+    //todo primeira area -> fazer match com primeira posição do array; segunda área -> fazer match tambem e só devolver 2 teses
+        let query = Thesis.find({supervisors: {$regex: advisor}});
+        var docs = await query.exec();
+        for (let i = 0; i < docs.length; i++) {
+            let item = docs[Math.floor(Math.random()*docs.length)];
+
+            //Thesis is not repeated
+            if (thesisIdSet.has(item.id)) {
+                i--;
+            } else  {
+                //Repeat
+                thesisIdSet.add(item.id);
+                result.push(item);
+            }
+
+        }
+    return result;
+}
+
+async function getThesisRecomendationByAreaAndAdvisor(area, advisor) {
+    let thesisIdSet = new Set();
+    let result = [];
+    //todo primeira area -> fazer match com primeira posição do array; segunda área -> fazer match tambem e só devolver 2 teses
+    let query = Thesis.find({$and: [{specializationAreas: {$eq: area}}, {supervisors: {$regex: advisor}}]});
+    var docs = await query.exec();
+    for (let i = 0; i < docs.length; i++) {
+        let item = docs[Math.floor(Math.random()*docs.length)];
+
+        //Thesis is not repeated
+        if (thesisIdSet.has(item.id)) {
+            i--;
+        } else  {
+            //Repeat
+            thesisIdSet.add(item.id);
+            result.push(item);
+        }
+
+    }
     return result;
 }
 
