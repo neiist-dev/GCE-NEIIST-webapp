@@ -10,6 +10,7 @@ class AccessUser {
         this.getUserById = getUserById;
         this.getUserByUsername = getUserByUsername;
         this.getUserByEmail = getUserByEmail;
+        this.getUsers = getUsers;
     }
 }
 
@@ -35,4 +36,8 @@ function getUserByUsername(username, callback) {
 function getUserByEmail(email, callback) {
     const query = {email: email};
     User.findOne(query, callback);
+}
+
+async function getUsers() {
+    return await User.find().exec();
 }

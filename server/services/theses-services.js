@@ -61,6 +61,9 @@ class ThesesServices {
         this.getTheses = getTheses;
         this.classifyThesesArea = classifyThesesArea;
         this.saveClassifiedThesesOnDBAreaAndSpecialization = saveClassifiedThesesOnDBAreaAndSpecialization;
+        this.getThesesBySpecialization = getThesesBySpecialization;
+        this.getThesesByAdvisor = getThesesByAdvisor;
+        this.getThesesByAreaAndAdvisor = getThesesByAreaAndAdvisor;
     }
 }
 
@@ -86,6 +89,19 @@ Architecture and Management of Information Systems
 Information Systems Technologies
 
  */
+
+async function getThesesBySpecialization(areas)   {
+    return await DBAccess.thesis.getThesisRecomendation(areas);
+}
+
+async function getThesesByAdvisor(advisor)   {
+    return await DBAccess.thesis.getThesisRecomendationByAdvisor(advisor);
+}
+
+async function getThesesByAreaAndAdvisor(area, advisor)   {
+    return await DBAccess.thesis.getThesisRecomendationByAreaAndAdvisor(area, advisor);
+}
+
 async function trainClassifier (type) {
     //By discipline groups
     //https://fenix.tecnico.ulisboa.pt/departamentos/dei/disciplinas

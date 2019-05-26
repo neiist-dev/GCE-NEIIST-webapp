@@ -228,6 +228,7 @@ router.get('/getStudentSpecializationAreas', passport.authenticate('jwt', {sessi
     return UtilsRoutes.replySuccess(res,preference.areas,preference.areas.length);
 });
 
+//TODO Part should be on student services
 router.get('/getRecommendedTheses', passport.authenticate('jwt', {session: false}), async (req,res,next) =>   {
     if(!UtilsRoutes.roleIs(req, 'Student'))    {
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");
