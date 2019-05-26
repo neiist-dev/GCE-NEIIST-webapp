@@ -18,7 +18,7 @@ export class LoginStudentComponent implements OnInit {
             this.authService.registerStudent(token).subscribe( response => {
                 if (response.succeeded){
                     this.authService.storeData(response.response_data.user, response.response_data.token);
-                    this.router.navigate(['profileStudent']);
+                    this.router.navigate(['chatbot']);
                 } else {
                     this.flashMessage.show(response.message, {cssClass: 'alert-danger', timeout: 5000});
                 }
