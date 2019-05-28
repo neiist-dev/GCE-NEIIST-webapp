@@ -1,9 +1,8 @@
-<div class="container middlePage">
+    <div class="container middlePage">
     <div class="row">
-        <div class="col-md-12">
-
+        <div class="col-lg-auto">
             <div class="panel panel-info">
-                <div class="panel-heading">1) Perfil</div>
+                <div class="panel-heading">Perfil</div>
                 <div class="panel-body">
 
                     <table class="table table-striped">
@@ -20,7 +19,17 @@
                             <td>{{ user.name}}</td>
                             <td>{{ user.email}}</td>
                             <td>{{ user.courses}}</td>
-                            <td class="token">{{ authToken}}</td>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Show
+                            </button>
+
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
+                                    <td class="token">{{ authToken}}</td>
+                                </div>
+                            </div>
+
+
 
                         </tr>
                         </tbody>
@@ -28,8 +37,8 @@
                 </div>
             </div>
         </div>
-        <a class="btn btn-primary" href="/thesis">GCE-Thesis</a>
     </div>
+
 
     <!--
     <div class="row">

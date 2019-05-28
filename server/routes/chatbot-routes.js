@@ -6,6 +6,8 @@ const ba_logger = require('../log/ba_logger');
 const router = express.Router();
 const passport = require('passport');
 let sessionsMap = new Map();
+let idReturningActions = ["get_theses_by_own_areas", "get_theses_by_advisor", "get_theses_by_own_areas_and_advisor"];
+let numberReturningActions = ["get_users_info", "get_theses_info"];
 
 router.post('/ask', passport.authenticate('jwt', {session: false}), async (req, res) => {
     if(!UtilsRoutes.isFromAdministration(req))    {
@@ -80,7 +82,7 @@ router.post('/message', passport.authenticate('jwt', {session: false}), async (r
                     firstName: firstName,
                     course: course,
                     specializationAreas: areas,
-                    mainRole :mainRole
+                    mainRole: mainRole
                 },
             },
         },
@@ -98,13 +100,19 @@ router.post('/message', passport.authenticate('jwt', {session: false}), async (r
     try {
         let responseData = await chatbotServices.sendMessage(sessionId,message,context);
         const obtainedContext = responseData.context.skills["main skill"].user_defined;
-        //gets context - from the extra entities on context, guesses what the user wants (i.e. print thesis). that context is returned to a switch, which calls functions and returns different stuff
-        //if there is no specific context, send the "normal" message
-        //let specificContext = await chatbotServices.handleContext(responseData)
-        //let processedResponse = await chatbotServices.processResponse(relevantContext);
-        //let finalResponse =  responseData.output.generic[0].text + processedResponse;
+        const nextAction = await chatbotServices.handleContext(obtainedContext);
+        if (nextAction) {
+            //TODO extract method to modify response data
+            const result = await chatbotServices.performAction(nextAction, obtainedContext);
+            if (idReturningActions.includes(nextAction.type))  {
+                responseData.desiredTheses = result;
+            } else if (nextAction.type === "get_users_info") {
+                responseData.output.generic[0].text = responseData.output.generic[0].text + "There are " + result + " users!";
+            } else if (nextAction.type === "get_theses_info") {
+                responseData.output.generic[0].text = responseData.output.generic[0].text + "There are " + result + " classified theses.";
+            }
+        }
         //TODO not to return the whole responseData on second field. On third return finalResponse
-        responseData.desiredTheses = [11378,13085,11394];
         UtilsRoutes.replySuccess(res,responseData,responseData.output.generic[0].text);
         ba_logger.ba("BA|CHATBOT|MESSAGE|" + req.user.email);
     } catch (e) {

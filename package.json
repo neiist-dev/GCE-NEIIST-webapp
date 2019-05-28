@@ -31,9 +31,7 @@
     "heroku-postbuild": "cd angular-src && npm install"
   },
   "nodemonConfig": {
-    "ignore": [
-      "backup/*"
-    ]
+    "ignore": ["server/files/*", "*.html", "*.json"]
   },
   "dependencies": {
     "aws-sdk": "^2.462.0",
@@ -68,7 +66,7 @@
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "nodemon": "^1.14.12",
-    "nyc": "^13.3.0",
+    "nyc": "^14.1.1",
     "sinon": "^5.0.7"
   }
 }

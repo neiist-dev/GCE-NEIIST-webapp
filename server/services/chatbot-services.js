@@ -4,6 +4,9 @@ dotenv.config({path: path.join(__dirname,'../../.env')});
 const NodeCache = require('node-cache');
 // stdTTL time in seconds (15 mins)
 const searchCache = new NodeCache({ stdTTL: 900 });
+const thesesServices = require('./theses-services');
+const studentServices = require('./student-services');
+const userServices = require('./user-services');
 
 const AssistantV2 = require('ibm-watson/assistant/v2');
 
@@ -22,6 +25,8 @@ class ChatBotServices {
         this.createSession = createSession;
         this.destroySession = destroySession;
         this.sendMessage = sendMessage;
+        this.handleContext = handleContext;
+        this.performAction = performAction;
     }
 }
 
@@ -68,3 +73,60 @@ await assistant.createSession({
 
     return response
 });*/
+
+//The advisor field depends on the existance of the action field
+async function handleContext(contextArray) {
+    let action =   {};
+    if (contextArray.hasOwnProperty('action'))   {
+        action.type = contextArray.action;
+    } else {
+        return null;
+    }
+
+    if (contextArray.hasOwnProperty('advisor'))   {
+        action.advisor = contextArray.advisor;
+    }
+
+
+    return action;
+}
+
+async function performAction(action, context) {
+    ({type, advisor} = {type:action.type, advisor:action.advisor});
+    let areas = context.specializationAreas;
+    let idList = [];
+
+    //action object has case and advisor. Advisor might be null
+    switch (type) {
+        case 'get_theses_by_own_areas':
+            const TDocs= await thesesServices.getThesesBySpecialization(areas);
+            for (thesis of TDocs)    {
+                idList.push(parseInt(thesis._doc.id));
+            }
+            return idList;
+
+        case 'get_theses_by_advisor':
+            let ADocs = await thesesServices.getThesesByAdvisor(advisor);
+            for (thesis of ADocs )    {
+                idList.push(parseInt(thesis._doc.id));
+            }
+            return idList;
+
+        case 'get_theses_by_own_areas_and_advisor':
+            let ATDocs = await thesesServices.getThesesByAreaAndAdvisor(areas, advisor);
+            for (thesis of ATDocs )    {
+                idList.push(parseInt(thesis._doc.id));
+            }
+            return idList;
+        case 'get_theses_info':
+            let theses = await thesesServices.getTheses();
+            return theses.length;
+        case 'get_users_info':
+            let users=  await userServices.getUsers();
+            return users.length;
+        case 'toBeSet':
+            return;
+        default:
+            throw new Error ("No match on perform action");
+    }
+}

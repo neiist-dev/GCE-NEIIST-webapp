@@ -22,7 +22,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     numberFreeTheses: number = 0;
     recommendedTheses: any[];
     showRecomendations: boolean;
-    specializationBool = false;
+    specializationBool = true;
 
     areas: string[] = [
         "Network Services and Applications",
