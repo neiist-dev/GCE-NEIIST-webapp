@@ -5,6 +5,11 @@
   margin-bottom: 5em;
 }
 
+.fix {
+  table-layout: fixed;
+
+}
+
 .btn-file {
   position: relative;
   overflow: hidden;
