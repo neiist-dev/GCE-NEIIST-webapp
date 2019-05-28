@@ -105,6 +105,7 @@ router.post('/message', passport.authenticate('jwt', {session: false}), async (r
             //TODO extract method to modify response data
             const result = await chatbotServices.performAction(nextAction, obtainedContext);
             if (idReturningActions.includes(nextAction.type))  {
+                //turn strings into ints
                 responseData.desiredTheses = result;
             } else if (nextAction.type === "get_users_info") {
                 responseData.output.generic[0].text = responseData.output.generic[0].text + "There are " + result + " users!";
