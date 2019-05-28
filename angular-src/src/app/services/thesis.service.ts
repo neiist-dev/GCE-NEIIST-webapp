@@ -3,6 +3,7 @@ import { Http, Headers} from '@angular/http';
 import { AuthService} from './auth.service';
 import { map } from 'rxjs/operators';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {AreasDump} from './../general/gce-thesis/areas-dump';
 
 
 @Injectable()
@@ -13,7 +14,7 @@ export class ThesisService {
     currentTheses = this.thesesSource.asObservable();
     currentIds = this.idsBotSource.asObservable();
 
-    constructor(private http:Http, private authService: AuthService) { }
+    constructor(private http:Http, private authService: AuthService, private areasDump: AreasDump) { }
 
     getAllTheses() {
         let headers = new Headers();
@@ -44,6 +45,10 @@ export class ThesisService {
 
     changeIdsBot(newIds: number[]) {
         this.idsBotSource.next(newIds);
+    }
+
+    getAreasFromDump(course: string){
+        return this.areasDump.getAreas(course);
     }
 
 
