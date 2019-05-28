@@ -38,6 +38,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AboutUsComponent } from './general/about-us/about-us.component';
 import { GceArticlesComponent } from './general/gce-articles/gce-articles.component';
 import { GetAdviceComponent } from './general/get-advice/get-advice.component';
+import { AreasDump } from './general/gce-thesis/areas-dump';
 import { ChatModule } from './general/chat/chat.module';
 
 const appRoutes: Routes = [
@@ -120,7 +121,8 @@ const appRoutes: Routes = [
         ThesisService,
         MockBackend,
         FeedbackService,
-        BaseRequestOptions
+        BaseRequestOptions,
+        AreasDump
     ],
     bootstrap: [AppComponent]
 })

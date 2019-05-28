@@ -45,6 +45,7 @@
               </div>
       </div> -->
     <div class="sidenav">
+            
         <ng-container *ngIf="!specializationBool"><ng-container *ngFor="let area of areas">
             <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
                 <div class="bigColorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
@@ -57,7 +58,7 @@
                 </div>
             </ng-template>
         </ng-container></ng-container>
-        <ng-container *ngIf="specializationBool"><ng-container *ngFor="let area of specializationAreas">
+        <ng-container *ngIf="specializationBool && it"><ng-container *ngFor="let area of specializationAreas">
             <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
                 <div class="bigColorLabel" [ngStyle]="{'background-color':specializationAreasAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
                     <span class="labelText">{{specializationAreasAdvanced[area][1]}}</span>
@@ -87,41 +88,26 @@
         </ng-container>
     </div>
 
-
-    <div class="row">
-        <div class="col-2">
-            <button type="button" class="btn btn-primary" (click)="changeAreas()">Mudar vista</button>
-        </div>
-        <div class="col-10">
-            <div *ngIf="idsBot.length === 0" role="alert">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Instruções
-                </button>
-                <div class="collapse" id="collapseExample">
-                    <div class="alert alert-primary">
-                        <p>
-                            Nesta secção podes pesquisar as teses de mestrado disponíveis para <b>MEIC (2018-2019, 1º Semestre)</b>.
-                            Para tal, basta escolheres o tipo de tese que pretendes (à direita) e por grupos de disciplinas necessárias (à esquerda).
-                            <b>Há {{numberTheses}}</b> propostas de tese disponíveis, sendo que <b>{{numberFreeTheses}}</b> não têm nenhuma candidatura.<br>
-                            Para procurares por uma <b>keyword</b> (i.e., machine learning, big data) basta inseri-la na search. Também podes procurar por um professor, inserindo o seu nome. <br>
-                            A qualquer momento podes passar o rato por cima das marcas à esquerda (premir as marcas se estiveres num dispositivo móvel) para saberes o que significam as siglas.
-                        </p>
-                        <hr>
-                        <p class="mb-0">
-                            A lista de docentes do Departamento de Engenharia Informática está disponível <a href="https://fenix.tecnico.ulisboa.pt/departamentos/dei/docentesman" target="_blank">aqui</a>.
-                            <br>Atenção que a informação aqui contida é <a href="https://fenix.tecnico.ulisboa.pt/student/finalists/studentCandidacies" target="_blank"> retirada do Fénix </a> e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-     </div>
-
-    <div class="row">
-            <input *ngIf="idsBot.length === 0" type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
+    <div *ngIf="idsBot.length === 0" class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Importante!</h4>
+        <p>
+            Nesta secção podes pesquisar as teses de mestrado disponíveis para <b>MEIC (2018-2019, 1º Semestre)</b>.
+            Para tal, basta escolheres o tipo de tese que pretendes (à direita) e por grupos de disciplinas necessárias (à esquerda).
+            <b>Há {{numberTheses}}</b> propostas de tese disponíveis, sendo que <b>{{numberFreeTheses}}</b> não têm nenhuma candidatura.<br>
+            Para procurares por uma <b>keyword</b> (i.e., machine learning, big data) basta inseri-la na search. Também podes procurar por um professor, inserindo o seu nome. <br>
+            A qualquer momento podes passar o rato por cima das marcas à esquerda (premir as marcas se estiveres num dispositivo móvel) para saberes o que significam as siglas.
+        </p>
+        <hr>
+        <p class="mb-0">
+            A lista de docentes do Departamento de Engenharia Informática está disponível <a href="https://fenix.tecnico.ulisboa.pt/departamentos/dei/docentesman" target="_blank">aqui</a>.
+            <br>Atenção que a informação aqui contida é <a href="https://fenix.tecnico.ulisboa.pt/student/finalists/studentCandidacies" target="_blank"> retirada do Fénix </a> e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
     </div>
+
+    <button *ngIf="it" type="button" class="btn btn-primary" (click)="changeAreas()">Change Areas</button>
+
+    <input *ngIf="idsBot.length === 0" type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
     <h1 class="availabe-theses-message" *ngIf="availableTheses != 0;else noAvailableTheses"> {{availableTheses}} propostas de tese</h1>
-    <ng-template #noAvailableTheses><h1 class="availabe-theses-message">Não há teses disponíveis</h1></ng-template>
+    <ng-template #noAvailableTheses><h1 class="availabe-theses-message">A carregar...</h1></ng-template>
     <div class="row" [hidden]="showRecomendations">
 
         <ng-container *ngFor="let thesis of theses | filterResults: queryString : selectedAreas : selectedTypes : idsBot">
@@ -140,12 +126,19 @@
 
                     <table class="area-colours" style="width:100%">
                         <tr  (click)="openModal(content,thesis)">
-                            <ng-container *ngIf="specializationBool"><ng-container  *ngFor="let area of thesis.specializationAreas" >
-                                <td  [ngStyle]="{'background-color':specializationAreasAdvanced[area][0]}" style="width: 50%; height:10px"></td>
-                            </ng-container></ng-container>
-                            <ng-container *ngIf="!specializationBool"><ng-container  *ngFor="let area of thesis.areas" >
-                                <td  [ngStyle]="{'background-color':areaAdvanced[area][0]}" style="width: 50%; height:10px"></td>
-                            </ng-container></ng-container>
+                            <ng-container *ngIf="it">
+                                <ng-container *ngIf="specializationBool"><ng-container  *ngFor="let area of thesis.specializationAreas" >
+                                    <td  [ngStyle]="{'background-color':specializationAreasAdvanced[area][0]}" style="width: 50%; height:10px"></td>
+                                </ng-container></ng-container>
+                                <ng-container *ngIf="!specializationBool"><ng-container  *ngFor="let area of thesis.areas" >
+                                    <td  [ngStyle]="{'background-color':areaAdvanced[area][0]}" style="width: 50%; height:10px"></td>
+                                </ng-container></ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="!it">
+                                <ng-container *ngIf="!specializationBool">
+                                        <td  [ngStyle]="{'background-color':areaAdvanced[thesis.areas][0]}" style="height:10px"></td>
+                                </ng-container>
+                             </ng-container>
                         </tr>
                     </table>
                 </div>
