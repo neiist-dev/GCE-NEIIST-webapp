@@ -62,7 +62,7 @@ router.post('/login', (req, res) => {
                         }
                     });
                     const token = jwt.sign(user, dbConfig.DB_SECRET, {
-                        expiresIn: 3600
+                        expiresIn: 10800
                     });
 
                     const TYPE = user.__t;
@@ -107,7 +107,7 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/feedback', passport.authenticate('jwt', {session: false}), (req, res) => {
-
+    //TODO try catch, handle exception
     const name = req.body.name;
     const email = req.body.email;
     const message = req.body.message;

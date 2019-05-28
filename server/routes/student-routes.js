@@ -135,7 +135,21 @@ router.post('/register', (req, res, next) => {
                                         for (let enrolment of recenteCourses.enrolments)   {
                                             student[1].enrolments.push(enrolment);
                                         }
-                                        resolve(student);
+
+                                        FenixApi.person.getCourses(token, '2018/2019', (recenteCourses) => {
+                                            if (recenteCourses.hasOwnProperty('error')) {
+                                                error.content = recenteCourses;
+                                                error.msg = "Erro na comunicação com o Fénix em getCourses  .";
+                                                reject(error);
+                                            } else {
+
+                                                for (let enrolment of recenteCourses.enrolments) {
+                                                    student[1].enrolments.push(enrolment);
+                                                }
+
+                                                resolve(student);
+                                            }
+                                        });
                                     }
                                 });
                             }
@@ -214,6 +228,7 @@ router.get('/getStudentSpecializationAreas', passport.authenticate('jwt', {sessi
     return UtilsRoutes.replySuccess(res,preference.areas,preference.areas.length);
 });
 
+//TODO Part should be on student services
 router.get('/getRecommendedTheses', passport.authenticate('jwt', {session: false}), async (req,res,next) =>   {
     if(!UtilsRoutes.roleIs(req, 'Student'))    {
         UtilsRoutes.replyFailure(res,"","Só os estudantes podem realizar esta ação");

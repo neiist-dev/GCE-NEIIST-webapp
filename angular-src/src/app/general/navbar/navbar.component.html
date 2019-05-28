@@ -86,11 +86,18 @@
                 </li>
 
                 <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
+                    <a class="nav-link" [routerLink]="['/chatbot']">
+                        <i class="fa fa-rocket"></i>
+                        <p>Mr. Thesis</p>
+                    </a>
+                </li>
+                <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" [routerLink]="['/profileStudent']">
                         <i class="fa fa-user-o"></i>
                         <p>{{name}}</p>
                     </a>
                 </li>
+
 
 
 

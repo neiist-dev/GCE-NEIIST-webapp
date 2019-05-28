@@ -8,8 +8,10 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 @Injectable()
 export class ThesisService {
 
+    private idsBotSource = new BehaviorSubject([]);
     private thesesSource = new BehaviorSubject<number>(0);
     currentTheses = this.thesesSource.asObservable();
+    currentIds = this.idsBotSource.asObservable();
 
     constructor(private http:Http, private authService: AuthService) { }
 
@@ -17,7 +19,7 @@ export class ThesisService {
         let headers = new Headers();
         headers.append('Content-Type','application/json');
         this.authService.loadTokenUser(headers);
-        return this.http.get('thesis/getTheses', {headers: headers}).pipe(map(res => res.json()));
+        return this.http.get('theses/getTheses', {headers: headers}).pipe(map(res => res.json()));
 
 
     }
@@ -25,7 +27,7 @@ export class ThesisService {
     incrementClicks(id: number){
         let headers = new Headers();
         headers.append('Content-Type','application/json');
-        let url = "/thesis/incrementClick/" + id.toString();
+        let url = "/theses/incrementClick/" + id.toString();
         this.authService.loadTokenUser(headers);
         return this.http.post(url, "",{headers: headers}).subscribe(
             () => {},
@@ -40,6 +42,9 @@ export class ThesisService {
         this.thesesSource.next(availableTheses)
     }
 
+    changeIdsBot(newIds: number[]) {
+        this.idsBotSource.next(newIds);
+    }
 
 
 }

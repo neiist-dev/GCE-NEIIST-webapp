@@ -55,6 +55,10 @@
     border: 0;
     margin: 3px;
 }
+
+.card-title {
+    text-align: center;
+}
 .card-body{
     padding:0;
     cursor: default;
@@ -75,7 +79,7 @@
 .colorLabel{
     border-radius: 0 20px 20px 0;
     padding: 20px;
-    width: 20px;
+    width: 3em;
     height: 15px;
     margin-bottom:5px;
     cursor: pointer;
@@ -153,13 +157,13 @@
     transition: 0.3s;
 }
 .Dissertation:hover{
-    background-color:#FAC2BB;
+    background-color:#c21807;
 }
 .Project{
     background-color:#CFEDFB;
     transition: 0.3s;
 }.Project:hover{
-     background-color:#9BDAF3;
+     background-color:#008ECC;
  }
 .type-text{
     position:relative;
