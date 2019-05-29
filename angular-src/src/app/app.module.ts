@@ -40,7 +40,7 @@ import { GceArticlesComponent } from './general/gce-articles/gce-articles.compon
 import { GetAdviceComponent } from './general/get-advice/get-advice.component';
 import { AreasDump } from './general/gce-thesis/areas-dump';
 import { ChatModule } from './general/chat/chat.module';
-import { AreasDump } from './general/gce-thesis/areas-dump';
+
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},

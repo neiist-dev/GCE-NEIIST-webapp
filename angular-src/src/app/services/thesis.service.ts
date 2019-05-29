@@ -50,9 +50,6 @@ export class ThesisService {
         this.idsBotSource.next(newIds);
     }
 
-    getAreasFromDump(course: string){
-        return this.areasDump.getAreas(course);
-    }
 
 
 }
