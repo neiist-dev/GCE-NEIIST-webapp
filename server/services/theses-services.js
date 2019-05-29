@@ -9,6 +9,7 @@ const DBAccess = require('../mongodb/accesses/mongo-access');
 const fs = require('fs');
 const MEIC_MODULE_1 = require('./theses-modules/MEIC_1');
 const MEIC_MODULE_2 = require('./theses-modules/MEIC_2');
+const MEIC_MODULE_3 = require('./theses-modules/MEIC_3');
 
 class ThesesServices {
     constructor() {
@@ -16,7 +17,7 @@ class ThesesServices {
         this.saveClassifier = saveClassifier;
         this.parseTheses = parseTheses;
         this.saveParsedThesesOnFile = saveParsedTheses;
-        this.classifyTheses = classifyTheses;
+        this.classifyThesesByFile = classifyThesesByFile;
         this.saveClassifiedTheses = saveClassifiedTheses;
         this.loadClassifier = loadClassifier;
         this.loadClassifiedTheses = loadClassifiedTheses;
@@ -24,11 +25,13 @@ class ThesesServices {
         this.saveClassifiedThesesOnDB = saveClassifiedThesesOnDB;
         this.thesisBackup = thesisBackup;
         this.getTheses = getTheses;
-        this.classifyThesesArea = classifyThesesArea;
+        this.classifyTheses = classifyTheses;
+        this.classifyThesesSpecialization = classifyThesesSpecialization;
         this.saveClassifiedThesesOnDBAreaAndSpecialization = saveClassifiedThesesOnDBAreaAndSpecialization;
         this.getThesesBySpecialization = getThesesBySpecialization;
         this.getThesesByAdvisor = getThesesByAdvisor;
         this.getThesesByAreaAndAdvisor = getThesesByAreaAndAdvisor;
+        this.areaDump = areaDump;
     }
 }
 
@@ -50,17 +53,19 @@ async function getThesesByAreaAndAdvisor(area, advisor)   {
 
 async function trainClassifier (type = "1") {
     let classifier;
-    if (type === "1") {
-       classifier = await MEIC_MODULE_1.getScientificAreasClassifier();
+
+    switch (type) {
+        case "specialization_MEIC":
+            return await MEIC_MODULE_1.getScientificAreasClassifier();
+
+        case "2":
+            return classifier = await MEIC_MODULE_2.oldGetSpecializationAreasClassifier();
+
+        case "MEIC":
+            return await MEIC_MODULE_3.getSimplifiedSpecializationAreasClassifier();
+        default:
+            return "Error";
     }
-
-    if (type === "2") {
-        classifier = await MEIC_MODULE_2.getSpecializationAreasClassifier();
-    }
-
-    classifier.train();
-    return classifier;
-
 
 }
 
@@ -84,7 +89,7 @@ async function parseTheses(latestId, specificFile)    {
     if (!specificFile)   {
         filePath = path.join(__dirname, "../files/Thesis/f" + latestId + ".html");
     } else  {
-        filePath =  path.join(__dirname, "../files/Thesis/"+ specificFile);
+        filePath =  path.join(__dirname, "../files/Thesis/"+ specificFile + ".html");
     }
 
     let parsedTheses = [];
@@ -302,47 +307,47 @@ async function loadTheses(latestId = 0, specificFile = null) {
     }
 }
 
-async function classifyTheses(latestId, specificFile) {
+async function classifyThesesByFile(latestId, specificFile, trainingCase = 1) {
     let classifiedTheses = [];
 
     //load classifier and theses
     try {
         let restoredClassifier = await loadClassifier(latestId || specificFile);
         let parsedTheses = await loadTheses(latestId, specificFile);
-        return await classifyAux(parsedTheses,restoredClassifier);
+        return await classifyAux(parsedTheses,restoredClassifier, trainingCase);
     } catch (e) {
         throw new Error(e);
     }
 
 }
 
-async function classifyAux(theses,classifier) {
+async function classifyAux(theses,classifier, trainingCase) {
     theses.map(thesis =>        thesis.title.tokenizeAndStem().includes("project") ||
                                 thesis.title.tokenizeAndStem().includes("projecto") ||
                                 thesis.title.tokenizeAndStem().includes("projeto") ?
                                 thesis.type = "Project"  : thesis.type = "Dissertation");
 
-    theses.map(thesis =>       thesis.areas = getFirstTwoLabels(thesis,classifier,1));
+    theses.map(thesis =>       thesis.areas = getFirstTwoLabels(thesis,classifier,trainingCase));
 
     return theses;
 }
 
-function getFirstTwoLabels (thesis, bClassifierThesis, type) {
+function getFirstTwoLabels (thesis, classifier, type) {
     var criteria;
     switch(type) {
-        case 0:
+        case "0":
             criteria = thesis.title;
             break;
-        case 1:
+        case "1":
             criteria = thesis.title + " " + thesis.objectives;
             break;
-        case 2:
+        case "2":
             criteria = thesis.title + " " + thesis.requirements;
             break;
-        case 3:
+        case "3":
             criteria = thesis.title + " " + thesis.objectives + " " + thesis.requirements;
             break;
-        case 4:
+        case "4":
             criteria = thesis.title + " " + thesis.location;
             break;
         default:
@@ -350,7 +355,7 @@ function getFirstTwoLabels (thesis, bClassifierThesis, type) {
     }
 
     let classArray = [];
-    var classifications = bClassifierThesis.getClassifications(criteria);
+    var classifications = classifier.getClassifications(criteria);
     classifications.forEach(function(classPlusProbability) {
         classArray.push(classPlusProbability.label)
     });
@@ -412,11 +417,40 @@ async function saveClassifiedThesesOnDBAreaAndSpecialization(theses) {
 }
 
 
-async function classifyThesesArea (theses, classifier)  {
-    theses.map(thesis =>       thesis.specializationAreas = getFirstTwoLabels(thesis,classifier,1));
+async function classifyTheses (theses, classifier, trainingCase)  {
+    theses.map(thesis =>        thesis.title.tokenizeAndStem().includes("project") ||
+    thesis.title.tokenizeAndStem().includes("projecto") ||
+    thesis.title.tokenizeAndStem().includes("projeto") ?
+        thesis.type = "Project"  : thesis.type = "Dissertation");
+    theses.map(thesis =>       thesis.areas = getFirstTwoLabels(thesis,classifier,trainingCase));
+
+    return theses;
+}
+async function classifyThesesSpecialization (theses, classifier, trainingCase)  {
+    theses.map(thesis =>       thesis.specializationAreas = getFirstTwoLabels(thesis,classifier,trainingCase));
     return theses;
 }
 
+async function areaDump (theses, course)  {
+    //Alternatively, instead of using the course, test waht is in thesis.courses
+    /*
+    theses.map((thesis) => {
+        if (thesis.courses.includes("MEIC-A") || thesis.courses.includes("MEIC-T")) {
+            thesis.fenixCourse = "Engenharia Informática e de Computadores";
+        }
+    });
+    */
+
+    theses.map((thesis) => {
+        switch (course) {
+            case "MEIC":
+                thesis.fenixCourse = "Engenharia Informática e de Computadores";
+                break;
+        }
+    });
+
+    return theses;
+}
 /*
 
     classificationLabels: function(thesis, bClassifierThesis,type) {
