@@ -45,7 +45,6 @@ export class ChatService {
       message: msg,
     };
     this.sendMessage(messageToSend).subscribe(data => {
-      console.log(data);
       /**
        *Data:
        * message: from the backend we send responseData.output.generic[0].text as the field "message"

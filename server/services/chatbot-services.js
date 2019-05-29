@@ -95,29 +95,24 @@ async function performAction(action, context) {
     ({type, advisor} = {type:action.type, advisor:action.advisor});
     let areas = context.specializationAreas;
     let idList = [];
-
     //action object has case and advisor. Advisor might be null
     switch (type) {
         case 'get_theses_by_own_areas':
-            const TDocs= await thesesServices.getThesesBySpecialization(areas);
-            for (thesis of TDocs)    {
-                idList.push(parseInt(thesis._doc.id));
-            }
-            return idList;
+            const docsIDs = await thesesServices.getThesesBySpecialization(areas);
+            let idArray = [...docsIDs];
+            return idArray.map(id => parseInt(id));
 
         case 'get_theses_by_advisor':
-            let ADocs = await thesesServices.getThesesByAdvisor(advisor);
-            for (thesis of ADocs )    {
-                idList.push(parseInt(thesis._doc.id));
-            }
-            return idList;
+            let aDocsIDs = await thesesServices.getThesesByAdvisor(advisor);
+            let idArrayA = [...aDocsIDs];
+            return idArrayA.map(id => parseInt(id));
+
 
         case 'get_theses_by_own_areas_and_advisor':
             let ATDocs = await thesesServices.getThesesByAreaAndAdvisor(areas, advisor);
-            for (thesis of ATDocs )    {
-                idList.push(parseInt(thesis._doc.id));
-            }
-            return idList;
+            let idArrayB = [...ATDocs];
+            return idArrayB.map(id => parseInt(id));
+
         case 'get_theses_info':
             let theses = await thesesServices.getTheses();
             return theses.length;
