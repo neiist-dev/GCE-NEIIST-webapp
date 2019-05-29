@@ -31,7 +31,7 @@ export class ChatDialogComponent implements OnInit {
     });
     */
     this.chatService.createSession().subscribe();
-    this.chatService.delay(1000).then(any => {
+    this.chatService.delay(2000).then(any => {
       this.chatService.initMessage();
     });
 

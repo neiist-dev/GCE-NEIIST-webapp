@@ -95,8 +95,6 @@ async function performAction(action, context) {
     ({type, advisor} = {type:action.type, advisor:action.advisor});
     let areas = context.specializationAreas;
     let idList = [];
-    console.log(type)
-    console.log(type)
     //action object has case and advisor. Advisor might be null
     switch (type) {
         case 'get_theses_by_own_areas':
