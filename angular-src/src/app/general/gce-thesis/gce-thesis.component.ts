@@ -22,35 +22,12 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     numberFreeTheses: number = 0;
     recommendedTheses: any[];
     showRecomendations: boolean;
-    specializationBool = true;
+    specializationBool = false;
+    it = false;
+    course: string = '';
+    areas: string[] = [];
+    areaAdvanced: { [area: string]: string[]}= {};
 
-    areas: string[] = [
-        "Network Services and Applications",
-        "Embedded Systems and Computer Architectures",
-        "Distributed Systems and Operating Systems",
-        "Artificial Intelligence Technologies",
-        "Intelligent Systems",
-        "Interaction and Multimedia",
-        "Graphical Visualization",
-        "Algorithms and Applications",
-        "Software Engineering",
-        "Programming",
-        "Architecture and Management of Information Systems",
-        "Information Systems Technologies"];
-    areaAdvanced:{[area:string]:string[]}={
-        "Network Services and Applications":["#0b6623","NSA"],
-        "Embedded Systems and Computer Architectures": ["#3f704d","ESCA"],
-        "Distributed Systems and Operating Systems": ["#01796F","DSOS"],
-        "Artificial Intelligence Technologies": ["#FFFDD0","AIT"],
-        "Intelligent Systems": ["#FFE5B4","IS"],
-        "Interaction and Multimedia": ["#111E6C","IM"],
-        "Graphical Visualization": ["#1D2951","GV"],
-        "Algorithms and Applications": ["#F8DE7E","AA"],
-        "Software Engineering": ["#FADA5E","SE"],
-        "Programming": ["#F9A602","P"],
-        "Architecture and Management of Information Systems": ["#C21807","AMIS"],
-        "Information Systems Technologies": ["#Dff2800","IST"]
-    };
     specializationAreas: string[] = [
         "Software Engineering",
         "Enterprise and Information Systems",
@@ -100,6 +77,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     @ViewChild('proposalTable') proposalTable;
     ngOnInit() {
         this.loadUser();
+        this.getAreas();
         this.getTheses();
         this.getRecommendedTheses();
         this.thesisService.currentTheses.subscribe(availableTheses => this.availableTheses = availableTheses);
@@ -161,6 +139,18 @@ export class GceThesisComponent implements OnInit, OnDestroy {
 
     loadUser() {
         this.user = this.studentService.loadStudentProfile();
+        this.course = this.user['courses'][0];
+        this.it = this.course.includes("Engenharia Informática e de Computadores");
+    }
+
+     getAreas(){
+
+         this.areaAdvanced = this.thesisService.getAreasFromDump(this.course);
+
+         this.areas = []
+        for (let key in this.areaAdvanced){
+            this.areas.push(key);
+        }
     }
 
     getRecommendedTheses() {

@@ -39,6 +39,7 @@ import { AboutUsComponent } from './general/about-us/about-us.component';
 import { GceArticlesComponent } from './general/gce-articles/gce-articles.component';
 import { GetAdviceComponent } from './general/get-advice/get-advice.component';
 import { ChatModule } from './general/chat/chat.module';
+import { AreasDump } from './general/gce-thesis/areas-dump';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -120,7 +121,8 @@ const appRoutes: Routes = [
         ThesisService,
         MockBackend,
         FeedbackService,
-        BaseRequestOptions
+        BaseRequestOptions,
+        AreasDump
     ],
     bootstrap: [AppComponent]
 })

@@ -1,49 +1,5 @@
 <div class="container middlePage">
 
-
-
-    <!--  <div class="row justify-content-md-center" [hidden]="showRecomendations">
-          <div class="col-md-auto">
-              <div class="card" style="width: 28rem;">
-                  <img class="card-img-top" src="https://groups.ist.utl.pt/~gce-neiist.daemon/assets/favicon.png" height=50% width=50% alt="GCE">
-                  <div class="card-body">
-                      <h5 class="card-title centered">Teses recomendadas</h5>
-                      <p class="card-text centered">Clica no botão seguinte para o GCE te recomendar propostas de teses de mestrado. Estas recomnedações são baseadas nas cadeiras que fizeste.</p>
-                      <button type="button" class="btn btn-primary" (click)="toggleShowRecomendations($event)">Ajuda-me a escolher a minha tese!</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="row" [hidden]="!showRecomendations">
-          <div class="col-md-auto centered"></div>
-          <button type="button" class="btn btn-primary" (click)="toggleShowRecomendations($event)">Esconder recomendações</button>
-      </div>
-
-      <div class="row" [hidden]="!showRecomendations">
-          <div class="col-md-auto centered"></div>
-          <button type="button" class="btn btn-primary" (click)="addRecomendations($event)">Mais recomendações</button>
-      </div>
-
-      <div class="row" [hidden]="!showRecomendations">
-              <div class="col-md-12" *ngFor="let thesis of recommendedTheses">
-
-                      <div class="card" style="width: 18rem;">
-                          <h3>                {{ thesis.id}}</h3>
-                          <div class="card-body">
-                              <h5 class="card-title">{{ thesis.title}}</h5>
-                              <div *ngFor="let area of recommendedTheses['areas']">
-                                  area
-                              </div>
-                              <span class="label label-default">{{thesis.areas}}</span>
-                              <a href="#" class="btn btn-primary">Mais</a>
-                          </div>
-                      </div>
-
-                      {{ thesis.area}}
-
-              </div>
-      </div> -->
     <div class="sidenav">
         <ng-container *ngIf="!specializationBool"><ng-container *ngFor="let area of areas">
             <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
@@ -57,7 +13,7 @@
                 </div>
             </ng-template>
         </ng-container></ng-container>
-        <ng-container *ngIf="specializationBool"><ng-container *ngFor="let area of specializationAreas">
+        <ng-container *ngIf="specializationBool && it"><ng-container *ngFor="let area of specializationAreas">
             <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
                 <div class="bigColorLabel" [ngStyle]="{'background-color':specializationAreasAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
                     <span class="labelText">{{specializationAreasAdvanced[area][1]}}</span>
@@ -88,7 +44,7 @@
     </div>
 
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-2">
             <button type="button" class="btn btn-primary" (click)="changeAreas()">Mudar vista</button>
         </div>
@@ -115,7 +71,32 @@
 
             </div>
         </div>
-     </div>
+     </div> -->
+     <div class="row">
+        <div class="col-2">
+            <button type="button" class="btn btn-primary" (click)="changeAreas()">Mudar vista</button>
+        </div>
+        <div class="col-10">
+            <div *ngIf="idsBot.length === 0" role="alert">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Instruções
+                </button>
+                <div class="collapse" id="collapseExample">
+                    <div class="alert alert-primary">
+                        <p>
+                            Nesta secção podes pesquisar as teses de mestrado disponíveis para <b>MEIC (2018-2019, 1º Semestre)</b>.
+                            Para tal, basta escolheres o tipo de tese que pretendes (à direita) e por grupos de disciplinas necessárias (à esquerda).
+                            <b>Há {{numberTheses}}</b> propostas de tese disponíveis, sendo que <b>{{numberFreeTheses}}</b> não têm nenhuma candidatura.<br>
+                            Para procurares por uma <b>keyword</b> (i.e., machine learning, big data) basta inseri-la na search. Também podes procurar por um professor, inserindo o seu nome. <br>
+                            A qualquer momento podes passar o rato por cima das marcas à esquerda (premir as marcas se estiveres num dispositivo móvel) para saberes o que significam as siglas.
+                        </p>
+                        <hr>
+                        <p class="mb-0">
+                            A lista de docentes do Departamento de Engenharia Informática está disponível <a href="https://fenix.tecnico.ulisboa.pt/departamentos/dei/docentesman" target="_blank">aqui</a>.
+                            <br>Atenção que a informação aqui contida é <a href="https://fenix.tecnico.ulisboa.pt/student/finalists/studentCandidacies" target="_blank"> retirada do Fénix </a> e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
+                    </div>
+                </div>
+
 
     <div class="row">
             <input *ngIf="idsBot.length === 0" type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
