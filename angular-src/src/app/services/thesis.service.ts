@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {AreasDump} from './../general/gce-thesis/areas-dump';
 
+
 @Injectable()
 export class ThesisService {
 
@@ -47,6 +48,10 @@ export class ThesisService {
 
     changeIdsBot(newIds: number[]) {
         this.idsBotSource.next(newIds);
+    }
+
+    getAreasFromDump(course: string){
+        return this.areasDump.getAreas(course);
     }
 
 

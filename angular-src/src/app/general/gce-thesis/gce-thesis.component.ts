@@ -40,7 +40,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
         "Bioinformatics and Computational Biology",
         "Language and Information Technologies"]
 
-        specializationAreasAdvanced:{[area:string]:string[]}={
+    specializationAreasAdvanced:{[area:string]:string[]}={
         "Software Engineering":["#34B3E4","SE"],
         "Enterprise and Information Systems": ["#A589D9","EIS"],
         "Distributed and Cyberphysical Systems": ["#F16D64","DCS"],
@@ -143,11 +143,13 @@ export class GceThesisComponent implements OnInit, OnDestroy {
         this.it = this.course.includes("Engenharia Informática e de Computadores");
     }
 
-     getAreas(){
 
-         this.areaAdvanced = this.thesisService.getAreasFromDump(this.course);
+    getAreas(){
+        
+        this.areaAdvanced = this.thesisService.getAreasFromDump(this.course);
+       
+        this.areas = []
 
-         this.areas = []
         for (let key in this.areaAdvanced){
             this.areas.push(key);
         }

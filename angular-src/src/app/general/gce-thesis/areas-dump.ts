@@ -1,8 +1,10 @@
+
 import { Injectable } from '@angular/core';
 
 
 @Injectable()
 export class AreasDump{
+
 
     abbreviation: {[abb: string]: string } = {
         'MEIC-A' : 'Engenharia Informática e de Computadores',
