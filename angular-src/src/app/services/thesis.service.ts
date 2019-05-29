@@ -24,7 +24,10 @@ export class ThesisService {
 
 
     }
-
+    getAreasFromDump(course: string){
+        return this.areasDump.getAreas(course);
+    }
+    
     incrementClicks(id: number){
         let headers = new Headers();
         headers.append('Content-Type','application/json');

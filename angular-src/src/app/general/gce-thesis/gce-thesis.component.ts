@@ -143,11 +143,13 @@ export class GceThesisComponent implements OnInit, OnDestroy {
         this.it = this.course.includes("Engenharia Informática e de Computadores");
     }
 
+
     getAreas(){
         
         this.areaAdvanced = this.thesisService.getAreasFromDump(this.course);
        
         this.areas = []
+
         for (let key in this.areaAdvanced){
             this.areas.push(key);
         }
