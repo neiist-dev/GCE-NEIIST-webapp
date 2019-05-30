@@ -148,7 +148,7 @@ router.post('/saveTheses/:classifiedThesesFileName?', passport.authenticate('jwt
     }
 });
 
-router.post('/getThesesByCourse/', passport.authenticate('jwt', {session: false}), async (req, res) => {
+router.get('/getThesesByCourse/', passport.authenticate('jwt', {session: false}), async (req, res) => {
     if(!UtilsRoutes.isFromAdministration(req))    {
         UtilsRoutes.replyFailure(res,"","Não permitido");
         return;
