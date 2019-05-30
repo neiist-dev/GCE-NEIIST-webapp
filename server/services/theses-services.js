@@ -67,7 +67,7 @@ async function trainClassifier (type = "1") {
             return classifier = await MEIC_MODULE_2.oldGetSpecializationAreasClassifier();
 
         case "MEIC":
-            return await MEIC_MODULE_3.getSimplifiedSpecializationAreasClassifier();
+            return await MEIC_MODULE_2.oldGetSpecializationAreasClassifier();
         default:
             return "Error";
     }
