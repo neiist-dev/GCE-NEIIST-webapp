@@ -139,11 +139,34 @@ router.post('/saveTheses/:classifiedThesesFileName?', passport.authenticate('jwt
         await thesesServices.saveClassifiedThesesOnDB(classifiedTheses);
         let responseData = {};
         //TODO Send the user the number of classified thesis and their type
-        ba_logger.ba("BA|TR|ERROR|saveTheses|" + req.user.email);
+        ba_logger.ba("BA|TR|saveTheses|" + req.user.email);
         UtilsRoutes.replySuccess(res,"","Theses were classified");
     } catch (e) {
         ba_logger.ba("BA|TR|ERROR|saveTheses|" + req.user.email);
         UtilsRoutes.replyFailure(res,e,"Error at classifyTheses");
+        throw new Error(e);
+    }
+});
+
+router.post('/getThesesByCourse/', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    if(!UtilsRoutes.isFromAdministration(req))    {
+        UtilsRoutes.replyFailure(res,"","Não permitido");
+        return;
+    }
+
+    //Can have more than 1 course, we assume the first is the latest/main
+    let fenixCourse = req.user.courses[0];
+    //Engenharia Informática e de Computadores - Alameda gets transformed into Engenharia Informática e de Computadores
+    fenixCourse = fenixCourse.split("-")[0].trim();
+    try {
+        const theses = await thesesServices.getThesesByFenixCourse(fenixCourse);
+        let responseData = {};
+        responseData.number = theses.length;
+        responseData.theses = theses;
+        UtilsRoutes.replySuccess(res, responseData,"Theses from " + fenixCourse);
+    } catch (e) {
+        ba_logger.ba("BA|GET_THESIS|ERROR|" + req.user.email);
+        UtilsRoutes.replyFailure(res,e,"Error at get theses by course");
         throw new Error(e);
     }
 });

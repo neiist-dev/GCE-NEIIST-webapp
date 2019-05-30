@@ -32,6 +32,7 @@ class ThesesServices {
         this.getThesesByAdvisor = getThesesByAdvisor;
         this.getThesesByAreaAndAdvisor = getThesesByAreaAndAdvisor;
         this.areaDump = areaDump;
+        this.getThesesByFenixCourse= getThesesByFenixCourse;
     }
 }
 
@@ -45,6 +46,10 @@ async function getThesesBySpecialization(areas)   {
 
 async function getThesesByAdvisor(advisor)   {
     return await DBAccess.thesis.getThesisRecomendationByAdvisor(advisor);
+}
+
+async function getThesesByFenixCourse(course)   {
+    return await DBAccess.thesis.getThesesByFenixCourse(course);
 }
 
 async function getThesesByAreaAndAdvisor(area, advisor)   {
@@ -400,7 +405,7 @@ async function saveClassifiedThesesOnDB(theses) {
         theses.map (async thesis => await DBAccess.thesis.asyncAddThesis(thesis.id, thesis.title, thesis.supervisors,
             thesis.vacancies, thesis.location, thesis.courses,
             thesis.observations, thesis.objectives, thesis.status,
-            thesis.requirements, thesis.areas, 0 , thesis.type, new Date()))
+            thesis.requirements, thesis.areas, 0 , thesis.type, thesis.fenixCourse, new Date()))
     } catch (e) {
         throw new Error(e);
     }
@@ -410,7 +415,7 @@ async function saveClassifiedThesesOnDBAreaAndSpecialization(theses) {
         theses.map (async thesis => await DBAccess.thesis.asyncAddThesisSpecialization(thesis.id, thesis.title, thesis.supervisors,
             thesis.vacancies, thesis.location, thesis.courses,
             thesis.observations, thesis.objectives, thesis.status,
-            thesis.requirements, thesis.areas, thesis.specializationAreas, 0 , thesis.type, new Date()))
+            thesis.requirements, thesis.areas, thesis.specializationAreas, 0 , thesis.type, thesis.fenixCourse, new Date()))
     } catch (e) {
         throw new Error(e);
     }
