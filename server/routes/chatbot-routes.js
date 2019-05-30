@@ -28,6 +28,10 @@ router.post('/ask', passport.authenticate('jwt', {session: false}), async (req, 
 
 
 router.post('/session', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    if(!UtilsRoutes.isFromMEIC(req))    {
+        UtilsRoutes.replySuccess(res,"","This service is only available to LEIC and MEIC students");
+        return;
+    }
     try {
         let responseData = await chatbotServices.createSession();
         //Save the current session per user
@@ -42,6 +46,10 @@ router.post('/session', passport.authenticate('jwt', {session: false}), async (r
 });
 
 router.post('/destroySession', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    if(!UtilsRoutes.isFromMEIC(req))    {
+        UtilsRoutes.replySuccess(res,"","This service is only available to LEIC and MEIC students");
+        return;
+    }
     let sessionId = sessionsMap.get(req.user.email);
     if (!sessionId) {
         UtilsRoutes.replyFailure(res,"","No session to destroy");
@@ -58,6 +66,10 @@ router.post('/destroySession', passport.authenticate('jwt', {session: false}), a
 });
 
 router.post('/message', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    if(!UtilsRoutes.isFromMEIC(req))    {
+        UtilsRoutes.replySuccess(res,"","This service is only available to LEIC and MEIC students");
+        return;
+    }
     //TODO is all the context needed in every situation? Probably not, a cheaper option could exist
     const firstName = req.user.name.split(/(?<=^\S+)\s/)[0];
     const course = req.user.courses;
