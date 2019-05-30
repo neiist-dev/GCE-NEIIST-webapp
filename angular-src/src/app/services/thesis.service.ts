@@ -21,9 +21,15 @@ export class ThesisService {
         headers.append('Content-Type','application/json');
         this.authService.loadTokenUser(headers);
         return this.http.get('theses/getTheses', {headers: headers}).pipe(map(res => res.json()));
-
-
     }
+
+    getThesesByArea() {
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        this.authService.loadTokenUser(headers);
+        return this.http.get('theses/getThesesByCourse', {headers: headers}).pipe(map(res => res.json()));
+    }
+
     getAreasFromDump(course: string){
         return this.areasDump.getAreas(course);
     }
