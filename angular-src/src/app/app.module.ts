@@ -41,6 +41,7 @@ import { GetAdviceComponent } from './general/get-advice/get-advice.component';
 import { AreasDump } from './general/gce-thesis/areas-dump';
 import { ChatModule } from './general/chat/chat.module';
 
+
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'login', children: [

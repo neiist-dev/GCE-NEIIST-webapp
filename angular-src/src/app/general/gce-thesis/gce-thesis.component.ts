@@ -29,28 +29,32 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     areaAdvanced: { [area: string]: string[]}= {};
 
     specializationAreas: string[] = [
-        "Software Engineering",
-        "Enterprise and Information Systems",
-        "Distributed and Cyberphysical Systems",
-        "Interaction and Visualization",
-        "Intelligent Systems",
-        "Algorithms and Applications",
-        "Cyber-Security",
-        "Games",
-        "Bioinformatics and Computational Biology",
-        "Language and Information Technologies"]
+        'Network Services and Applications',
+    'Embedded Systems and Computer Architectures',
+    'Distributed Systems and Operating Systems',
+    'Artificial Intelligence Technologies',
+    'Intelligent Systems',
+    'Interaction and Multimedia',
+    'Graphical Visualization',
+    'Algorithms and Applications',
+    'Software Engineering',
+    'Programming',
+    'Architecture and Management of Information Systems',
+    'Information Systems Technologies']
 
     specializationAreasAdvanced:{[area:string]:string[]}={
-        "Software Engineering":["#34B3E4","SE"],
-        "Enterprise and Information Systems": ["#A589D9","EIS"],
-        "Distributed and Cyberphysical Systems": ["#F16D64","DCS"],
-        "Interaction and Visualization": ["#F59640","IV"],
-        "Intelligent Systems": ["#35BEC1","IS"],
-        "Algorithms and Applications": ["#F3C746","AA"],
-        "Cyber-Security": ["#F371AF","CS"],
-        "Games": ["#95C753","G"],
-        "Bioinformatics and Computational Biology": ["#A0A3A6","BCB"],
-        "Language and Information Technologies": ["purple","LIT"]
+        'Network Services and Applications':['#34B3E4','NSA'],
+        'Embedded Systems and Computer Architectures': ['#A589D9','ESCA'],
+        'Distributed Systems and Operating Systems': ['#F16D64','DSOS'],
+        'Artificial Intelligence Technologies': ['#F59640','AIT'],
+        'Intelligent Systems': ['#35BEC1','IS'],
+        'Interaction and Multimedia': ['#F3C746','IM'],
+        'Graphical Visualization': ['#F371AF','GV'],
+        'Algorithms and Applications': ['#95C753','AA'],
+        'Software Engineering': ['#A0A3A6','SE'],
+        'Programming': ['#F9A602','P'],
+        'Architecture and Management of Information Systems': ['#C21807','AMIS'],
+        'Information Systems Technologies': ['#FF0266','IST']
     };
 
     queryString: string;
@@ -78,7 +82,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.loadUser();
         this.getAreas();
-        this.getTheses();
+        this.getThesesByArea();
         this.getRecommendedTheses();
         this.thesisService.currentTheses.subscribe(availableTheses => this.availableTheses = availableTheses);
         this.thesisService.currentIds.subscribe(ids => this.idsBot = ids);
@@ -143,14 +147,17 @@ export class GceThesisComponent implements OnInit, OnDestroy {
         this.it = this.course.includes("Engenharia Informática e de Computadores");
     }
 
+
     getAreas(){
         
         this.areaAdvanced = this.thesisService.getAreasFromDump(this.course);
        
         this.areas = []
+
         for (let key in this.areaAdvanced){
             this.areas.push(key);
         }
+
     }
 
     getRecommendedTheses() {
@@ -160,11 +167,11 @@ export class GceThesisComponent implements OnInit, OnDestroy {
         });
 
     }
-    getTheses() {
+    getThesesByArea() {
         this.theses = [];
-        this.thesisService.getAllTheses().subscribe(res => {
-            this.theses = res.response_data;
-            this.numberTheses = this.theses.length;
+        this.thesisService.getThesesByArea().subscribe(res => {
+            this.theses = res.response_data.theses;
+            this.numberTheses = res.response_data.number;
             for (let thesis of this.theses) {
                 if (thesis.status == "Não atribuída")  {
                     this.numberFreeTheses++;

@@ -3,7 +3,7 @@ docs/
 out/
 
 #files
-#server/files/Thesis/
+server/files/Thesis/
 
 #WebStorm config files
 angular-src/.editorconfig

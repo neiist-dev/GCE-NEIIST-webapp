@@ -20,6 +20,7 @@ class AccessThesis {
         this.asyncAddThesisSpecialization = asyncAddThesisSpecialization;
         this.getThesisRecomendationByAdvisor = getThesisRecomendationByAdvisor;
         this.getThesisRecomendationByAreaAndAdvisor = getThesisRecomendationByAreaAndAdvisor;
+        this.getThesesByFenixCourse = getThesesByFenixCourse;
     }
 }
 
@@ -281,7 +282,7 @@ function addThesisArray(thesesArray, callback) {
 }
 async function asyncAddThesis(id, title, supervisors, vacancies, location, courses,
                               observations, objectives, status, requirements, areas,
-                              clicks, type, lastModified, callback) {
+                              clicks, type, fenixCourse, lastModified, callback) {
     Thesis.find(
         {
             id: id
@@ -385,6 +386,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     requirements: requirements,
                     areas: areas,
                     type: type,
+                    fenixCourse: fenixCourse,
                     clicks: clicks,
                     lastModified: lastModified
                 });
@@ -436,7 +438,7 @@ function addThesisArray(thesesArray, callback) {
 
 async function asyncAddThesisSpecialization(id, title, supervisors, vacancies, location, courses,
                               observations, objectives, status, requirements, areas, specializationAreas,
-                              clicks, type, lastModified, callback) {
+                              clicks, type, fenixCourse, lastModified, callback) {
     Thesis.find(
         {
             id: id
@@ -541,6 +543,7 @@ async function asyncAddThesisSpecialization(id, title, supervisors, vacancies, l
                     areas: areas,
                     specializationAreas: specializationAreas,
                     type: type,
+                    fenixCourse: fenixCourse,
                     clicks: clicks,
                     lastModified: lastModified
                 });
@@ -640,6 +643,7 @@ async function getThesisRecomendation(areas) {
 
     return thesisIdSet;
 }
+
 async function getThesisRecomendationByAdvisor(advisor) {
     let thesisIdSet = new Set();
         let query = Thesis.find({supervisors: {$regex: advisor}});
@@ -648,6 +652,11 @@ async function getThesisRecomendationByAdvisor(advisor) {
             thesisIdSet.add(thesis.id);
         }
         return thesisIdSet;
+}
+
+async function getThesesByFenixCourse(course) {
+        let query = Thesis.find({fenixCourse: {$regex: course}});
+        return await query.exec();
 }
 
 async function getThesisRecomendationByAreaAndAdvisor(areas, advisor) {

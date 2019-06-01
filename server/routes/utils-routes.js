@@ -9,6 +9,7 @@ function Utils() {
     this.saveFile = saveFile;
     this.routeIsBlocked = false;
     this.isFromAdministration = isFromAdministration;
+    this.isFromMEIC = isFromMEIC;
 }
 
 let utils = module.exports = exports = new Utils;
@@ -68,4 +69,8 @@ function isFromAdministration(req) {
     const admins = new Set(adminArray);
     const user = req.user.email;
     return admins.has(user);
+}
+function isFromMEIC(req) {
+    const course = req.user.courses[0];
+    return course.includes("Engenharia Informática");
 }

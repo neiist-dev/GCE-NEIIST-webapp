@@ -1,37 +1,59 @@
-import { Injectable } from "@angular/core";
+
+import { Injectable } from '@angular/core';
 
 
 @Injectable()
 export class AreasDump{
 
-    availableCourses: string[] = ["Engenharia Informática e de Computadores","Engenharia Mecânica"]
 
-    areas: {[course: string] : {[area:string]:string[]}} = {
-        "Engenharia Informática e de Computadores" : {
-                                                        "Network Services and Applications":["#34B3E4","NSA"],
-                                                        "Embedded Systems and Computer Architectures": ["#A589D9","ESCA"],
-                                                        "Distributed Systems and Operating Systems": ["#F16D64","DSOS"],
-                                                        "Artificial Intelligence Technologies": ["#F59640","AIT"],
-                                                        "Intelligent Systems": ["#35BEC1","IS"],
-                                                        "Interaction and Multimedia": ["#F3C746","IM"],
-                                                        "Graphical Visualization": ["#F371AF","GV"],
-                                                        "Algorithms and Applications": ["#95C753","AA"],
-                                                        "Software Engineering": ["#A0A3A6","SE"],
-                                                        "Programming": ["#F9A602","P"],
-                                                        "Architecture and Management of Information Systems": ["#C21807","AMIS"],
-                                                        "Information Systems Technologies": ["#FF0266","IST"]
+    abbreviation: {[abb: string]: string } = {
+        'MEIC-A' : 'Engenharia Informática e de Computadores',
+        'MEIC-T' : 'Engenharia Informática e de Computadores',
+        'MEMec' : 'Engenharia Mecânica',
+        'MEBiom' : 'Engenharia Biomédica',
+        'MEQ' : 'Engenharia Química',
+        'MEAer' : 'Engenharia Aeroespacial',
+        'MEFT' : 'Engenharia Física Tecnológica',
+    };
+    availableCourses: string[] = ['Engenharia Informática e de Computadores',
+                                  'Engenharia Mecânica',
+                                  'Engenharia Biomédica',
+                                  'Engenharia Aeroespacial',
+                                  'Engenharia Química',
+                                  'Engenharia Física Tecnológica' ];
+
+    areas: {[course: string]: {[area: string]: string[]}} = {
+        'Engenharia Informática e de Computadores' : {
+            "Software Engineering":["#34B3E4","SE"],
+            "Enterprise and Information Systems": ["#A589D9","EIS"],
+            "Distributed and Cyberphysical Systems": ["#F16D64","DCS"],
+            "Interaction and Visualization": ["#F59640","IV"],
+            "Intelligent Systems": ["#35BEC1","IS"],
+            "Algorithms and Applications": ["#F3C746","AA"],
+            "Cyber-Security": ["#F371AF","CS"],
+            "Games": ["#95C753","G"],
+            "Bioinformatics and Computational Biology": ["#A0A3A6","BCB"],
+            "Language and Information Technologies": ["purple","LIT"]
+
                                                     },
-        "Engenharia Mecânica" : {
-                                        "Energy":["#34B3E4","ENER"],
-                                        "Production": ["#A589D9","PROD"],
-                                        "Systems": ["#F16D64","SYS"]
-                                      } 
-    }
+        'Engenharia Mecânica' : {
+                                        'Energy': ['#34B3E4', 'ENER'],
+                                        'Production': ['#A589D9', 'PROD'],
+                                        'Systems': ['#F16D64', 'SYS']
+                                      },
+        'Engenharia Biomédica' : {},
 
-    public getAreas(course){
-        for (let c in this.availableCourses){
-            if(course.includes(this.availableCourses[c])){
-              
+        'Engenharia Aeroespacial' : {},
+
+        'Engenharia Química' : {},
+
+        'Engenharia Física Tecnológica': {}
+
+    };
+
+    public getAreas(course) {
+        for (const c in this.availableCourses){
+            if (course.includes(this.availableCourses[c])) {
                 course = this.availableCourses[c];
             }
         }

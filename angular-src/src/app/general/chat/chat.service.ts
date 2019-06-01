@@ -56,9 +56,11 @@ export class ChatService {
        *     }
        * }
        * */
-      for (let message of data.response_data.output.generic) {
-        this.currentMessage = new Message(message.text, 'bot');
-        this.update(this.currentMessage);
+      if (data.response_data) {
+        for (let message of data.response_data.output.generic) {
+          this.currentMessage = new Message(message.text, 'bot');
+          this.update(this.currentMessage);
+        }
       }
       if (data.response_data.desiredTheses) {
         const thesesIdList = data.response_data.desiredTheses;
