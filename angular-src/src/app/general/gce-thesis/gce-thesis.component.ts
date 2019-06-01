@@ -27,6 +27,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     course: string = '';
     areas: string[] = [];
     areaAdvanced: { [area: string]: string[]}= {};
+    gce_thesis_available: boolean;
 
     specializationAreas: string[] = [
         'Network Services and Applications',
@@ -81,11 +82,14 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     @ViewChild('proposalTable') proposalTable;
     ngOnInit() {
         this.loadUser();
-        this.getAreas();
-        this.getThesesByArea();
-        this.getRecommendedTheses();
-        this.thesisService.currentTheses.subscribe(availableTheses => this.availableTheses = availableTheses);
-        this.thesisService.currentIds.subscribe(ids => this.idsBot = ids);
+        if(this.gce_thesis_available){
+            this.getAreas();
+            this.getThesesByArea();
+            this.getRecommendedTheses();
+            this.thesisService.currentTheses.subscribe(availableTheses => this.availableTheses = availableTheses);
+            this.thesisService.currentIds.subscribe(ids => this.idsBot = ids);
+        }
+
 
     }
 
@@ -143,13 +147,23 @@ export class GceThesisComponent implements OnInit, OnDestroy {
 
     loadUser() {
         this.user = this.studentService.loadStudentProfile();
-        this.course = this.user['courses'][0];
+        this.course = this.loadFirstSupportedCourse(this.user['courses']);
         this.it = this.course.includes("Engenharia Informática e de Computadores");
     }
 
+    loadFirstSupportedCourse(courses){
+         for (const c in courses){
+            if (this.thesisService.isThesisAvailable(courses[c])) {
+                this.gce_thesis_available=true;
+                return courses[c];
+            }
+        }
+        this.gce_thesis_available=false;
+        return courses[0];
+    }
 
     getAreas(){
-        
+
         this.areaAdvanced = this.thesisService.getAreasFromDump(this.course);
        
         this.areas = []
