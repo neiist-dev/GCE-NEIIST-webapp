@@ -1,34 +1,64 @@
-<div class="container middlePage">
+    <div class="container middlePage">
+
     <div class="row">
-        <div class="col-md-12">
+            <div class="col-lg-auto">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Perfil</div>
+                    <div class="panel-body">
 
-            <div class="panel panel-info">
-                <div class="panel-heading">1) Perfil</div>
-                <div class="panel-body">
-
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>E-mail</th>
-                            <th>Curso</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{ user.name}}</td>
-                            <td>{{ user.email}}</td>
-                            <td>{{ user.courses}}</td>
-
-                        </tr>
-                        </tbody>
-                    </table>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Curso</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ user.name}}</td>
+                                <td>{{ user.email}}</td>
+                                <td>{{ user.courses}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        <a class="btn btn-primary" href="/thesis">GCE-Thesis</a>
-    </div>
+    <div class="row">
+            <div class="col-lg-auto">
+                <div class="panel panel-info">
+                    <div class="panel-body">
 
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Estatutos</th>
+                                <th>Auth. Token</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ user.roles}}</td>
+                                <td>
+
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        Show
+                                    </button>
+                                    <div class="collapse" id="collapseExample">
+                                        <div class="card card-body">
+                                            {{ authToken}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     <!--
     <div class="row">
       <div class="col-md-12">
@@ -97,4 +127,10 @@
     -->
     <br>
     <br>
+        <div class="alert alert-danger" role="alert">
+            Além destas informações, recolhemos ainda o género e as cadeiras feitas nos últimos três anos. <br>
+            Estas informações são usadas só e apenas só para os serviços GCE-Thesis, Mr Thesis, e análise estatística que estará publicamente disponível. <br>
+            Em NENHUMA ocasião partilhará o GCE os teus dados a terceiros, sem o teu consentimento explícito. <br> <br>
+            Se desejas que eliminemos definitivamente os dados, envia um e-mail para: admin@gce-neiist.org
+        </div>
 </div>

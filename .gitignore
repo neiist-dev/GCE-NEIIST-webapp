@@ -1,3 +1,10 @@
+#documentation
+docs/
+out/
+
+#files
+server/files/Thesis/
+
 #WebStorm config files
 angular-src/.editorconfig
 .editorconfig
@@ -7,6 +14,8 @@ angular-src/.editorconfig
 *.pdf
 *.access.log
 backup/*
+server/files/Thesis/*.html
+server/files/Backup/*.html
 
 #Sensitive info
 angular-src/.env.ts

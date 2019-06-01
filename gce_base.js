@@ -72,7 +72,10 @@ let appConfig = require('./config/app');
 let port = process.env.PORT || appConfig.ports[node_env];
 
 // Connect to mongoDB database ===========================================
-mongoose.connect(dbConfig.urls[node_env], { useNewUrlParser: true });
+
+mongoose.connect(dbConfig.urls[node_env], { useNewUrlParser: true, keepAlive: 1, connectTimeoutMS: 30000,
+    keepAlive: 1, connectTimeoutMS: 30000 });
+
 mongoose.connection.on("connected", () => {
     logger.info("Connected to MongoDB on " + dbConfig.urls[node_env]);
 });
@@ -108,30 +111,6 @@ if(DB_BACKUP)   {
         }
     });
 
-    const backupPathSignup = "backup/backup-Signups-" + Date.now() + ".json";
-    const backupSignups =   spawn('mongoexport', [
-        '-h', DB_BACKUP_PRODUCTION_URI, '-d',
-        'gce-neiist', '-c', 'signups', '-u', DB_USER, '-p', DB_PASSWORD, '-o',
-        backupPathSignup
-    ]);
-
-        backupSignups.stdout.on('data', (data) => {
-            logger.info('Signups: stdout: ' + data);
-        });
-
-        backupSignups.stderr.on('data', (data) => {
-            logger.info('Signups: stderr: ' + data);
-            //Here is where the error output goes
-        });
-
-        backupSignups.on('exit', (code) => {
-            if(code === 0)   {
-                logger.info("Signups: Successfully backed up");
-            }   else {
-                logger.info("Signups: Error with code: " + code);
-            }
-        });
-
     const backupPathFeedback = "backup/backup-Feedback-" + Date.now() + ".json";
     const backupFeedback =   spawn('mongoexport', [
         '-h', DB_BACKUP_PRODUCTION_URI, '-d',
@@ -145,6 +124,25 @@ if(DB_BACKUP)   {
         });
 
         backupFeedback.on('exit', (code) => {
+            if(code === 0)   {
+                logger.info("Feedbacks: Successfully backed up");
+            }   else {
+                logger.info("Feedbacks: Error with code: " + code);
+            }
+        });
+    const backupPathTheses = "backup/backup-Theses-" + Date.now() + ".json";
+    const backupTheses =   spawn('mongoexport', [
+        '-h', DB_BACKUP_PRODUCTION_URI, '-d',
+        'gce-neiist', '-c', 'theses', '-u', DB_USER, '-p', DB_PASSWORD, '-o',
+        backupPathTheses
+    ]);
+
+        backupTheses.stderr.on('data', (data) => {
+            logger.info('Feedbacks: stderr: ' + data);
+            //Here is where the error output goes
+        });
+
+            backupTheses.on('exit', (code) => {
             if(code === 0)   {
                 logger.info("Feedbacks: Successfully backed up");
             }   else {

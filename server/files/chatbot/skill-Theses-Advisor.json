@@ -1,0 +1,1756 @@
+{
+  "name": "Theses Advisor",
+  "intents": [
+    {
+      "intent": "discover_theses",
+      "examples": [
+        {
+          "text": "Which theses are classified as"
+        },
+        {
+          "text": "How many theses are available?"
+        },
+        {
+          "text": "I want to know the available theses"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Bot_Control_Ignore_Undo",
+      "examples": [
+        {
+          "text": "Let us redo that again!"
+        },
+        {
+          "text": "Never mind"
+        },
+        {
+          "text": "Never"
+        },
+        {
+          "text": "Not yet"
+        },
+        {
+          "text": "Nothing"
+        },
+        {
+          "text": "Wait! Let's back up few steps and do that again"
+        },
+        {
+          "text": "Cancel"
+        },
+        {
+          "text": "Actually, I take that back"
+        },
+        {
+          "text": "Hold on! I think I want to do it differently."
+        },
+        {
+          "text": "I change my mind."
+        },
+        {
+          "text": "I didn't mean to do that actually, let's go back"
+        },
+        {
+          "text": "I did not mean that?"
+        },
+        {
+          "text": "Ignore this"
+        },
+        {
+          "text": "It's not what I mean"
+        }
+      ],
+      "description": "Ask the bot to take one step back."
+    },
+    {
+      "intent": "theses_recommendation",
+      "examples": [
+        {
+          "text": "Can you recommend me any theses?"
+        },
+        {
+          "text": "recommend thesis"
+        },
+        {
+          "text": "i want a theses recommendation"
+        },
+        {
+          "text": "recommend me theses"
+        },
+        {
+          "text": "What have you decided upon?"
+        },
+        {
+          "text": "Are there any theses that would suit me?"
+        },
+        {
+          "text": "Which theses do you think I would like?"
+        },
+        {
+          "text": "what do you recommend?"
+        },
+        {
+          "text": "Can you recommend me any thesis then?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "rec_theses_prof_area",
+      "examples": [
+        {
+          "text": "I want to work with DM, any recommendations?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Bot_Control_Start_Over",
+      "examples": [
+        {
+          "text": "I need to reset."
+        },
+        {
+          "text": "How can I start over?"
+        },
+        {
+          "text": "Can we please start over?"
+        },
+        {
+          "text": "Begin over!"
+        },
+        {
+          "text": "Back to the top"
+        },
+        {
+          "text": "Back to the beginning"
+        },
+        {
+          "text": "Actually, let's start over"
+        },
+        {
+          "text": "I would like to start all over"
+        },
+        {
+          "text": "Let us reopen this again."
+        },
+        {
+          "text": "I want start from the beginning"
+        },
+        {
+          "text": "Let's pick this up from the top again."
+        },
+        {
+          "text": "One more time from the beginning"
+        },
+        {
+          "text": "Please initiate from the beginning"
+        },
+        {
+          "text": "Please reset"
+        },
+        {
+          "text": "Please start a new chat"
+        },
+        {
+          "text": "Restart"
+        },
+        {
+          "text": "Start over"
+        },
+        {
+          "text": "We need a do-over"
+        },
+        {
+          "text": "We will need to begin again"
+        },
+        {
+          "text": "Let's go back to square one"
+        }
+      ],
+      "description": "Restart bot or current flow."
+    },
+    {
+      "intent": "General_Greetings",
+      "examples": [
+        {
+          "text": "Hello I am looking for some help here"
+        },
+        {
+          "text": "Good day"
+        },
+        {
+          "text": "Good evening"
+        },
+        {
+          "text": "Good morning"
+        },
+        {
+          "text": "Good to see you"
+        },
+        {
+          "text": "Greetings"
+        },
+        {
+          "text": "Have you been well?"
+        },
+        {
+          "text": "Hello Agent"
+        },
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Hey how are you doing"
+        },
+        {
+          "text": "Hey there all"
+        },
+        {
+          "text": "Hey there"
+        },
+        {
+          "text": "Hey twin"
+        },
+        {
+          "text": "Hey you"
+        },
+        {
+          "text": "Hi advisor"
+        },
+        {
+          "text": "Hi there"
+        },
+        {
+          "text": "How are things going?"
+        },
+        {
+          "text": "How are you today?"
+        },
+        {
+          "text": "How have you been?"
+        },
+        {
+          "text": "How is it going?"
+        },
+        {
+          "text": "How r u?"
+        },
+        {
+          "text": "Looking good eve"
+        },
+        {
+          "text": "Ok take me back"
+        },
+        {
+          "text": "What's new?"
+        },
+        {
+          "text": "What's up?"
+        },
+        {
+          "text": "Who is this?"
+        },
+        {
+          "text": "You there"
+        }
+      ],
+      "description": "Greet the bot."
+    },
+    {
+      "intent": "disambiguate_specialization",
+      "examples": [
+        {
+          "text": "I like both"
+        },
+        {
+          "text": "I want to see theses for both"
+        },
+        {
+          "text": "I want to see thesis for both"
+        },
+        {
+          "text": "Actually, I like both equally"
+        },
+        {
+          "text": "keep both specializations in mind"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "General_Negative_Feedback",
+      "examples": [
+        {
+          "text": "You are very frustrating"
+        },
+        {
+          "text": "You are on my nerves"
+        },
+        {
+          "text": "You are having delusions"
+        },
+        {
+          "text": "Why are you stupid?"
+        },
+        {
+          "text": "Do not like you?"
+        },
+        {
+          "text": "Everyone hates you"
+        },
+        {
+          "text": "Hate you"
+        },
+        {
+          "text": "I do not like you"
+        },
+        {
+          "text": "I hate this!"
+        },
+        {
+          "text": "I hate you"
+        },
+        {
+          "text": "It is annoying"
+        },
+        {
+          "text": "Quit annoying me"
+        },
+        {
+          "text": "Robots are boring"
+        },
+        {
+          "text": "Robots are stupid"
+        },
+        {
+          "text": "Stupid"
+        },
+        {
+          "text": "Why are you so annoying?"
+        },
+        {
+          "text": "You're too stupid"
+        },
+        {
+          "text": "You're really irritating"
+        },
+        {
+          "text": "You're really frustrating"
+        },
+        {
+          "text": "You do not seem smart"
+        }
+      ],
+      "description": "Express unfavorable feedback."
+    },
+    {
+      "intent": "General_Ending",
+      "examples": [
+        {
+          "text": "Going now"
+        },
+        {
+          "text": "Get lost"
+        },
+        {
+          "text": "Finished now, good bye"
+        },
+        {
+          "text": "Ending this session"
+        },
+        {
+          "text": "End trial"
+        },
+        {
+          "text": "Cya later"
+        },
+        {
+          "text": "Catch you later"
+        },
+        {
+          "text": "Bye now"
+        },
+        {
+          "text": "Bye bye"
+        },
+        {
+          "text": "Hey bot go away"
+        },
+        {
+          "text": "I have got to go"
+        },
+        {
+          "text": "I want to quit"
+        },
+        {
+          "text": "I'm done"
+        },
+        {
+          "text": "Im done"
+        },
+        {
+          "text": "Im good thank you"
+        },
+        {
+          "text": "I'm leaving now"
+        },
+        {
+          "text": "It was nice chatting with you"
+        },
+        {
+          "text": "Ok goodbye"
+        },
+        {
+          "text": "See you later"
+        },
+        {
+          "text": "See you"
+        },
+        {
+          "text": "Shut up"
+        },
+        {
+          "text": "Stop doing this"
+        },
+        {
+          "text": "Stop talking to me"
+        },
+        {
+          "text": "Thank you for your time"
+        },
+        {
+          "text": "Thanks, bye!"
+        },
+        {
+          "text": "Thanks very much, bye!"
+        },
+        {
+          "text": "That is all"
+        },
+        {
+          "text": "That's everything"
+        },
+        {
+          "text": "Time to go"
+        },
+        {
+          "text": "I am out of here"
+        },
+        {
+          "text": "I am leaving"
+        },
+        {
+          "text": "Have a nice day?"
+        },
+        {
+          "text": "Goodbye"
+        },
+        {
+          "text": "Good. bye."
+        },
+        {
+          "text": "Go off"
+        },
+        {
+          "text": "Go away"
+        },
+        {
+          "text": "I d like to stop doing this"
+        }
+      ],
+      "description": "End the conversation."
+    },
+    {
+      "intent": "choose_thesis",
+      "examples": [
+        {
+          "text": "What would be the best professor for my thesis"
+        },
+        {
+          "text": "which thesis should i choose"
+        },
+        {
+          "text": "software engineering"
+        },
+        {
+          "text": "How do I choose a thesis?"
+        },
+        {
+          "text": "I want to choose the best thesis for me"
+        },
+        {
+          "text": "Can you help me choose a thesis?"
+        },
+        {
+          "text": "What would be the best advisor for my thesis"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Bot_Control_Reject_Response",
+      "examples": [
+        {
+          "text": "I disagree"
+        },
+        {
+          "text": "You're misunderstanding me"
+        },
+        {
+          "text": "You didn't understand me"
+        },
+        {
+          "text": "You did not understand what I said"
+        },
+        {
+          "text": "You did not understand what I asked"
+        },
+        {
+          "text": "Wrong response"
+        },
+        {
+          "text": "That was wrong, try again"
+        },
+        {
+          "text": "That was not my intent"
+        },
+        {
+          "text": "That sounds like the wrong response"
+        },
+        {
+          "text": "That is not true"
+        },
+        {
+          "text": "That answer is incorrect"
+        },
+        {
+          "text": "Not the right response"
+        },
+        {
+          "text": "No"
+        },
+        {
+          "text": "No I'm fine thanks"
+        },
+        {
+          "text": "It is not what I was looking for"
+        },
+        {
+          "text": "It is not what I want"
+        },
+        {
+          "text": "I wasn't looking for that"
+        },
+        {
+          "text": "I don't want that"
+        },
+        {
+          "text": "Bad response"
+        },
+        {
+          "text": "I don't need that"
+        },
+        {
+          "text": "I do not think it is the answer?"
+        }
+      ],
+      "description": "Indicate the bot's response does not address a question."
+    },
+    {
+      "intent": "Bot_Control_Unsure",
+      "examples": [
+        {
+          "text": "I haven't got a clue"
+        },
+        {
+          "text": "I don t know what you need"
+        },
+        {
+          "text": "I don t know what you want"
+        },
+        {
+          "text": "I have no idea, actually"
+        },
+        {
+          "text": "I have no idea what you are looking for"
+        },
+        {
+          "text": "I m not certain I get what you re saying"
+        },
+        {
+          "text": "I m not sure what will make you happy"
+        },
+        {
+          "text": "I m not yet convinced"
+        },
+        {
+          "text": "No clue"
+        },
+        {
+          "text": "No idea"
+        },
+        {
+          "text": "To be honest, I m really not sure"
+        },
+        {
+          "text": "You got me"
+        }
+      ],
+      "description": "Indicate no definite answer to a question."
+    },
+    {
+      "intent": "General_Agent_Capabilities",
+      "examples": [
+        {
+          "text": "What are you capable of?"
+        },
+        {
+          "text": "What are you good at?"
+        },
+        {
+          "text": "What are you used for?"
+        },
+        {
+          "text": "Hi, what do you do?"
+        },
+        {
+          "text": "Help now"
+        },
+        {
+          "text": "Do you have a list of things I can talk to you about?"
+        },
+        {
+          "text": "Can you tell me what services you are able to help me with?"
+        },
+        {
+          "text": "Can you please give me a list of the types of things you can help me with?"
+        },
+        {
+          "text": "I do not know what to ask"
+        },
+        {
+          "text": "How do I use you?"
+        },
+        {
+          "text": "What are your skills?"
+        },
+        {
+          "text": "What can I ask you to do?"
+        },
+        {
+          "text": "What do you do?"
+        },
+        {
+          "text": "What do you handle?"
+        },
+        {
+          "text": "What else can you help me with?"
+        },
+        {
+          "text": "What features are in here?"
+        },
+        {
+          "text": "What is this 4?"
+        },
+        {
+          "text": "What kinds of things can you do?"
+        },
+        {
+          "text": "Where can I find the frequently asked questions?"
+        },
+        {
+          "text": "What are my options?"
+        },
+        {
+          "text": "What are my options that you can help with?"
+        },
+        {
+          "text": "Tell me something"
+        },
+        {
+          "text": "Tell me about what kind of things you do?"
+        },
+        {
+          "text": "Is there anything you can help me with?"
+        },
+        {
+          "text": "I'd like to know what type of questions you can answer for me."
+        },
+        {
+          "text": "How can you solve my problems?"
+        },
+        {
+          "text": "How can you help me?"
+        },
+        {
+          "text": "How can I use you?"
+        },
+        {
+          "text": "What are you able to deal with?"
+        },
+        {
+          "text": "What are you able to understand?"
+        }
+      ],
+      "description": "Request capabilities of the bot."
+    },
+    {
+      "intent": "General_Positive_Feedback",
+      "examples": [
+        {
+          "text": "Ok thank you"
+        },
+        {
+          "text": "This is good"
+        },
+        {
+          "text": "This is great"
+        },
+        {
+          "text": "This is so cool"
+        },
+        {
+          "text": "You are awesome"
+        },
+        {
+          "text": "You are great"
+        },
+        {
+          "text": "You are the best"
+        },
+        {
+          "text": "You are wonderful"
+        },
+        {
+          "text": "You gave me exactly what I need!"
+        },
+        {
+          "text": "You the man"
+        },
+        {
+          "text": "You're a genius!"
+        },
+        {
+          "text": "You've been so helpful :)"
+        },
+        {
+          "text": "Love your work"
+        },
+        {
+          "text": "Thank you"
+        },
+        {
+          "text": "How cool is this?"
+        },
+        {
+          "text": "Brilliant!"
+        },
+        {
+          "text": "Can't believe you are that good"
+        },
+        {
+          "text": "I like what you did there! :)"
+        },
+        {
+          "text": "I'm looking forward to working with you again! :)"
+        }
+      ],
+      "description": "Express positive sentiment or gratitude."
+    },
+    {
+      "intent": "advisors_identity",
+      "examples": [
+        {
+          "text": "Who are the advisors proposing theses in my areas of interest?"
+        },
+        {
+          "text": "Which professors are currently advisors in my specializations?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "General_About_You",
+      "examples": [
+        {
+          "text": "How do you function?"
+        },
+        {
+          "text": "What should I know about you?"
+        },
+        {
+          "text": "What languages do you speak?"
+        },
+        {
+          "text": "Tell me something about yourself"
+        },
+        {
+          "text": "Tell me about your life"
+        },
+        {
+          "text": "Let us talk about you"
+        },
+        {
+          "text": "Introduce your self"
+        },
+        {
+          "text": "I want to set up the chat bot for my shop"
+        },
+        {
+          "text": "How old are you?"
+        },
+        {
+          "text": "Do you know who you are?"
+        },
+        {
+          "text": "How can I configure you?"
+        },
+        {
+          "text": "What's your name?"
+        },
+        {
+          "text": "Can I use another language?"
+        },
+        {
+          "text": "Describe your self"
+        },
+        {
+          "text": "Do you have a name?"
+        },
+        {
+          "text": "About you"
+        },
+        {
+          "text": "Why are you here?"
+        },
+        {
+          "text": "Who are you?"
+        },
+        {
+          "text": "Where were you born?"
+        },
+        {
+          "text": "Where are you from?"
+        }
+      ],
+      "description": "Request generic personal attributes."
+    },
+    {
+      "intent": "Bot_Control_Approve_Response",
+      "examples": [
+        {
+          "text": "Great"
+        },
+        {
+          "text": "Got it"
+        },
+        {
+          "text": "For sure!"
+        },
+        {
+          "text": "Correct"
+        },
+        {
+          "text": "All right"
+        },
+        {
+          "text": "Affirmative. That's what I'm looking for."
+        },
+        {
+          "text": "That's exactly what I want"
+        },
+        {
+          "text": "This is alright"
+        },
+        {
+          "text": "Very well. Let's do it."
+        },
+        {
+          "text": "Yeah, that's it!"
+        },
+        {
+          "text": "That is what I need"
+        },
+        {
+          "text": "You read my mind"
+        },
+        {
+          "text": "Yes"
+        },
+        {
+          "text": "That is right"
+        },
+        {
+          "text": "That is the proper response."
+        },
+        {
+          "text": "That is precisely what I was looking for"
+        },
+        {
+          "text": "Sweet"
+        },
+        {
+          "text": "Sure thing!"
+        },
+        {
+          "text": "Indeed!"
+        },
+        {
+          "text": "I like that"
+        },
+        {
+          "text": "I agree"
+        }
+      ],
+      "description": "Acknowledge that the response satisfies a question."
+    }
+  ],
+  "entities": [
+    {
+      "entity": "sys-person",
+      "values": []
+    },
+    {
+      "entity": "specialization_area",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Distributed and Cyberphysical Systems",
+          "synonyms": [
+            "Cyberphysical Systems",
+            "Distributed Systems"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Interaction and Visualization",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Intelligent Systems",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Games",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Algorithms and Applications",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Cyber-Security",
+          "synonyms": [
+            "Security"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Bioinformatics and Computational Biology",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Language and Information Technologies",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Software Engineering",
+          "synonyms": [
+            "ES",
+            "SE"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Enterprise and Information Systems",
+          "synonyms": [
+            "Enterprise Systems",
+            "Information Systems"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-number",
+      "values": []
+    },
+    {
+      "entity": "number_of_specializations",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "2",
+          "synonyms": [
+            "two"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "1",
+          "synonyms": [
+            "one"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "advisor",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Rui Henriques",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "David de Matos",
+          "synonyms": [
+            "DM"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "user",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "teacher",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "student",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "alumni",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "formal_salutation",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Good night",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Hello",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Good afternoon",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Good morning",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "language": "en",
+  "metadata": {
+    "api_version": {
+      "major_version": "v1",
+      "minor_version": "2018-07-10"
+    }
+  },
+  "description": "",
+  "dialog_nodes": [
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1558517861290",
+      "context": {
+        "nb_specializations": "@number_of_specializations"
+      },
+      "metadata": {},
+      "conditions": "@number_of_specializations",
+      "event_name": "input",
+      "dialog_node": "handler_7_1558517861290",
+      "previous_sibling": "handler_8_1558517861290"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "$name, can you tell me how many specializations you're enrolled in?"
+      },
+      "parent": "slot_6_1558517861290",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_8_1558517861290"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Please refresh the page."
+          ]
+        }
+      },
+      "parent": "node_11_1558441711518",
+      "conditions": "#Bot_Control_Start_Over",
+      "event_name": "generic",
+      "dialog_node": "handler_69_1558549816277",
+      "previous_sibling": "handler_66_1558542214649"
+    },
+    {
+      "type": "slot",
+      "parent": "node_11_1558441711518",
+      "variable": "$specialization_area",
+      "dialog_node": "slot_13_1558441733477",
+      "previous_sibling": "handler_12_1558441733454"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "I need more information to continue, namely the area of specialization and/or name of the advisor."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_11_1558441711518",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_12_1558441733454",
+      "previous_sibling": "handler_69_1558549816277"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_11_1558441711518",
+      "metadata": {},
+      "variable": "$advisor",
+      "dialog_node": "slot_16_1558441773113",
+      "previous_sibling": "slot_13_1558441733477"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Please refresh the page."
+          ]
+        }
+      },
+      "parent": "node_11_1558441711518",
+      "metadata": {},
+      "conditions": "#Bot_Control_Ignore_Undo",
+      "event_name": "generic",
+      "dialog_node": "handler_66_1558542214649"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_12_1558444085925",
+      "metadata": {},
+      "variable": "$specialization_area",
+      "conditions": "$nb_specializations == 1",
+      "dialog_node": "slot_31_1558531563434",
+      "previous_sibling": "slot_6_1558517861290"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "So, you're $name and your preferred specialization is $specialization_area . Thank you!"
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "parent": "node_12_1558444085925",
+      "metadata": {},
+      "conditions": "true",
+      "dialog_node": "node_54_1558533306397",
+      "previous_sibling": "node_13_1558444149851"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "time": 100,
+            "typing": true,
+            "response_type": "pause"
+          },
+          {
+            "values": [
+              {
+                "text": "@formal_salutation !"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_12_1558444085925",
+      "metadata": {},
+      "conditions": "@formal_salutation",
+      "dialog_node": "node_13_1558444149851",
+      "previous_sibling": "slot_36_1558531802570"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_12_1558444085925",
+      "metadata": {},
+      "variable": "$specialization_area",
+      "conditions": "$nb_specializations == 2",
+      "dialog_node": "slot_36_1558531802570",
+      "previous_sibling": "slot_31_1558531563434"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_12_1558444085925",
+      "metadata": {
+        "_customization": {}
+      },
+      "variable": "$nb_specializations",
+      "dialog_node": "slot_6_1558517861290",
+      "previous_sibling": "slot_3_1558517681283"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_12_1558444085925",
+      "metadata": {},
+      "variable": "$name",
+      "dialog_node": "slot_3_1558517681283"
+    },
+    {
+      "type": "standard",
+      "title": "advisors identity",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "We get these values through the backend"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1558515651884",
+      "metadata": {},
+      "conditions": "#advisors_identity",
+      "dialog_node": "node_68_1558544342261",
+      "previous_sibling": "node_2_1558515677019"
+    },
+    {
+      "type": "standard",
+      "title": "General agent capabilities",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I can help you choose a thesis. Just ask me to do so. From there I will ask you a number of questions (like your specialization(s) area(s), or what advisor you would like to work with) to help me narrow down the available options."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1558515651884",
+      "metadata": {},
+      "conditions": "#General_Agent_Capabilities",
+      "dialog_node": "node_2_1558515677019"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_36_1558531802570",
+      "context": {
+        "specialization_area": "@specialization_area"
+      },
+      "metadata": {},
+      "conditions": "@specialization_area",
+      "event_name": "input",
+      "dialog_node": "handler_37_1558531802570",
+      "previous_sibling": "handler_38_1558531802570"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "Ok, what's you're preferred specialization then?"
+      },
+      "parent": "slot_36_1558531802570",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_38_1558531802570"
+    },
+    {
+      "type": "standard",
+      "title": "Clean variables",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1558439405066",
+      "context": {
+        "name": null,
+        "nb_specializations": null,
+        "specialization_area": null,
+        "specialization_area_1": null,
+        "specialization_area_2": null
+      },
+      "metadata": {},
+      "conditions": "true",
+      "dialog_node": "node_67_1558543163684"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "Very Well, then please tell me what your specializations are one at the time."
+      },
+      "parent": "slot_59_1558534639199",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_61_1558534639199",
+      "previous_sibling": "handler_60_1558534639199"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_59_1558534639199",
+      "context": {
+        "specialization_area_1": "@specialization_area"
+      },
+      "conditions": "@specialization_area",
+      "event_name": "input",
+      "dialog_node": "handler_60_1558534639199"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_31_1558531563434",
+      "context": {
+        "specialization_area": "@specialization_area"
+      },
+      "metadata": {},
+      "conditions": "@specialization_area",
+      "event_name": "input",
+      "dialog_node": "handler_32_1558531563434",
+      "previous_sibling": "handler_33_1558531563434"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "Oh, so you are only enrolled in one specialization. What is it called?"
+      },
+      "parent": "slot_31_1558531563434",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_33_1558531563434"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "Hi! What's your name?"
+      },
+      "parent": "slot_3_1558517681283",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_5_1558517681283",
+      "previous_sibling": "handler_4_1558517681283"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_3_1558517681283",
+      "context": {
+        "name": "@sys-person"
+      },
+      "metadata": {},
+      "conditions": "@sys-person",
+      "event_name": "input",
+      "dialog_node": "handler_4_1558517681283"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "And the other one?"
+      },
+      "parent": "slot_62_1558534915010",
+      "event_name": "focus",
+      "dialog_node": "handler_64_1558534915010",
+      "previous_sibling": "handler_63_1558534915010"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_62_1558534915010",
+      "context": {
+        "specialization_area_2": "@specialization_area"
+      },
+      "conditions": "@specialization_area",
+      "event_name": "input",
+      "dialog_node": "handler_63_1558534915010"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_16_1558441773113",
+      "context": {
+        "advisor": "@advisor"
+      },
+      "metadata": {},
+      "conditions": "@advisor",
+      "event_name": "input",
+      "dialog_node": "handler_17_1558441773113",
+      "previous_sibling": "handler_18_1558441773113"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_16_1558441773113",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_18_1558441773113"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Enterprise Sys. theses are 500"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1558439412252",
+      "metadata": {},
+      "conditions": "@specialization_area:(Enterprise and Information Systems)",
+      "dialog_node": "node_8_1558440807065",
+      "previous_sibling": "node_7_1558440805303"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Software Eng. theses are 200"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1558439412252",
+      "metadata": {},
+      "conditions": "@specialization_area:(Software Engineering)",
+      "dialog_node": "node_7_1558440805303"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "What are the specialization area you are looking for? The list is on gce-neiist.org/thesis"
+      },
+      "parent": "slot_13_1558441733477",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_15_1558441733477",
+      "previous_sibling": "handler_14_1558441733477"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_13_1558441733477",
+      "context": {
+        "specialization_area": "@specialization_area"
+      },
+      "conditions": "@specialization_area",
+      "event_name": "input",
+      "dialog_node": "handler_14_1558441733477"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_57_1558534585493",
+      "metadata": {},
+      "variable": "$specialization_area_1",
+      "dialog_node": "slot_59_1558534639199",
+      "previous_sibling": "node_58_1558534639190"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_57_1558534585493",
+      "metadata": {},
+      "variable": "$specialization_area_2",
+      "dialog_node": "slot_62_1558534915010",
+      "previous_sibling": "slot_59_1558534639199"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thanks, I'll keep both $specialization_area_1 and $specialization_area_2 in mind!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_57_1558534585493",
+      "metadata": {},
+      "conditions": "true",
+      "dialog_node": "node_58_1558534639190"
+    },
+    {
+      "type": "folder",
+      "title": "FAQ",
+      "metadata": {},
+      "digress_in": "returns",
+      "dialog_node": "node_1_1558515651884",
+      "previous_sibling": "node_9_1558440906976"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "metadata": {},
+      "dialog_node": "node_10_1558440913644",
+      "previous_sibling": "node_11_1558441711518"
+    },
+    {
+      "type": "frame",
+      "title": "Disambiguate Specializations",
+      "output": {},
+      "metadata": {
+        "fallback": "leave",
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#disambiguate_specialization",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_57_1558534585493",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_12_1558444085925",
+      "digress_out_slots": "not_allowed"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thank you, goodbye!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_67_1558543163684"
+      },
+      "conditions": "#General_Ending",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_5_1558439405066",
+      "previous_sibling": "node_1_1558515651884"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {},
+      "conditions": "anything_else",
+      "digress_in": "returns",
+      "dialog_node": "Anything else",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_5_1558439405066"
+    },
+    {
+      "type": "frame",
+      "title": "Saudação",
+      "output": {},
+      "metadata": {
+        "fallback": "leave",
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#General_Greetings",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_12_1558444085925",
+      "digress_out": "allow_all",
+      "previous_sibling": "Welcome",
+      "digress_out_slots": "allow_all"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "metadata": {},
+      "dialog_node": "node_4_1558439398226",
+      "previous_sibling": "node_10_1558440913644"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "metadata": {},
+      "dialog_node": "node_9_1558440906976",
+      "previous_sibling": "node_4_1558439398226"
+    },
+    {
+      "type": "frame",
+      "title": "Information about available theses",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Great, let us search a thesis on $specialization_area for you!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {
+        "fallback": "leave"
+      },
+      "conditions": "#choose_thesis",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_11_1558441711518",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_6_1558439412252",
+      "digress_out_slots": "allow_returning"
+    },
+    {
+      "type": "standard",
+      "title": "Discover available theses",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Which area of specialization, $name ?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {},
+      "conditions": "#discover_theses",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_6_1558439412252",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_57_1558534585493"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. I'm a Theses Advisor. I can answer questions related with master theses from Técnico. By the way, I only speak English!"
+              },
+              {
+                "text": "Hi there! I'm a Theses Advisor. I can answer questions related with master theses from Técnico.By the way, I only speak English!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "metadata": {},
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "workspace_id": "fae99c40-34ca-4987-8e91-a4f5e8427874",
+  "counterexamples": [],
+  "system_settings": {
+    "tooling": {
+      "store_generic_responses": true
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "status": "Available"
+}

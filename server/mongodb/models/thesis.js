@@ -39,6 +39,11 @@ const ThesisSchema = mongoose.Schema({
         type: [String],
         required: true
     },
+
+    fenixCourse: {
+        type: String,
+        required: false
+    },
     observations:  {
         type: String,
         required: false
@@ -52,6 +57,11 @@ const ThesisSchema = mongoose.Schema({
         required: false
     },
     areas:  {
+        type: [String],
+        required: false
+    },
+
+    specializationAreas:  {
         type: [String],
         required: false
     },

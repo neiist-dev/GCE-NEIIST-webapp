@@ -17,22 +17,24 @@
   "description": "GCE-NEIIST is the home for our student's group, Grupo de Contacto com Empresas. This platform aims to provide services for Técnico Lisboa students.",
   "main": "gce_base.js",
   "engines": {
-    "node": "10.4.1",
+    "node": "10.15.0",
     "npm": "6.1.0"
   },
   "scripts": {
     "test": "mocha --reporter dot --timeout 10000 \"server/tests/*.spec.js\"",
+    "test-routes": "mocha --reporter dot --timeout 10000 \"server/tests/*-routes.spec.js\"",
     "first-setup": "npm install && npm run heroku-postbuild",
     "start": "nodemon gce_base.js",
     "build": "",
+    "generate-api-docs": "apidoc  -i server -o docs",
+    "generate-js-docs": "jsdoc server",
     "heroku-postbuild": "cd angular-src && npm install"
   },
   "nodemonConfig": {
-    "ignore": [
-      "backup/*"
-    ]
+    "ignore": ["server/files/*", "*.html", "*.json"]
   },
   "dependencies": {
+    "aws-sdk": "^2.462.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
@@ -43,17 +45,20 @@
     "helmet": "^3.12.1",
     "hoek": "^5.0.4",
     "htmlparser2": "^3.9.2",
+    "ibm-watson": "^4.1.1",
     "jsonwebtoken": "^8.3.0",
-    "jwt-simple": "^0.5.1",
+    "jwt-simple": "^0.5.6",
     "moment": "^2.22.2",
     "mongoose": "^5.4.18",
     "morgan": "^1.9.1",
     "multer": "^1.3.0",
-    "natural": "^0.5.6",
+    "natural": "^0.6.3",
+    "node-cache": "^4.2.0",
     "node-schedule": "^1.3.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "stopword": "^0.1.10",
+    "watson-developer-cloud": "^4.0.1",
     "winston": "^2.4.2",
     "winston-daily-rotate-file": "^1.7.2"
   },
@@ -61,7 +66,7 @@
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "nodemon": "^1.14.12",
-    "nyc": "^13.3.0",
+    "nyc": "^14.1.1",
     "sinon": "^5.0.7"
   }
 }

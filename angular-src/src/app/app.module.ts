@@ -37,6 +37,9 @@ import {FilterResultsPipe} from './general/gce-thesis/filter-results.pipe';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AboutUsComponent } from './general/about-us/about-us.component';
 import { GceArticlesComponent } from './general/gce-articles/gce-articles.component';
+import { GetAdviceComponent } from './general/get-advice/get-advice.component';
+import { AreasDump } from './general/gce-thesis/areas-dump';
+import { ChatModule } from './general/chat/chat.module';
 
 
 const appRoutes: Routes = [
@@ -50,15 +53,16 @@ const appRoutes: Routes = [
     {path: 'wip', component: ComingSoonComponent},
     {path: 'terms-of-use', component: TermsUsageComponent},
     {path: 'articles', component: GceArticlesComponent},
+    {path: 'chatbot', component: GetAdviceComponent, canActivate: [AuthGuardService]},
 
     {path: 'privacy-policy', component: PrivacyPolicyComponent},
-		{path: 'aboutUs', component: AboutUsComponent},
+    {path: 'aboutUs', component: AboutUsComponent},
     {path: 'partners', component: PartnersCarouselComponent},
-    {path: 'hashcode', children: [
-        {path: '', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
-        {path: 'faq', component: PrivacyPolicyComponent}
+    /**{path: 'hashcode', children: [
+    *    {path: '', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
+    *    {path: 'faq', component: PrivacyPolicyComponent}
     ]},
-    {path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]},
+    {path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]},*/
     {path: 'thesis', component: GceThesisComponent, canActivate:[AuthGuardService]}
 
 ];
@@ -85,11 +89,13 @@ const appRoutes: Routes = [
         FilterResultsPipe,
         PartnersCarouselComponent,
         AboutUsComponent,
-        GceArticlesComponent
+        GceArticlesComponent,
+        GetAdviceComponent
 
     ],
     imports: [
         BrowserModule,
+        ChatModule,
         FormsModule,
         HttpModule,
         NgbModule,
@@ -116,7 +122,8 @@ const appRoutes: Routes = [
         ThesisService,
         MockBackend,
         FeedbackService,
-        BaseRequestOptions
+        BaseRequestOptions,
+        AreasDump
     ],
     bootstrap: [AppComponent]
 })
