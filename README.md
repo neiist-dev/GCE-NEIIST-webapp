@@ -1,12 +1,8 @@
 [![Build Status](https://travis-ci.com/RafaelAPB/GCE-NEIIST.svg?token=XFiDrRAqvqphcoasyH7N&branch=master)](https://travis-ci.com/RafaelAPB/GCE-NEIIST)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-
-
-
 # GCE-NEIIST webapp
 ![GCE-Thesis][logo]
-
 
 [logo]: https://web.ist.utl.pt/~ist180970/assets/img/favicon.png
 [GCE-NEIIST][GCE] is the home for our student's group, Grupo de Contacto com Empresas.
@@ -14,40 +10,34 @@
 This platform aims to provide services for [Técnico Lisboa](www.tecnico.ulisboa.pt) students, such as:
 * Informative service about the group.
 * Events sign up (i.e. programming competitions, open-days)
-* GCE-Thesis: Using AI to classify MEIC masters' theses proposals. We provide a simple and intuitive interface to navigate through them.
 * GCE-Inside View: A project that shows different careers on Computer Science and Engineering.
+* GCE-Thesis: Using AI to classify MEIC masters' theses proposals. We provide a simple and intuitive interface to navigate through them.
+* Mr Thesis: a friendly chatbot, complementary to GCE-Thesis, that helps student to find a suitable thesis for themselves.
 
-**Upcoming** : GCE-Thesis v2: A smart chatbot that helps students to pick their master thesis.
-
-Note that this is a **WIP** project.
+Note that this is a **WIP** project, and it is on alpha phase.
 
 ---
 
 ####
 ## Setup and Run
-1. [Fork, Clone, Remote](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Fork,-Clone,-Remote)
+1. Fork the project (for more info see [Fork, Clone, Remote](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Fork,-Clone,-Remote))
 
-2. DEPRECATED - [Set environment variables](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Setting-Environment-Variables).
-
-
+2. Set the backend environment variables, by duplicating .env.example (home directory of the project). Rename it to .env and set its values.
+This step includes the configuration of [Mlab][mlab]
+3. Set the frontend environment variables, by duplicating angular-src/.scripts/set-env.env.example. Rename it to set-env.env, and set its values.
 ### Run the App
-
 
 In order to run the project the required libraries need to be installed.
 
 1. Install [node][node].
 
+2. On the home directory of the project, run ```npm run first-setup```.
 
-1. Create an account and a MongoDB Deployment in [Mlab][mlab], up to Step 3.
-1. Go to your deployment and create a new user. (Save this username and password they will be used later)
-1. Set the environment variables by **duplicating** .env.example. Rename the duplicated file to .env.  and replace its values.
-1. Duplicate angular-src/.scripts/set-env.env.example. Set FENIX_CLIENT_ID, on angular-src/.scripts/set-env.env.
-1. Run ```npm run first-setup```. This script installs dependencies and builds the front end.
-1. If you wish,[follow our recommendations](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Recommendations).
+3. If you wish, [follow our recommendations](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Recommendations).
 1. In case of errors, see our  [Troubleshooting page](https://github.com/GCE-NEIIST/GCE-NEIIST-webapp/wiki/Troubleshooting).
 
 ## Running the server
-1. Go to the main directory and run ``node gce_base`` or ``nodemon gce_base``. 
+1. Go to the main directory and run ``npm run start`` or ``nodemon gce_base``. 
 1. To access the user interface, open a browser (Chrome is recommended) and go to ``localhost:8080``.
 
 
