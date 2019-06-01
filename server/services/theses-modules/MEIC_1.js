@@ -468,5 +468,6 @@ async function getScientificAreasClassifier() {
     //areaClassifier.addDocument(objRSIPR,"Intelligent Systems");
     areaClassifier.addDocument(projRSIPR, "Artificial Intelligence Technologies");
 
+    areaClassifier.train();
     return areaClassifier;
 }

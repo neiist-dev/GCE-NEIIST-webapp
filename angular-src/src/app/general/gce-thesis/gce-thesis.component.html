@@ -1,5 +1,4 @@
 <div class="container middlePage">
-
     <div class="sidenav">
             
         <ng-container *ngIf="!specializationBool"><ng-container *ngFor="let area of areas">
@@ -90,7 +89,7 @@
      </div> -->
      <div class="row">
         <div class="col-2">
-            <button type="button" class="btn btn-primary" (click)="changeAreas()">Mudar vista</button>
+            <button type="button" class="btn btn-primary" *ngIf="it" (click)="changeAreas()">Mudar vista</button>
         </div>
         <div class="col-10">
             <div *ngIf="idsBot.length === 0" role="alert">
@@ -148,6 +147,7 @@
                             </ng-container>
                             <ng-container *ngIf="!it">
                                 <ng-container *ngIf="!specializationBool">
+
                                         <td  [ngStyle]="{'background-color':areaAdvanced[thesis.areas][0]}" style="height:10px"></td>
                                 </ng-container>
                              </ng-container>

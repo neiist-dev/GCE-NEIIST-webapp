@@ -1,5 +1,7 @@
 const natural = require("natural");
-let specClassifier = new natural.BayesClassifier(null,0.1);
+var PorterStemmer = natural.PorterStemmer;
+let specClassifier = new natural.BayesClassifier(PorterStemmer,0.1);
+natural.PorterStemmer.attach();
 
 const CLASSES = [
     "Algorithms and Applications",
@@ -506,15 +508,12 @@ async function getSpecializationAreasClassifier () {
     specClassifier.addDocument("processor", "Distributed and Cyberphysical Systems");
     specClassifier.addDocument("P3", "Distributed and Cyberphysical Systems");
 
-
-    //TODO
-    //Maps professors to areas
-
+    specClassifier.train();
     return specClassifier;
 }
 
 async function oldGetSpecializationAreasClassifier () {
-    natural.PorterStemmer.attach();
+
     ///////////////////////////////////////////////////////////
     //////////////Software Engineering////////////////////////
     ///////////////////////////////////////////////////////////
@@ -969,6 +968,7 @@ async function oldGetSpecializationAreasClassifier () {
     specClassifier.addDocument("João Brisson", "Interaction and Visualization");
     specClassifier.addDocument("Joaquim Jorge", "Interaction and Visualization");
     specClassifier.addDocument("Daniel Jorge Viegas Gonçalves", "Interaction and Visualization");
+    specClassifier.addDocument("Sandra Gama", "Interaction and Visualization");
     specClassifier.addDocument("Hugo Miguel Aleixo Albuquerque Nicolau", "Interaction and Visualization");
     specClassifier.addDocument("Jacinto Carlos Marques Peixoto do Nascimento", "Interaction and Visualization");
     specClassifier.addDocument("Augmenting Rehabilitation", "Interaction and Visualization");
