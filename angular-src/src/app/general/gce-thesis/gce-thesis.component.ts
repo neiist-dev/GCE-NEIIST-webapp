@@ -82,7 +82,6 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     @ViewChild('proposalTable') proposalTable;
     ngOnInit() {
         this.loadUser();
-        this.gce_thesis_available = this.thesisService.isThesisAvailable(this.course);
         if(this.gce_thesis_available){
             this.getAreas();
             this.getThesesByArea();
@@ -148,10 +147,20 @@ export class GceThesisComponent implements OnInit, OnDestroy {
 
     loadUser() {
         this.user = this.studentService.loadStudentProfile();
-        this.course = this.user['courses'][0];
+        this.course = this.loadFirstSupportedCourse(this.user['courses']);
         this.it = this.course.includes("Engenharia Informática e de Computadores");
     }
 
+    loadFirstSupportedCourse(courses){
+         for (const c in courses){
+            if (this.thesisService.isThesisAvailable(courses[c])) {
+                this.gce_thesis_available=true;
+                return courses[c];
+            }
+        }
+        this.gce_thesis_available=false;
+        return courses[0];
+    }
 
     getAreas(){
 
