@@ -90,7 +90,8 @@ const appRoutes: Routes = [
         PartnersCarouselComponent,
         AboutUsComponent,
         GceArticlesComponent,
-        GetAdviceComponent
+        GetAdviceComponent,
+        PartnersCarouselComponent
 
     ],
     imports: [
