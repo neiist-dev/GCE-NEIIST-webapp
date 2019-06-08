@@ -1,23 +1,33 @@
 <div class="header-nightsky">
     <nav class="navbar navbar-expand-lg fixed-top navbar-primary" >
         <div class="container SN">
-            <a class="icon" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/gce.neiist" target="_blank">
+            <a class="icon" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/gce.neiist" target="_blank" style="margin-left: 10px;">
                 <i class="fa fa-facebook-f"></i>
                 <!-- <p class="d-lg-none">Facebook</p> -->
+            </a>
+            <a class="icon" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="https://www.instagram.com/gce.neiist" target="_blank">
+                <i class="fa fa-instagram"></i>
+                <!-- <p class="d-lg-none">GitHub</p> -->
             </a>
             <a class="icon" rel="tooltip" title="GCE's GitHub" data-placement="bottom" href="https://github.com/RafaelAPB/GCE-NEIIST" target="_blank">
                 <i class="fa fa-github"></i>
                 <!-- <p class="d-lg-none">GitHub</p> -->
             </a>
+            
         </div>
     </nav>
-    <div class="hero" style="padding-bottom: 1.5rem">
-
-        <img src="https://web.ist.utl.pt/~ist180970/assets/img/favicon.png" style="height:300px;">
-
-        <p>Uma plataforma desenhada por estudantes para estudantes 🙌</p>
-    </div>
     <div class="hero">
-        <div class="btn btn-primary" routerLink="/thesis">Encontra a tese perfeita para ti!</div>
+
+        <img src="http://web.ist.utl.pt/ist186413/assets/GCE-Thesis-Header.png">
+        
     </div>
+    
+    <div class="hero">
+        <div class="btn btn-primary" routerLink="/thesis">Encontra a tese perfeita para ti</div>
+    </div>
+
+    <div class="hero partners">
+        <app-partners-carousel></app-partners-carousel>
+    </div>
+    
 </div>
