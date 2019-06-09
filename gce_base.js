@@ -85,8 +85,9 @@ mongoose.connection.on("error", (dbError) => {
 });
 mongoose.set('useCreateIndex', true);
 
-if(DB_BACKUP)   {
+if (DB_BACKUP)   {
     //Run at ten of Thursdays
+    ba_logger.ba("BA|"+ "DB_BACKUP|ACTIVE");
     schedule.scheduleJob('0 22 * * 4', () =>   {
     ba_logger.ba("BA|"+ "DB_BACKUP|" + new Date().toJSON().slice(0,16).replace(/-/g,'/')+ "h");
     logger.info(new Date().toJSON().slice(0,19).replace(/-/g,'/')+ "h");
@@ -100,7 +101,7 @@ if(DB_BACKUP)   {
     ]);
 
     backupUsers.stderr.on('data', (data) => {
-        logger.info('Users: stderr: ' + data);
+        logger.error('Users: stderr: ' + data);
     });
 
     backupUsers.on('exit', (code) => {
@@ -119,7 +120,7 @@ if(DB_BACKUP)   {
     ]);
 
         backupFeedback.stderr.on('data', (data) => {
-            logger.info('Feedbacks: stderr: ' + data);
+            logger.error('Feedbacks: stderr: ' + data);
             //Here is where the error output goes
         });
 
