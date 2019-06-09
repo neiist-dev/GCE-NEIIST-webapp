@@ -9,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   isHome = true;
   constructor() { }
-
+  
   ngOnInit() {
+    document.body.style.backgroundColor = 'black';
+  }
+  
+  ngOnDestroy() {
+    document.body.style.backgroundColor = 'white';
   }
 
 }
