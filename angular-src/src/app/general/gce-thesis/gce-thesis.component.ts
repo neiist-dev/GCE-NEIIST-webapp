@@ -24,6 +24,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     showRecomendations: boolean;
     specializationBool = false;
     it = false;
+    isProfessor = false;
     course: string = '';
     areas: string[] = [];
     areaAdvanced: { [area: string]: string[]}= {};
@@ -82,7 +83,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     @ViewChild('proposalTable') proposalTable;
     ngOnInit() {
         this.loadUser();
-        if(this.gce_thesis_available){
+        if (this.gce_thesis_available) {
             this.getAreas();
             this.getThesesByArea();
             this.getRecommendedTheses();
@@ -147,8 +148,9 @@ export class GceThesisComponent implements OnInit, OnDestroy {
 
     loadUser() {
         this.user = this.studentService.loadStudentProfile();
+        this.isProfessor = this.user['roles'].includes("TEACHER");
         this.course = this.loadFirstSupportedCourse(this.user['courses']);
-        this.it = this.course.includes("Engenharia Informática e de Computadores");
+        this.it = this.course.includes("Engenharia Informática e de Computadores") || this.isProfessor;
     }
 
     loadFirstSupportedCourse(courses){
