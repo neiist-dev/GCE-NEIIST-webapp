@@ -252,6 +252,11 @@ export class GceThesisComponent implements OnInit, OnDestroy {
         }
 
     }
+
+    public revertFilter(){
+        this.idsBot = [] ;
+
+    }
 }
 
 //Domain model
