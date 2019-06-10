@@ -60,4 +60,13 @@ export class AreasDump{
 
         return this.areas[course];
     }
+
+    public isThesisAvailable(course: string){
+        for (const c in this.availableCourses){
+            if (course.includes(this.availableCourses[c])) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

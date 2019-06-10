@@ -209,7 +209,7 @@ router.post('/processAll/:classifierModule?/:trainingCase?/:specialCase?', passp
             //const loadClassifiedTheses = await thesesServices.loadClassifiedTheses(latestId);
             //await thesesServices.saveClassifiedThesesOnDB(loadClassifiedTheses);
             ba_logger.ba("BA|TR|ProcessAll|" + specialCase + "|" + req.user.email);
-            UtilsRoutes.replySuccess(res,"","ALL PROCESSED");
+            UtilsRoutes.replySuccess(res, new Date().getTime(), "ALL PROCESSED");
             return;
         }
         else {

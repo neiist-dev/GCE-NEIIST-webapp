@@ -33,6 +33,10 @@ export class ThesisService {
     getAreasFromDump(course: string){
         return this.areasDump.getAreas(course);
     }
+
+    isThesisAvailable(course: string){
+        return this.areasDump.isThesisAvailable(course);
+    }
     
     incrementClicks(id: number){
         let headers = new Headers();

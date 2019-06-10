@@ -1,6 +1,7 @@
-<div class="container middlePage">
-    <div class="sidenav">
-            
+
+<div *ngIf="gce_thesis_available" class="container middlePage">
+
+    <div class="sidenav">   
         <ng-container *ngIf="!specializationBool"><ng-container *ngFor="let area of areas">
             <div *ngIf="selectedAreas.indexOf(area)>-1;else smallLabel">
                 <div class="bigColorLabel" [ngStyle]="{'background-color':areaAdvanced[area][0] }" (click)="changeSelectedAreas(area)" placement="right" [ngbTooltip]="area">
@@ -117,7 +118,7 @@
             <input *ngIf="idsBot.length === 0" type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
     </div>
 
-    <h1 class="availabe-theses-message" *ngIf="availableTheses != 0;else noAvailableTheses"> {{availableTheses}} propostas de tese</h1>
+    <h1 class="availabe-theses-message" *ngIf="!loading;else noAvailableTheses"> {{availableTheses}} propostas de tese</h1>
     <ng-template #noAvailableTheses><h1 class="availabe-theses-message">A carregar...</h1></ng-template>
     <div class="row" [hidden]="showRecomendations">
 
@@ -162,7 +163,17 @@
     </div>
     <div id="white-div"></div>
 </div>
+</div>
+</div>
+</div>
+<div *ngIf="!gce_thesis_available" class="container middlePage">
+<div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Curso não suportado!</h4>
+        
+<p>{{course}} ainda não é suportado pelo GCE-Thesis. Se gostarias de ter esta funcionalidade disponível para o teu curso, entra em contacto com o teu coordenador de mestrado ou com o teu núcleo.</p>
+    </div>
 
+</div>
 
 <ng-template #content let-modal>
 
