@@ -118,7 +118,7 @@
             <input *ngIf="idsBot.length === 0" type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
     </div>
 
-    <h1 class="availabe-theses-message" *ngIf="availableTheses != 0;else noAvailableTheses"> {{availableTheses}} propostas de tese</h1>
+    <h1 class="availabe-theses-message" *ngIf="!loading;else noAvailableTheses"> {{availableTheses}} propostas de tese</h1>
     <ng-template #noAvailableTheses><h1 class="availabe-theses-message">A carregar...</h1></ng-template>
     <div class="row" [hidden]="showRecomendations">
 
