@@ -67,7 +67,7 @@ async function trainClassifier (type = "1") {
             return classifier = await MEIC_MODULE_2.oldGetSpecializationAreasClassifier();
 
         case "MEIC":
-            return await MEIC_MODULE_2.oldGetSpecializationAreasClassifier();
+            return await MEIC_MODULE_3.getProfessorsClassifier();
         default:
             return "Error";
     }
@@ -338,7 +338,7 @@ async function classifyAux(theses,classifier, trainingCase) {
 }
 
 function getFirstTwoLabels (thesis, classifier, type) {
-    var criteria;
+    var criteria = "";
     switch(type) {
         case "0":
             criteria = thesis.title;
@@ -354,6 +354,47 @@ function getFirstTwoLabels (thesis, classifier, type) {
             break;
         case "4":
             criteria = thesis.title + " " + thesis.location;
+            break;
+        //Advisors
+        case "5":
+            for (let advisor of thesis.supervisors) {
+                //Supervisor is not from IST
+                if (advisor.includes("@"))   {
+                    break;
+                }
+                //consider tokenizing and stemming
+                advisor = advisor.substr(0, advisor.indexOf('('));
+                advisor = advisor.trim();
+                let array = advisor.split(" ");
+                for (let name of array)  {
+                    advisor = name + "_";
+                    criteria = criteria + advisor;
+
+                }
+                criteria = criteria.substr(0, criteria.length - 1);
+                criteria = criteria + " ";
+            }
+            break;
+        //Advisors + Title
+        case "6":
+            for (let advisor of thesis.supervisors) {
+                //Supervisor is not from IST
+                if (advisor.includes("@"))   {
+                    break;
+                }
+                //consider tokenizing and stemming
+                advisor = advisor.substr(0, advisor.indexOf('('));
+                advisor = advisor.trim();
+                let array = advisor.split(" ");
+                for (let name of array)  {
+                    advisor = name + "_";
+                    criteria = criteria + advisor;
+
+                }
+                criteria = criteria.substr(0, criteria.length - 1);
+                criteria = criteria + " ";
+            }
+            criteria = criteria + thesis.title;
             break;
         default:
             criteria = thesis.title;
