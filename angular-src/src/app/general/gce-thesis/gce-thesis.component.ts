@@ -18,7 +18,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     user: object;
     applications: any[];
     theses: any[];
-    numberTheses: number;
+    numberTheses: number = 0;
     numberFreeTheses: number = 0;
     recommendedTheses: any[];
     showRecomendations: boolean;
@@ -29,6 +29,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     areas: string[] = [];
     areaAdvanced: { [area: string]: string[]}= {};
     gce_thesis_available: boolean;
+    loading = true;
 
     specializationAreas: string[] = [
         'Network Services and Applications',
@@ -148,9 +149,10 @@ export class GceThesisComponent implements OnInit, OnDestroy {
 
     loadUser() {
         this.user = this.studentService.loadStudentProfile();
-        this.isProfessor = this.user['roles'].includes("TEACHER");
+        //this.isProfessor = this.user['roles'].includes("TEACHER");
         this.course = this.loadFirstSupportedCourse(this.user['courses']);
-        this.it = this.course.includes("Engenharia Informática e de Computadores") || this.isProfessor;
+        //this.it = this.course.includes("Engenharia Informática e de Computadores") || this.isProfessor;
+        this.it = this.course.includes("Engenharia Informática e de Computadores");
     }
 
     loadFirstSupportedCourse(courses){
@@ -188,6 +190,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
         this.thesisService.getThesesByArea().subscribe(res => {
             this.theses = res.response_data.theses;
             this.numberTheses = res.response_data.number;
+            this.loading = false;
             for (let thesis of this.theses) {
                 if (thesis.status == "Não atribuída")  {
                     this.numberFreeTheses++;
@@ -248,6 +251,11 @@ export class GceThesisComponent implements OnInit, OnDestroy {
             this.selectedTypes.push(clickedType);
             this.selectedTypes = this.selectedTypes.filter(str =>str);
         }
+
+    }
+
+    public revertFilter(){
+        this.idsBot = [] ;
 
     }
 }
