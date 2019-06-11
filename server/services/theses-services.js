@@ -107,14 +107,12 @@ async function parseTheses(latestId, specificFile)    {
             }
             else    {
 
-                //Path to table responsive is children[3].children[7].children[1].children[3].children[9].children[7].children[3].children[3]
-                //Path to table  is  dom[4].children[3].children[7].children[1].children[3].children[9].children[7].children[3].children[3].children[1]
-                //Path to table head is dom[4].children[3].children[7].children[1].children[3].children[9].children[7].children[3].children[3].children[1].children[1].name);
-                //Path to table body is dom[4].children[3].children[7].children[1].children[3].children[9].children[7].children[3].children[3].children[1].children[3].name);
-
-                //Table body holds tr. Each tr corresponds to one master thesis
-                let tableBody = dom[4].children[3].children[7].children[1].children[3].children[9].children[7].children[3].children[3].children[1].children[3];
-
+                /*
+                * Instructions:
+                * Get a file with thesis on ESTUDANTE -> Candidatura a Dissertação -> Available Proposals
+                * Delete everything above the theses' beggining on <tbody>. Delete everything after </tbody>
+                * */
+                let tableBody = dom[1];
 
                 tableBody.children.forEach((element)=>  {
                     if (element.type === "tag" && element.name === "tr")  {
