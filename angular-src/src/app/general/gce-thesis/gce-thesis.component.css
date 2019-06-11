@@ -156,17 +156,17 @@
 }
 
 .Dissertation{
-    background-color:#FFE0DA;
+    background-color:#CFEDFB;
     transition: 0.3s;
 }
 .Dissertation:hover{
-    background-color:#c21807;
+    background-color:#008ECC;
 }
 .Project{
-    background-color:#CFEDFB;
+    background-color: #FFE0DA;
     transition: 0.3s;
 }.Project:hover{
-     background-color:#008ECC;
+     background-color: #c21807;
  }
 .type-text{
     position:relative;
