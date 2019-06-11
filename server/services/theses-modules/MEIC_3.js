@@ -152,6 +152,8 @@ async function getProfessorsClassifier  () {
     specClassifier.addDocument("agents", "Intelligent Systems");
     specClassifier.addDocument("multi agent system", "Intelligent Systems");
     specClassifier.addDocument("autonomous agents", "Intelligent Systems");
+    specClassifier.addDocument("bot", "Intelligent Systems");
+    specClassifier.addDocument("chatbot", "Intelligent Systems");
     //
     specClassifier.addDocument("Arlindo_Manuel_Limede_de_Oliveira", "Intelligent Systems");
     specClassifier.addDocument("Ana_Paiva", "Intelligent Systems");
