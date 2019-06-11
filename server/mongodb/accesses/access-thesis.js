@@ -57,41 +57,41 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
               }
 
               if (thesis[0].title !== title) {
-                  Thesis.update({ id: id }, { $set: { title: title }}, (err,result) =>  {
+                  Thesis.updateOne({ id: id }, { $set: { title: title }}, (err,result) =>  {
                                         });
               }
               if (thesis[0].supervisors !== supervisors) {
-                  Thesis.update({ id: id }, { $set: { supervisors: supervisors }}, (err,result) =>  {
+                  Thesis.updateOne({ id: id }, { $set: { supervisors: supervisors }}, (err,result) =>  {
 
                   });
               }
               if (thesis[0].vacancies !== vacancies) {
-                  Thesis.update({ id: id }, { $set: { vacancies: vacancies }}, (err,result) =>  {
+                  Thesis.updateOne({ id: id }, { $set: { vacancies: vacancies }}, (err,result) =>  {
                   });
               }
               if (thesis[0].observations !== observations) {
-                  Thesis.update({ id: id }, { $set: { observations: observations }}, (err,result) =>  {
+                  Thesis.updateOne({ id: id }, { $set: { observations: observations }}, (err,result) =>  {
 
                   });
               }
               if (thesis[0].objectives !== objectives) {
-                  Thesis.update({ id: id }, { $set: { objectives: objectives }}, (err,result) =>  {
+                  Thesis.updateOne({ id: id }, { $set: { objectives: objectives }}, (err,result) =>  {
 
                   });
               }
               if (thesis[0].status !== status) {
-                  Thesis.update({ id: id }, { $set: { status: status }}, (err,result) =>  {
+                  Thesis.updateOne({ id: id }, { $set: { status: status }}, (err,result) =>  {
 
                   });
               }
               if (thesis[0].requirements !== requirements) {
-                  Thesis.update({ id: id }, { $set: { requirements: requirements }}, (err,result) =>  {
+                  Thesis.updateOne({ id: id }, { $set: { requirements: requirements }}, (err,result) =>  {
 
                   });
               }
 
               if (thesis[0].areas !== areas) {
-                  Thesis.update({ id: id }, { $set: { areas: areas }}, (err,result) =>  {
+                  Thesis.updateOne({ id: id }, { $set: { areas: areas }}, (err,result) =>  {
 
                   });
               }
@@ -145,7 +145,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                 }
 
                 if (thesis[0].title !== title) {
-                    Thesis.update({ id: id }, { $set: { title: title }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { title: title }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -154,7 +154,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].supervisors !== supervisors) {
-                    Thesis.update({ id: id }, { $set: { supervisors: supervisors }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { supervisors: supervisors }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -163,7 +163,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].vacancies !== vacancies) {
-                    Thesis.update({ id: id }, { $set: { vacancies: vacancies }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { vacancies: vacancies }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -172,7 +172,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].observations !== observations) {
-                    Thesis.update({ id: id }, { $set: { observations: observations }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { observations: observations }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -181,7 +181,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].objectives !== objectives) {
-                    Thesis.update({ id: id }, { $set: { objectives: objectives }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { objectives: objectives }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -190,7 +190,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].status !== status) {
-                    Thesis.update({ id: id }, { $set: { status: status }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { status: status }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -199,7 +199,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].requirements !== requirements) {
-                    Thesis.update({ id: id }, { $set: { requirements: requirements }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { requirements: requirements }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -209,7 +209,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                 }
 
                 if (thesis[0].areas !== areas) {
-                    Thesis.update({ id: id }, { $set: { areas: areas }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { areas: areas }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -299,7 +299,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                 }
 
                 if (thesis[0].title !== title) {
-                    Thesis.update({ id: id }, { $set: { title: title }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { title: title }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -308,7 +308,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].supervisors !== supervisors) {
-                    Thesis.update({ id: id }, { $set: { supervisors: supervisors }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { supervisors: supervisors }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -317,7 +317,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].vacancies !== vacancies) {
-                    Thesis.update({ id: id }, { $set: { vacancies: vacancies }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { vacancies: vacancies }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -326,7 +326,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].observations !== observations) {
-                    Thesis.update({ id: id }, { $set: { observations: observations }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { observations: observations }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -335,7 +335,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].objectives !== objectives) {
-                    Thesis.update({ id: id }, { $set: { objectives: objectives }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { objectives: objectives }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -344,7 +344,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].status !== status) {
-                    Thesis.update({ id: id }, { $set: { status: status }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { status: status }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -353,7 +353,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                     });
                 }
                 if (thesis[0].requirements !== requirements) {
-                    Thesis.update({ id: id }, { $set: { requirements: requirements }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { requirements: requirements }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -363,7 +363,7 @@ async function asyncAddThesis(id, title, supervisors, vacancies, location, cours
                 }
 
                 if (thesis[0].areas !== areas) {
-                    Thesis.update({ id: id }, { $set: { areas: areas }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { areas: areas }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -455,7 +455,7 @@ async function asyncAddThesisSpecialization(id, title, supervisors, vacancies, l
                 }
 
                 if (thesis[0].title !== title) {
-                    Thesis.update({ id: id }, { $set: { title: title }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { title: title }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -464,7 +464,7 @@ async function asyncAddThesisSpecialization(id, title, supervisors, vacancies, l
                     });
                 }
                 if (thesis[0].supervisors !== supervisors) {
-                    Thesis.update({ id: id }, { $set: { supervisors: supervisors }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { supervisors: supervisors }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -473,7 +473,7 @@ async function asyncAddThesisSpecialization(id, title, supervisors, vacancies, l
                     });
                 }
                 if (thesis[0].vacancies !== vacancies) {
-                    Thesis.update({ id: id }, { $set: { vacancies: vacancies }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { vacancies: vacancies }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -482,7 +482,7 @@ async function asyncAddThesisSpecialization(id, title, supervisors, vacancies, l
                     });
                 }
                 if (thesis[0].observations !== observations) {
-                    Thesis.update({ id: id }, { $set: { observations: observations }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { observations: observations }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -491,7 +491,7 @@ async function asyncAddThesisSpecialization(id, title, supervisors, vacancies, l
                     });
                 }
                 if (thesis[0].objectives !== objectives) {
-                    Thesis.update({ id: id }, { $set: { objectives: objectives }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { objectives: objectives }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -500,7 +500,7 @@ async function asyncAddThesisSpecialization(id, title, supervisors, vacancies, l
                     });
                 }
                 if (thesis[0].status !== status) {
-                    Thesis.update({ id: id }, { $set: { status: status }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { status: status }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -509,7 +509,7 @@ async function asyncAddThesisSpecialization(id, title, supervisors, vacancies, l
                     });
                 }
                 if (thesis[0].requirements !== requirements) {
-                    Thesis.update({ id: id }, { $set: { requirements: requirements }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { requirements: requirements }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -519,7 +519,7 @@ async function asyncAddThesisSpecialization(id, title, supervisors, vacancies, l
                 }
 
                 if (thesis[0].areas !== areas) {
-                    Thesis.update({ id: id }, { $set: { areas: areas }}, (err,result) =>  {
+                    Thesis.updateOne({ id: id }, { $set: { areas: areas }}, (err,result) =>  {
                         if (err)  {
                             return new Error(err);
                         } else    {
@@ -593,7 +593,7 @@ function addThesisArray(thesesArray, callback) {
     callback(null, stats)
 }
 
-//TODO: May update only one field. Status may not be modified here
+//TODO: May updateOne only one field. Status may not be modified here
 function updateThesis(id, description, requirements,
                       date_beginning, date_end,
                       salary, observations, vacancies,

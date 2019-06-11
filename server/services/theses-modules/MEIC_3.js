@@ -74,18 +74,20 @@ async function getProfessorsClassifier  () {
     specClassifier.addDocument("blockchain", "Cyber-Security");
     specClassifier.addDocument("tls", "Cyber-Security");
     specClassifier.addDocument("Privacy", "Cyber-Security");
+    specClassifier.addDocument("forensics", "Cyber-Security");
     //
     specClassifier.addDocument("Miguel_Nuno_Dias_Alves_Pupo_Correia", "Cyber-Security");
     specClassifier.addDocument("Ricardo_Chaves", "Cyber-Security");
     specClassifier.addDocument("Pedro_Adão", "Cyber-Security");
     specClassifier.addDocument("Adão", "Cyber-Security");
 //
-    specClassifier.addDocument("GPU", "Distributed and Cyberphysical Systems");
+    specClassifier.addDocument("GPU", "Algorithms and Applications");
     specClassifier.addDocument("Smart-Graphs", "Algorithms and Applications");
     specClassifier.addDocument("Constraint Logic", "Algorithms and Applications");
     specClassifier.addDocument("Graph Theory", "Algorithms and Applications");
     specClassifier.addDocument("Quantum computer", "Algorithms and Applications");
     specClassifier.addDocument("Computador quântico", "Algorithms and Applications");
+    specClassifier.addDocument("code", "Algorithms and Applications");
     //
     specClassifier.addDocument("José_Monteiro", "Algorithms and Applications");
     specClassifier.addDocument("Inês_Lynce", "Algorithms and Applications");
@@ -125,6 +127,7 @@ async function getProfessorsClassifier  () {
     specClassifier.addDocument("Business processes", "Enterprise and Information Systems");
     specClassifier.addDocument("ontology", "Enterprise and Information Systems");
     specClassifier.addDocument("ontologia", "Enterprise and Information Systems");
+    specClassifier.addDocument("analysis", "Enterprise and Information Systems");
     specClassifier.addDocument("Gestão de dados", "Enterprise and Information Systems");
     //
     specClassifier.addDocument("José_Manuel_Nunes_Salvador_Tribolet", "Enterprise and Information Systems");
@@ -149,6 +152,8 @@ async function getProfessorsClassifier  () {
     specClassifier.addDocument("agents", "Intelligent Systems");
     specClassifier.addDocument("multi agent system", "Intelligent Systems");
     specClassifier.addDocument("autonomous agents", "Intelligent Systems");
+    specClassifier.addDocument("bot", "Intelligent Systems");
+    specClassifier.addDocument("chatbot", "Intelligent Systems");
     //
     specClassifier.addDocument("Arlindo_Manuel_Limede_de_Oliveira", "Intelligent Systems");
     specClassifier.addDocument("Ana_Paiva", "Intelligent Systems");
@@ -196,6 +201,8 @@ async function getProfessorsClassifier  () {
     specClassifier.addDocument("Miguel_Matos", "Distributed and Cyberphysical Systems");
 //
     specClassifier.addDocument("healthcare", "Bioinformatics and Computational Biology");
+    specClassifier.addDocument("Disease", "Bioinformatics and Computational Biology");
+    specClassifier.addDocument("doença", "Bioinformatics and Computational Biology");
     specClassifier.addDocument("protein", "Bioinformatics and Computational Biology");
     specClassifier.addDocument("proteina", "Bioinformatics and Computational Biology");
     specClassifier.addDocument("Medical", "Bioinformatics and Computational Biology");
