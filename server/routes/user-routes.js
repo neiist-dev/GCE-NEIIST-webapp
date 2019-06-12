@@ -84,6 +84,7 @@ router.post('/login', (req, res) => {
                         data.user.contact = user.contact;
                     }   else if (TYPE === "Professor")    {
                         //Add corresponding remaining fields
+                        data.user.teacherDepartment = user.teacherDepartment;
                     }   else {
                         return UtilsRoutes.replyFailure(res, err, "Wrong entity type");
                     }
