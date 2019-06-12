@@ -149,9 +149,10 @@ export class GceThesisComponent implements OnInit, OnDestroy {
 
     loadUser() {
         this.user = this.studentService.loadStudentProfile();
-        this.isProfessor = this.user['roles'].includes("TEACHER");
+        //this.isProfessor = this.user['roles'].includes("TEACHER");
         this.course = this.loadFirstSupportedCourse(this.user['courses']);
-        this.it = this.course.includes("Engenharia Informática e de Computadores") || this.isProfessor;
+        //this.it = this.course.includes("Engenharia Informática e de Computadores") || this.isProfessor;
+        this.it = this.course.includes("Engenharia Informática e de Computadores");
     }
 
     loadFirstSupportedCourse(courses){
