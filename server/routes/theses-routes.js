@@ -149,10 +149,7 @@ router.post('/saveTheses/:classifiedThesesFileName?', passport.authenticate('jwt
 });
 
 router.get('/getThesesByCourse/', passport.authenticate('jwt', {session: false}), async (req, res) => {
-    if(!UtilsRoutes.isFromAdministration(req))    {
-        UtilsRoutes.replyFailure(res,"","Não permitido");
-        return;
-    }
+
 
     //Can have more than 1 course, we assume the first is the latest/main
     let fenixCourse = req.user.courses[0];
@@ -209,7 +206,7 @@ router.post('/processAll/:classifierModule?/:trainingCase?/:specialCase?', passp
             //const loadClassifiedTheses = await thesesServices.loadClassifiedTheses(latestId);
             //await thesesServices.saveClassifiedThesesOnDB(loadClassifiedTheses);
             ba_logger.ba("BA|TR|ProcessAll|" + specialCase + "|" + req.user.email);
-            UtilsRoutes.replySuccess(res, new Date().getTime(), "ALL PROCESSED");
+            UtilsRoutes.replySuccess(res, "Classified " + classifiedTheses.length + " on " + new Date().getTime(), "ALL PROCESSED");
             return;
         }
         else {
@@ -218,7 +215,7 @@ router.post('/processAll/:classifierModule?/:trainingCase?/:specialCase?', passp
         }
 
         ba_logger.ba("BA|TR|ProcessAll|" + req.user.email);
-        UtilsRoutes.replySuccess(res,"","ALL PROCESSED");
+        UtilsRoutes.replySuccess(res, "Classified " + classifiedTheses.length + " on " + new Date().getTime(), "ALL PROCESSED");
 
     } catch (e) {
         ba_logger.ba("BA|TR|ERROR|ProcessAll|" + req.user.email);

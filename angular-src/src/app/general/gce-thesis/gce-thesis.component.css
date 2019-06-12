@@ -70,6 +70,9 @@
 
 
 }
+#search-bar{
+    margin-top: 1.5rem;
+}
 .dot {
     height: 25px;
     width: 25px;
@@ -153,17 +156,17 @@
 }
 
 .Dissertation{
-    background-color:#FFE0DA;
+    background-color:#CFEDFB;
     transition: 0.3s;
 }
 .Dissertation:hover{
-    background-color:#c21807;
+    background-color:#008ECC;
 }
 .Project{
-    background-color:#CFEDFB;
+    background-color: #FFE0DA;
     transition: 0.3s;
 }.Project:hover{
-     background-color:#008ECC;
+     background-color: #c21807;
  }
 .type-text{
     position:relative;
