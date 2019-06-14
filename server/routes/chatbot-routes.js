@@ -73,6 +73,9 @@ router.post('/message', passport.authenticate('jwt', {session: false}), async (r
     //TODO is all the context needed in every situation? Probably not, a cheaper option could exist
     const firstName = req.user.name.split(/(?<=^\S+)\s/)[0];
     const course = req.user.courses;
+    if( req.user.teacherDepartment === "DEI"){
+        course = "Engenharia Informática e de Computadores"
+    }
     //get specialization areas and send them as context
     let areas = studentServices.getAreasOfInterest(req.user.enrolments,2);
 
