@@ -27,13 +27,21 @@ function parseStudentData(person, callback) {
     parsedStudent.campus = student.campus;
     parsedStudent.enrolments = ["placeholder"];
     parsedStudent.roles = [];
+    //For teachers, temporary solution
+    parsedStudent.department = "";
 
     // Check if is a student
     let studentRole = null;
     for (let role of student.roles) {
-        parsedStudent.roles.push(role.type)
+        parsedStudent.roles.push(role.type);
         if (role.type === 'STUDENT') {
             studentRole = role;
+            continue;
+        }
+
+        if (role.type === 'TEACHER') {
+            parsedStudent.department = role.department.acronym;
+            continue;
         }
     }
 
@@ -47,6 +55,8 @@ function parseStudentData(person, callback) {
             parsedStudent.enrolments.push(enrolment.name);
         }
     }
+
+
 
 
     callback(null, parsedStudent);

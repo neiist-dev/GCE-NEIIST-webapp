@@ -86,6 +86,7 @@ mongoose.connection.on("error", (dbError) => {
 mongoose.set('useCreateIndex', true);
 
 if (DB_BACKUP)   {
+    logger.info("Backup is on");
     //Run at ten of Thursdays
     ba_logger.ba("BA|"+ "DB_BACKUP|ACTIVE");
     schedule.scheduleJob('0 22 * * 4', () =>   {
