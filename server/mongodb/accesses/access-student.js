@@ -32,7 +32,7 @@ let access_student = module.exports = exports = new AccessStudent();
 /********************************
  *  C.R.U.D. FUNCTIONS
  *******************************/
-function addStudent(name, istid, roles, email, courses, gender, enrolments, callback) {
+function addStudent(name, istid, roles, email, courses, gender, enrolments, department, callback) {
     let newUser = new Student({
         name: name,
         istid: istid,
@@ -40,7 +40,8 @@ function addStudent(name, istid, roles, email, courses, gender, enrolments, call
         email: email,
         gender: gender,
         enrolments: enrolments,
-        courses: courses
+        courses: courses,
+        department: department
     });
 
     newUser.save(callback);

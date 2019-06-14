@@ -179,7 +179,7 @@ router.post('/register', (req, res, next) => {
                 else {
                     registerOrLogin(parsedStudent.name, parsedStudent.username, parsedStudent.roles, parsedStudent.email,
                         parsedStudent.courses, parsedStudent.gender,
-                        parsedStudent.enrolments, ip, (err, data) => {
+                        parsedStudent.enrolments, parsedStudent.department, ip, (err, data) => {
                         if (err)    {
                             error.msg = "Erro a registar aluno";
                             error.content = err;
@@ -285,7 +285,7 @@ module.exports = router;
  *  Aux Functions
  *******************************/
 
-function registerOrLogin(name, istid, roles, email, courses, gender, enrolments, ip, callback) {
+function registerOrLogin(name, istid, roles, email, courses, gender, enrolments, department, ip, callback) {
      DBAccess.students.getStudentByEmail(email, async (err, student) => {
         if (err) {
             logger.error(err);
@@ -299,7 +299,7 @@ function registerOrLogin(name, istid, roles, email, courses, gender, enrolments,
         //If it's not in the database, we add a new student
          //TODO use await async
         if (student === null) {
-            student = DBAccess.students.addStudent(name, istid, roles, email, courses, gender, enrolments, (err) => {
+            student = DBAccess.students.addStudent(name, istid, roles, email, courses, gender, enrolments, department, (err) => {
                 if (err) {
                     callback("Erro a adicionar aluno",null);
                     return false;
@@ -340,7 +340,8 @@ function registerOrLogin(name, istid, roles, email, courses, gender, enrolments,
                             name: student.name,
                             email: student.email,
                             courses: student.courses,
-                            roles: student.roles
+                            roles: student.roles,
+                            department: student.department
                         }};
         callback(null,resData);
     });

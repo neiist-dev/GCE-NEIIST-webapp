@@ -72,5 +72,6 @@ function isFromAdministration(req) {
 }
 function isFromMEIC(req) {
     const course = req.user.courses[0];
-    return course.includes("Engenharia Informática");
+    const department = req.user.department;
+    return course.includes("Engenharia Informática") || department.includes("DEI");
 }
