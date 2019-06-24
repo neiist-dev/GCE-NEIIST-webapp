@@ -41,7 +41,6 @@ function parseStudentData(person, callback) {
 
         if (role.type === 'TEACHER') {
             parsedStudent.department = role.department.acronym;
-            continue;
         }
     }
 
