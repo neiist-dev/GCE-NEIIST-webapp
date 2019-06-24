@@ -155,7 +155,7 @@ async function getProfessorsClassifier  () {
     specClassifier.addDocument("bot", "Intelligent Systems");
     specClassifier.addDocument("chatbot", "Intelligent Systems");
     //
-    specClassifier.addDocument("Arlindo_Manuel_Limede_de_Oliveira", "Intelligent Systems");
+    specClassifier.addDocument("Arlindo_Oliveira", "Intelligent Systems");
     specClassifier.addDocument("Ana_Paiva", "Intelligent Systems");
     specClassifier.addDocument("Ernesto_Morgado", "Intelligent Systems");
     specClassifier.addDocument("Francisco_Correia_dos_Santos", "Intelligent Systems");
@@ -214,6 +214,7 @@ async function getProfessorsClassifier  () {
     specClassifier.addDocument("Health", "Bioinformatics and Computational Biology");
     //
     specClassifier.addDocument("Arlindo_Manuel_Limede_de_Oliveira", "Bioinformatics and Computational Biology");
+    specClassifier.addDocument("Arlindo_Oliveira", "Bioinformatics and Computational Biology");
     specClassifier.addDocument("Rui_Henriques", "Bioinformatics and Computational Biology");
 
 
