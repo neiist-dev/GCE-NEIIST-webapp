@@ -17,23 +17,23 @@ function getArticles() {
         console.log(err);
     }
 
-    var stories = [];
-        for (var i = rss.length - 1; i >= 0; i--) {
-            var new_story = {};
-            
-            new_story.title = rss[i].title;
-            dom = new JSDOM("<!DOCTYPE html>" + rss[i].description);
-            new_story.description = dom.window.document.querySelector('p').textContent;
-            new_story.date = rss[i].date;
-            new_story.link = rss[i].link;
-            new_story.author = rss[i].author;
-            new_story.comments = rss[i].comments;
-            new_story.image = dom.window.document.querySelector('img').src
-
-            stories.push(new_story);
-        }
+    var articles = [];
+    for (var i = 0; i < rss.length; i++) {
+        var new_article = {};
         
-    console.log(stories)
+        new_article.title = rss[i].title;
+        dom = new JSDOM("<!DOCTYPE html>" + rss[i].description);
+        new_article.description = dom.window.document.querySelector('p').textContent;
+        new_article.date = rss[i].date;
+        new_article.link = rss[i].link;
+        new_article.author = rss[i].author;
+        new_article.comments = rss[i].comments;
+        new_article.image = dom.window.document.querySelector('img').src
+
+        articles.push(new_article);
+    }
+        
+    console.log(articles)
 });
 
 }
