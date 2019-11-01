@@ -12,6 +12,7 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { StudentService } from './services/student.service';
 import { ThesisService } from './services/thesis.service';
+import { ArticlesService } from './services/articles.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { DashboardStudentComponent } from './user-student/student-dashboard/student-dashboard.component';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -121,6 +122,7 @@ const appRoutes: Routes = [
         StudentService,
         AuthGuardService,
         ThesisService,
+        ArticlesService,
         MockBackend,
         FeedbackService,
         BaseRequestOptions,
