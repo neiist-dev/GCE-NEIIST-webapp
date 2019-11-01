@@ -2,11 +2,10 @@ const articlesServices = require('../services/articles-services');
 const express = require('express');
 const router = express.Router();
 const ba_logger = require('../log/ba_logger');
-const passport = require('passport');
 const UtilsRoutes = require('./utils-routes');
 
 
-router.get('/getArticles/'/*, passport.authenticate('jwt', {session: false})*/, async (req, res) => {
+router.get('/getArticles/', async (req, res) => {
 
     try {
         const articles = await articlesServices.getArticles();
