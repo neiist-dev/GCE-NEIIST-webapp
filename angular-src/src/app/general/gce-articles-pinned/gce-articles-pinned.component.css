@@ -1,0 +1,13 @@
+.card-body {
+    height: 85%;
+}
+
+.card-footer {
+    background-color: white;
+    border-top: 0px;
+}
+
+.article-footer {
+    position: absolute;
+    bottom: 0;
+}

@@ -5,19 +5,18 @@
         <img class="card-img-top" src="{{ article.image }}" alt="Card image cap">
       </a>
     </div>
-    <div class="col-md-4">
-        <div class="card-body">    
-          <p class="card-text"><b>{{ article.title }}</b><br>{{ article.description }}</p>
-        
-          <div class="d-flex justify-content-between align-items-middle">
-            <div class="btn-group">
-              <ng-container *ngFor="let tag of article.tags">
-                <button type="button" class="btn btn-sm btn-outline-secondary">{{tag}}</button>
-              </ng-container>
-            </div>
-            <small class="text-muted">5 mins</small>
-          </div>
+    <div class="col-md-4 pinned-article">
+      <div class="card-body">    
+        <p class="card-text"><b>{{ article.title }}</b><br>{{ article.description }}</p>
+      </div>
+      <div class="card-footer d-flex justify-content-between align-items-middle">
+        <div class="btn-group">
+          <ng-container *ngFor="let tag of article.tags">
+            <button type="button" class="btn btn-sm btn-outline-secondary">{{tag}}</button>
+          </ng-container>
         </div>
+        <small class="text-muted">5 mins</small>
+      </div>
     </div>
   </div>
 </div>
