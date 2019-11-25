@@ -5,6 +5,7 @@ const { JSDOM } = jsdom;
 class ArticlesServices {
     constructor() {
         this.getArticles = getArticles;
+        this.classifyArticleByTags = classifyArticleByTags;
     }
 }
 
@@ -30,7 +31,8 @@ async function getArticles() {
                 new_article.author = rss[i].author;
                 new_article.comments = rss[i].comments;
                 new_article.categories = rss[i].categories;
-                new_article.image = dom.window.document.querySelector('img').src
+                new_article.image = dom.window.document.querySelector('img').src;
+                new_article.tags = classifyArticleByTags(new_article);
 
                 articles.push(new_article);
             }
@@ -38,4 +40,14 @@ async function getArticles() {
             resolve(articles);
         });
     });
+
+}
+function classifyArticleByTags(article) {
+    tags = [];
+    if (article.title.toLowerCase().includes("à conversa com")) {
+        tags.push("Interview");
+    } else {
+        tags.push("Article");
+    }
+    return tags;
 }

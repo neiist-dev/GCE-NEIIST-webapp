@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ArticlesService } from '../../services/articles.service';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +14,8 @@ export class GceArticlesComponent implements OnInit {
   articles: any[];
   numberArticles: number = 0;
   loading: true;
+  selectedType: string;
+  pinnedArticle: any;
 
   constructor(private articlesService: ArticlesService,
               private modalService: NgbModal,
@@ -24,11 +26,17 @@ export class GceArticlesComponent implements OnInit {
   }
 
   getArticles() {
-    this.articles = [];
     this.articlesService.getAllArticles().subscribe(res => {
         this.articles = res.response_data.articles;
         this.numberArticles = res.response_data.number;
+        this.selectedType = "All";
+
+        this.pinnedArticle = this.articles[0];
     });
+  }
+
+  changeSelectedType(type) {
+    this.selectedType = type;
   }
 
 }

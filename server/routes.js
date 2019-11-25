@@ -3,7 +3,7 @@ const usersRoutes = require('./routes/user-routes');
 const studentRoutes = require('./routes/student-routes');
 const thesesRoutes = require('./routes/theses-routes');
 const adminRoutes = require('./routes/admin-routes');
-// const chatbotRoutes = require('./routes/chatbot-routes');
+const chatbotRoutes = require('./routes/chatbot-routes');
 const ivRoutes = require('./routes/articles-routes');
 const generalRoutes = require('./routes/events');
 
@@ -14,7 +14,7 @@ module.exports = (app) => {
     app.use('/admin', adminRoutes);
     app.use('/gce', generalRoutes);
     app.use('/theses', thesesRoutes);
-    // app.use('/chatbot', chatbotRoutes);
+    app.use('/chatbot', chatbotRoutes);
     app.use('/articles', ivRoutes);
 
     /***********************************************************************************************

@@ -1,137 +1,49 @@
 <body>
-
 <main role="main">
-
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1 class="jumbotron-heading">GCE-Inside View</h1>
-      <p class="lead text-muted">GCE is committed to share knowledge. </p>
-      <p> This projects is divided into two parts: <br>
-        1) Shares technical expertise that GCE's members gathered along their path in GCE.<br>
-        2) Aims to show Engineering students some of the possible careers path, through interviews. </p>
-      <p> Interviews and articles are hosted on our <a href="https://medium.com/gce-neiist"> Medium publication</a>. Be sure to follow us!</p>
-
-    </div>
-  </section>
-
+        
   <div class="album py-5 bg-light">
+    <div class="container text-center">
+          <h1 class="jumbotron-heading">GCE-Inside View</h1>
+          <p class="lead text-muted">GCE is committed to share knowledge. </p>
+          <p> Interviews and articles are hosted on our <a href="https://medium.com/gce-neiist"> Medium publication</a>. Be sure to follow us!</p>
+    
+        </div>
     <div class="container">
-      <!-- <a href="#" class="btn btn-primary my-2">Interviews</a> -->
-      <!-- <div class="row">
-        <div class="col-md-6">
-          <div class="card mb-4 shadow-sm">
-
-            <a href="https://medium.com/gce-neiist/a-vida-de-uma-software-engineer-no-cern-da91cf8f8c22" target="_blank">
-              <img class="card-img-top" src="https://web.ist.utl.pt/~ist180970/assets/img/interview1.jpg" alt="Card image cap">
-            </a>
-            <div class="card-body">
-              <p class="card-text"><b>Clara Paiva -  Software Engineer @ CERN</b><br>
-                As vivências de uma Software Engineer portuguesa no CERN. A...
-
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-primary">CERN</button>
-                  <button type="button" class="btn btn-sm btn-outline-warning">MEIC</button>
-                  <button type="button" class="btn btn-sm btn-outline-danger">SINFO</button>
-                  <button type="button" class="btn btn-sm btn-outline-danger">HackerSchool</button>
-                </div>
-
-                <small class="text-muted">6 mins</small>
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card mb-4 shadow-sm">
-
-            <a href="https://medium.com/gce-neiist/%C3%A0-conversa-com-rui-henriques-52e2aa9edda9" target="_blank">
-            <img class="card-img-top" src="https://web.ist.utl.pt/~ist180970/assets/img/interview2.jpg" alt="Card image cap">
-            </a>
-            <div class="card-body">
-              <p class="card-text"><b>Rui Henriques - Teacher @ IST, Researcher @ INESC-ID</b><br>
-                O Grupo de Contacto com Empresas (GCE) quis falar com um dos seus mais notáveis alumni — Rui Henriques...
-
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-primary">Tecnico Lisboa</button>
-                  <button type="button" class="btn btn-sm btn-outline-danger">GCE Alumni</button>
-                </div>
-
-                <small class="text-muted">13 mins</small>
-
-              </div>
-            </div>
-          </div>
-        </div>
-         <div class="col-md-6">
-          <div class="card mb-4 shadow-sm">
-
-            <a href="https://medium.com/gce-neiist/%C3%A0-conversa-com-jo%C3%A3o-pav%C3%A3o-martins-32cdb27119b2" target="_blank">
-            <img class="card-img-top" src="https://web.ist.utl.pt/~ist180970/assets/img/jpm.png" alt="Card image cap">
-            </a>
-            <div class="card-body">
-              <p class="card-text"><b>João Pavão Martins - Teacher @ IST, Co-Founder @ SISCOG</b><br>
-                O Grupo de Contacto com Empresas (GCE) quis falar com um dos docentes mais notáveis do Instituto Superior Técnico, o Professor João Pavão Martins.
-
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-primary">Tecnico Lisboa</button>
-                  <button type="button" class="btn btn-sm btn-outline-danger">Docente</button>
-                </div>
-
-                <small class="text-muted">10 mins</small>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div> -->
-      <a href="#" class="btn btn-secondary my-2">Articles</a>
+      <button class="btn btn-outline-primary btn-all" [style.background]="selectedType==='All'? '#007bff' : 'white'" 
+                                                      [style.color]="selectedType==='All'? 'white' : '#007bff'" 
+                                                      (click)="changeSelectedType('All')">All</button>
+      <button class="btn btn-outline-primary btn-interview" [style.background]="selectedType==='Interview'? '#ec415e' : 'white'" 
+                                                      [style.color]="selectedType==='Interview'? 'white' : '#ec415e'"
+                                                      (click)="changeSelectedType('Interview')">Interviews</button>
+      <button class="btn btn-outline-primary btn-article" [style.background]="selectedType==='Article'? '#ce8d15' : 'white'" 
+                                                      [style.color]="selectedType==='Article'? 'white' : '#ce8d15'"
+                                                      (click)="changeSelectedType('Article')">Articles</button>
+      <ng-container *ngIf="pinnedArticle && selectedType != 'Article'">
+        <pinned-article [article]="pinnedArticle"></pinned-article>
+      </ng-container>
+    </div>
+    <div class="container">
       <div class="row">
-        <!-- GCE MEAN STACK ARTICLE-->
-        <!-- <div class="col-md-6">
-          <div class="card mb-4 shadow-sm">
-            <a href="https://medium.com/gce-neiist/the-mean-stack-a-practical-example-gce-thesis-ca50af9f1ea8" target="_blank">
-              <img class="card-img-top" src="https://web.ist.utl.pt/~ist180970/assets/img/article1.jpg" alt="Card image cap">
-            </a>
-              <div class="card-body">
-              <p class="card-text">Overall vision of a MEAN Stack application. Introducing GCE-Thesis, an open-source project based on this stack. </p>
+        <ng-container *ngFor="let article of articles">
+          <div class="col-md-6" *ngIf="(article.tags[0] === selectedType || selectedType === 'All')
+                                      && article.title != pinnedArticle.title">
+            <div class="card mb-4 shadow-sm">
+              <a href="{{ article.link }}" target="_blank">
+                <img class="card-img-top" src="{{ article.image }}" alt="Card image cap">
+              </a>
+            <div class="card-body">    
+              <p class="card-text"><b>{{ article.title }}</b><br>{{ article.description }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Technical</button>
-                  <button type="button" class="btn btn-sm btn-outline-danger">GCE</button>
+                  <ng-container *ngFor="let tag of article.tags">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">{{tag}}</button>
+                  <!--<button type="button" class="btn btn-sm btn-outline-danger">GCE</button>-->
+                  </ng-container>
                 </div>
                 <small class="text-muted">5 mins</small>
               </div>
             </div>
-          </div>
-        </div> -->
-
-        <ng-container *ngFor="let article of articles">
-          <script>console.log("{{article.title}}")</script>
-          <div class="col-md-6">
-            <div class="card mb-4 shadow-sm">
-              <a href="{{ article.link }}" target="_blank">
-                <img class="card-img-top" src="{{ article.image }}" alt="Card image cap" style="vertical-align: center;">
-              </a>
-                <div class="card-body">
-                  <div class="card-body">
-                    <p class="card-text"><b>{{ article.title }}</b><br>{{ article.description }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Technical</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger">GCE</button>
-                  </div>
-                  <small class="text-muted">5 mins</small>
-                </div>
-              </div>
             </div>
-          </div>
           </div>
         </ng-container>
       </div>

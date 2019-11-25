@@ -41,7 +41,7 @@ import { GceArticlesComponent } from './general/gce-articles/gce-articles.compon
 import { GetAdviceComponent } from './general/get-advice/get-advice.component';
 import { AreasDump } from './general/gce-thesis/areas-dump';
 import { ChatModule } from './general/chat/chat.module';
-
+import { PinnedArticleComponent} from './general/gce-articles-pinned/gce-articles-pinned.component'
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -92,7 +92,8 @@ const appRoutes: Routes = [
         AboutUsComponent,
         GceArticlesComponent,
         GetAdviceComponent,
-        PartnersCarouselComponent
+        PartnersCarouselComponent,
+        PinnedArticleComponent
 
     ],
     imports: [
