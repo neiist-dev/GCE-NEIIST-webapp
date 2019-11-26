@@ -1,0 +1,42 @@
+.card-img-top {
+    width: 100%;
+    height: auto;
+}
+
+.btn {
+    margin: 3pt;
+    margin-bottom: 10pt;
+    font-weight: 400;
+}
+
+.btn-all {
+    color: #007bff;
+    border-color: #007bff;
+    margin-left: 0;
+}
+
+.btn-all:hover {
+    background: #007bff !important;
+}
+
+.btn:hover {
+    color: white !important;
+}
+
+.btn-interview {
+    color: #ec415e;
+    border-color: #ec415e;
+}
+
+.btn-interview:hover {
+    background: #ec415e !important;
+}
+
+.btn-article {
+    color: #ce8d15;
+    border-color: #ce8d15;
+}
+
+.btn-article:hover {
+    background: #ce8d15 !important;
+}
