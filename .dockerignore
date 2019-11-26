@@ -1,0 +1,12 @@
+node_modules
+angular-src
+.git
+.github
+.idea
+
+.env
+server/files/Backup/*
+server/files/chatbot/*
+server/files/CV/*
+server/files/Feedback/*
+server/files/Thesis/*

@@ -462,10 +462,12 @@ async function saveClassifiedThesesOnDBAreaAndSpecialization(theses) {
 
 
 async function classifyTheses (theses, classifier, trainingCase)  {
-    theses.map(thesis =>        thesis.title.tokenizeAndStem().includes("project") ||
-    thesis.title.tokenizeAndStem().includes("projecto") ||
-    thesis.title.tokenizeAndStem().includes("projeto") ?
-        thesis.type = "Project"  : thesis.type = "Dissertation");
+    theses.map(thesis =>        thesis.title.tokenizeAndStem().includes("dissertation") ||
+    thesis.title.tokenizeAndStem().includes("dissertaçâo") ||
+    thesis.title.tokenizeAndStem().includes("dissertaçâo") ||
+    thesis.title.tokenizeAndStem().includes("dissertacao") ||
+    thesis.title.tokenizeAndStem().includes("dissertaçao") ?
+        thesis.type = "Dissertation"  : thesis.type = "Project");
     theses.map(thesis =>       thesis.areas = getFirstTwoLabels(thesis,classifier,trainingCase));
 
     return theses;

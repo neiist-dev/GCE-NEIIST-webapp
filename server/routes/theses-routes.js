@@ -153,6 +153,9 @@ router.get('/getThesesByCourse/', passport.authenticate('jwt', {session: false})
 
     //Can have more than 1 course, we assume the first is the latest/main
     let fenixCourse = req.user.courses[0];
+    if( req.user.department === "DEI"){
+        fenixCourse = "Engenharia Informática e de Computadores"
+    }
     //Engenharia Informática e de Computadores - Alameda gets transformed into Engenharia Informática e de Computadores
     fenixCourse = fenixCourse.split("-")[0].trim();
     try {

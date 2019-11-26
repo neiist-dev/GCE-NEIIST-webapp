@@ -26,6 +26,11 @@ const IstSpecificSchema = mongoose.Schema({
     enrolments: {
         type: [String],
         required: false
+    },
+
+    department: {
+        type: String,
+        required: false
     }
 });
 
