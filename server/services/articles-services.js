@@ -36,8 +36,6 @@ async function getArticles() {
                     new_article.image = dom.window.document.querySelector('img').src;
                     new_article.tags = classifyArticleByTags(new_article);
 
-                    console.log(rss[i].categories)
-
                     articles.push(new_article);
                 }
 
