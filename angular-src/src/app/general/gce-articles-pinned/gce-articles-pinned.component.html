@@ -1,22 +1,21 @@
 <div class="card mb-4 shadow-sm">
-  <div class="row">
-    <div class="col-md-8">  
-      <a href="{{ article.link }}" target="_blank">
-        <img class="card-img-top" src="{{ article.image }}" alt="Card image cap">
-      </a>
-    </div>
-    <div class="col-md-4 pinned-article">
-      <div class="card-body">    
-        <p class="card-text"><b>{{ article.title }}</b><br>{{ article.description }}</p>
+    <div class="row">
+      <a href="{{ article.link }}" class="stretched-link" target="_blank"></a>
+      <div class="col-md-8">
+          <img class="card-img-top" src="{{ article.image }}" alt="Card image cap">
       </div>
-      <div class="card-footer d-flex justify-content-between align-items-middle">
-        <div class="btn-group">
-          <ng-container *ngFor="let tag of article.tags">
-            <button type="button" class="btn btn-sm btn-outline-secondary">{{tag}}</button>
-          </ng-container>
+      <div class="col-md-4 pinned-article">
+        <div class="card-body">
+          <p class="card-text selectable"><b>{{ article.title }}</b><br>{{ article.description }}</p>
         </div>
-        <small class="text-muted">5 mins</small>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <ng-container *ngFor="let tag of article.tags">
+              <button type="button" class="btn btn-sm btn-outline-secondary">{{tag}}</button>
+            </ng-container>
+          </div>
+          <small class="text-muted">5 mins</small>
+        </div>
       </div>
     </div>
   </div>
-</div>
