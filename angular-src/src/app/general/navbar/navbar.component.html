@@ -3,7 +3,7 @@
     <div class="container">
         <div class="navbar-translate">
             <a [routerLink]="['/']">
-                <img style="width: 80px;height: 80px;" src="https://web.ist.utl.pt/~ist180970/assets/img/favicon.png" alt="GCE">
+                <img style="max-height: 40px;" src="https://web.ist.utl.pt/~ist186413/gce.png" alt="GCE">
             </a>
 
 
@@ -50,63 +50,42 @@
                 </li> -->
 
                 <li [routerLinkActive]="['active']" class="nav-item">
-
                     <a class="nav-link" [routerLink]="['/articles']" >
-                        <i class="fa fa-search"></i>
-                        <p>GCE-IV</p>
+                        <p>Articles</p>
                     </a>
                 </li>
 
-                <li class="nav-item" *ngIf="!isLoggedIn() && !isLoginPage()">
-                     <a class="nav-link" [routerLink]="['/login']">
-                         <i class="fa fa-sign-in"></i>
-                         <p>Login</p>
-                     </a>
-                </li>
-
-                <li class="nav-item" *ngIf="!isHome() && !isFaq() && !isLoggedIn()">
-                     <a class="nav-link" [routerLink]="['/faq']">
-                         <i class="fa fa-question-circle-o "></i>
-                         <p></p>
-                     </a>
-                </li>
-
-                <li class="nav-item" *ngIf="isLoginPage()">
-                     <a class="nav-link" [routerLink]="['/']">
-                         <i class="fa fa-home"></i>
-                         <p>Home</p>
-                     </a>
-                </li>
-
+                
                 <li [routerLinkActive]="['active']" class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" [routerLink]="['/thesis']" >
-                        <i class="fa fa-folder-o"></i>
-                        <p>GCE-Thesis</p>
+                        <p>GCE Thesis</p>
                     </a>
                 </li>
-
+                
                 <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" [routerLink]="['/chatbot']">
-                        <i class="fa fa-rocket"></i>
                         <p>Mr. Thesis</p>
                     </a>
                 </li>
                 <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" [routerLink]="['/profileStudent']">
-                        <i class="fa fa-user-o"></i>
                         <p>{{name}}</p>
                     </a>
                 </li>
-
-
-
+                
+                <li class="nav-item" *ngIf="!isLoggedIn() && !isLoginPage()">
+                     <a class="nav-link" [routerLink]="['/login']">
+                         <p>Login</p>
+                     </a>
+                </li>
+                
+                
 
 
 
                 <li class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" (click)="onLogoutClick()">
-                    <i class="fa fa-sign-out"></i>
-                    <p>Logout</p>
+                        <p>Logout</p>
                     </a>
                 </li>
 
