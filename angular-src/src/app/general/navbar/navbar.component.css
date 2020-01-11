@@ -2,6 +2,11 @@
   max-height: 100%;
   width: auto;
 }
+
+.navbar img {
+    padding: 0 15px;
+}
+
 .navbar-brand{
   margin-bottom:0px;
   padding-top: 0px;
