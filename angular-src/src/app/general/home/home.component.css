@@ -1,11 +1,3 @@
-/*.landing-text { height:100vh; width:100%; color: white;}*/
-.landing-text { 
-    display:table-cell;
-    text-align: center;
-    vertical-align: middle;
-    color: white;
-}
-
 #fullscreen_intro{
     background: url(https://iso.500px.com/wp-content/uploads/2014/07/big-one.jpg) no-repeat center center fixed;
     display: table;
@@ -13,37 +5,81 @@
     position: relative;
     width: 100%;
     background-size: cover;
+  }
+  .landing-text { 
+    display:table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+}
+/*css of the arrow*/
+#more-arrows {
+  width: 75px;
+  height: 65px;
+  padding-bottom: 0;
+}
+#more-arrows:hover polygon {
+  fill: #FFF;
+  transition: all .2s ease-out;
+}
+#more-arrows:hover polygon.arrow-bottom {
+  -webkit-transform: translateY(-18px);
+          transform: translateY(-18px);
+}
+#more-arrows:hover polygon.arrow-top {
+  -webkit-transform: translateY(18px);
+          transform: translateY(18px);
+}
+
+polygon {
+  fill: #FFF;
+  transition: all .2s ease-out;
+}
+polygon.arrow-middle {
+  opacity: 0.75;
+}
+polygon.arrow-top {
+  opacity: 0.5;
+}
+
+
+
+  #fullscreen_thesis{
+    background: url(http://web.ist.utl.pt/ist186413/assets/GCE-Thesis-Header.png) no-repeat center center fixed;
+    display: table;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+    background-size: cover;
 
   }
-
+  .thesis-text { 
+    display:table-cell;
+    text-align: right;
+    vertical-align: middle;
+    color: black;
+    padding-right: 60px;
+    padding-left: 60px;
+    line-height: 5;
+  }
+  .thesis-btn{
+    width: 12rem;
+    border-width: 2px;
+    border-radius: 100px;
+    background-color: #0f7699;
+    border-color: #0f7699;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1rem;
+  }
+  .thesis-btn:hover{
+    background-color:#084053;
+    border-color:#084053;
+  }
+/*Removes dotted border from links (btns etc...)*/
   a{
       outline: 0;
   }
-  #more-arrows {
-    width: 75px;
-    height: 65px;
-    padding-bottom: 0;
-  }
-  #more-arrows:hover polygon {
-    fill: #FFF;
-    transition: all .2s ease-out;
-  }
-  #more-arrows:hover polygon.arrow-bottom {
-    -webkit-transform: translateY(-18px);
-            transform: translateY(-18px);
-  }
-  #more-arrows:hover polygon.arrow-top {
-    -webkit-transform: translateY(18px);
-            transform: translateY(18px);
-  }
-  
-  polygon {
-    fill: #FFF;
-    transition: all .2s ease-out;
-  }
-  polygon.arrow-middle {
-    opacity: 0.75;
-  }
-  polygon.arrow-top {
-    opacity: 0.5;
+/*Forces paragraphs line-height so normalize*/
+  p{
+    line-height: normal;
   }
