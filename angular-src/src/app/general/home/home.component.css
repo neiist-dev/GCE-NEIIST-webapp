@@ -1,148 +1,49 @@
-.header-nightsky {
-    width: 100%;
-    height: 100%;
-
-    position: fixed;
-
-    font-family: 'Montserrat', sans-serif;
-    background-color: black;
-    background: url("http://web.ist.utl.pt/ist186413/assets/GCE-Thesis-Background.png") no-repeat center;
-    background-position: bottom;
-    background-size: cover;
-    color: black;
-    padding-bottom: 390px;
-	  margin-top:-60px;
-    padding-top:40px;
-	-webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-	
-}
-
-.SN {
-    font-size:17px;
-    color:white;
-    width: 100px;
-    position: fixed;
-    left: 0px;
-    margin-top: 23.5em;
-    margin-right: -2.5em;
-    z-index: 1000;
-    display: block; 
-    float: left;
-}
-
-/*.header-nightsky .navbar-nav>li>a {
-    color: white;
-    font-size: 18px;
-    border-radius: 10px;
-}
-
-.header-nightsky .navbar {
-    margin-bottom: 0px;
-    padding-top: 20px;
-    padding-bottom: 20px; 
-    width: 15%;
-    border-bottom:none;
-    background-color: transparent;
-    border: none;
-}
-
-.header-nightsky .navbar-toggle {
-    background-color: transparent !important;
-    
-    border: 1px solid #fff;
-}
-
-.header-nightsky .navbar-toggle .icon-bar {
-    background-color: white;
-}*/
-
-
-.header-nightsky .hero {
+/*.landing-text { height:100vh; width:100%; color: white;}*/
+.landing-text { 
+    display:table-cell;
     text-align: center;
-}
-
-.header-nightsky .hero img {
-  width: 750px;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  margin-top: 5em;
-
-}
-
-.header-nightsky .partners {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: rgba(0,0,0,0.8);
-}
-
-.header-nightsky .btn-primary {
-    color: #fff;
-    background-color: transparent;
-    border-color: #fffbfb !important;
-    outline:none;
-    margin-right: 20px;
-    margin-top: 60px;
-    font-size: 24px;
-    padding: 18px 24px;
-    transition:0.2s background-color;
-}
-#hashbutton {
-    background: url('https://cdn.discordapp.com/attachments/316948358856179723/546014239286886400/google-original-material-image_3.png') no-repeat;
-    background-color: rgba(0,0,0,0.6);
-    padding: 30px 60px !important;
-    font-size: 35px;
-}
-
-#hashbutton:hover{
-    background-color: rgba(0,0,0,1);
-    background: url('https://cdn.discordapp.com/attachments/316948358856179723/546010490950778880/google-original-material-image_1.png') no-repeat;
-}
-.header-nightsky .btn-primary:hover {
-    cursor: pointer;
-    background-color:rgba(0,219,255,0.4);
-}
-
-.header-nightsky .btn-primary:active {
-    transform:translateY(1px);
-}
-
-.header-nightsky .hero{
-    z-index:10;
-}
-
-.icon {
-	  line-height: 1.6;
-    margin: 15px 0px;
-    padding: 10px 5px;
-    opacity: 1;
-    font-size: 52px;
-    text-transform: uppercase;
-    font-weight: 600;
+    vertical-align: middle;
     color: white;
 }
 
-.icon:hover {
-	color: #00DBFF;
-}
+#fullscreen_intro{
+    background: url(https://iso.500px.com/wp-content/uploads/2014/07/big-one.jpg) no-repeat center center fixed;
+    display: table;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+    background-size: cover;
 
-@media screen and (max-width: 767px) {
+  }
 
-    .header-nightsky .hero h1{
-        font-size: 42px;
-    }
-
-    .header-nightsky .hero img {
-        width: 250px;
-        height: auto;
-    }
-
-    .header-nightsky .btn-primary {
-        width: 150px;
-    }
-
-}
+  a{
+      outline: 0;
+  }
+  #more-arrows {
+    width: 75px;
+    height: 65px;
+    padding-bottom: 0;
+  }
+  #more-arrows:hover polygon {
+    fill: #FFF;
+    transition: all .2s ease-out;
+  }
+  #more-arrows:hover polygon.arrow-bottom {
+    -webkit-transform: translateY(-18px);
+            transform: translateY(-18px);
+  }
+  #more-arrows:hover polygon.arrow-top {
+    -webkit-transform: translateY(18px);
+            transform: translateY(18px);
+  }
+  
+  polygon {
+    fill: #FFF;
+    transition: all .2s ease-out;
+  }
+  polygon.arrow-middle {
+    opacity: 0.75;
+  }
+  polygon.arrow-top {
+    opacity: 0.5;
+  }
