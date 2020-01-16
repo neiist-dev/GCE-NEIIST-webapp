@@ -75,6 +75,26 @@ polygon.arrow-top {
     background-color:#084053;
     border-color:#084053;
   }
+
+  #fullscreen_hash{
+    background: url(https://previews.123rf.com/images/dtosh/dtosh1908/dtosh190800037/128852841-css-coding-language-sign-device-programming-developing-concept-abstract-digital-wireframe-low-poly-m.jpg) no-repeat center center fixed;
+    display: table;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+
+  }
+  .hash-text { 
+    display:table-cell;
+    text-align: left;
+    vertical-align: middle;
+    color: black;
+    padding-right: 60px;
+    padding-left: 60px;
+    line-height: 5;
+  }
+
 /*Removes dotted border from links (btns etc...)*/
   a{
       outline: 0;
