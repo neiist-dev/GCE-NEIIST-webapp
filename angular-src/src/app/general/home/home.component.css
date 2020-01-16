@@ -95,6 +95,25 @@ polygon.arrow-top {
     line-height: 5;
   }
 
+  #fullscreen_insideview{
+    background: url(https://park.marmaranyc.com/wp-content/uploads/sites/2/2017/12/michael-discenza-329726-1024x1024.jpg) no-repeat center center fixed;
+    display: table;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+
+  }
+  .insideview-text { 
+    display:table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: black;
+    padding-right: 60px;
+    padding-left: 60px;
+    line-height: 5;
+  }
+
 /*Removes dotted border from links (btns etc...)*/
   a{
       outline: 0;
