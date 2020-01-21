@@ -35,17 +35,21 @@
                     </a>
                 </li> -->
                 <li [routerLinkActive]="['active']" class="nav-item">
-                    <a class="nav-link" [routerLink]="['/articles']" >
-                        <p>Articles</p>
+                    <a class="nav-link" [routerLink]="['/articles']"
+                                        [style.border-bottom]="isArticles() ? '#00BFFD solid 2px' : 'white solid 2px'">
+                        <p>Artigos & Entrevistas</p>
                     </a>
                 </li>
                 <li [routerLinkActive]="['active']" class="nav-item" *ngIf="isLoggedIn()">
-                    <a class="nav-link" [routerLink]="['/thesis']" >
+                    <a class="nav-link" [routerLink]="['/thesis']"
+                                        [style.border-bottom]="isThesis() ? '#00BFFD solid 2px' : 'white solid 2px'">
                         <p>GCE Thesis</p>
                     </a>
                 </li>
                 <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
-                    <a class="nav-link" [routerLink]="['/chatbot']">
+                    <a class="nav-link" [routerLink]="['/chatbot']"
+                                        [style.border-bottom]="isChatbot() ? '#00BFFD solid 2px' : 'white solid 2px'">
+
                         <p>Mr. Thesis</p>
                     </a>
                 </li>
@@ -53,7 +57,8 @@
 
             <ul class="navbar-nav ml-auto">
                 <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
-                    <a class="nav-link" [routerLink]="['/profileStudent']">
+                    <a class="nav-link" [routerLink]="['/profileStudent']"
+                                        [style.border-bottom]="isProfile() ? '#00BFFD solid 2px' : 'white solid 2px'">
                         <p>{{name}}</p>
                     </a>
                 </li>

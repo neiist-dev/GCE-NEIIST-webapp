@@ -3,7 +3,7 @@
           
     <div class="album py-5 bg-light">
       <div class="container px-5">
-        <h1 class="jumbotron-heading" style="font-family: 'Oswald', sans-serif;">ARTIGOS</h1>
+        <h1 class="jumbotron-heading" style="font-family: 'Oswald', sans-serif;">ARTIGOS & ENTREVISTAS</h1>
         <!-- <h2 class="jumbotron-heading">Artigos</h2> -->
 
         <!-- <p>Todos os artigos e entrevistas estão disponíveis no nosso<a href="https://medium.com/gce-neiist"> Medium</a>. Segue-nos e fica a par!</p> -->
@@ -27,7 +27,7 @@
                 <div class="btn-group">
                   <ng-container *ngFor="let tag of article.tags">
                     <button type="button" class="btn btn-sm btn-outline-secondary">{{tag}}</button>
-                  <!--<button type="button" class="btn btn-sm btn-outline-danger">GCE</button>-->
+                    <!--<button type="button" class="btn btn-sm btn-outline-danger">GCE</button>-->
                   </ng-container>
                 </div>
                 <small class="text-muted">{{ article.date }}</small>
@@ -37,6 +37,11 @@
           </div>
         </ng-container>
       </div>
+    </div>
+    <div class="container px-5 text-center">
+      <a href="https://medium.com/gce-neiist" target="_blank">
+        <button type="button" class="btn btn-lg btn-outline-primary btn-more">Ver Mais Artigos</button>  
+      </a>
     </div>
   </div>
 

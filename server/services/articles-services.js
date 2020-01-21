@@ -22,7 +22,7 @@ async function getArticles() {
 
             try {
                 let articles = [];
-                for (let i = 0; i < rss.length; i++) {
+                for (let i = 0; i < rss.length && i < 5; i++) {
                     let new_article = {};
                     
                     new_article.title = rss[i].title;
