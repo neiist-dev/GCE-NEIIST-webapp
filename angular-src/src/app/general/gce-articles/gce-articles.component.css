@@ -44,3 +44,8 @@
 .btn-article:hover {
     background: #ce8d15 !important;
 }
+
+.article-title {
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+}
