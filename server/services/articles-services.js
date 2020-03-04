@@ -22,7 +22,7 @@ async function getArticles() {
 
             try {
                 let articles = [];
-                for (let i = 0; i < rss.length; i++) {
+                for (let i = 0; i < rss.length && i < 5; i++) {
                     let new_article = {};
                     
                     new_article.title = rss[i].title;
@@ -51,14 +51,14 @@ async function getArticles() {
 function classifyArticleByTags(article) {
     tags = [];
     if (article.title.toLowerCase().includes("à conversa com")) {
-        tags.push("Interview");
+        tags.push("Entrevista");
     } else {
-        tags.push("Article");
+        tags.push("Artigo");
     }
     return tags;
 }
 
 function parseDate(d) {
-    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
     return months[d.getMonth()] + " " + d.getDate().toString() + ", " + d.getFullYear().toString();
 }
