@@ -1,46 +1,20 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-primary" color-on-scroll="500">
 
-    <div class="container">
+    <div class="container px-5">
         <div class="navbar-translate">
             <a [routerLink]="['/']">
-                <img style="width: 80px;height: 80px;" src="https://web.ist.utl.pt/~ist180970/assets/img/favicon.png" alt="GCE">
+                <img style="max-height: 40px;" src="https://web.ist.utl.pt/~ist186413/gce.png" alt="GCE">
             </a>
-
-
-
-           <!-- <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-
-
-                <span class="navbar-toggler-bar"></span>
-                <span class="navbar-toggler-bar"></span>
-                <span class="navbar-toggler-bar"></span>
-            </button> -->
         </div>
         <button class="navbar-toggler" type="button"
                 (click)="toggleNavbar()">
             <i id="hamburger-icon" class="fa fa-bars fa-2x"></i>
         </button>
 
-
-
-    <div class="collapse navbar-collapse"
+        <div class="collapse navbar-collapse"
          [ngClass]="{ 'show': navbarOpen }">
-            <ul class="navbar-nav ml-auto">
 
-                <li class="nav-item" *ngIf="isHome() && !isLoggedIn()">
-                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/gce.neiist" target="_blank">
-                        <i class="fa fa-facebook-square"></i>
-                        <p class="d-lg-none">Facebook</p>
-                    </a>
-                </li>
-
-                <li class="nav-item" *ngIf="isHome()&& !isLoggedIn()">
-                    <a class="nav-link" rel="tooltip" title="GCE's GitHub" data-placement="bottom" href="https://github.com/RafaelAPB/GCE-NEIIST" target="_blank">
-                        <i class="fa fa-github"></i>
-                        <p class="d-lg-none">GitHub</p>
-                    </a>
-                </li>
-
+            <ul class="navbar-nav">
                <!-- <li [routerLinkActive]="['active']" class="nav-item">
 
                     <a class="nav-link" [routerLink]="['/hashcode']" >
@@ -48,75 +22,51 @@
                         <p>hash code</p>
                     </a>
                 </li> -->
-
                 <li [routerLinkActive]="['active']" class="nav-item">
-
-                    <a class="nav-link" [routerLink]="['/articles']" >
-                        <i class="fa fa-search"></i>
-                        <p>GCE-IV</p>
+                    <a class="nav-link" [routerLink]="['/articles']"
+                                        [style.border-bottom]="isArticles() ? '#00BFFD solid 2px' : 'white solid 2px'">
+                        <p>Artigos & Entrevistas</p>
                     </a>
                 </li>
-
-                <li class="nav-item" *ngIf="!isLoggedIn() && !isLoginPage()">
-                     <a class="nav-link" [routerLink]="['/login']">
-                         <i class="fa fa-sign-in"></i>
-                         <p>Login</p>
-                     </a>
-                </li>
-
-                <li class="nav-item" *ngIf="!isHome() && !isFaq() && !isLoggedIn()">
-                     <a class="nav-link" [routerLink]="['/faq']">
-                         <i class="fa fa-question-circle-o "></i>
-                         <p></p>
-                     </a>
-                </li>
-
-                <li class="nav-item" *ngIf="isLoginPage()">
-                     <a class="nav-link" [routerLink]="['/']">
-                         <i class="fa fa-home"></i>
-                         <p>Home</p>
-                     </a>
-                </li>
-
                 <li [routerLinkActive]="['active']" class="nav-item" *ngIf="isLoggedIn()">
-                    <a class="nav-link" [routerLink]="['/thesis']" >
-                        <i class="fa fa-folder-o"></i>
-                        <p>GCE-Thesis</p>
+                    <a class="nav-link" [routerLink]="['/thesis']"
+                                        [style.border-bottom]="isThesis() ? '#00BFFD solid 2px' : 'white solid 2px'">
+                        <p>GCE Thesis</p>
                     </a>
                 </li>
-
                 <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
-                    <a class="nav-link" [routerLink]="['/chatbot']">
-                        <i class="fa fa-rocket"></i>
+                    <a class="nav-link" [routerLink]="['/chatbot']"
+                                        [style.border-bottom]="isChatbot() ? '#00BFFD solid 2px' : 'white solid 2px'">
+
                         <p>Mr. Thesis</p>
                     </a>
                 </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
                 <li [routerLinkActive]="['active']"  class="nav-item" *ngIf="isLoggedIn()">
-                    <a class="nav-link" [routerLink]="['/profileStudent']">
-                        <i class="fa fa-user-o"></i>
+                    <a class="nav-link" [routerLink]="['/profileStudent']"
+                                        [style.border-bottom]="isProfile() ? '#00BFFD solid 2px' : 'white solid 2px'">
                         <p>{{name}}</p>
                     </a>
                 </li>
-
-
-
-
-
-
+                <li class="nav-item" *ngIf="!isLoggedIn() && !isLoginPage()">
+                     <a class="nav-link" [routerLink]="['/login']">
+                         <p>Login</p>
+                     </a>
+                </li>
                 <li class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" (click)="onLogoutClick()">
-                    <i class="fa fa-sign-out"></i>
-                    <p>Logout</p>
+                        <p>Logout</p>
                     </a>
                 </li>
-
             </ul>
+
         </div>
     </div>
 </nav>
 
-    <div *ngIf="navbarOpen"  id="overlay" (click)="toggleNavbar()">
-
-    </div>
+<div *ngIf="navbarOpen"  id="overlay" (click)="toggleNavbar()">
+</div>
 
 

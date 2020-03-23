@@ -14,7 +14,6 @@ export class GceArticlesComponent implements OnInit {
   articles: any[];
   numberArticles: number = 0;
   loading: true;
-  selectedType: string;
   pinnedArticle: any;
 
   constructor(private articlesService: ArticlesService,
@@ -29,14 +28,9 @@ export class GceArticlesComponent implements OnInit {
     this.articlesService.getAllArticles().subscribe(res => {
         this.articles = res.response_data.articles;
         this.numberArticles = res.response_data.number;
-        this.selectedType = "All";
 
         this.pinnedArticle = this.articles[0];
     });
-  }
-
-  changeSelectedType(type) {
-    this.selectedType = type;
   }
 
 }

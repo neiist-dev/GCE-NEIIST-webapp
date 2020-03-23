@@ -1,3 +1,8 @@
+.article-title {
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+}
+
 .card-body {
     height: 85%;
 }
