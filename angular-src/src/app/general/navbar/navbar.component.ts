@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -11,6 +11,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @Input() navbarVisible: any;
   user: object;
   type: string;
   link: string;
@@ -18,6 +19,9 @@ export class NavbarComponent implements OnInit {
   name: string = "Perfil";
 
     sidebarVisible: boolean;
+
+  
+
 
   constructor(private authService: AuthService, private router: Router, public location: Location, private element : ElementRef
   ) {
@@ -110,5 +114,6 @@ export class NavbarComponent implements OnInit {
     	}
     	return false;
     }
+    
+  
 }
-
