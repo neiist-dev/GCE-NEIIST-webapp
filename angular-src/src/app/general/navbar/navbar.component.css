@@ -655,12 +655,12 @@
 
   .hide-our-nav{
     top: -10rem;
-    opacity: 1;
     pointer-events: none;
+    transition: top 1s;
+
 }
   .show-our-nav{
     top: 0rem; 
-    transition: opacity 0.5s, top 1;
-    opacity: 1;
+    transition: top 0.5s;
     pointer-events: all;
   }

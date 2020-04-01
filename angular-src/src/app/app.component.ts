@@ -41,15 +41,15 @@ export class AppComponent{
       }
 
 
-      if(this.contadorDescer < -200){    
+      if(this.contadorDescer < -150){    
         this.navbarVisible = false;
-        this.contadorDescer = -200;
+        this.contadorDescer = -150;
         if(this.Switch == 1){
           this.Switch = -1;
         }
       }
-      else if(this.contadorDescer > 200){
-        this.contadorDescer = 200;
+      else if(this.contadorDescer > 100){
+        this.contadorDescer = 100;
         this.navbarVisible = true;
 
         if(this.Switch == -1){
