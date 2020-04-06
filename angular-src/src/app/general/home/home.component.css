@@ -138,11 +138,17 @@ polygon.arrow-top {
     line-height: 5;
   }
 
-/*Removes dotted border from links (btns etc...)*/
+/*Removes dotted border from links*/
   a{
       outline: 0;
   }
 /*Forces paragraphs line-height so normalize*/
   p{
     line-height: normal;
+  }
+
+/*Removes blue outline from buttons*/
+  .btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
   }
