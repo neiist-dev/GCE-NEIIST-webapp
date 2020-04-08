@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-primary" color-on-scroll="500">
+<nav [className]="navbarVisible ? 'navbar navbar-expand-lg navbar-primary fixed-top show-our-nav' : 'navbar navbar-expand-lg navbar-primary fixed-top hide-our-nav'"  role="navigation" color-on-scroll="500">
 
     <div class="container px-5">
         <div class="navbar-translate">
@@ -15,18 +15,6 @@
          [ngClass]="{ 'show': navbarOpen }">
 
             <ul class="navbar-nav">
-                <li class="nav-item" *ngIf="isHome() && !isLoggedIn()">
-                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/gce.neiist" target="_blank">
-                        <i class="fa fa-facebook-square"></i>
-                        <p class="d-lg-none">Facebook</p>
-                    </a>
-                </li>
-                <li class="nav-item" *ngIf="isHome()&& !isLoggedIn()">
-                    <a class="nav-link" rel="tooltip" title="GCE's GitHub" data-placement="bottom" href="https://github.com/RafaelAPB/GCE-NEIIST" target="_blank">
-                        <i class="fa fa-github"></i>
-                        <p class="d-lg-none">GitHub</p>
-                    </a>
-                </li>
                <!-- <li [routerLinkActive]="['active']" class="nav-item">
 
                     <a class="nav-link" [routerLink]="['/hashcode']" >

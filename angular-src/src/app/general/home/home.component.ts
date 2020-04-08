@@ -11,11 +11,10 @@ export class HomeComponent implements OnInit {
   constructor() { }
   
   ngOnInit() {
-    document.body.style.backgroundColor = 'black';
   }
   
   ngOnDestroy() {
-    document.body.style.backgroundColor = 'white';
   }
-
+  
 }
+
