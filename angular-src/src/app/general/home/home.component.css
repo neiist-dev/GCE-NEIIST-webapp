@@ -1,148 +1,154 @@
-.header-nightsky {
-    width: 100%;
-    height: 100%;
-
-    position: fixed;
-
-    font-family: 'Montserrat', sans-serif;
-    background-color: black;
-    background: url("http://web.ist.utl.pt/ist186413/assets/GCE-Thesis-Background.png") no-repeat center;
-    background-position: bottom;
-    background-size: cover;
-    color: black;
-    padding-bottom: 390px;
-	  margin-top:-60px;
-    padding-top:40px;
-	-webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-	
-}
-
-.SN {
-    font-size:17px;
-    color:white;
-    width: 100px;
-    position: fixed;
-    left: 0px;
-    margin-top: 23.5em;
-    margin-right: -2.5em;
-    z-index: 1000;
-    display: block; 
-    float: left;
-}
-
-/*.header-nightsky .navbar-nav>li>a {
-    color: white;
-    font-size: 18px;
-    border-radius: 10px;
-}
-
-.header-nightsky .navbar {
-    margin-bottom: 0px;
-    padding-top: 20px;
-    padding-bottom: 20px; 
-    width: 15%;
-    border-bottom:none;
-    background-color: transparent;
-    border: none;
-}
-
-.header-nightsky .navbar-toggle {
-    background-color: transparent !important;
+#fullscreen_intro{
+    /*background: url(https://iso.500px.com/wp-content/uploads/2014/07/big-one.jpg) no-repeat center center fixed;
+    */
     
-    border: 1px solid #fff;
-}
-
-.header-nightsky .navbar-toggle .icon-bar {
-    background-color: white;
-}*/
-
-
-.header-nightsky .hero {
-    text-align: center;
-}
-
-.header-nightsky .hero img {
-  width: 750px;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  margin-top: 5em;
-
-}
-
-.header-nightsky .partners {
-    position: fixed;
-    left: 0;
-    bottom: 0;
+    /*background: url(https://web.ist.utl.pt/ist186413/gce_white.png) no-repeat center center fixed;
+*/
+    background-color: #1c2d39;
+    display: table;
+    height: 100vh;
+    position: relative;
     width: 100%;
-    background-color: rgba(0,0,0,0.8);
-}
-
-.header-nightsky .btn-primary {
-    color: #fff;
-    background-color: transparent;
-    border-color: #fffbfb !important;
-    outline:none;
-    margin-right: 20px;
-    margin-top: 60px;
-    font-size: 24px;
-    padding: 18px 24px;
-    transition:0.2s background-color;
-}
-#hashbutton {
-    background: url('https://cdn.discordapp.com/attachments/316948358856179723/546014239286886400/google-original-material-image_3.png') no-repeat;
-    background-color: rgba(0,0,0,0.6);
-    padding: 30px 60px !important;
-    font-size: 35px;
-}
-
-#hashbutton:hover{
-    background-color: rgba(0,0,0,1);
-    background: url('https://cdn.discordapp.com/attachments/316948358856179723/546010490950778880/google-original-material-image_1.png') no-repeat;
-}
-.header-nightsky .btn-primary:hover {
-    cursor: pointer;
-    background-color:rgba(0,219,255,0.4);
-}
-
-.header-nightsky .btn-primary:active {
-    transform:translateY(1px);
-}
-
-.header-nightsky .hero{
-    z-index:10;
-}
-
-.icon {
-	  line-height: 1.6;
-    margin: 15px 0px;
-    padding: 10px 5px;
-    opacity: 1;
-    font-size: 52px;
-    text-transform: uppercase;
-    font-weight: 600;
+    background-size: cover;
+  }
+  #logo{
+    max-width: 450px;
+    padding-bottom: 25px;
+  }
+  .landing-text { 
+    display:table-cell;
+    text-align: center;
+    vertical-align: middle;
     color: white;
 }
-
-.icon:hover {
-	color: #00DBFF;
+/*css of the arrow*/
+#more-arrows {
+  width: 75px;
+  height: 65px;
+  padding-bottom: 0;
+}
+#more-arrows:hover polygon {
+  fill: #FFF;
+  transition: all .2s ease-out;
+}
+#more-arrows:hover polygon.arrow-bottom {
+  -webkit-transform: translateY(-18px);
+          transform: translateY(-18px);
+}
+#more-arrows:hover polygon.arrow-top {
+  -webkit-transform: translateY(18px);
+          transform: translateY(18px);
 }
 
-@media screen and (max-width: 767px) {
-
-    .header-nightsky .hero h1{
-        font-size: 42px;
-    }
-
-    .header-nightsky .hero img {
-        width: 250px;
-        height: auto;
-    }
-
-    .header-nightsky .btn-primary {
-        width: 150px;
-    }
-
+polygon {
+  fill: #FFF;
+  transition: all .2s ease-out;
 }
+polygon.arrow-middle {
+  opacity: 0.75;
+}
+polygon.arrow-top {
+  opacity: 0.5;
+}
+
+
+
+  #fullscreen_thesis{
+    /*background: url(http://web.ist.utl.pt/ist186413/assets/GCE-Thesis-Header.png) no-repeat center center fixed;
+    background: url(https://web.ist.utl.pt/ist186413/gce_thesis_bg.png) no-repeat center center fixed;
+    https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80
+
+    */
+    
+    background: url(http://web.ist.utl.pt/ist186413/gce/gce_thesis_bg.jpg) no-repeat center center fixed;
+    display: table;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+
+  }
+  .thesis-text { 
+    display:table-cell;
+    text-align: right;
+    vertical-align: middle;
+    color: white;
+    padding-right: 60px;
+    padding-left: 60px;
+    line-height: 5;
+  }
+  .thesis-btn{
+    width: 12rem;
+    border-width: 2px;
+    border-radius: 100px;
+    background-color: #0f7699;
+    border-color: #0f7699;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1rem;
+  }
+  .thesis-btn:hover{
+    background-color:#084053;
+    border-color:#084053;
+  }
+
+  #fullscreen_hash{
+    /*background: url(https://previews.123rf.com/images/dtosh/dtosh1908/dtosh190800037/128852841-css-coding-language-sign-device-programming-developing-concept-abstract-digital-wireframe-low-poly-m.jpg) no-repeat center center fixed;
+    https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80
+    */ 
+    background: url(http://web.ist.utl.pt/ist186413/gce/gce_hashcode_bg.jpg) no-repeat center center fixed;
+    display: table;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+
+  }
+  .hash-text { 
+    display:table-cell;
+    text-align: left;
+    vertical-align: middle;
+    color: white;
+    padding-right: 60px;
+    padding-left: 60px;
+    line-height: 5;
+  }
+
+  #fullscreen_articles{
+    /*
+    background: url(https://park.marmaranyc.com/wp-content/uploads/sites/2/2017/12/michael-discenza-329726-1024x1024.jpg) no-repeat center center fixed;
+    
+    */
+
+    
+    background: url(http://web.ist.utl.pt/ist186413/gce/gce_articles_bg.jpg) no-repeat center center fixed;
+    display: table;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+
+  }
+  .articles-text { 
+    display:table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    padding-right: 60px;
+    padding-left: 60px;
+    line-height: 5;
+  }
+
+/*Removes dotted border from links*/
+  a{
+      outline: 0;
+  }
+/*Forces paragraphs line-height so normalize*/
+  p{
+    line-height: normal;
+  }
+
+/*Removes blue outline from buttons*/
+  .btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+  }
