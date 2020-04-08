@@ -1,6 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+
+
+
 
 @Component({
   selector: 'app-root',
@@ -9,18 +11,30 @@ import { Subscription } from 'rxjs/Rx';
 })
 
 export class AppComponent{
+  
   navbarVisible = true;
   previousY = 0;
-    constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.routeEvent(this.router);
+  }
+     
 
-    ngOnInit() {
-        this.router.events.subscribe((evt) => {
-            if (!(evt instanceof NavigationEnd)) {
-                return;
-            }
-            window.scrollTo(0, 0)
-        });
-    }
+  ngOnInit() {
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
+  }
+
+  routeEvent(router: Router){
+    router.events.subscribe(e => {
+      if(e instanceof NavigationEnd){
+        this.navbarVisible = true;
+      }
+    });
+  }
 
   title = 'GCE';
   controlVariable: boolean;
