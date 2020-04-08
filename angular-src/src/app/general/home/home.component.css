@@ -21,6 +21,8 @@
     vertical-align: middle;
     color: white;
 }
+
+
 /*css of the arrow*/
 #more-arrows {
   width: 75px;
@@ -133,8 +135,8 @@ polygon.arrow-top {
     text-align: center;
     vertical-align: middle;
     color: white;
-    padding-right: 60px;
-    padding-left: 60px;
+    /*padding-right: 60px;
+    padding-left: 60px;*/
     line-height: 5;
   }
 
@@ -152,3 +154,22 @@ polygon.arrow-top {
     outline: none !important;
     box-shadow: none;
   }
+
+
+
+
+/* For width 400px or smaller: */
+@media only screen and (max-width: 455px) {
+  #logo {
+    max-width: 340px;
+  }
+  .hash-text { 
+    text-align: center;
+  }
+  .thesis-text { 
+    text-align: center;
+  }
+  .articles-text h4{
+    font-size: 1.4rem !important;
+  }
+}
