@@ -27,8 +27,8 @@ html, body {
   color: #ccc;
 }
 
-#myFooter .container {
-  width: auto;
+#myFooter .container-fluid{
+  text-align: center;
 }
 
 #myFooter ul {
@@ -93,12 +93,12 @@ html, body {
   color: #0077B5;
 }
 
-#myFooter .fa-twitter:hover {
-  color: #00aced;
+#myFooter .fa-instagram:hover {
+  color: #f56040;
 }
 
-#myFooter .fa-twitter:focus {
-  color: #00aced;
+#myFooter .fa-instagram:focus {
+  color: #f56040;
 }
 
 @media screen and (max-width: 767px) {
