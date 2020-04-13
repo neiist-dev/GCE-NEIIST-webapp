@@ -135,8 +135,8 @@ polygon.arrow-top {
     text-align: center;
     vertical-align: middle;
     color: white;
-    /*padding-right: 60px;
-    padding-left: 60px;*/
+    padding-right: 60px;
+    padding-left: 60px;
     line-height: 5;
   }
 
@@ -169,7 +169,8 @@ polygon.arrow-top {
   .thesis-text { 
     text-align: center;
   }
-  .articles-text h4{
-    font-size: 1.4rem !important;
+  .articles-text {
+    padding-right: 0px;
+    padding-left: 0px;
   }
 }
