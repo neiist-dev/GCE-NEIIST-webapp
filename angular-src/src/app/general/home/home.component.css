@@ -169,7 +169,8 @@ polygon.arrow-top {
   .thesis-text { 
     text-align: center;
   }
-  .articles-text h4{
-    font-size: 1.4rem !important;
+  .articles-text {
+    padding-right: 0px;
+    padding-left: 0px;
   }
 }
