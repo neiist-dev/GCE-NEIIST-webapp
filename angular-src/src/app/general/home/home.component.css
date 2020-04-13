@@ -135,8 +135,8 @@ polygon.arrow-top {
     text-align: center;
     vertical-align: middle;
     color: white;
-    padding-right: 60px;
-    padding-left: 60px;
+    /*padding-right: 60px;
+    padding-left: 60px;*/
     line-height: 5;
   }
 
