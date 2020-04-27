@@ -89,11 +89,8 @@
         </div>
      </div> -->
      <div class="row">
-        <div class="col-2">
-            <button type="button" class="btn btn-primary" *ngIf="it" (click)="changeAreas()">Mudar vista</button>
-        </div>
-
-        <div class="col-10">
+        
+        <div class="col-12">
             <div *ngIf="idsBot.length === 0" role="alert">
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     Instruções
@@ -123,8 +120,30 @@
             ⚠️ As teses foram atualizadas a <b>11 de Junho de 2019 às 02:02</b>.⚠ ️ Por favor consulta sempre o Fénix, se a última atualização foi há mais do que uma semana.
         </div>
             </div>
-    <div class="row" id="search-bar">
-            <input  type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
+    <div class="row">
+        <div class="col-4">
+            <input  id="search-bar" type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
+        </div>
+        <div class="col-4" style="text-align: center;">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                  <li><a href="#">HTML</a></li>
+                  <li><a href="#">CSS</a></li>
+                  <li><a href="#">JavaScript</a></li>
+                  <li><a href="#">jQuery</a></li>
+                  <li><a href="#">Bootstrap</a></li>
+                  <li><a href="#">Angular</a></li>
+                </ul>
+              </div>
+        </div>
+        <div class="col-4" style="text-align: center;"> 
+            <button class="btn btn-primary button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Instruções
+            </button>
+        </div>
     </div>
 
     <h1 class="availabe-theses-message" *ngIf="!loading;else noAvailableTheses"> {{availableTheses}} propostas de tese</h1>
