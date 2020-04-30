@@ -89,7 +89,8 @@
         </div>
      </div> -->
      <div class="row">
-        
+
+
         <div class="col-12">
             <div *ngIf="idsBot.length === 0" role="alert">
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -126,21 +127,18 @@
         </div>
         <div class="col-4" style="text-align: center;">
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <input class="form-control" id="myInput" type="text" placeholder="Search..">
-                  <li><a href="#">HTML</a></li>
-                  <li><a href="#">CSS</a></li>
-                  <li><a href="#">JavaScript</a></li>
-                  <li><a href="#">jQuery</a></li>
-                  <li><a href="#">Bootstrap</a></li>
-                  <li><a href="#">Angular</a></li>
-                </ul>
-              </div>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Orientadores button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">DM</a>
+                  <a class="dropdown-item" href="#">ERNESTO LOL</a>
+                  <a class="dropdown-item" href="#">alerta CM, pavao a solta</a>
+                </div>
+            </div>
         </div>
         <div class="col-4" style="text-align: center;"> 
-            <button class="btn btn-primary button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <button class="btn btn-primary button" (click)="alertModal(alertContent)" type="button" >
                 Instruções
             </button>
         </div>
@@ -222,6 +220,8 @@
 
 
     </div>
+    
+    
     <div class="modal-footer">
 
         <div id="thesis-id"> </div>
@@ -229,4 +229,40 @@
 
         <div id="thesis-location"> </div>
     </div>
+
+
+</ng-template>
+
+
+
+
+<ng-template #alertContent let-modal>
+
+
+    <div class="modal-header">
+        <h4 id="thesis-title"> test </h4>
+        <div id="thesis-applicants"> </div>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span></button>
+    </div>
+
+
+
+    <div class="modal-body">
+        <h1>Isto e de facto um alerta CM</h1>
+        <div class="alert alert-primary" role="alert">
+            This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        </div>
+    </div>
+    
+    
+    <div class="modal-footer">
+
+        <div id="thesis-id"> </div>
+
+
+        <div id="thesis-location"> </div>
+    </div>
+
+
 </ng-template>
