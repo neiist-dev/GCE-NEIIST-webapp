@@ -211,3 +211,11 @@
     text-align: center;
 }
 
+
+select{
+    background-color: #c21807;
+}
+
+option {
+    background-color: #008ECC;
+}
