@@ -13,6 +13,11 @@
     overflow: hidden;
 }
 
+.button {
+    max-width: 100px;
+    max-height: 40px;
+}
+
 [hidden] {
     display: none !important;
 }
@@ -45,7 +50,10 @@
 .thesisBox{
     padding-bottom:15px;
     cursor: pointer;
-
+    transition: 0.3s;
+}
+.thesisBox:hover{ 
+    transform: translateY(-3px) scale(1.1);
 }
 .card-header{
     border: 1px solid rgba(0,0,0,.125);
@@ -70,9 +78,7 @@
 
 
 }
-#search-bar{
-    margin-top: 1.5rem;
-}
+
 .dot {
     height: 25px;
     width: 25px;
@@ -114,10 +120,19 @@
 
 .fontAwesome{ font-family: 'Helvetica', FontAwesome, sans-serif; }
 
+
+#myInput {
+    padding: 20px;
+    margin-top: -6px;
+    border: 0;
+    border-radius: 0;
+    background: #f1f1f1;
+  }
+
 .searchBar{
+    width: 100%;
     border-radius:3px 3px 3px 3px;
-    width:40%;
-    margin-left:30%;
+    margin-left:0%;
     margin-bottom:10px;
 }
 .sidenav {
@@ -159,15 +174,16 @@
     background-color:#CFEDFB;
     transition: 0.3s;
 }
-.Dissertation:hover{
+/*.Dissertation:hover{
     background-color:#008ECC;
-}
+}*/
 .Project{
     background-color: #FFE0DA;
     transition: 0.3s;
-}.Project:hover{
+    height: 100%;
+}/*.Project:hover{
      background-color: #c21807;
- }
+ }*/
 .type-text{
     position:relative;
     top:-15px;
@@ -199,3 +215,11 @@
     text-align: center;
 }
 
+
+select{
+    background-color: #c21807;
+}
+
+option {
+    background-color: #008ECC;
+}
