@@ -50,7 +50,10 @@
 .thesisBox{
     padding-bottom:15px;
     cursor: pointer;
-
+    transition: 0.3s;
+}
+.thesisBox:hover{ 
+    transform: translateY(-3px) scale(1.1);
 }
 .card-header{
     border: 1px solid rgba(0,0,0,.125);
@@ -127,7 +130,7 @@
   }
 
 .searchBar{
-    max-width: 100%;
+    width: 100%;
     border-radius:3px 3px 3px 3px;
     margin-left:0%;
     margin-bottom:10px;
@@ -171,15 +174,16 @@
     background-color:#CFEDFB;
     transition: 0.3s;
 }
-.Dissertation:hover{
+/*.Dissertation:hover{
     background-color:#008ECC;
-}
+}*/
 .Project{
     background-color: #FFE0DA;
     transition: 0.3s;
-}.Project:hover{
+    height: 100%;
+}/*.Project:hover{
      background-color: #c21807;
- }
+ }*/
 .type-text{
     position:relative;
     top:-15px;
