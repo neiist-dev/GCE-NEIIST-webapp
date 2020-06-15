@@ -89,12 +89,10 @@
         </div>
      </div> -->
      <div class="row">
-        <div class="col-2">
-            <button type="button" class="btn btn-primary" *ngIf="it" (click)="changeAreas()">Mudar vista</button>
-        </div>
 
-        <div class="col-10">
-            <div *ngIf="idsBot.length === 0" role="alert">
+
+        <div class="col-12">
+            <!-- <div *ngIf="idsBot.length === 0" role="alert">
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     Instruções
                 </button>
@@ -116,15 +114,51 @@
                             A lista de docentes do Departamento de Engenharia Informática está disponível <a href="https://fenix.tecnico.ulisboa.pt/departamentos/dei/docentesman" target="_blank">aqui</a>.
                             <br>Atenção que a informação aqui contida é <a href="https://fenix.tecnico.ulisboa.pt/student/finalists/studentCandidacies" target="_blank"> retirada do Fénix </a> e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
                     </div>
-                </div>
+                </div> 
     <div class="row">
         <br><br>
         <div class="alert alert-danger" role="alert">
             ⚠️ As teses foram atualizadas a <b>10 de Junho de 2020 às 00:02</b>.⚠ ️ Por favor consulta sempre o Fénix, se a última atualização foi há mais do que uma semana.
         </div>
+    </div>-->
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <input  id="search-bar" type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
+        </div>
+        <!--<div class="col-4" style="text-align: center;">
+            
+    
+
+
+            <div class="my_select">
+                <select>
+                    <option value="all">Todos os carros</option>
+                    <option value="volvo">porsche do pavao</option>
+                    <option value="saab">opel astra cansad</option>
+                    <option value="opel">renault da remedios</option>
+                    <option value="audi">Sand Panado</option>
+                </select>
             </div>
-    <div class="row" id="search-bar">
-            <input  type="text" [(ngModel)]="queryString" placeholder="&#xf002; Search..." class="fontAwesome searchBar">
+
+
+            <!-\- <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Orientadores button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">DM</a>
+                  <a class="dropdown-item" href="#">ERNESTO LOL</a>
+                  <a class="dropdown-item" href="#">alerta CM, pavao a solta</a>
+                </div>
+            </div>  -\->
+
+        </div>-->
+        <div class="col-2" style="text-align: center;"> 
+            <button class="btn btn-primary button" (click)="alertModal(alertContent)" type="button" >
+                Instruções
+            </button>
+        </div>
     </div>
 
     <h1 class="availabe-theses-message" *ngIf="!loading;else noAvailableTheses"> {{availableTheses}} propostas de tese</h1>
@@ -203,6 +237,8 @@
 
 
     </div>
+    
+    
     <div class="modal-footer">
 
         <div id="thesis-id"> </div>
@@ -210,4 +246,50 @@
 
         <div id="thesis-location"> </div>
     </div>
+
+</ng-template>
+
+
+<ng-template #alertContent let-modal>
+
+
+    <div class="modal-header">
+        <h4 id="thesis-title"> Instruções </h4>
+        <!--<div id="thesis-applicants"> </div>-->
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span></button>
+    </div>
+
+    <div class="modal-body">
+
+        <!-- <div class="alert alert-primary"> -->
+            <p>
+                ⚠️ As teses foram atualizadas a <b>10 de Junho de 2020 às 00:02</b>. <br> Por favor consulta sempre o Fénix, se a última atualização foi há mais do que uma semana.
+            </p>
+            <hr>
+            <p>
+                Nesta secção podes pesquisar as teses de mestrado disponíveis para <b>MEIC (2020-2021, 1º Semestre)</b>.
+                Para tal, basta escolheres o tipo de tese que pretendes (à direita) e por grupos de disciplinas necessárias (à esquerda).
+                <br><br><b>Há {{numberTheses}}</b> propostas de tese disponíveis, sendo que <b>{{numberFreeTheses}}</b> não têm nenhuma candidatura.<br>
+                Para procurares por uma <b>keyword</b> (i.e., machine learning, big data) basta inseri-la na search. Também podes procurar por um professor, inserindo o seu nome. <br>
+                A qualquer momento podes passar o rato por cima das marcas à esquerda (premir as marcas se estiveres num dispositivo móvel) para saberes o que significam as siglas.
+            </p>
+            <hr>
+            <p class="mb-0">
+                A lista de docentes do Departamento de Engenharia Informática está disponível <a href="https://fenix.tecnico.ulisboa.pt/departamentos/dei/docentesman" target="_blank">aqui</a>.
+                <br>Atenção que a informação aqui contida é <a href="https://fenix.tecnico.ulisboa.pt/student/finalists/studentCandidacies" target="_blank"> retirada do Fénix </a> e <b>está sujeita a mudanças!</b> Caso estejas interessado numa tese, consulta <b>sempre</b> o Fénix! </p>
+        <!-- </div> -->
+    
+    </div>
+    
+    
+    <div class="modal-footer">
+
+        <div id="thesis-id"> </div>
+
+
+        <div id="thesis-location"> </div>
+    </div>
+
+
 </ng-template>

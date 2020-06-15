@@ -102,6 +102,11 @@ export class GceThesisComponent implements OnInit, OnDestroy {
         this.specializationBool = !this.specializationBool;
         this.selectedAreas = [];
     }
+    public alertModal(alertContent){
+        console.log("clicked");
+        this.modalService.open(alertContent);
+
+    }
     public openModal(content,thesis) {
 
 
