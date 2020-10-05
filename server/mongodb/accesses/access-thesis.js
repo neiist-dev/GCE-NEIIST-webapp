@@ -1,6 +1,5 @@
 const Thesis = require('../models/thesis');
-const AccessProposal = require('../models/proposal');
-const Utils = require('./utils-accesses');
+
 
 let TYPE = 'Thesis';
 
@@ -38,16 +37,6 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
           id: id
       }, (err, thesis) =>   {
 
-          //Returns array with object
-          //Thesis exist, let's see if we want to replace something
-
-          /*
-          stats = {
-              thesesLoaded: NumberTheses,
-              added: added,
-              modified: modified,
-              unchanged: unchanged
-          };*/
 
           if (thesis[0]) {
               if (thesis[0].title === title && thesis[0].supervisors === supervisors &&
@@ -121,9 +110,6 @@ function addThesis(id, title, supervisors, vacancies, location, courses,
 
       });
 
-    /*
-
-    */
 }
 
 async function asyncAddThesis(id, title, supervisors, vacancies, location, courses,
@@ -593,7 +579,6 @@ function addThesisArray(thesesArray, callback) {
     callback(null, stats)
 }
 
-//TODO: May updateOne only one field. Status may not be modified here
 function updateThesis(id, description, requirements,
                       date_beginning, date_end,
                       salary, observations, vacancies,

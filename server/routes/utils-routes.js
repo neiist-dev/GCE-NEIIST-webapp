@@ -15,7 +15,8 @@ function Utils() {
 let utils = module.exports = exports = new Utils;
 
 //For extra security, use environment variables instead of hardcoding.
-let adminArray = ["rafael.belchior@tecnico.ulisboa.pt", "daniel.r.ramos@tecnico.ulisboa.pt","joao.pedro.trindade@tecnico.ulisboa.pt","ricardojosexavier@tecnico.ulisboa.pt","joao_pedro_trindade@hotmail.com"];
+//For extra security, tu na corrida mas parece um passeio.
+let adminArray = ["antonio.vieira@tecnico.ulisboa.pt", "proj_jam@tecnico.ulisboa.pt"];
 
 /*****************************
  Quick Replies
