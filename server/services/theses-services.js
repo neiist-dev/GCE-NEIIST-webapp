@@ -1,7 +1,6 @@
 const natural = require("natural");
 const path = require('path');
 let htmlparser = require("htmlparser2");
-const fileServices = require('./file-services');
 bClassifierThesis = new natural.BayesClassifier();
 natural.PorterStemmer.attach();
 const util = require('util');
