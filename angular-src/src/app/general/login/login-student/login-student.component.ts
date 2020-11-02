@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
-import {FlashMessagesService} from 'angular2-flash-messages';
 
 @Component({
     selector: 'app-login-student',
@@ -10,7 +9,7 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 })
 export class LoginStudentComponent implements OnInit {
     constructor(private activatedRoute: ActivatedRoute, private authService: AuthService,
-                private router: Router, private flashMessage: FlashMessagesService) { }
+                private router: Router) { }
 
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -20,7 +19,7 @@ export class LoginStudentComponent implements OnInit {
                     this.authService.storeData(response.response_data.user, response.response_data.token);
                     this.router.navigate(['chatbot']);
                 } else {
-                    this.flashMessage.show(response.message, {cssClass: 'alert-danger', timeout: 5000});
+                    this.router.navigate(['/']);
                 }
             });
         });

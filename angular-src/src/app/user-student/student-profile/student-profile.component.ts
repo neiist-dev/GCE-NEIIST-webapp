@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
     selector: 'app-student-profile',
@@ -15,7 +14,6 @@ export class StudentProfileComponent implements OnInit {
     authToken: any;
 
     constructor(private authService: AuthService,
-                private flashMessage: FlashMessagesService
     ) {}
 
 

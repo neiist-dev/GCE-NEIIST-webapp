@@ -13,25 +13,17 @@ import { AuthService } from './services/auth.service';
 import { StudentService } from './services/student.service';
 import { ThesisService } from './services/thesis.service';
 import { ArticlesService } from './services/articles.service';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import { DashboardStudentComponent } from './user-student/student-dashboard/student-dashboard.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { FeedbackService } from './services/feedback.service';
 import { FooterComponent } from './general/footer/footer.component';
 import { StudentProfileComponent } from './user-student/student-profile/student-profile.component';
-import { InfoComponent } from './general/info/info.component';
 import { LoginStudentComponent } from './general/login/login-student/login-student.component';
 import {MockBackend} from '@angular/http/testing';
-import { FeedbackComponent } from './general/feedback/feedback.component';
-import { AgmCoreModule } from '@agm/core';
 import { ComingSoonComponent } from './general/coming-soon/coming-soon.component';
 import { PrivacyPolicyComponent } from './general/privacy-policy/privacy-policy.component';
 import { TermsUsageComponent } from './general/terms-usage/terms-usage.component';
-import { GceHashCodeComponent } from './general/gce-hash-code/gce-hash-code.component';
-import { GceHashCodeNextComponent } from './general/gce-hash-code-next/gce-hash-code-next.component';
 import { Vars } from  '../../.env';
-import { GceHashCodeProgramComponent } from './general/gce-hash-code-program/gce-hash-code-program.component';
-import { ChartsModule } from 'ng2-charts';
 import { GceThesisComponent } from './general/gce-thesis/gce-thesis.component';
 import { PartnersCarouselComponent } from './general/partners-carousel/partners-carousel.component';
 import {FilterResultsPipe} from './general/gce-thesis/filter-results.pipe';
@@ -77,15 +69,10 @@ const appRoutes: Routes = [
         DashboardStudentComponent,
         FooterComponent,
         StudentProfileComponent,
-        InfoComponent,
         LoginStudentComponent,
-        FeedbackComponent,
         ComingSoonComponent,
         PrivacyPolicyComponent,
         TermsUsageComponent,
-        GceHashCodeComponent,
-        GceHashCodeNextComponent,
-        GceHashCodeProgramComponent,
         GceThesisComponent,
         FilterResultsPipe,
         PartnersCarouselComponent,
@@ -103,7 +90,6 @@ const appRoutes: Routes = [
         HttpModule,
         NgbModule,
         ReactiveFormsModule,
-        ChartsModule,
         JwtModule.forRoot({
             config: {
                 whitelistedDomains: ['localhost:3001', 'localhost:8080', 'gce-neiist.org',
@@ -112,10 +98,6 @@ const appRoutes: Routes = [
             }
         }),
         RouterModule.forRoot(appRoutes),
-        AgmCoreModule.forRoot({
-            apiKey: Vars.GOOGLE_MAPS,
-        }),
-        FlashMessagesModule,
     ],
     providers: [
         ValidateService,
