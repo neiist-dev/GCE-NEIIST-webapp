@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "npm run config && ngcc"
+    "postinstall": "npm run config && ngcc",
+    "dist": "http-server dist"
   },
   "private": true,
   "dependencies": {
@@ -49,6 +50,7 @@
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "codelyzer": "~3.1.1",
+    "http-server": "^0.12.3",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "^4.0.1",
