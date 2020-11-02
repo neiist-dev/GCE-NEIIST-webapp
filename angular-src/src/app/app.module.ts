@@ -29,7 +29,6 @@ import {FilterResultsPipe} from './general/gce-thesis/filter-results.pipe';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AboutUsComponent } from './general/about-us/about-us.component';
 import { GceArticlesComponent } from './general/gce-articles/gce-articles.component';
-import { GetAdviceComponent } from './general/get-advice/get-advice.component';
 import { AreasDump } from './general/gce-thesis/areas-dump';
 import { PinnedArticleComponent} from './general/gce-articles-pinned/gce-articles-pinned.component'
 
@@ -75,7 +74,6 @@ const appRoutes: Routes = [
         PartnersCarouselComponent,
         AboutUsComponent,
         GceArticlesComponent,
-        GetAdviceComponent,
         PartnersCarouselComponent,
         PinnedArticleComponent
 
