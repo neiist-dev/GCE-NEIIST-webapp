@@ -92,9 +92,7 @@ const appRoutes: Routes = [
         ReactiveFormsModule,
         JwtModule.forRoot({
             config: {
-                whitelistedDomains: ['localhost:3001', 'localhost:8080', 'gce-neiist.org',
-                                    'gce-neiist-development.herokuapp.com', 'gce-neiist-staging.herokuapp.com/',
-                                    'fenix.tecnico.ulisboa.pt/oauth, maps.googleapis.com']
+                allowedDomains: ['localhost:8080', 'fenix.tecnico.ulisboa.pt/oauth'] 
             }
         }),
         RouterModule.forRoot(appRoutes),
