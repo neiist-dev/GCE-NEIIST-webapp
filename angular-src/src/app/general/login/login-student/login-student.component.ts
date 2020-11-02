@@ -17,7 +17,7 @@ export class LoginStudentComponent implements OnInit {
             this.authService.registerStudent(token).subscribe( response => {
                 if (response.succeeded){
                     this.authService.storeData(response.response_data.user, response.response_data.token);
-                    this.router.navigate(['chatbot']);
+                    this.router.navigate(['thesis']);
                 } else {
                     this.router.navigate(['/']);
                 }

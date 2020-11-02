@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseRequestOptions, HttpModule } from '@angular/http';
 import { NavbarComponent } from './general/navbar/navbar.component';
 import { LoginComponent } from './general/login/login.component';
@@ -32,7 +31,6 @@ import { AboutUsComponent } from './general/about-us/about-us.component';
 import { GceArticlesComponent } from './general/gce-articles/gce-articles.component';
 import { GetAdviceComponent } from './general/get-advice/get-advice.component';
 import { AreasDump } from './general/gce-thesis/areas-dump';
-import { ChatModule } from './general/chat/chat.module';
 import { PinnedArticleComponent} from './general/gce-articles-pinned/gce-articles-pinned.component'
 
 const appRoutes: Routes = [
@@ -46,7 +44,6 @@ const appRoutes: Routes = [
     {path: 'wip', component: ComingSoonComponent},
     {path: 'terms-of-use', component: TermsUsageComponent},
     {path: 'articles', component: GceArticlesComponent},
-    {path: 'chatbot', component: GetAdviceComponent, canActivate: [AuthGuardService]},
 
     {path: 'privacy-policy', component: PrivacyPolicyComponent},
     {path: 'aboutUs', component: AboutUsComponent},
@@ -85,11 +82,8 @@ const appRoutes: Routes = [
     ],
     imports: [
         BrowserModule,
-        ChatModule,
-        FormsModule,
         HttpModule,
         NgbModule,
-        ReactiveFormsModule,
         JwtModule.forRoot({
             config: {
                 allowedDomains: ['localhost:8080', 'fenix.tecnico.ulisboa.pt/oauth'] 
