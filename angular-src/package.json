@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "npm run config && ngcc",
-    "dist": "http-server dist"
+    "dist": "http-server dist --port 4200"
   },
   "private": true,
   "dependencies": {
