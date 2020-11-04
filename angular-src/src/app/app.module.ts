@@ -12,7 +12,6 @@ import { AuthService } from './services/auth.service';
 import { StudentService } from './services/student.service';
 import { ThesisService } from './services/thesis.service';
 import { ArticlesService } from './services/articles.service';
-import { DashboardStudentComponent } from './user-student/student-dashboard/student-dashboard.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { FeedbackService } from './services/feedback.service';
 import { FooterComponent } from './general/footer/footer.component';
@@ -21,38 +20,28 @@ import { LoginStudentComponent } from './general/login/login-student/login-stude
 import {MockBackend} from '@angular/http/testing';
 import { ComingSoonComponent } from './general/coming-soon/coming-soon.component';
 import { PrivacyPolicyComponent } from './general/privacy-policy/privacy-policy.component';
-import { TermsUsageComponent } from './general/terms-usage/terms-usage.component';
 import { Vars } from  '../../.env';
 import { GceThesisComponent } from './general/gce-thesis/gce-thesis.component';
-import { PartnersCarouselComponent } from './general/partners-carousel/partners-carousel.component';
-import {FilterResultsPipe} from './general/gce-thesis/filter-results.pipe';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { AboutUsComponent } from './general/about-us/about-us.component';
+import { FilterResultsPipe } from './general/gce-thesis/filter-results.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GceArticlesComponent } from './general/gce-articles/gce-articles.component';
 import { AreasDump } from './general/gce-thesis/areas-dump';
-import { PinnedArticleComponent} from './general/gce-articles-pinned/gce-articles-pinned.component'
+import { PinnedArticleComponent } from './general/gce-articles-pinned/gce-articles-pinned.component'
 
 const appRoutes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'login', children: [
-        {path: '', component: LoginComponent},
-        {path: 'student', component: LoginStudentComponent}
-    ]},
-    {path: 'dashboardStudent', component: DashboardStudentComponent, canActivate:[AuthGuardService]},
-    {path: 'profileStudent', component: StudentProfileComponent, canActivate:[AuthGuardService]},
-    {path: 'wip', component: ComingSoonComponent},
-    {path: 'terms-of-use', component: TermsUsageComponent},
-    {path: 'articles', component: GceArticlesComponent},
+    { path: '', component: HomeComponent },
+    {
+        path: 'login', children: [
+            { path: '', component: LoginComponent },
+            { path: 'student', component: LoginStudentComponent }
+        ]
+    },
+    { path: 'profileStudent', component: StudentProfileComponent, canActivate: [AuthGuardService] },
+    { path: 'wip', component: ComingSoonComponent },
+    { path: 'articles', component: GceArticlesComponent },
 
-    {path: 'privacy-policy', component: PrivacyPolicyComponent},
-    {path: 'aboutUs', component: AboutUsComponent},
-    {path: 'partners', component: PartnersCarouselComponent},
-    /**{path: 'hashcode', children: [
-    *    {path: '', component: GceHashCodeComponent,canActivate:[AuthGuardService]},
-    *    {path: 'faq', component: PrivacyPolicyComponent}
-    ]},
-    {path: 'next-steps', component: GceHashCodeNextComponent,canActivate:[AuthGuardService]},*/
-    {path: 'thesis', component: GceThesisComponent, canActivate:[AuthGuardService]}
+    { path: 'privacy-policy', component: PrivacyPolicyComponent },
+    { path: 'thesis', component: GceThesisComponent, canActivate: [AuthGuardService] }
 
 ];
 
@@ -62,19 +51,14 @@ const appRoutes: Routes = [
         NavbarComponent,
         LoginComponent,
         HomeComponent,
-        DashboardStudentComponent,
         FooterComponent,
         StudentProfileComponent,
         LoginStudentComponent,
         ComingSoonComponent,
         PrivacyPolicyComponent,
-        TermsUsageComponent,
         GceThesisComponent,
         FilterResultsPipe,
-        PartnersCarouselComponent,
-        AboutUsComponent,
         GceArticlesComponent,
-        PartnersCarouselComponent,
         PinnedArticleComponent
 
     ],
