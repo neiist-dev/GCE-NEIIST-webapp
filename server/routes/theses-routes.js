@@ -1,5 +1,4 @@
 let dotenv = require('dotenv');
-let s3 = require('../services/amazon-services');
 let fileServices = require('../services/file-services');
 let thesesServices = require('../services/theses-services');
 
