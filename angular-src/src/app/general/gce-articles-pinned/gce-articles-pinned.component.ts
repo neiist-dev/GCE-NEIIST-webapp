@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'pinned-article',
@@ -8,7 +8,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class PinnedArticleComponent implements OnInit {
 
-  @Input() article:any;
+  @Input() article: any;
 
   constructor(private modalService: NgbModal) { }
 
