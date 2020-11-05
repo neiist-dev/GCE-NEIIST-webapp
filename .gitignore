@@ -40,7 +40,7 @@ angular-src/scripts/set-env.env
 ### MEAN.Anglar Stack ###
 ## Angular ##
 # compiled output
-angular-src/src/assets
+#angular-src/src/assets
 client/assets/libs
 public
 /dist

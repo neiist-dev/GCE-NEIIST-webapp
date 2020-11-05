@@ -1,9 +1,4 @@
 #fullscreen_intro{
-    /*background: url(https://iso.500px.com/wp-content/uploads/2014/07/big-one.jpg) no-repeat center center fixed;
-    */
-    
-    /*background: url(https://web.ist.utl.pt/ist186413/gce_white.png) no-repeat center center fixed;
-*/
     background-color: #1c2d39;
     display: table;
     height: 100vh;
@@ -56,13 +51,7 @@ polygon.arrow-top {
 
 
   #fullscreen_thesis{
-    /*background: url(http://web.ist.utl.pt/ist186413/assets/GCE-Thesis-Header.png) no-repeat center center fixed;
-    background: url(https://web.ist.utl.pt/ist186413/gce_thesis_bg.png) no-repeat center center fixed;
-    https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80
-
-    */
-    
-    background: url(http://web.ist.utl.pt/ist186413/gce/gce_thesis_bg.jpg) no-repeat center center fixed;
+    background: url(assets/images/gce_thesis_bg.png) no-repeat center center fixed;
     display: table;
     height: 100vh;
     position: relative;
@@ -94,10 +83,7 @@ polygon.arrow-top {
   }
 
   #fullscreen_hash{
-    /*background: url(https://previews.123rf.com/images/dtosh/dtosh1908/dtosh190800037/128852841-css-coding-language-sign-device-programming-developing-concept-abstract-digital-wireframe-low-poly-m.jpg) no-repeat center center fixed;
-    https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80
-    */ 
-    background: url(http://web.ist.utl.pt/ist186413/gce/gce_hashcode_bg.jpg) no-repeat center center fixed;
+    background: url(assets/images/gce_hashcode_bg.png) no-repeat center center fixed;
     display: table;
     height: 100vh;
     position: relative;
@@ -116,13 +102,7 @@ polygon.arrow-top {
   }
 
   #fullscreen_articles{
-    /*
-    background: url(https://park.marmaranyc.com/wp-content/uploads/sites/2/2017/12/michael-discenza-329726-1024x1024.jpg) no-repeat center center fixed;
-    
-    */
-
-    
-    background: url(http://web.ist.utl.pt/ist186413/gce/gce_articles_bg.jpg) no-repeat center center fixed;
+    background: url(assets/images/gce_articles_bg.png) no-repeat center center fixed;
     display: table;
     height: 100vh;
     position: relative;
@@ -135,8 +115,6 @@ polygon.arrow-top {
     text-align: center;
     vertical-align: middle;
     color: white;
-    /*padding-right: 60px;
-    padding-left: 60px;*/
     line-height: 5;
   }
 
