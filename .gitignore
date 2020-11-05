@@ -135,3 +135,6 @@ typings/
 *.js___jb_tmp___
 
 # End of https://www.gitignore.io/api/mean
+
+package-lock.json
+angular-src/package-lock.json
