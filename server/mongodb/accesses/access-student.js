@@ -1,5 +1,4 @@
 const Student = require('../models/ist');
-const Utils = require('./utils-accesses');
 const AccessUser = require('./access-user');
 const TYPE = "Student";
 
@@ -17,14 +16,6 @@ class AccessStudent {
         this.getStudents = getStudents;
         this.updateEnrolments = updateEnrolments;
     }
-
-    /*Can we just define
-    * let AccessStudent =   {
-    *     getStudentByID: function {...}
-    *
-    *
-    * What's better?
-    * */
 }
 
 let access_student = module.exports = exports = new AccessStudent();
@@ -86,8 +77,6 @@ function getNumberOfStudentsPerCourse(callback) {
 function getAreasOfInterest(student, callback) {
     let hardMappingCourseArea = {
         "SAD": ["Machine Learning", "Knowledge discovery"],
-        // Course : Areas
-        // A Decidir com os professores
     }
 
     let areaCount = {
