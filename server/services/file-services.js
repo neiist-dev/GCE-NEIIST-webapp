@@ -7,8 +7,6 @@ const filesBasePath= path.join(__dirname, '../files/Thesis/');
 class FileServices {
     constructor() {
         this.getCurrentRawHTMLFileId = getCurrentRawHTMLFileId;
-        this.getCurrentCurrentFileByFormat = getCurrentCurrentFileByFormat;
-        this.getCurrentClassifierFileId = getCurrentClassifierFileId;
     }
 }
 
@@ -38,22 +36,4 @@ async function getCurrentRawHTMLFileId ()   {
     }
 }
 
-async function getCurrentClassifierFileId ()   {
-    const tFileRegEx = new RegExp('c' + '[0-9]{1,3}.json');
-    const matchedFiles = fs.readdirSync(filesBasePath).filter(fn => tFileRegEx.test(fn));
-    if (matchedFiles.length === 0)   {
-        return 0;
-    } else {
-        return getLowestId(matchedFiles)
-    }
-}
 
-async function getCurrentCurrentFileByFormat (format,extension)   {
-    const tFileRegEx = new RegExp(format + '[0-9]{1,3}.' + extension);
-    const matchedFiles = fs.readdirSync(filesBasePath).filter(fn => tFileRegEx.test(fn));
-    if (matchedFiles.length === 0)   {
-        return 0;
-    } else {
-        return getLowestId(matchedFiles)
-    }
-}

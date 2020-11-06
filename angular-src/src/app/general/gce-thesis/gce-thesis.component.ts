@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { StudentService } from '../../services/student.service';
 import { ThesisService } from '../../services/thesis.service';
 
@@ -72,8 +71,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
     //Ng stuff
 
 
-    constructor(private flashMessage: FlashMessagesService,
-                private studentService: StudentService,
+    constructor(private studentService: StudentService,
                 private thesisService: ThesisService,
                 private modalService: NgbModal,
 
