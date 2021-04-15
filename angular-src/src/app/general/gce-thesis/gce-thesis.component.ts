@@ -85,7 +85,7 @@ export class GceThesisComponent implements OnInit, OnDestroy {
         if (this.gce_thesis_available) {
             this.getAreas();
             this.getThesesByArea();
-            this.getRecommendedTheses();
+            //this.getRecommendedTheses();
             this.thesisService.currentTheses.subscribe(availableTheses => this.availableTheses = availableTheses);
             this.thesisService.currentIds.subscribe(ids => this.idsBot = ids);
         }
@@ -154,8 +154,9 @@ export class GceThesisComponent implements OnInit, OnDestroy {
         this.user = this.studentService.loadStudentProfile();
         this.isProfessor = this.user['roles'].includes("TEACHER");
         if (this.isProfessor){
-            if (this.user['teacherDepartment'] === 'DEI'){
-                this.course = "Engenharia Informática e de Computadores";
+            if (this.user['department'] === 'DEI'){
+              this.course = "Engenharia Informática e de Computadores";
+              this.gce_thesis_available=true;
             }
         } else {
             this.course = this.loadFirstSupportedCourse(this.user['courses']);

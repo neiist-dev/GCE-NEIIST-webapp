@@ -57,7 +57,6 @@ export class AreasDump{
                 course = this.availableCourses[c];
             }
         }
-
         return this.areas[course];
     }
 

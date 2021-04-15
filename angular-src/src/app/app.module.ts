@@ -27,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GceArticlesComponent } from './general/gce-articles/gce-articles.component';
 import { AreasDump } from './general/gce-thesis/areas-dump';
 import { PinnedArticleComponent } from './general/gce-articles-pinned/gce-articles-pinned.component'
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -66,6 +67,7 @@ const appRoutes: Routes = [
         BrowserModule,
         HttpModule,
         NgbModule,
+	FormsModule,
         JwtModule.forRoot({
             config: {
                 allowedDomains: ['localhost:8080', 'fenix.tecnico.ulisboa.pt/oauth'] 
